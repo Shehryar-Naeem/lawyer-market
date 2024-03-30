@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  line-height: 1.5;
+  min-height: 100vh;
+  height: 100%;
+  font-family: "Red Hat Display", sans-serif;
+}
+#root {
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+
+  overflow-x: hidden;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+@layer components {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .black-btn {
+    @apply bg-black text-white w-full lg:text-xl  md:text-base md:font-bold font-semibold text-sm md:mx-auto lg:py-3 md:py-2 py-1 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none item-center;
+  }
+  .item-center {
+    @apply flex items-center justify-center;
+  }
+  .gray-btn {
+    @apply text-white capitalize w-full bg-gray-600 md:focus:ring-4 md:focus:ring-gray-400 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800;
+  }
+  .blue-btn {
+    @apply text-white bg-blue-700 w-full capitalize hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800;
+  }
+  .profile-edit-container {
+    @apply bg-gray-200 rounded-md md:p-sm-ly-pad p-0.5 flex flex-col gap-sm;
+  }
+  .tab {
+    @apply text-black flex-1 lg:p-1 md:p-sm-ly-pad p-0.5 capitalize lg:text-xl md:text-base text-sm md:font-bold font-semibold lg:rounded-md rounded-1 outline-none;
+  }
+  .underline-tab {
+    @apply text-black text-nowrap lg:p-1 md:p-sm-ly-pad p-0.5 capitalize lg:text-xl md:text-base text-sm md:font-bold font-semibold;
+  }
+}
+
+@layer utilities {
+  .layout-pad {
+    @apply lg:p-ly-pad md:p-md-ly-pad p-sm-ly-pad;
+  }
+
+  .flex-between {
+    @apply flex justify-between;
+  }
+  .pad-y {
+    @apply py-4;
+  }
+  .fieldset-border {
+    @apply relative lg:border-2 md:border-1 border-1 border-slate-gray border-solid md:rounded-sm  sm:rounded-xs rounded-[0px]  md:p-6 p-3;
+  }
+  /* top-0 left-0 ml-3 lg:-mt-3 md:-mt-2  -mt-1 */
+  .field-legend {
+    @apply absolute  top-0 left-0 -translate-y-2/4 lg:ml-2 md:ml-1 ml-4xl capitalize lg:p-4xl md:p-3xl p-2xl  bg-slate-gray leading-none xl:text-lg lg:text-base md:text-sm text-xs xl:font-extrabold lg:font-bold md:font-semibold font-medium md:rounded-xs rounded-xxs;
+  }
+  .input-lable {
+    @apply block mb-2 md:text-lg  text-sm font-medium text-primary dark:text-green-500 capitalize;
+  }
+  .border {
+    @apply border-1 border-solid border-black;
+  }
+  .icon {
+    @apply lg:text-2xl md:text-xl sm:text-sm text-xs cursor-pointer text-black-50;
+  }
+  .block_container {
+    @apply h-full w-full item-center gap-1 flex-col bg-white shadow-2xl lg:p-2 md:p-1 p-0.5;
+  }
+  .left-label {
+    @apply lg:text-lg md:text-base text-sm font-bold text-primary capitalize;
+  }
+  .edit-label {
+    @apply md:text-sm text-xs font-medium text-blue-800 hover:underline  hover:underline-offset-4 cursor-pointer capitalize;
+  }
+  .desc-label {
+    @apply md:text-sm text-xs font-medium text-black-50;
+  }
+  .border-bottom {
+    @apply border-b-2 border-solid border-slate-gray;
+  }
+  .flex-column {
+    @apply flex md:flex-row flex-col;
+  }
+  .f-col {
+    @apply flex flex-col;
+  }
+
+  .card-h {
+    @apply lg:h-c-img-h md:h-md-c-img-h h-sm-c-img-h;
+  }
+  .min-card-h{
+    @apply lg:h-min-c-img-h md:h-md-min-c-img-h h-sm-min-c-img-h;
+  }
+  .card-text {
+    @apply text-black md:text-base text-sm font-medium capitalize;
+  }
+  .tag-text {
+    @apply text-black md:text-sm text-xs font-medium capitalize bg-gray-300 lg:p-3xl md:p-2xl sm:p-xl p-lg leading-none rounded-1;
+  }
+  .info-label-gap{
+    @apply flex md:gap-1 gap-sm ;
+  }
+  .info-label-text-bold {
+    @apply text-black md:text-base sm:text-sm text-xs font-bold capitalize text-nowrap;
+  }
+  .info-label-text {
+    @apply text-black md:text-base sm:text-sm text-xs font-normal capitalize text-nowrap;
+  }
+  .white-shadow {
+    @apply shadow-2xl bg-white; 
+  }
+  .gray-circle {
+    @apply bg-gray-300 lg:text-lg  text-sm rounded-full md:h-sm-img md:w-sm-img w-xs-img h-xs-img item-center md:cursor-pointer;
+  }
+  .menu-width{
+    @apply xl:w-xl-menu-width lg:w-lg-menu-width md:w-md-menu-width w-sm-menu-width
+  
+  }
+}
+
+@media screen and (max-width: 912px) {
+  #root {
+    /* position: relative; */
+    overflow-y: auto;
+    top: 0
+  }
+}
+.tab.react-tabs__tab--selected {
+  @apply bg-black text-white transition-all;
+  animation: fadeIn 0.5s ease;
+
+  /* Adjust the duration and timing function as needed */
+}
+.underline-tab.active {
+  @apply md:border-b-[3px] border-b-1 border-solid border-black outline-none;
+  animation: fadeIn 0.5s ease;
+}
+
+.react-tabs__tab-panel--selected {
+  @apply transition-all;
+
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,114 @@
+import React, { useRef } from "react";
+import { Images } from "../../../assets/images";
+import { Avatar } from "primereact/avatar";
+import { Menu } from "primereact/menu";
+import { classNames } from "primereact/utils";
+import { Badge } from "primereact/badge";
+import { useNavigate } from "react-router-dom";
+const Header = () => {
+  const isLogin = true;
+  const menuRight = useRef(null);
+  const navigate = useNavigate()
+  const itemRenderer = (item) => (
+    <div className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer" onClick={item.command || null}>
+      <span className={`${item.icon} xl:text-xl lg:text-lg text-base item-center`} />
+      <span className="mx-2 md:font-bold font-semibold md:text-base text-sm ">{item.label}</span>
+    </div>
+  );
+  const items = [
+    {
+      template: () => {
+        return (
+          <div className="md:cursor-pointer flex items-center md:gap-1 gap-sm md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200">
+            <div className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full">
+              <Avatar image={Images.ProfilImg} imageAlt="avatar" />
+            </div>
+            <div className="flex-col leading-none justify-center">
+              <h3 className="md:text-base text-sm text-black capitalize md:font-bold font-medium">
+                shehryar
+              </h3>
+              <p className="md:text-sm text-xs text-gray-400 lowercase md:font-bold font-medium">
+                shehryarkashan@gmail.com
+              </p>
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      label: "Settings",
+      icon: "pi pi-cog",
+      template: itemRenderer,
+     command:() => {
+        navigate("/settings"); // Redirect to the settings page
+     }
+    },
+
+    {
+      label: "Logout",
+      icon: "pi pi-sign-out",
+      
+      template: itemRenderer,
+      command: () => {
+        alert("logout")
+      }
+    
+        
+    },
+  ];
+
+  const cusmtomeStyle = {
+    root: classNames(
+      "border-1 border-solid border-slate-gray lg:rounded-md md:rounded-sm rounded-xs md:mt-1 mt-1  shadow-2xl overflow-hidden bg-white "
+    ),
+    menu: {
+      className: classNames("m-0 p-0 list-none", "outline-none"),
+    },
+    submenuheader: classNames(
+      "text-black md:text-base text-sm font-bold md:py-1 py-0.5 md:px-4 px-2 border-b-1 border-solid border-slate-gray "
+    ),
+  };
+
+  return (
+    <header className="shadow-2xl sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
+      <nav className="flex-between">
+        <div className="ml-1 capitalize font-bold lg:text-lg md:text-base sm:text-sm text-xs item-center">
+          lawyer marketplace
+        </div>
+        {isLogin ? (
+          <div className="item-center">
+            <img src={Images.profileLogo} className="lg:w-avatar md:w-md-avatar w-sm-avatar lg:h-avatar md:h-md-avatar h-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 md:cursor-pointer" />
+          </div>
+        ) : (
+          <>
+            <div className="item-center">
+              <Avatar
+                image={Images.ProfilImg}
+                className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1"
+                imageAlt="user-profile"
+                shape="circle"
+                size="large"
+                onClick={(event) => menuRight.current.toggle(event)}
+                aria-controls="popup_menu_left"
+                aria-haspopup
+              />
+            </div>
+            <Menu
+              autoZIndex
+              baseZIndex={9999999}
+              closeOnEscape={true}
+              pt={cusmtomeStyle}
+              popup
+              ref={menuRight}
+              id="popup_menu_left"
+              model={items}
+              popupAlignment="right"
+            />
+          </>
+        )}
+      </nav>
+    </header>
+  );
+};
+
+export default Header;
