@@ -5,7 +5,7 @@ import BlackBtn from "../../components/BlackBtn";
 import toast from "react-hot-toast";
 import { useLoginMutation, useSignupMutation } from "../../redux/api/userApi";
 import { useDispatch } from "react-redux";
-import { userExist } from "../../redux/reducer/userReducer";
+import { userExist, userNotExist } from "../../redux/reducer/userReducer";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -77,7 +77,6 @@ const SignUp = () => {
       error: loginErrorMsg,
     },
   ] = useLoginMutation();
-  console.log(loginData,loginError,loginSuccess,loginErrorMsg);
   const [
     createLawyer,
     {
@@ -136,24 +135,21 @@ const SignUp = () => {
   useEffect(() => {
     if (loginSuccess) {
       dispatch(userExist(loginData?.user));
-      console.log(loginData);
       if (loginData?.redirectUrl === "lawyer") {
         toast.success(loginData.msg);
-
-        navigate("/lawyer");
-
+        navigate("/user-profile");
       } else if (loginData?.redirectUrl === "client") {
-      toast.success(loginData.msg);
-        
-        navigate("/gigs");
+        toast.success(loginData.msg);
+        navigate("/all-gigs");
       } else if (loginData?.redirectUrl === "admin") {
-      toast.success(loginData.msg);
+        toast.success(loginData.msg);
 
-        navigate("/admin");
+        navigate("/admin/dashboard");
       }
     }
     if (loginError) {
       toast.error(loginErrorMsg?.data?.message);
+      dispatch(userNotExist());
     }
   }, [loginSuccess, loginError, loginData, loginErrorMsg, dispatch]);
 
@@ -204,123 +200,129 @@ const SignUp = () => {
     <>
       <div className=" h-full bg-gray-100">
         <div className="container h-full flex-col item-center max-w-screen-sm  m-auto gap-2 md:p-0 p-4">
-          <div className="bg-white shadow-2xl w-full z-10 p-2 rounded-lg">
-            <Tabs className={"w-full"}>
+          <div className="bg-white shadow-2xl w-full z-10 p-2 rounded-lg ">
+            <Tabs className={"w-full flex flex-col lg:gap-1 md:gap-0.10 gap-0.8"}>
               <TabList className="item-center">
                 <Tab className="tab">Rigister</Tab>
                 <Tab className="tab">Login</Tab>
               </TabList>
-              <TabPanel>
-                <div className="flex flex-col gap-1">
-                  <div className="w-full">
-                    <h1 className="lg:text-3xl md:text-2l text-lg text-center font-black capitalize text-black">
-                      register User
-                    </h1>
-                  </div>
-                  <form
-                    className="w-full"
-                    onSubmit={handleSubmitSignUp(registerHandler)}
-                  >
-                    <div className="flex flex-col gap-1">
-                      <div>
-                        <InputComp
-                          type="text"
-                          text={"name"}
-                          name={"name"}
-                          register={registerSignUp}
-                        />
-                        {signUpErrors?.name?.message && (
-                          <FailureAlert error={signUpErrors?.name?.message} />
-                        )}
-                      </div>
-                      <div>
-                        <InputComp
-                          type="email"
-                          name={"email"}
-                          text={"email"}
-                          register={registerSignUp}
-                        />
-                        {signUpErrors?.email?.message && (
-                          <FailureAlert error={signUpErrors?.email?.message} />
-                        )}
-                      </div>
-                      <div>
-                        <div className="relative">
+              <div >
+                <TabPanel>
+                  <div className="flex flex-col lg:gap-1 md:gap-0.10 gap-0.8">
+                    <div className="w-full">
+                      <h1 className="lg:text-3xl md:text-2l text-lg text-center font-black capitalize text-black">
+                        register User
+                      </h1>
+                    </div>
+                    <form
+                      className="w-full"
+                      onSubmit={handleSubmitSignUp(registerHandler)}
+                    >
+                      <div className="flex flex-col lg:gap-1 md:gap-0.10 gap-0.8">
+                        <div>
                           <InputComp
-                            type={passwordShown ? "password" : "text"}
-                            text={"password"}
-                            name={"password"}
+                            type="text"
+                            text={"name"}
+                            name={"name"}
                             register={registerSignUp}
                           />
-                          <div
-                            className="absolute top-0 right-0 h-full mr-3 item-center text-xl"
-                            onClick={togglePasswordVisibility}
-                          >
-                            {passwordShown ? <IoMdEye /> : <IoIosEyeOff />}
-                          </div>
+                          {signUpErrors?.name?.message && (
+                            <FailureAlert error={signUpErrors?.name?.message} />
+                          )}
                         </div>
-
-                        {signUpErrors?.password?.message && (
-                          <FailureAlert
-                            error={signUpErrors?.password?.message}
+                        <div>
+                          <InputComp
+                            type="email"
+                            name={"email"}
+                            text={"email"}
+                            register={registerSignUp}
                           />
-                        )}
-                      </div>
-
-                      <BlackBtn text={"sign up"} loading={siginLoading} />
-                    </div>
-                  </form>
-                </div>
-              </TabPanel>
-              <TabPanel>
-                <div className="w-full">
-                  <h1 className="lg:text-3xl md:text-2l text-lg text-center font-black capitalize text-black">
-                    login User
-                  </h1>
-                </div>
-                <form
-                  className="w-full"
-                  onSubmit={handleSubmitLogin(loginHandler)}
-                >
-                  <div className="flex flex-col gap-2">
-                    <div>
-                      <InputComp
-                        type={"email"}
-                        name={"email"}
-                        text={"email"}
-                        register={registerLogin}
-                      />
-
-                      {loginErrors?.email?.message && (
-                        <FailureAlert error={loginErrors?.email?.message} />
-                      )}
-                    </div>
-
-                    <div>
-                      <div className="relative">
-                        <InputComp
-                          type={passwordShown ? "password" : "text"}
-                          text={"password"}
-                          name={"password"}
-                          register={registerLogin}
-                        />
-                        <div
-                          className="absolute top-0 right-0 h-full mr-3 item-center text-xl"
-                          onClick={togglePasswordVisibility}
-                        >
-                          {passwordShown ? <IoMdEye /> : <IoIosEyeOff />}
+                          {signUpErrors?.email?.message && (
+                            <FailureAlert
+                              error={signUpErrors?.email?.message}
+                            />
+                          )}
                         </div>
+                        <div>
+                          <div className="relative">
+                            <InputComp
+                              type={passwordShown ? "password" : "text"}
+                              text={"password"}
+                              name={"password"}
+                              register={registerSignUp}
+                            />
+                            <div
+                              className="absolute top-0 right-0 h-full mr-3 item-center text-xl"
+                              onClick={togglePasswordVisibility}
+                            >
+                              {passwordShown ? <IoMdEye /> : <IoIosEyeOff />}
+                            </div>
+                          </div>
+
+                          {signUpErrors?.password?.message && (
+                            <FailureAlert
+                              error={signUpErrors?.password?.message}
+                            />
+                          )}
+                        </div>
+
+                        <BlackBtn text={"sign up"} loading={siginLoading} />
                       </div>
-
-                      {loginErrors?.password?.message && (
-                        <FailureAlert error={loginErrors?.password?.message} />
-                      )}
-                    </div>
-
-                    <BlackBtn text={"login"} loading={loginLoading} />
+                    </form>
                   </div>
-                </form>
-              </TabPanel>
+                </TabPanel>
+                <TabPanel>
+                  <div className="flex flex-col lg:gap-1 md:gap-0.10 gap-0.8">
+                    <div className="w-full">
+                      <h1 className="lg:text-3xl md:text-2l text-lg text-center font-black capitalize text-black">
+                        login User
+                      </h1>
+                    </div>
+                    <form
+                      className="w-full"
+                      onSubmit={handleSubmitLogin(loginHandler)}
+                    >
+                      <div className="flex flex-col lg:gap-1 md:gap-0.10 gap-0.8">
+                        <div>
+                          <InputComp
+                            type={"email"}
+                            name={"email"}
+                            text={"email"}
+                            register={registerLogin}
+                          />
+                          {loginErrors?.email?.message && (
+                            <FailureAlert error={loginErrors?.email?.message} />
+                          )}
+                        </div>
+
+                        <div>
+                          <div className="relative">
+                            <InputComp
+                              type={passwordShown ? "password" : "text"}
+                              text={"password"}
+                              name={"password"}
+                              register={registerLogin}
+                            />
+                            <div
+                              className="absolute top-0 right-0 h-full mr-3 item-center text-xl"
+                              onClick={togglePasswordVisibility}
+                            >
+                              {passwordShown ? <IoMdEye /> : <IoIosEyeOff />}
+                            </div>
+                          </div>
+                          {loginErrors?.password?.message && (
+                            <FailureAlert
+                              error={loginErrors?.password?.message}
+                            />
+                          )}
+                        </div>
+
+                        <BlackBtn text={"login"} loading={loginLoading} />
+                      </div>
+                    </form>
+                  </div>
+                </TabPanel>
+              </div>
             </Tabs>
           </div>
         </div>

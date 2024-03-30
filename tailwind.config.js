@@ -1,12 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: "jit",
   content: [
-    "./index.html",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/primereact/**/*.{js,ts,jsx,tsx}",
-
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "node_modules/flowbite-react/lib/esm/**/*.js",
@@ -21,7 +16,7 @@ module.exports = {
       lg: ["19px", "21px"],
       xl: ["22px", "24.38px"],
       "2xl": ["24px", "29.26px"],
-      "3xl": ["28px", "50px"],
+      "3xl": ["28px", "30px"],
       "4xl": ["48px", "58px"],
       "8xl": ["96px", "106px"],
     },
@@ -34,12 +29,12 @@ module.exports = {
       full: "100%",
       base: "8px",
       1: "6px",
-      
     },
-    
+
     extend: {
       zIndex: {
-        99: 99999,
+        99: 999,
+        9: 99,
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease",
@@ -55,6 +50,8 @@ module.exports = {
         "ly-pad": "20px",
         "md-ly-pad": "15px",
         "sm-ly-pad": "10px",
+        "0.8": "8px",
+        "0.10": "10px",
         0.5: "6px",
         1: "12px",
         2: "18px",
@@ -67,23 +64,21 @@ module.exports = {
         "3xl": "7px",
         "4xl": "8px",
       },
-      margin:{
-        
-          "ly-pad": "20px",
-          "md-ly-pad": "15px",
-          "sm-ly-pad": "10px",
-          0.5: "6px",
-          1: "12px",
-          2: "18px",
-          xs: "1px",
-          sm: "2px",
-          md: "3px",
-          lg: "4px",
-          xl: "5px",
-          "2xl": "6px",
-          "3xl": "7px",
-          "4xl": "8px",
-      
+      margin: {
+        "ly-pad": "20px",
+        "md-ly-pad": "15px",
+        "sm-ly-pad": "10px",
+        0.5: "6px",
+        1: "12px",
+        2: "18px",
+        xs: "1px",
+        sm: "2px",
+        md: "3px",
+        lg: "4px",
+        xl: "5px",
+        "2xl": "6px",
+        "3xl": "7px",
+        "4xl": "8px",
       },
       fontFamily: {
         barlow: ["Barlow", "sans-serif"],
@@ -92,9 +87,9 @@ module.exports = {
         "icon-width": "30px",
       },
       maxWidth: {
-        "profile": "350px",
+        profile: "350px",
       },
-      minHeight:{
+      minHeight: {
         "gig-card-h": "232px",
       },
       colors: {
@@ -107,12 +102,13 @@ module.exports = {
         "pale-blue": "#F5F6FF",
         "white-400": "rgba(255, 255, 255, 0.80)",
       },
-    
+
       gap: {
         xs: "4px",
         sm: "6px",
-        md: "18px",
-        "10": "10px",
+        lg: "18px",
+        "0.8": "8px",
+        "0.10": "10px",
         1: "12px",
         2: "25px",
         3: "35px",
@@ -124,7 +120,6 @@ module.exports = {
       backgroundImage: {
         gradient: "linear-gradient(to right,#D9D9D9 42%,#ffffff 42% 100%)",
       },
-      
 
       width: {
         img: "150px",
@@ -137,7 +132,7 @@ module.exports = {
         "max-w-input": "900px",
         "md-menu-width": "200px",
         "menu-width": "150px",
-        
+
         "lg-menu-width": "250px",
       },
       height: {

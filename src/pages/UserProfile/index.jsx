@@ -30,7 +30,7 @@ const UserProfile = () => {
     isError: userIsError,
     error: userError,
   } = useGetUserQuery();
-  console.log(userData);
+  
   const [modal, setModal] = useState(false);
   const [updateUser, { error, data, isSuccess }] = useUpdateUserMutation();
   const diaptch = useDispatch();

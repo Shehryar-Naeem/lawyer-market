@@ -3,7 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   margin: 0;
   padding: 0;
@@ -20,7 +19,6 @@ body {
   width: 100%;
   min-height: 100vh;
   height: 100%;
-
   overflow-x: hidden;
 }
 input::-webkit-outer-spin-button,
@@ -46,7 +44,7 @@ input[type="number"] {
     margin: 0 auto;
   }
   .black-btn {
-    @apply bg-black text-white w-full lg:text-xl  md:text-base md:font-bold font-semibold text-sm md:mx-auto lg:py-3 md:py-2 py-1 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none item-center;
+    @apply bg-black text-white w-full lg:text-xl  md:text-base md:font-bold font-semibold text-sm md:mx-auto lg:py-2 md:py-1 py-0.10 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none item-center;
   }
   .item-center {
     @apply flex items-center justify-center;
@@ -61,10 +59,10 @@ input[type="number"] {
     @apply bg-gray-200 rounded-md md:p-sm-ly-pad p-0.5 flex flex-col gap-sm;
   }
   .tab {
-    @apply text-black flex-1 lg:p-1 md:p-sm-ly-pad p-0.5 capitalize lg:text-xl md:text-base text-sm md:font-bold font-semibold lg:rounded-md rounded-1 outline-none;
+    @apply text-black flex-1 lg:px-1 md:px-sm-ly-pad px-0.8  lg:py-2 md:py-1 py-0.10 capitalize lg:text-xl md:text-base text-sm md:font-bold font-semibold lg:rounded-md rounded-1 outline-none;
   }
   .underline-tab {
-    @apply text-black text-nowrap lg:p-1 md:p-sm-ly-pad p-0.5 capitalize lg:text-xl md:text-base text-sm md:font-bold font-semibold;
+    @apply text-black text-nowrap lg:px-1 md:px-sm-ly-pad px-0.8  lg:py-2 md:py-1 py-0.10 capitalize lg:text-xl md:text-base text-sm md:font-bold font-semibold;
   }
 }
 
@@ -120,7 +118,7 @@ input[type="number"] {
   .card-h {
     @apply lg:h-c-img-h md:h-md-c-img-h h-sm-c-img-h;
   }
-  .min-card-h{
+  .min-card-h {
     @apply lg:h-min-c-img-h md:h-md-min-c-img-h h-sm-min-c-img-h;
   }
   .card-text {
@@ -129,8 +127,8 @@ input[type="number"] {
   .tag-text {
     @apply text-black md:text-sm text-xs font-medium capitalize bg-gray-300 lg:p-3xl md:p-2xl sm:p-xl p-lg leading-none rounded-1;
   }
-  .info-label-gap{
-    @apply flex md:gap-1 gap-sm ;
+  .info-label-gap {
+    @apply flex md:gap-1 gap-sm;
   }
   .info-label-text-bold {
     @apply text-black md:text-base sm:text-sm text-xs font-bold capitalize text-nowrap;
@@ -139,14 +137,13 @@ input[type="number"] {
     @apply text-black md:text-base sm:text-sm text-xs font-normal capitalize text-nowrap;
   }
   .white-shadow {
-    @apply shadow-2xl bg-white; 
+    @apply shadow-2xl bg-white;
   }
   .gray-circle {
     @apply bg-gray-300 lg:text-lg  text-sm rounded-full md:h-sm-img md:w-sm-img w-xs-img h-xs-img item-center md:cursor-pointer;
   }
-  .menu-width{
-    @apply xl:w-xl-menu-width lg:w-lg-menu-width md:w-md-menu-width w-sm-menu-width
-  
+  .menu-width {
+    @apply xl:w-xl-menu-width lg:w-lg-menu-width md:w-md-menu-width w-sm-menu-width;
   }
 }
 
@@ -154,7 +151,7 @@ input[type="number"] {
   #root {
     /* position: relative; */
     overflow-y: auto;
-    top: 0
+    top: 0;
   }
 }
 .tab.react-tabs__tab--selected {

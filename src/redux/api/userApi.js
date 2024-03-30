@@ -14,7 +14,7 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
-    login : builder.mutation({
+    login: builder.mutation({
       query: (user) => ({
         url: "login-user",
         method: "POST",
@@ -36,5 +36,9 @@ export const userApi = createApi({
   }),
 });
 
-export const { useSignupMutation, useLoginMutation,useGetUserQuery, useUpdateUserMutation } =
-  userApi;
+export const {
+  useSignupMutation,
+  useLoginMutation,
+  useGetUserQuery,
+  useUpdateUserMutation,
+} = userApi;

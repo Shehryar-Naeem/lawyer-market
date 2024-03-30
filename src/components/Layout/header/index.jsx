@@ -5,30 +5,45 @@ import { Menu } from "primereact/menu";
 import { classNames } from "primereact/utils";
 import { Badge } from "primereact/badge";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { userNotExist } from "../../../redux/reducer/userReducer";
 const Header = () => {
-  const isLogin = true;
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const menuRight = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const itemRenderer = (item) => (
-    <div className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer" onClick={item.command || null}>
-      <span className={`${item.icon} xl:text-xl lg:text-lg text-base item-center`} />
-      <span className="mx-2 md:font-bold font-semibold md:text-base text-sm ">{item.label}</span>
+    <div
+      className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer"
+      onClick={item.command || null}
+    >
+      <span
+        className={`${item.icon} xl:text-xl lg:text-lg text-base item-center`}
+      />
+      <span className="mx-2 md:font-bold font-semibold md:text-base text-sm ">
+        {item.label}
+      </span>
     </div>
   );
   const items = [
     {
       template: () => {
         return (
-          <div className="md:cursor-pointer flex items-center md:gap-1 gap-sm md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200">
+          <div
+            className="md:cursor-pointer flex items-center md:gap-1 gap-sm md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200 md:hover:bg-gray-100"
+            onClick={() => navigate("/user-profile")}
+          >
             <div className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full">
               <Avatar image={Images.ProfilImg} imageAlt="avatar" />
             </div>
             <div className="flex-col leading-none justify-center">
               <h3 className="md:text-base text-sm text-black capitalize md:font-bold font-medium">
-                shehryar
+                {user && user?.name}
               </h3>
               <p className="md:text-sm text-xs text-gray-400 lowercase md:font-bold font-medium">
-                shehryarkashan@gmail.com
+                {user && user?.email}
               </p>
             </div>
           </div>
@@ -39,21 +54,30 @@ const Header = () => {
       label: "Settings",
       icon: "pi pi-cog",
       template: itemRenderer,
-     command:() => {
+      command: () => {
         navigate("/settings"); // Redirect to the settings page
-     }
+      },
     },
 
     {
       label: "Logout",
       icon: "pi pi-sign-out",
-      
+
       template: itemRenderer,
-      command: () => {
-        alert("logout")
-      }
-    
-        
+      command: async () => {
+        try {
+          const { data } = await axios.get(`/api/user/logout`, {
+            withCredentials: true,
+          });
+
+          dispatch(userNotExist());
+
+          toast.success(data.message);
+          navigate("/");
+        } catch (error) {
+          toast.error(error?.response?.data?.message || "Something went wrong");
+        }
+      },
     },
   ];
 
@@ -70,14 +94,17 @@ const Header = () => {
   };
 
   return (
-    <header className="shadow-2xl sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
+    <header className="shadow-2xl z-9 sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
       <nav className="flex-between">
         <div className="ml-1 capitalize font-bold lg:text-lg md:text-base sm:text-sm text-xs item-center">
           lawyer marketplace
         </div>
-        {isLogin ? (
+        {!isAuthenticated ? (
           <div className="item-center">
-            <img src={Images.profileLogo} className="lg:w-avatar md:w-md-avatar w-sm-avatar lg:h-avatar md:h-md-avatar h-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 md:cursor-pointer" />
+            <img
+              src={Images.profileLogo}
+              className="lg:w-avatar md:w-md-avatar w-sm-avatar lg:h-avatar md:h-md-avatar h-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 md:cursor-pointer"
+            />
           </div>
         ) : (
           <>
