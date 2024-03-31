@@ -11,6 +11,10 @@ const CustomModal = ({
 }) => {
   const customTheme = {
     modal: {
+      content: {
+        base: "relative h-full w-full p-4 h-auto",
+        
+      },
       header: {
         base: "flex items-center justify-between rounded-t border-gray-400 border-b lg:p-5 md:p-4 p-3 ",
         popup: " border-b-0",
@@ -57,14 +61,13 @@ const CustomModal = ({
               )}
             </Button>
             <Link to={"/user-profile"}>
-            <Button
-              size="xs"
-              className="!px-0 !py-0 uppercase lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
-            >
-              cancel
-            </Button>
+              <Button
+                size="xs"
+                className="!px-0 !py-0 uppercase lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
+              >
+                cancel
+              </Button>
             </Link>
-
           </div>
         </Modal.Footer>
       </Modal>
