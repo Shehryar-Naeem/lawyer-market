@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Flowbite, Modal } from "flowbite-react";
+import { Link } from "react-router-dom";
 const CustomModal = ({
   openModal,
   setOpenModal,
@@ -46,7 +47,7 @@ const CustomModal = ({
           <div className="flex justify-center gap-4">
             <Button
               size="xs"
-              className="!px-0 !py-0 uppercase bg-black enabled:focus:ring-0 enabled:hover:bg-black-90"
+              className="!px-0 !py-0 uppercase bg-black lg:rounded-sm md:rounded-xs rounded-xxs enabled:focus:ring-0 enabled:hover:bg-black-90"
               onClick={createLaywerHandler}
             >
               {createLawyerLoading ? (
@@ -55,12 +56,15 @@ const CustomModal = ({
                 "Create"
               )}
             </Button>
+            <Link to={"/user-profile"}>
             <Button
               size="xs"
-              className="!px-0 !py-0 uppercase bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
+              className="!px-0 !py-0 uppercase lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
             >
               cancel
             </Button>
+            </Link>
+
           </div>
         </Modal.Footer>
       </Modal>

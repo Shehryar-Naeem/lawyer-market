@@ -148,6 +148,9 @@ input[type="number"] {
   .alert-gap{
     @apply flex flex-col md:gap-sm gap-xs
   }
+  .small-btn-border-radius{
+    @apply lg:rounded-sm md:rounded-xs rounded-xxs
+  }
 }
 
 @media screen and (max-width: 912px) {
