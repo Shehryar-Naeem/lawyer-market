@@ -156,10 +156,12 @@ const SignUp = () => {
   useEffect(() => {
     if (createLawyerSuccess) {
       const user = JSON.parse(localStorage.getItem("user"));
-      dispatch(userExist(user));
-      toast.success(createLawyerData.message);
-      localStorage.removeItem("user");
-      navigate("/user-profile");
+      if (user) {
+        dispatch(userExist(user));
+        toast.success(createLawyerData.message);
+        localStorage.removeItem("user");
+        navigate("/user-profile");
+      }
     }
     if (createLawyerError) {
       toast.error(createLawyerErrorMsg?.data?.message);

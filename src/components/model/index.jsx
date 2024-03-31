@@ -1,6 +1,9 @@
 import React from "react";
 import { Button, Flowbite, Modal } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userExist } from "../../redux/reducer/userReducer";
+
 const CustomModal = ({
   openModal,
   setOpenModal,
@@ -9,11 +12,42 @@ const CustomModal = ({
   createLaywerHandler,
   createLawyerLoading,
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const customTheme = {
     modal: {
+      root: {
+        base: "fixed inset-x-0 top-0 z-99 backdrop-blur-sm h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
+        show: {
+          on: "flex bg-gray-900 bg-opacity-50 dark:bg-opacity-80",
+          off: "hidden",
+        },
+        sizes: {
+          sm: "max-w-sm",
+          md: "max-w-md",
+          lg: "max-w-lg",
+          xl: "max-w-xl",
+          "2xl": "max-w-2xl",
+          "3xl": "max-w-3xl",
+          "4xl": "max-w-4xl",
+          "5xl": "max-w-5xl",
+          "6xl": "max-w-6xl",
+          "7xl": "max-w-7xl",
+        },
+        positions: {
+          "top-left": "items-start justify-start",
+          "top-center": "items-start justify-center",
+          "top-right": "items-start justify-end",
+          "center-left": "items-center justify-start",
+          center: "items-center justify-center",
+          "center-right": "items-center justify-end",
+          "bottom-right": "items-end justify-end",
+          "bottom-center": "items-end justify-center",
+          "bottom-left": "items-end justify-start",
+        },
+      },
       content: {
         base: "relative h-full w-full p-4 h-auto",
-        
       },
       header: {
         base: "flex items-center justify-between rounded-t border-gray-400 border-b lg:p-5 md:p-4 p-3 ",
@@ -35,12 +69,20 @@ const CustomModal = ({
       },
     },
   };
-
+  const cancelHandler = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      dispatch(userExist(user));
+      localStorage.removeItem("user");
+      setOpenModal(!openModal);
+      navigate("/user-profile");
+    }
+  };
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Modal
         show={openModal}
-        onClose={() => setOpenModal(!openModal)}
+        onClose={cancelHandler}
         // popup dismissible
         size={"sm"}
         className="animate-fade-in"
@@ -60,14 +102,13 @@ const CustomModal = ({
                 "Create"
               )}
             </Button>
-            <Link to={"/user-profile"}>
-              <Button
-                size="xs"
-                className="!px-0 !py-0 uppercase lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
-              >
-                cancel
-              </Button>
-            </Link>
+            <Button
+              onClick={cancelHandler}
+              size="xs"
+              className="!px-0 !py-0 uppercase lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
+            >
+              cancel
+            </Button>
           </div>
         </Modal.Footer>
       </Modal>
