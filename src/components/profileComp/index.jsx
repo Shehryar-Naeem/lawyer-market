@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { CaptializeFirstLetter } from "../../utils/helper";
 
 const ProfileComp = ({ label, data, tooltip, Comp }) => {
   const [show, setshow] = useState(false);
+
   return (
     <div className="flex flex-col gap-sm w-full border-bottom pb-5">
       <div className="flex w-full items-center justify-between">
@@ -22,7 +24,9 @@ const ProfileComp = ({ label, data, tooltip, Comp }) => {
       {show ? (
         <Comp compData={data} show={show} setshow={setshow} />
       ) : (
-        <span className="desc-label">{data}</span>
+        <span className="desc-label">
+          {typeof data === "string" ? CaptializeFirstLetter(data) : data}
+        </span>
       )}
     </div>
   );

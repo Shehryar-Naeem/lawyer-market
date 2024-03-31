@@ -1,14 +1,14 @@
 import React from "react";
 import { Images } from "../../assets/images";
 
-const ImageUploader = () => {
+const ImageUploader = ({avatar}) => {
   return (
     <div className="md:w-img w-sm-img md:h-img-height h-sm-img-height ">
       <label
         for="dropzone-file"
         className="flex flex-col items-center justify-center h-full border-2 border-gray-300 border-dashed rounded-full cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 overflow-hidden shadow-2xl relative"
       >
-        <img src={Images.ProfilImg} alt="profile"/>
+        <img src={avatar} alt="profile"/>
         <div className="absolute bg-primary/30 item-center w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-100 backdrop-blur-sm">
           {/* <svg
             className="w-16 h-16 text-primary dark:text-gray00-400"

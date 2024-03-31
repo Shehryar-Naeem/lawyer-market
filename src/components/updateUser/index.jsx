@@ -15,7 +15,7 @@ const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
   };
 
   return (
-    <div className="item-center backdrop-blur-sm bg-black-50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full">
+    <div className="item-center backdrop-blur-mdz bg-black-50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-99 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full">
       <div className="relative p-4 w-full max-w-md max-h-full">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
@@ -50,7 +50,7 @@ const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
               <div>
                 <label
                   for="email"
-                  className="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="capitalize block mb-2 md:text-base text-sm md:font-semibold font-normal text-gray-900 dark:text-white"
                 >
                   Your email
                 </label>
@@ -60,7 +60,7 @@ const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
                   id="email"
                   value={useremail}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  className="bg-gray-50 border text-gray-900 md:text-base text-sm md:font-semibold font-medium small-btn-border-radius focus:ring-primary focus:border-primary block w-full p-2.5"
                   placeholder="name@company.com"
                   required
                 />
@@ -68,7 +68,7 @@ const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
               <div>
                 <label
                   for="name"
-                  className="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="capitalize block mb-2 md:text-base text-sm md:font-semibold font-normal text-gray-900 dark:text-white"
                 >
                   Your name
                 </label>
@@ -78,14 +78,14 @@ const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
                   id="name"
                   value={username}
                   onChange={(e) => setName(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  className="bg-gray-50 border  text-gray-900 small-btn-border-radius focus:ring-primary focus:border-primary block md:text-base text-sm md:font-semibold font-normal w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
                 />
               </div>
 
               <input
                 type="submit"
-                className="capitalize w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="capitalize small-btn-border-radius cursor w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium border-gray-300 text-sm px-5 py-2.5 text-center"
                 value={isLoading ? "Loading..." : "Update"}
               />
             </form>

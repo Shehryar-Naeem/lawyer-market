@@ -32,6 +32,7 @@ export const userApi = createApi({
     }),
     getUser: builder.query({
       query: () => `user/get-profle`,
+      providesTags: ["Users"],
     }),
     createLawyer: builder.mutation({
       query: (lawyer) => ({
@@ -53,5 +54,5 @@ export const {
   useGetUserQuery,
   useUpdateUserMutation,
   useCreateLawyerMutation,
-  useLawyerPrfofileQuery
+  useLawyerPrfofileQuery,
 } = userApi;

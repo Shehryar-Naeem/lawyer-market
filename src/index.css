@@ -70,8 +70,8 @@ input[type="number"] {
   .layout-pad {
     @apply lg:p-ly-pad md:p-md-ly-pad p-sm-ly-pad;
   }
-  .cursor{
-    @apply md:cursor-pointer cursor-none
+  .cursor {
+    @apply md:cursor-pointer cursor-none;
   }
 
   .flex-between {
@@ -106,7 +106,7 @@ input[type="number"] {
     @apply md:text-sm text-xs font-medium text-blue-800 hover:underline  hover:underline-offset-4 cursor-pointer capitalize;
   }
   .desc-label {
-    @apply md:text-sm text-xs font-medium text-black-50;
+    @apply md:text-base text-xs md:font-bold font-semibold text-light-gray;
   }
   .border-bottom {
     @apply border-b-2 border-solid border-slate-gray;
@@ -148,11 +148,11 @@ input[type="number"] {
   .menu-width {
     @apply xl:w-xl-menu-width lg:w-lg-menu-width md:w-md-menu-width w-sm-menu-width;
   }
-  .alert-gap{
-    @apply flex flex-col md:gap-sm gap-xs
+  .alert-gap {
+    @apply flex flex-col md:gap-sm gap-xs;
   }
-  .small-btn-border-radius{
-    @apply lg:rounded-sm md:rounded-xs rounded-xxs
+  .small-btn-border-radius {
+    @apply lg:rounded-sm md:rounded-xs rounded-xxs;
   }
 }
 

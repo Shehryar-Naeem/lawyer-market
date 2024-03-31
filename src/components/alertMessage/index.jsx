@@ -7,7 +7,7 @@ const AlertMessage = ({ content, severity }) => {
   const customTheme = {
     root: `${
       severity === "info"
-        ? "bg-[#73ABFE]"
+        ? "bg-[#A8D1DF]"
         : severity === "success"
         ? "bg-[#28A745]"
         : severity === "error"
