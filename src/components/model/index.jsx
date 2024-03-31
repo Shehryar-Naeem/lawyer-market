@@ -82,7 +82,7 @@ const CustomModal = ({
     <Flowbite theme={{ theme: customTheme }}>
       <Modal
         show={openModal}
-        onClose={cancelHandler}
+        onClose={cancelHandler  }
         // popup dismissible
         size={"sm"}
         className="animate-fade-in"

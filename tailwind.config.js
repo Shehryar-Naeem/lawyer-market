@@ -134,6 +134,10 @@ module.exports = {
         "menu-width": "150px",
 
         "lg-menu-width": "250px",
+        "icon-width": "30px",
+        "md-icon-width": "25px",
+        "sm-icon-width": "20px",
+        
       },
       height: {
         "img-height": "150px",
@@ -148,10 +152,18 @@ module.exports = {
         avatar: "60px",
         "md-avatar": "50px",
         "sm-avatar": "40px",
+        "icon-height": "30px",
+        "md-icon-height": "25px",
+        "sm-icon-height": "20px",
+
       },
       borderWidth: {
         1: "1px",
+        2: "2px", 
         3: "3px",
+        4: "4px",
+        5: "5px",
+        6: "6px",
       },
     },
   },

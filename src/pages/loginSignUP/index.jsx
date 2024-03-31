@@ -260,7 +260,7 @@ const SignUp = () => {
                               register={registerSignUp}
                             />
                             <div
-                              className="absolute top-0 right-0 h-full mr-3 item-center text-xl"
+                              className="absolute top-0 right-0 h-full mr-3 item-center text-xl md:cursor-pointer cursor-none"
                               onClick={togglePasswordVisibility}
                             >
                               {passwordShown ? <IoMdEye /> : <IoIosEyeOff />}
@@ -312,7 +312,7 @@ const SignUp = () => {
                               register={registerLogin}
                             />
                             <div
-                              className="absolute top-0 right-0 h-full mr-3 item-center text-xl"
+                              className="absolute top-0 right-0 h-full mr-3 item-center text-xl md:cursor-pointer cursor-none"
                               onClick={togglePasswordVisibility}
                             >
                               {passwordShown ? <IoMdEye /> : <IoIosEyeOff />}
