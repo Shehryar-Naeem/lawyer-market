@@ -27,6 +27,9 @@ const Header = () => {
       </span>
     </div>
   );
+  const customAvatar = {
+    image: "rounded-full",
+  };
   const items = [
     {
       template: () => {
@@ -36,7 +39,11 @@ const Header = () => {
             onClick={() => navigate("/user-profile")}
           >
             <div className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full">
-              <Avatar image={Images.ProfilImg} imageAlt="avatar" />
+              <Avatar
+                image={user?.avatar?.url}
+                imageAlt="avatar"
+                pt={customAvatar}
+              />
             </div>
             <div className="flex-col leading-none justify-center">
               <h3 className="md:text-base text-sm text-black capitalize md:font-bold font-medium">
@@ -110,11 +117,12 @@ const Header = () => {
           <>
             <div className="item-center">
               <Avatar
-                image={Images.ProfilImg}
-                className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1"
+                image={user?.avatar?.url}
+                className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 object-cover"
                 imageAlt="user-profile"
                 shape="circle"
                 size="large"
+                pt={customAvatar}
                 onClick={(event) => menuRight.current.toggle(event)}
                 aria-controls="popup_menu_left"
                 aria-haspopup

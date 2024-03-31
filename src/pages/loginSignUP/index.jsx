@@ -3,7 +3,7 @@ import InputComp from "../../components/InputComp";
 import BlackBtn from "../../components/BlackBtn";
 
 import toast from "react-hot-toast";
-import { useLoginMutation, useSignupMutation } from "../../redux/api/userApi";
+import { useCreateLawyerMutation, useLoginMutation, useSignupMutation } from "../../redux/api/userApi";
 import { useDispatch } from "react-redux";
 import { userExist, userNotExist } from "../../redux/reducer/userReducer";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
@@ -16,7 +16,6 @@ import { IoMdEye } from "react-icons/io";
 import { IoIosEyeOff } from "react-icons/io";
 import CustomModal from "../../components/model";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { useCreateLawyerMutation } from "../../redux/api/lawyerApi";
 import { useNavigate } from "react-router-dom";
 YupPassword(yup);
 

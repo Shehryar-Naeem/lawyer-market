@@ -8,7 +8,8 @@ const GenderComp = ({ compData, show, setshow }) => {
   const dispatch = useDispatch();
   const [gender, setGender] = useState("");
 
-  const [updateUser, { data, isSuccess,isError,error }] = useUpdateUserMutation();
+  const [updateUser, { data, isSuccess, isError, error }] =
+    useUpdateUserMutation();
 
   useEffect(() => {
     setGender(compData);
@@ -17,9 +18,9 @@ const GenderComp = ({ compData, show, setshow }) => {
       setshow(false);
       dispatch(userExist(data?.user));
     }
-    if(isError){
-        toast.error(error?.data.message);
-      }
+    if (isError) {
+      toast.error(error?.data.message);
+    }
   }, [data, isSuccess, dispatch]);
   const update = (e) => {
     e.preventDefault();

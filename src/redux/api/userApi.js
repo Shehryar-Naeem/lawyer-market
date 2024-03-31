@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userApi = createApi({
-  reducerPath: "userApi",
+  reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: `/api/user/`,
+    baseUrl: `/api/`,
   }),
-  tagTypes: ["Users"],
+  tagTypes: ["Users", "Lawyers"],
   endpoints: (builder) => ({
     signup: builder.mutation({
       query: (user) => ({
-        url: "login-or-register",
+        url: "user/login-or-register",
         method: "POST",
         body: user,
       }),
@@ -16,7 +16,7 @@ export const userApi = createApi({
     }),
     login: builder.mutation({
       query: (user) => ({
-        url: "login-user",
+        url: "user/login-user",
         method: "POST",
         body: user,
       }),
@@ -24,14 +24,25 @@ export const userApi = createApi({
     }),
     updateUser: builder.mutation({
       query: (user) => ({
-        url: "update-login-detail",
+        url: "user/update-login-detail",
         method: "PUT",
         body: user,
       }),
       invalidatesTags: ["Users"],
     }),
     getUser: builder.query({
-      query: () => `get-profle`,
+      query: () => `user/get-profle`,
+    }),
+    createLawyer: builder.mutation({
+      query: (lawyer) => ({
+        url: "lawyer/create-lawyer-account",
+        method: "POST",
+        body: lawyer,
+      }),
+      invalidatesTags: ["Lawyers"],
+    }),
+    lawyerPrfofile: builder.query({
+      query: () => `lawyer/get-lawyer`,
     }),
   }),
 });
@@ -41,4 +52,6 @@ export const {
   useLoginMutation,
   useGetUserQuery,
   useUpdateUserMutation,
+  useCreateLawyerMutation,
+  useLawyerPrfofileQuery
 } = userApi;

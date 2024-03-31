@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-const UserModel = ({ modal, setModal, name, email, updateUser }) => {
+const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
   const [username, setName] = useState("");
   const [useremail, setEmail] = useState("");
   useEffect(() => {
     setName(name);
     setEmail(email);
   }, [name, email]);
-  const updateHandler = (e) => {
+  const updateHandler = async (e) => {
     e.preventDefault();
 
-    updateUser({ name: username, email: useremail });
+    await updateUser({ name: username, email: useremail });
+    setModal(false);
   };
 
   return (
@@ -85,7 +86,7 @@ const UserModel = ({ modal, setModal, name, email, updateUser }) => {
               <input
                 type="submit"
                 className="capitalize w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                value={"update user"}
+                value={isLoading ? "Loading..." : "Update"}
               />
             </form>
           </div>

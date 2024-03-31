@@ -1,6 +1,14 @@
 import React from "react";
+import { useLawyerPrfofileQuery } from "../../../redux/api/userApi";
 
 const LawyerDetail = () => {
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+   } = useLawyerPrfofileQuery();
   return (
     <section className="lg:p-md-ly-pad md:p-sm-ly-pad sm:p-2xl flex flex-col lg:gap-2 md:gap-1 gap-10">
       <div className="fieldset-border">

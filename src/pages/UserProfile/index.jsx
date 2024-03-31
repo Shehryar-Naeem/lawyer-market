@@ -5,6 +5,7 @@ import { CiEdit } from "react-icons/ci";
 import UserModel from "../../components/updateUser";
 import {
   useGetUserQuery,
+  useLawyerPrfofileQuery,
   useUpdateUserMutation,
 } from "../../redux/api/userApi";
 import { userExist } from "../../redux/reducer/userReducer";
@@ -24,6 +25,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import AlertMessage from "../../components/alertMessage";
 import { Images } from "../../assets/images";
 import { Image } from "antd";
+import { ref } from "yup";
 
 const UserProfile = () => {
   const {
@@ -32,25 +34,30 @@ const UserProfile = () => {
     isSuccess: userSuccess,
     isError: userIsError,
     error: userError,
+    refetch,
   } = useGetUserQuery();
+  const { data: lawyerData } = useLawyerPrfofileQuery();
 
   const [modal, setModal] = useState(false);
-  const [updateUser, { error, data, isSuccess }] = useUpdateUserMutation();
+  const [updateUser, { error, data, isSuccess, isLoading }] =
+    useUpdateUserMutation();
   const [infoAlet, setInfoAlert] = useState(false);
   const diaptch = useDispatch();
   useEffect(() => {
     if (userSuccess) {
-      toast.success(userData?.message);
-      setModal(false);
       diaptch(userExist(userData?.user));
     }
     if (userIsError) {
       toast.error(userError.data?.message);
     }
-    if (userData.isProfileComplete) {
+    if (userData?.isProfileComplete || lawyerData?.message) {
       setInfoAlert(true);
     }
+    if (isSuccess) {
+      refetch();
+    }
   }, [isSuccess, diaptch, error, data]);
+
   const content = (
     <div className="flex-between">
       <div className="flex md:gap-1 gap-0.8 items-center">
@@ -79,7 +86,7 @@ const UserProfile = () => {
         <p>loading</p>
       ) : (
         <>
-          <div className="bg-gray-100 h-full">
+          <div className="bg-gray-100 min-h-full h-auto">
             <div className="container f-col gap-1 m-auto layout-pad">
               {infoAlet && (
                 <AlertMessage
@@ -95,27 +102,27 @@ const UserProfile = () => {
                     <div className="item-center flex-col">
                       <div className="item-center gap-sm">
                         <span className="lg:text-lg md:text-base text-sm text-black text-center capitalize font-bold">
-                          {userData?.name}
+                          {userData?.user?.name}
                         </span>
                         <div onClick={() => setModal(!modal)}>
                           <CiEdit className="icon" />
                         </div>
                       </div>
                       <p className="lg:text-lg md:text-base text-sm text-black-50 lowercase font-medium break-all text-center">
-                        {userData?.email}
+                        {userData?.user?.email}
                       </p>
                     </div>
                   </div>
                   <div className="block_container">
                     <ProfileComp
                       label={"your self"}
-                      data={userData?.yourSelf}
+                      data={userData?.user?.yourSelf}
                       tooltip={"Edit your self"}
                       Comp={DesComp}
                     />
                     <ProfileComp
                       label={"gender"}
-                      data={userData?.gender}
+                      data={userData?.user?.gender}
                       tooltip={"Edit your gender"}
                       Comp={GenderComp}
                     />
@@ -123,12 +130,12 @@ const UserProfile = () => {
                     {/* <ProfileComp label={"age"} data={userData?.age} /> */}
                     <ProfileComp
                       label={"city"}
-                      data={userData?.city}
+                      data={userData?.user?.city}
                       Comp={City}
                     />
                     <ProfileComp
                       label={"postal code "}
-                      data={userData?.postalCode}
+                      data={userData?.user?.postalCode}
                       Comp={PostalCode}
                     />
                   </div>
@@ -192,9 +199,10 @@ const UserProfile = () => {
         <UserModel
           modal={modal}
           setModal={setModal}
-          name={userData?.name}
-          email={userData?.email}
+          name={userData?.user?.name}
+          email={userData?.user?.email}
           updateUser={updateUser}
+          isLoading={isLoading}
         />
       )}
     </>
