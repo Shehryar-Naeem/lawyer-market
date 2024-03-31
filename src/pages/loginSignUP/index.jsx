@@ -114,8 +114,8 @@ const SignUp = () => {
   };
   useEffect(() => {
     if (signupData?.success) {
-      dispatch(userExist(signupData?.user));
-
+      // dispatch(userExist(signupData?.user));
+      localStorage.setItem("user", JSON.stringify(signupData?.user));
       toast.success(signupData.msg);
       setOpenModal(true);
     }
@@ -155,7 +155,11 @@ const SignUp = () => {
 
   useEffect(() => {
     if (createLawyerSuccess) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      dispatch(userExist(user));
       toast.success(createLawyerData.message);
+      localStorage.removeItem("user");
+      navigate("/lawyer-profile");
     }
     if (createLawyerError) {
       toast.error(createLawyerErrorMsg?.data?.message);
@@ -201,12 +205,14 @@ const SignUp = () => {
       <div className=" h-full bg-gray-100">
         <div className="container h-full flex-col item-center max-w-screen-sm  m-auto gap-2 md:p-0 p-4">
           <div className="bg-white shadow-2xl w-full z-10 p-2 rounded-lg ">
-            <Tabs className={"w-full flex flex-col lg:gap-1 md:gap-0.10 gap-0.8"}>
+            <Tabs
+              className={"w-full flex flex-col lg:gap-1 md:gap-0.10 gap-0.8"}
+            >
               <TabList className="item-center">
                 <Tab className="tab">Rigister</Tab>
                 <Tab className="tab">Login</Tab>
               </TabList>
-              <div >
+              <div>
                 <TabPanel>
                   <div className="flex flex-col lg:gap-1 md:gap-0.10 gap-0.8">
                     <div className="w-full">
@@ -219,7 +225,7 @@ const SignUp = () => {
                       onSubmit={handleSubmitSignUp(registerHandler)}
                     >
                       <div className="flex flex-col lg:gap-1 md:gap-0.10 gap-0.8">
-                        <div>
+                        <div className="alert-gap">
                           <InputComp
                             type="text"
                             text={"name"}
@@ -230,7 +236,7 @@ const SignUp = () => {
                             <FailureAlert error={signUpErrors?.name?.message} />
                           )}
                         </div>
-                        <div>
+                        <div className="alert-gap">
                           <InputComp
                             type="email"
                             name={"email"}
@@ -243,7 +249,7 @@ const SignUp = () => {
                             />
                           )}
                         </div>
-                        <div>
+                        <div className="alert-gap">
                           <div className="relative">
                             <InputComp
                               type={passwordShown ? "password" : "text"}
@@ -283,7 +289,7 @@ const SignUp = () => {
                       onSubmit={handleSubmitLogin(loginHandler)}
                     >
                       <div className="flex flex-col lg:gap-1 md:gap-0.10 gap-0.8">
-                        <div>
+                        <div className="alert-gap">
                           <InputComp
                             type={"email"}
                             name={"email"}
@@ -295,7 +301,7 @@ const SignUp = () => {
                           )}
                         </div>
 
-                        <div>
+                        <div className="alert-gap">
                           <div className="relative">
                             <InputComp
                               type={passwordShown ? "password" : "text"}

@@ -3,11 +3,11 @@ import { Alert } from "flowbite-react";
 
 const FailureAlert = ({ error }) => {
   return (
-    <Alert color="failure" className="p-0.5 capitalize">
-      <div className="item-center">
+    <Alert color="failure" className="md:p-0.5 p-lg capitalize md:rounded-xs rounded-xxs">
+      <div className="item-center leading-none">
         <HiInformationCircle className="text-red-500 mr-1" size={24} />
-        <span className="text-base font-bold">Error:</span> &nbsp;
-        <span className="text-sm font-medium item-center lowercase leading-3">{error}</span>
+        <span className="md:text-base text-sm md:font-bold font-semibold">Error:</span> &nbsp;
+        <span className="md:text-sm text-xs md:font-medium font-light item-center lowercase leading-none">{error}</span>
       </div>
     </Alert>
   );
