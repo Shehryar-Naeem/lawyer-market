@@ -38,7 +38,7 @@ const Header = () => {
             className="md:cursor-pointer flex items-center md:gap-1 gap-sm md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200 md:hover:bg-gray-100"
             onClick={() => navigate("/user-profile")}
           >
-            <div className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full">
+            <div className="cursor lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full">
               <Avatar
                 image={user?.avatar?.url}
                 imageAlt="avatar"
@@ -118,7 +118,7 @@ const Header = () => {
             <div className="item-center">
               <Avatar
                 image={user?.avatar?.url}
-                className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 object-cover"
+                className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 object-cover cursor"
                 imageAlt="user-profile"
                 shape="circle"
                 size="large"

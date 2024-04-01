@@ -43,7 +43,7 @@ const UserProfile = () => {
       setInfoAlert(true);
     }
     if (isSuccess) {
-      refetch();
+      toast.success(data?.message);
     }
   }, [isSuccess, diaptch, error, data]);
 

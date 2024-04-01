@@ -107,10 +107,7 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
 
-  const createLaywerHandler = async () => {
-    await createLawyer();
-    setOpenModal(false);
-  };
+
   useEffect(() => {
     if (signupData?.success) {
       // dispatch(userExist(signupData?.user));
@@ -157,8 +154,8 @@ const SignUp = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user) {
         dispatch(userExist(user));
+        localStorage.removeItem("user")
         toast.success(createLawyerData.message);
-        localStorage.removeItem("user");
         navigate("/user-profile");
       }
     }
@@ -200,6 +197,10 @@ const SignUp = () => {
   };
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
+  };
+  const createLaywerHandler = async () => {
+    await createLawyer();
+    setOpenModal(false);
   };
   return (
     <>

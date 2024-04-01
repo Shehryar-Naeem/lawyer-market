@@ -1,16 +1,30 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import FailureAlert from "../alert";
+
+const schema = yup.object({
+  name: yup.string().required(),
+  email: yup.string().email().required(),
+});
 
 const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
-  const [username, setName] = useState("");
-  const [useremail, setEmail] = useState("");
-  useEffect(() => {
-    setName(name);
-    setEmail(email);
-  }, [name, email]);
-  const updateHandler = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
 
-    await updateUser({ name: username, email: useremail });
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: name,
+      email: email,
+    },
+  });
+
+  const updateHandler = async (data) => {
+    await updateUser(data);
     setModal(false);
   };
 
@@ -46,25 +60,7 @@ const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
             </button>
           </div>
           <div className="p-4 md:p-5">
-            <form className="space-y-4" onSubmit={updateHandler}>
-              <div>
-                <label
-                  for="email"
-                  className="capitalize block mb-2 md:text-base text-sm md:font-semibold font-normal text-gray-900 dark:text-white"
-                >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={useremail}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-gray-50 border text-gray-900 md:text-base text-sm md:font-semibold font-medium small-btn-border-radius focus:ring-primary focus:border-primary block w-full p-2.5"
-                  placeholder="name@company.com"
-                  required
-                />
-              </div>
+            <form className="space-y-4" onSubmit={handleSubmit(updateHandler)}>
               <div>
                 <label
                   for="name"
@@ -72,15 +68,40 @@ const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
                 >
                   Your name
                 </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={username}
-                  onChange={(e) => setName(e.target.value)}
-                  className="bg-gray-50 border  text-gray-900 small-btn-border-radius focus:ring-primary focus:border-primary block md:text-base text-sm md:font-semibold font-normal w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
-                />
+                <div className="f-col md:gap-sm gap-xs">
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    {...register("name")}
+                    className="bg-gray-50 border  text-gray-900 small-btn-border-radius focus:ring-primary focus:border-primary block md:text-base text-sm md:font-semibold font-normal w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  />
+
+                  {errors?.name?.message && (
+                    <FailureAlert error={errors?.name?.message} />
+                  )}
+                </div>
+              </div>
+              <div>
+                <label
+                  for="email"
+                  className="capitalize block mb-2 md:text-base text-sm md:font-semibold font-normal text-gray-900 dark:text-white"
+                >
+                  Your email
+                </label>
+                <div className="f-col md:gap-sm gap-xs">
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    {...register("email")}
+                    className="bg-gray-50 border text-gray-900 md:text-base text-sm md:font-semibold font-medium small-btn-border-radius focus:ring-primary focus:border-primary block w-full p-2.5"
+                    placeholder="name@company.com"
+                  />
+                  {errors?.email?.message && (
+                    <FailureAlert error={errors?.email?.message} />
+                  )}
+                </div>
               </div>
 
               <input

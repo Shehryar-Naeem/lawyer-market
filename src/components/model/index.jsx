@@ -75,14 +75,14 @@ const CustomModal = ({
       dispatch(userExist(user));
       localStorage.removeItem("user");
       setOpenModal(!openModal);
-      navigate("/user-profile");
+      navigate("/gigs");
     }
   };
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Modal
         show={openModal}
-        onClose={cancelHandler  }
+        onClose={()=>cancelHandler()}
         // popup dismissible
         size={"sm"}
         className="animate-fade-in"

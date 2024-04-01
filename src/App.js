@@ -31,7 +31,7 @@ function App() {
       return;
     }
     // Check for success or error
-    if (isSuccess) {
+    if (isSuccess && !localStorage.getItem("user")) {
       dispatch(userExist(data.user));
 
       // toast.success(data?.message);
