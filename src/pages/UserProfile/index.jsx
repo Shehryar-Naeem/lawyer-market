@@ -75,7 +75,7 @@ const UserProfile = () => {
         <p>loading</p>
       ) : (
         <>
-          <div className="bg-gray-100 min-h-full h-auto">
+          <div className="page-container">
             <div className="container f-col gap-1 m-auto layout-pad">
               {infoAlet && (
                 <AlertMessage

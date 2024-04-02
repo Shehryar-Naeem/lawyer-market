@@ -67,6 +67,9 @@ input[type="number"] {
 }
 
 @layer utilities {
+  .page-container{
+    @apply lg:min-h-[calc(100vh-100px)] h-auto md:min-h-[calc(100vh-80px)] min-h-[calc(100vh-50px)] bg-gray-100
+  }
   .layout-pad {
     @apply lg:p-ly-pad md:p-md-ly-pad p-sm-ly-pad;
   }

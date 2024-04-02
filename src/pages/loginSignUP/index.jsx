@@ -204,7 +204,7 @@ const SignUp = () => {
   };
   return (
     <>
-      <div className=" h-full bg-gray-100">
+      <div className="page-container">
         <div className="container h-full flex-col item-center max-w-screen-sm  m-auto gap-2 md:p-0 p-4">
           <div className="bg-white shadow-2xl w-full z-10 p-2 rounded-lg ">
             <Tabs
