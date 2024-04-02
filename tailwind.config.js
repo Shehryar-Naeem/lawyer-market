@@ -65,9 +65,9 @@ module.exports = {
         "4xl": "8px",
       },
       margin: {
-        "ly-pad": "20px",
-        "md-ly-pad": "15px",
-        "sm-ly-pad": "10px",
+        "ly-m": "20px",
+        "md-ly-m": "15px",
+        "sm-ly-m": "10px",
         0.5: "6px",
         1: "12px",
         2: "18px",

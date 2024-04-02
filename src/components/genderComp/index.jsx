@@ -32,7 +32,7 @@ const GenderComp = ({ compData, show, setshow }) => {
         id="gender"
         onChange={(e) => setGender(e.target.value)}
         value={gender}
-        className="bg-gray-50 border capitalize border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full md:p-2.5 p-0.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="bg-gray-50 border capitalize border-gray-300 text-gray-900 text-sm small-btn-border-radius focus:ring-gray-500 focus:border-gray-500 block w-full md:p-2.5 p-0.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option value="">select gender</option>
         <option value="male">male</option>
