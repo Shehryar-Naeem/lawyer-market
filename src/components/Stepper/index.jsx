@@ -27,7 +27,7 @@ export default function TemplateDemo() {
 
       <div className="f-col lg:gap-1 md:gap-0.10 gap-0.8 item-center">
         <span
-          className="z-99 lg:w-[2rem] lg:h-[2rem] md:w-[1.7rem] md:cursor-pointer cursor-none md:h-[1.7rem] w-[1.4rem] h-[1.4rem] item-center rounded-full lg:text-lg md:text-base text-sm lg:font-bold md:font-medium font-semibold text-center"
+          className="z-10 lg:w-[2rem] lg:h-[2rem] md:w-[1.7rem] md:cursor-pointer cursor-none md:h-[1.7rem] w-[1.4rem] h-[1.4rem] item-center rounded-full lg:text-lg md:text-base text-sm lg:font-bold md:font-medium font-semibold text-center"
           style={{ backgroundColor: backgroundColor, color: textColor }}
         >
           {item.data}
