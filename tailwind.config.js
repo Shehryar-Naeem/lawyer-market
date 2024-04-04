@@ -133,11 +133,13 @@ module.exports = {
         "max-w-input": "900px",
         "md-menu-width": "200px",
         "menu-width": "150px",
-
         "lg-menu-width": "250px",
         "icon-width": "30px",
         "md-icon-width": "25px",
         "sm-icon-width": "20px",
+        "brand-logo": "100px",
+        "md-brand-logo": "80px",
+        "sm-brand-logo": "60px",
         
       },
       height: {
@@ -156,6 +158,10 @@ module.exports = {
         "icon-height": "30px",
         "md-icon-height": "25px",
         "sm-icon-height": "20px",
+        "brand-logo": "60px",
+        "md-brand-logo": "50px",
+        "sm-brand-logo": "40px",
+        
 
       },
       borderWidth: {

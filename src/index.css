@@ -27,6 +27,11 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
@@ -68,7 +73,7 @@ input[type="number"] {
 
 @layer utilities {
   .page-container{
-    @apply lg:min-h-[calc(100vh-100px)] h-auto md:min-h-[calc(100vh-80px)] min-h-[calc(100vh-50px)] bg-gray-100
+    @apply relative lg:min-h-[calc(100vh-100px)] h-auto m-auto md:min-h-[calc(100vh-80px)] min-h-[calc(100vh-50px)] bg-gray-100
   }
   .layout-pad {
     @apply lg:p-ly-pad md:p-md-ly-pad p-sm-ly-pad;
@@ -156,6 +161,12 @@ input[type="number"] {
   }
   .small-btn-border-radius {
     @apply lg:rounded-sm md:rounded-xs rounded-xxs;
+  }
+  .gig-label{
+    @apply lg:text-2xl md:text-xl text-lg lg:font-black md:font-extrabold font-bold text-black capitalize;
+  }
+  .gap{
+    @apply lg:gap-1 md:gap-0.10 gap-0.8
   }
 }
 

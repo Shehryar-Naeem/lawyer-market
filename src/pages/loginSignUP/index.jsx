@@ -204,8 +204,8 @@ const SignUp = () => {
   };
   return (
     <>
-      <div className="page-container">
-        <div className="container h-full flex-col item-center max-w-screen-sm  m-auto gap-2 md:p-0 p-4">
+      <div className="page-container item-center">
+        <div className="relative container h-auto flex-col item-center max-w-screen-sm  m-auto gap-2 md:p-0 p-4">
           <div className="bg-white shadow-2xl w-full z-10 p-2 rounded-lg ">
             <Tabs
               className={"w-full flex flex-col lg:gap-1 md:gap-0.10 gap-0.8"}

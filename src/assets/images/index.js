@@ -5,6 +5,7 @@ import profileLogo from "./profile.svg"
 import error from "./error.svg"
 import success from "./success.svg"
 import info from "./info.svg"
+import brandLogo from "./pak.jpg"
 import close from "./close.svg"
 
 
@@ -17,7 +18,8 @@ export const Images = {
     error,
     success,
     info,
-    close
+    close,
+    brandLogo
 
 
 

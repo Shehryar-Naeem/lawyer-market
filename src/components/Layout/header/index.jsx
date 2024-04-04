@@ -103,8 +103,8 @@ const Header = () => {
   return (
     <header className="shadow-2xl z-9 sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
       <nav className="flex-between">
-        <div className="ml-1 capitalize font-bold lg:text-lg md:text-base sm:text-sm text-xs item-center">
-          lawyer marketplace
+        <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo" >
+          <img src={Images.brandLogo} alt="brand_logo" className="w-full h-full object-fill"/>
         </div>
         {!isAuthenticated ? (
           <div className="item-center">
