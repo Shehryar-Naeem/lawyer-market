@@ -18,6 +18,8 @@ import Header from "./components/Layout/header";
 import UserSetting from "./pages/userSetting";
 import ProtectRoute from "./routes/ProtectedRoute";
 import GigStepOne from "./pages/createGig/step1";
+import GigStepTwo from "./pages/createGig/step2";
+import GigStepThree from "./pages/createGig/step3";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -91,6 +93,28 @@ function App() {
                     isLawyer={true}
                   >
                     <GigStepOne />
+                  </ProtectRoute>
+                }
+              />
+              <Route
+                path="/lawyer-gig/step2"
+                element={
+                  <ProtectRoute
+                    isAuthenticated={isAuthenticated}
+                    isLawyer={true}
+                  >
+                    <GigStepTwo />
+                  </ProtectRoute>
+                }
+              />
+              <Route
+                path="/lawyer-gig/step3"
+                element={
+                  <ProtectRoute
+                    isAuthenticated={isAuthenticated}
+                    isLawyer={true}
+                  >
+                    <GigStepThree />
                   </ProtectRoute>
                 }
               />

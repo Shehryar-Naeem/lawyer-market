@@ -7,6 +7,7 @@ import success from "./success.svg"
 import info from "./info.svg"
 import brandLogo from "./pak.jpg"
 import close from "./close.svg"
+import upload from "./upload.svg"
 
 
 
@@ -19,7 +20,8 @@ export const Images = {
     success,
     info,
     close,
-    brandLogo
+    brandLogo,
+    upload
 
 
 

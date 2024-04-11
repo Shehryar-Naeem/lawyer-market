@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Steps } from "primereact/steps";
 import { classNames } from "primereact/utils";
 
-export default function TemplateDemo() {
-  const [activeIndex, setActiveIndex] = useState(1);
+export default function TemplateDemo({step}) {
+  const [activeIndex, setActiveIndex] = useState(step);
 
   const itemRenderer = (item, itemIndex) => {
     const isActiveItem = activeIndex === itemIndex;

@@ -27,7 +27,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-img{
+img {
   width: 100%;
   height: 100%;
   object-fit: fill;
@@ -35,6 +35,15 @@ img{
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+
+}
+
+textarea {
+  resize: none;
+}
+input::placeholder {
+  white-space: normal;
+
 }
 @layer base {
   input[type="number"]::-webkit-inner-spin-button,
@@ -72,8 +81,8 @@ input[type="number"] {
 }
 
 @layer utilities {
-  .page-container{
-    @apply relative lg:min-h-[calc(100vh-100px)] h-auto m-auto md:min-h-[calc(100vh-80px)] min-h-[calc(100vh-50px)] bg-gray-100
+  .page-container {
+    @apply relative lg:min-h-[calc(100vh-100px)] h-auto m-auto md:min-h-[calc(100vh-80px)] min-h-[calc(100vh-50px)] bg-gray-100;
   }
   .layout-pad {
     @apply lg:p-ly-pad md:p-md-ly-pad p-sm-ly-pad;
@@ -162,11 +171,40 @@ input[type="number"] {
   .small-btn-border-radius {
     @apply lg:rounded-sm md:rounded-xs rounded-xxs;
   }
-  .gig-label{
+  .gig-label {
     @apply lg:text-2xl md:text-xl text-lg lg:font-black md:font-extrabold font-bold text-black capitalize;
   }
-  .gap{
-    @apply lg:gap-1 md:gap-0.10 gap-0.8
+  .gap {
+    @apply lg:gap-1 md:gap-0.10 gap-0.8;
+  }
+  .t-cell {
+    @apply relative md:border-2 border-1 border-solid border-gray-300 lg:p-4xl md:p-3xl p-xl capitalize text-black break-words h-full;
+  }
+  .t-cell-w {
+    @apply relative md:border-2 border-1 border-solid border-gray-300 lg:p-4xl md:p-3xl p-xl capitalize text-black break-words h-full;
+  }
+  .t-head-font {
+    @apply lg:text-base md:text-sm text-xs md:font-extrabold font-bold bg-gray-200;
+  }
+  .text-input {
+    @apply bg-gray-50 border resize-none text-gray-900  small-btn-border-radius lg:indent-[47px] md:indent-[37px] indent-[30px] focus:ring-primary focus:border-primary block xl:text-xl lg:text-lg md:text-base text-sm md:font-extrabold font-bold w-full md:p-[7px] p-[5px] placeholder:text-gray-400;
+  }
+  .text-input-gig{
+    @apply border-none outline-none focus:border-none focus:outline-none focus:ring-0 resize-none text-gray-900  block xl:text-base lg:text-sm text-xs md:font-semibold font-medium p-0 cursor placeholder:text-gray-400 w-11/12;
+  }
+  .text-input-with-border{
+    @apply border border-primary resize-none text-gray-900  block xl:text-base lg:text-sm text-xs md:font-semibold font-medium md:p-2.5 p-1 small-btn-border-radius cursor placeholder:text-gray-400 w-full focus:ring-primary focus:border-primary ;
+  }
+  .input-gig{
+    @apply border border-primary text-primary  placeholder-gray-600  md:text-lg  text-sm small-btn-border-radius focus:ring-primary focus:border-primary capitalize block w-full md:p-2.5 p-1;
+   
+  }
+  .gig-btn{
+    @apply bg-black text-white lg:text-base  md:text-sm md:font-bold font-semibold text-xs  lg:py-1 md:py-0.10 py-0.8 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none
+  }
+  .general-pad{
+    @apply lg:p-1 md:p-0.10 p-0.8;
+  
   }
 }
 

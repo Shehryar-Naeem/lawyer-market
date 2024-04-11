@@ -3,6 +3,8 @@ import Stepper from "../../../components/Stepper";
 import { Editor } from "primereact/editor";
 import { Checkbox } from "primereact/checkbox";
 import BlackBtn from "../../../components/BlackBtn";
+import { lawyerCategories } from "../../../data";
+import PageHeading from "../../../components/pageHeading";
 
 const GigStepOne = () => {
   const [text, setText] = useState("");
@@ -41,11 +43,13 @@ const GigStepOne = () => {
   return (
     <div className="page-container">
       <div className="container">
-        <div className="lg:pt-10 md:pt-8 pt-6 f-col lg:gap-1 md:gap-0.10 gap-0.8">
-          <div className="bg-white shadow-xl lg:p-4xl md:p-3xl p-3xl">
-            <Stepper />
+        <div className="lg:pt-10 md:pt-8 pt-6 f-col lg:gap-2 md:gap-1.5 gap-1">
+          <div className="bg-white md:shadow-lg shadow-md lg:p-4xl md:p-3xl p-3xl">
+            <Stepper step={0} />
           </div>
-          <div className="f-col bg-white shadow-xl lg:p-ly-pad md:p-3xl p-3xl lg:gap-0.10 md:gap-0.8 gap-sm">
+          <PageHeading text="basic gig info" />
+
+          <div className="f-col md:shadow-lg shadow-md bg-white lg:p-ly-pad md:p-3xl p-3xl lg:gap-0.10 md:gap-0.8 gap-sm">
             <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-2 md:gap-0.8 gap-sm place-items-end">
               <div className="w-full lg:gap-0.10 md:gap-0.8 gap-sm f-col justify-between">
                 <label className="gig-label">Gig Title</label>
@@ -57,9 +61,9 @@ const GigStepOne = () => {
                     type="text"
                     name="name"
                     rows={2}
-                    placeholder="be your "
+                    placeholder="be your"
                     id="name"
-                    className="bg-gray-50 border resize-none text-gray-900  small-btn-border-radius lg:indent-[47px] md:indent-[37px] indent-[30px] focus:ring-primary focus:border-primary block xl:text-xl lg:text-lg md:text-base text-sm md:font-extrabold font-bold w-full md:p-[7px] p-[5px] placeholder:text-gray-400 "
+                    className="text-input"
                   />
                 </div>
               </div>
@@ -90,29 +94,39 @@ const GigStepOne = () => {
             </div>
             <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
               <label className="gig-label">Category</label>
-              <ul class="w-full overflow-hidden lg:p-1 md:p-0.10 p-0.8 small-btn-border-radius text-sm font-medium  text-gray-900 bg-white border-1 border-black max-w-[300px]">
-                <li class="w-full border-b border-gray-400 rounded-t-lg">
-                  <div class="flex items-center lg:p-1 md:p-0.10 p-0.8 gap ">
-                    <input
-                      id="vue-checkbox"
-                      type="checkbox"
-                      name="vue-checkbox"
-                      // value=""
-                      className="md:w-6 md:h-6 w-4 h-4 bg-gray-300 border-gray-600 md:border-2 border-1 focus:ring-gray-500 md:focus:ring-2 focus:ring-1 md:rounded-xs rounded-xxs checked:bg-black lg:text-2xl md:text-xl text-base "
-                    />
-                    <label
-                      htmlFor="vue-checkbox"
-                      className="inline-flex lg:text-xl md:text-lg text-base md:font-bold font-semibold text-gray-900 dark:text-gray-300"
-                    >
-                      Vue JS
-                    </label>
-                  </div>
-                </li>
+              <ul class="w-full overflow-hidden lg:p-1 md:p-0.10 p-0.8 small-btn-border-radius text-sm font-medium  text-gray-900 bg-white border-1 border-black flex flex-wrap">
+                {lawyerCategories.map((category) => (
+                  <li
+                    class="border-b border-gray-400 md:w-2/4 w-full"
+                    key={category.id}
+                  >
+                    <div class="flex items-center lg:p-1 md:p-0.10 p-0.8 gap ">
+                      <input
+                        id={category.name}
+                        type="checkbox"
+                        name={category.name}
+                        value={category.name}
+                        className="md:w-6 md:h-6 w-4 h-4 bg-gray-300 border-gray-600 md:border-2 border-1 focus:ring-gray-500 md:focus:ring-2 focus:ring-1 md:rounded-xs rounded-xxs checked:bg-black lg:text-2xl md:text-xl text-base"
+                      />
+                      <label
+                        htmlFor={category.name}
+                        className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-bold font-semibold text-gray-900 dark:text-gray-300"
+                      >
+                        {category.name}
+                      </label>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="flex items-end justify-end">
               {/* <BlackBtn text="save and continue" /> */}
-              <button type="submit" className="bg-black text-white lg:text-base  md:text-sm md:font-bold font-semibold text-sm  lg:py-2 md:py-1 py-0.10 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none">save and continue</button>
+              <button
+                type="submit"
+                className="gig-btn"
+              >
+                save and continue
+              </button>
             </div>
           </div>
         </div>
