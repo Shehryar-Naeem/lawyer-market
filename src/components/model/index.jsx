@@ -3,6 +3,7 @@ import { Button, Flowbite, Modal } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userExist } from "../../redux/reducer/userReducer";
+import Loader from "../loader";
 
 const CustomModal = ({
   openModal,
@@ -97,7 +98,7 @@ const CustomModal = ({
               onClick={createLaywerHandler}
             >
               {createLawyerLoading ? (
-                <div className="animate-spin h-6 w-6  border-t-4 border-b-4 border-white rounded-full"></div>
+                <Loader/>
               ) : (
                 "Create"
               )}

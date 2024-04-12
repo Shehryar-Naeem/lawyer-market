@@ -45,6 +45,14 @@ export const userApi = createApi({
     lawyerPrfofile: builder.query({
       query: () => `lawyer/get-lawyer`,
     }),
+    gigstepOne : builder.mutation({
+      query: (gig) => ({
+        url: "gig/create-gig/step-1",
+        method: "POST",
+        body: gig,
+      }),
+      invalidatesTags: ["Gigs"],
+    }),
   }),
 });
 
@@ -55,4 +63,5 @@ export const {
   useUpdateUserMutation,
   useCreateLawyerMutation,
   useLawyerPrfofileQuery,
+  useGigstepOneMutation,
 } = userApi;
