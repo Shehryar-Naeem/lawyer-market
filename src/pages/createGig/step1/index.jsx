@@ -20,7 +20,10 @@ const gigStepOneSchema = yup.object().shape({
     .min(15, "Title must be higher than 15 characters")
     .max(80, "Title must be less than 80 characters")
     .required("Title is required"),
-  description: yup.string().min(40,"Description must be higher than 15 characters").required("Description is required"),
+  description: yup
+    .string()
+    .min(40, "Description must be higher than 15 characters")
+    .required("Description is required"),
   category: yup
     .array()
     .min(3, "Select at least 3 categories")
@@ -38,7 +41,7 @@ const GigStepOne = () => {
     resolver: yupResolver(gigStepOneSchema),
   });
 
-  const [gigStepOne, { data: gigData, isSuccess, error, isError, isLoading }] =
+  const [gitstepTwo, {  error, isError, isLoading }] =
     useGigstepOneMutation();
   const navigate = useNavigate();
   const watchDes = watch("description");
@@ -59,14 +62,20 @@ const GigStepOne = () => {
   }, [isError]);
 
   const submitHandler = async (data) => {
-    await gigStepOne(data);
+    try {
+      const response = await gitstepTwo(data);
+      
+      if (response && response?.data?.success) {
 
-    if (isSuccess && gigData.success) {
-      navigate("/create-gig/step-2", { state: { gigId: gigData.gig?._id } });
+        navigate("/lawyer-gig/step2", { state: { gigId: response.data.gig?._id } });
+      }
+    } catch (error) {
+      console.error("An error occurred while processing gigStepOne:", error);
+      // Handle error here
     }
   };
 
-  console.log(gigData, error, isLoading);
+  // console.log(gigData, error, isLoading, isSuccess);
   return (
     <div className="page-container">
       <div className="container">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stepper from "../../../components/Stepper";
 import { Editor } from "primereact/editor";
 import { Checkbox } from "primereact/checkbox";
@@ -10,13 +10,65 @@ import {
 } from "../../../data";
 import PageHeading from "../../../components/pageHeading";
 import { LuPencilLine } from "react-icons/lu";
+import { useLocation } from "react-router-dom";
+import FailureAlert from "../../../components/alert";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useGigstepTwoMutation, useGitstepTwoMutation } from "../../../redux/api/userApi";
+import toast from "react-hot-toast";
+import {useNavigate} from "react-router-dom"
+import Loader from "../../../components/loader";
+
+const gigStepTwoSchema = yup.object().shape({
+  services: yup
+    .array()
+    .min(3, "Select at least 3 categories")
+    .required("Category is required"),
+  price: yup.number().required("Price is required"),
+});
 
 const GigStepTwo = () => {
-  const [isChecked, setIsChecked] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(gigStepTwoSchema),
 
+  });
+  const navigate= useNavigate()
+
+  const [gigstepTwo,{isError,error,isLoading}] = useGigstepTwoMutation();
+  const location = useLocation();
+  const [isChecked, setIsChecked] = useState(false);
   const toggleCheckbox = () => {
     setIsChecked(!isChecked);
   };
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.data.message);
+    }
+  }, [isError]);
+  console.log(error);
+
+  const submitHandler = async (data) => {
+    try {
+      console.log(data);
+      const response = await gigstepTwo({ id: location.state.gigId.toString(), data: data });
+      console.log("response", response);
+      
+      if (response && response?.data?.success) {
+
+        navigate("/lawyer-gig/step3", { state: { gigId: response.data.gig?._id } });
+      }
+    } catch (error) {
+      console.error("An error occurred while processing gigStepOne:", error);
+      // Handle error here
+    }
+    
+
+  }
   return (
     <div className="page-container">
       <div className="container">
@@ -25,62 +77,13 @@ const GigStepTwo = () => {
             <Stepper step={1} />
           </div>
           <PageHeading text="Services & Pricing" />
-          <div className="f-col md:shadow-lg shadow-md bg-white lg:p-ly-pad md:p-3xl p-3xl lg:gap-0.10 md:gap-0.8 gap-sm">
-            <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
-              <label className="gig-label">services</label>
-              <ul class="w-full overflow-hidden lg:p-1 md:p-0.10 p-0.8 small-btn-border-radius text-sm font-medium  text-gray-900 bg-white border-1 border-black flex flex-wrap">
-                {lawyerServices.map((category) => (
-                  <li
-                    class="border-b border-gray-400 md:w-2/4 w-full"
-                    key={category.id}
-                  >
-                    <div class="flex items-center lg:p-1 md:p-0.10 p-0.8 gap ">
-                      <input
-                        id={category.name}
-                        type="checkbox"
-                        name={category.name}
-                        value={category.name}
-                        className="md:w-6 md:h-6 w-4 h-4 bg-gray-300 border-gray-600 md:border-2 border-1 focus:ring-gray-500 md:focus:ring-2 focus:ring-1 md:rounded-xs rounded-xxs checked:bg-black lg:text-2xl md:text-xl text-base"
-                      />
-                      <label
-                        htmlFor={category.name}
-                        className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-bold font-semibold text-gray-900 dark:text-gray-300 cursor"
-                      >
-                        {category.name}
-                      </label>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
 
-            <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
-              <label className="gig-label">price</label>
-              <div>
-                <input
-                  placeholder="service charges"
-                  className="input-gig"
-                  type="number"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center lg:gap-1 md:gap-0.10 gap-0.8 ">
-              <input
-                type="checkbox"
-                checked={isChecked}
-                id="additionalCost"
-                onChange={toggleCheckbox}
-                className="cursor md:w-6 md:h-6 w-4 h-4 bg-gray-300 border-gray-600 md:border-2 border-1 focus:ring-gray-500 md:focus:ring-2 focus:ring-1 md:rounded-xs rounded-xxs checked:bg-black lg:text-2xl md:text-xl text-base"
-              />
-              <label htmlFor="additionalCost" className="gig-label cursor">
-                additional cost
-              </label>
-            </div>
-            {isChecked && (
+          <form onSubmit={handleSubmit(submitHandler)}>
+            <div className="f-col md:shadow-lg shadow-md bg-white lg:p-ly-pad md:p-3xl p-3xl lg:gap-0.10 md:gap-0.8 gap-sm">
               <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
+                <label className="gig-label">services</label>
                 <ul class="w-full overflow-hidden lg:p-1 md:p-0.10 p-0.8 small-btn-border-radius text-sm font-medium  text-gray-900 bg-white border-1 border-black flex flex-wrap">
-                  {additionalServices.map((category) => (
+                  {lawyerServices.map((category) => (
                     <li
                       class="border-b border-gray-400 md:w-2/4 w-full"
                       key={category.id}
@@ -91,6 +94,7 @@ const GigStepTwo = () => {
                           type="checkbox"
                           name={category.name}
                           value={category.name}
+                          {...register("services")}
                           className="md:w-6 md:h-6 w-4 h-4 bg-gray-300 border-gray-600 md:border-2 border-1 focus:ring-gray-500 md:focus:ring-2 focus:ring-1 md:rounded-xs rounded-xxs checked:bg-black lg:text-2xl md:text-xl text-base"
                         />
                         <label
@@ -103,28 +107,84 @@ const GigStepTwo = () => {
                     </li>
                   ))}
                 </ul>
+                {errors.services && (
+                  <FailureAlert error={errors.services.message} />
+                )}
+              </div>
+
+              <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
+                <label className="gig-label">price</label>
+                <div>
+                  <input
+                    placeholder="service charges"
+                    className="input-gig"
+                    type="number"
+                    {...register("price")}
+                  />
+                </div>
+                {errors.price && <FailureAlert error={errors.price.message} />}
+              </div>
+
+              <div className="flex items-center lg:gap-1 md:gap-0.10 gap-0.8 ">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  id="additionalCost"
+                  onChange={toggleCheckbox}
+                  className="cursor md:w-6 md:h-6 w-4 h-4 bg-gray-300 border-gray-600 md:border-2 border-1 focus:ring-gray-500 md:focus:ring-2 focus:ring-1 md:rounded-xs rounded-xxs checked:bg-black lg:text-2xl md:text-xl text-base"
+                />
+                <label htmlFor="additionalCost" className="gig-label cursor">
+                  additional cost
+                </label>
+              </div>
+              {isChecked && (
                 <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
-                  <label className="gig-label">price</label>
-                  <div>
-                    <input
-                      placeholder="service charges"
-                      className="input-gig"
-                      type="number"
-                    />
+                  <ul class="w-full overflow-hidden lg:p-1 md:p-0.10 p-0.8 small-btn-border-radius text-sm font-medium  text-gray-900 bg-white border-1 border-black flex flex-wrap">
+                    {additionalServices.map((category) => (
+                      <li
+                        class="border-b border-gray-400 md:w-2/4 w-full"
+                        key={category.id}
+                      >
+                        <div class="flex items-center lg:p-1 md:p-0.10 p-0.8 gap ">
+                          <input
+                            id={category.name}
+                            type="checkbox"
+                            name={category.name}
+                            value={category.name}
+                            className="md:w-6 md:h-6 w-4 h-4 bg-gray-300 border-gray-600 md:border-2 border-1 focus:ring-gray-500 md:focus:ring-2 focus:ring-1 md:rounded-xs rounded-xxs checked:bg-black lg:text-2xl md:text-xl text-base"
+                          />
+                          <label
+                            htmlFor={category.name}
+                            className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-bold font-semibold text-gray-900 dark:text-gray-300 cursor"
+                          >
+                            {category.name}
+                          </label>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
+                    <label className="gig-label">price</label>
+                    <div>
+                      <input
+                        placeholder="service charges"
+                        className="input-gig"
+                        type="number"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            <div className="flex items-end justify-end">
-              <button
-                type="submit"
-                className="gig-btn"
-              >
-                save and continue
-              </button>
+              <div className="flex items-end justify-end">
+                <button type="submit" className="gig-btn">
+                  {
+                    isLoading ? <Loader /> :"save and continue"
+                  }
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

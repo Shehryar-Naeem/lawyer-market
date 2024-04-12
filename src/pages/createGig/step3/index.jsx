@@ -11,13 +11,12 @@ import {
 import PageHeading from "../../../components/pageHeading";
 import { LuPencilLine } from "react-icons/lu";
 import { Images } from "../../../assets/images";
+import { useGigstepThreeMutation } from "../../../redux/api/userApi";
 
 const GigStepThree = () => {
-  const [isChecked, setIsChecked] = useState(false);
+   
+  const [gigstepThree,{error,isError,isLoading}]= useGigstepThreeMutation()
 
-  const toggleCheckbox = () => {
-    setIsChecked(!isChecked);
-  };
   return (
     <div className="page-container">
       <div className="container">
