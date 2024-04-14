@@ -9,7 +9,7 @@ import PostalCode from "../postalCode";
 
 const ProfileData = ({ userData, setModal, modal }) => {
   return (
-    <div className="md:col-span-2 col-span-6 flex flex-col md:gap-1 gap-sm">
+    <div className="md:col-span-2 col-span-6 flex flex-col lg:gap-3 md:gap-2 gap-1 ">
       <div className="block_container">
         <ImageUploader avatar={userData?.user?.avatar?.url}/>
         <div className="item-center flex-col">

@@ -62,7 +62,7 @@ const Header = () => {
       icon: "pi pi-cog",
       template: itemRenderer,
       command: () => {
-        navigate("/settings"); // Redirect to the settings page
+        navigate("/settings/profile"); 
       },
     },
 

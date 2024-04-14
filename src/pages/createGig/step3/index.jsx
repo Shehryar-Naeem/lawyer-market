@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stepper from "../../../components/Stepper";
 import { Editor } from "primereact/editor";
 import { Checkbox } from "primereact/checkbox";
@@ -12,10 +12,12 @@ import { Images } from "../../../assets/images";
 import { MdDelete } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { useGigstepThreeMutation } from "../../../redux/api/userApi";
+import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import FailureAlert from "../../../components/alert";
+import Loader from "../../../components/loader";
 const imageSchema = yup.object().shape({
-  image: yup
+  images: yup
     .array()
     .min(1, "Upload at least one image")
     .max(3, "Upload at most 3 images")
@@ -23,6 +25,8 @@ const imageSchema = yup.object().shape({
 });
 
 const GigStepThree = () => {
+  const location = useLocation();
+  const navigate= useNavigate()
   const {
     register,
     handleSubmit,
@@ -31,12 +35,23 @@ const GigStepThree = () => {
   } = useForm({
     resolver: yupResolver(imageSchema),
   });
+  const id = location.state.gigId.toString();
 
   const [images, setImages] = useState([]);
 
   const [gigstepThree, { error, isError, isLoading }] =
     useGigstepThreeMutation();
 
+  useEffect(() => {
+    setValue("images", images);
+   
+  }, [images]);
+  useEffect(() => {
+   
+      if (isError) {
+        toast.error(error.data.message);
+      }
+    }, [isError, error]);
   // const handleImageUpload = (e, index) => {
   //   const files = Array.from(e.target.files);
 
@@ -77,7 +92,7 @@ const GigStepThree = () => {
 
       Promise.all(filePromises).then(() => {
         setImages((oldImages) => [...oldImages, ...uploadedImages]);
-        setValue("image", [...images, ...uploadedImages]);
+        setValue("images", [...images, ...uploadedImages]);
       });
     } else {
       toast.error("You can upload up to 3 images");
@@ -94,7 +109,7 @@ const GigStepThree = () => {
     const updatedImages = [...images];
     updatedImages.splice(index, 1);
     setImages(updatedImages);
-    setValue("image", updatedImages); // Update form field value
+    setValue("images", updatedImages); // Update form field value
   };
 
   // const updateImageHandler = (e, index) => {
@@ -126,7 +141,7 @@ const GigStepThree = () => {
           const updatedImages = [...images];
           updatedImages[index] = reader.result;
           setImages(updatedImages);
-          setValue("image", updatedImages); // Update form field value
+          setValue("images", updatedImages); // Update form field value
         }
       };
 
@@ -134,8 +149,21 @@ const GigStepThree = () => {
     }
   };
 
-  const submitHandler = (data) => {
+  const submitHandler = async (data) => {
     console.log(data);
+    try {
+      console.log("id", id);
+      const response = await gigstepThree({ id, data });
+      console.log("response", response);
+      
+      if (response && response?.data?.success) {
+
+        navigate("/user-profile/gigs");
+      }
+    } catch (error) {
+      console.error("An error occurred while processing gigStepOne:", error);
+
+    }
   };
   return (
     <div className="page-container">
@@ -176,11 +204,12 @@ const GigStepThree = () => {
                     className="hidden"
                     accept="image/*"
                     multiple
-                    {...register("image")}
+                    {...register("images")}
                     onChange={(e) => handleImageUpload(e, 0)}
                   />
                 </label>
               </div>
+              {errors.images && <FailureAlert error={errors.images.message} />}
               <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1 lg:gap-1 md:gap-0.10 gap-0.8 h-full ">
                 {images.map((image, index) => (
                   <div
@@ -216,12 +245,13 @@ const GigStepThree = () => {
               </div>
               <div className="flex items-end justify-end">
                 <button type="submit" className="gig-btn">
-                  save and continue
+                {
+                    isLoading ? <Loader /> :"save and publish"
+                  }
                 </button>
               </div>
             </div>
           </form>
-          {errors.image && <FailureAlert error={errors.image.message} />}
         </div>
       </div>
     </div>

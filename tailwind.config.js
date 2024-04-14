@@ -70,6 +70,8 @@ module.exports = {
         "md-ly-m": "15px",
         "sm-ly-m": "10px",
         0.5: "6px",
+        0.10: "10px",
+        0.8: "8px",
         1: "12px",
         2: "18px",
         xs: "1px",
@@ -125,6 +127,7 @@ module.exports = {
 
       width: {
         img: "150px",
+        "md-img": "100px",
         avatar: "60px",
         "md-avatar": "50px",
         "sm-avatar": "40px",
@@ -145,6 +148,7 @@ module.exports = {
       },
       height: {
         "img-height": "150px",
+        "md-img-height": "100px",
         "sm-img": "50px",
         "xs-img": "40px",
         "c-img-h": "150px",

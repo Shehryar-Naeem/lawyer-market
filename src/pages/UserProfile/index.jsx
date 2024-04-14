@@ -84,13 +84,13 @@ const UserProfile = () => {
                   icon={Images.info}
                 />
               )}
-              <div className="grid lg:gap-3 md:gap-2 sm:gap-1 gap-sm md:grid-cols-5 grid-cols-6 ">
+              <div className="grid lg:gap-3 md:gap-2 gap-1 grid-cols-6">
                 <ProfileData
                   userData={userData}
                   modal={modal}
                   setModal={setModal}
                 />
-                <div className="md:col-span-3 col-span-6 flex flex-col md:gap-1 gap-sm">
+                <div className="md:col-span-4 col-span-6 flex flex-col md:gap-1 gap-sm">
                   <div className="h-full w-full flex gap-1 flex-col bg-white shadow-2xl lg:p-2 md:p-1 p-0.5">
                     <div className="flex w-full overflow-auto">
                       <NavLink

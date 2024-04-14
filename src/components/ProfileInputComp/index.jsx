@@ -2,23 +2,17 @@ import React from "react";
 
 const ProfileInputComp = ({ lable, placeholder, type }) => {
   return (
-    <div className="flex flex-col gap-1">
-        <label
-          for={lable}
-          class="input-lable"
-        >
-          {lable}
-        </label>
-        <input
-          type={type}
-          id={lable}
-          class="bg-black-50 border border-primary text-primary dark:text-green-400 placeholder-black dark:placeholder-green-500 md:text-lg  text-sm rounded-lg focus:ring-primary focus:border-primary capitalize block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
-          placeholder={placeholder}
-        />
-        <p class="mt-2 text-sm text-green-600 dark:text-green-500">
-          <span class="font-medium">Well done!</span> Some success message.
-        </p>
-      </div>
+    <div className="flex flex-col lg:gap-0.8 md:gap-0.5 gap-xs">
+      <label for={lable} class="input-lable">
+        {lable}
+      </label>
+      <input
+        type={type}
+        id={lable}
+        class="border border-primary text-primary placeholder-black  md:text-lg text-sm small-btn-border-radius focus:ring-primary focus:border-primary block w-full lg:p-2.5 md:p-1 p-0.8"
+        placeholder={placeholder}
+      />
+    </div>
   );
 };
 

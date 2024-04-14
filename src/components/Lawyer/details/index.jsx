@@ -15,7 +15,7 @@ const LawyerDetail = () => {
             <LawyerProfileLoading />
           ) : (
             <div className="info-label-gap">
-              <span className="info-label-text-bold">Legal firm Name:</span>
+              <span className="info-label-text-bold">Legal Name:</span>
               <span className="info-label-text">John Doe</span>
             </div>
           )}
@@ -23,7 +23,7 @@ const LawyerDetail = () => {
             <LawyerProfileLoading />
           ) : (
             <div className="info-label-gap">
-              <span className="info-label-text-bold">Legal firm Name:</span>
+              <span className="info-label-text-bold">position Name:</span>
               <span className="info-label-text">John Doe</span>
             </div>
           )}

@@ -20,6 +20,7 @@ import ProtectRoute from "./routes/ProtectedRoute";
 import GigStepOne from "./pages/createGig/step1";
 import GigStepTwo from "./pages/createGig/step2";
 import GigStepThree from "./pages/createGig/step3";
+import EditProfile from "./components/Lawyer/editProfile";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -82,8 +83,21 @@ function App() {
                 <Route exact path="bids" element={<Bid />} />
                 <Route exact path="chat" element={<Chat />} />
               </Route>
+              <Route
+                exact
+                path="/settings/profile"
+                element={
+                  <ProtectRoute isAuthenticated={isAuthenticated}>
+                    <UserSetting />
+                  </ProtectRoute>
+                }
+              >
+                <Route exact path="" element={<EditProfile/>} />
+                <Route exact path="password" element={<Gigs />} />
+                <Route exact path="accounts" element={<Bid />} />
+              </Route>
 
-              <Route path="/settings" element={<UserSetting />} />
+              {/* <Route path="/settings/profile" element={<UserSetting />} /> */}
               <Route path="/gigs" element={<CardSkeletonLoading />} />
               <Route
                 path="/lawyer-gig/step1"

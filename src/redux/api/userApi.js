@@ -44,6 +44,7 @@ export const userApi = createApi({
     }),
     lawyerPrfofile: builder.query({
       query: () => `lawyer/get-lawyer`,
+      providesTags: ["Lawyers"],
     }),
     gigstepOne: builder.mutation({
       query: (gig) => ({
@@ -67,6 +68,11 @@ export const userApi = createApi({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["Gigs"],
+    }),
+    getUserGigs: builder.query({
+      query: () => `gig/get-gigs/me`,
+      providesTags: ["Gigs"],
     }),
   }),
 });
@@ -81,4 +87,5 @@ export const {
   useGigstepOneMutation,
   useGigstepTwoMutation,
   useGigstepThreeMutation,
+  useGetUserGigsQuery,
 } = userApi;

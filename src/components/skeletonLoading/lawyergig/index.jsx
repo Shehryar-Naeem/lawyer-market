@@ -5,7 +5,7 @@ import GigCard from "../../card";
 const LawyerGigSkeletonLoading = () => {
   return (
     <>
-      <div className="f-col md:gap-1 gap-sm justify-start max-w-sm md:p-1 p-0.5 ">
+      <div className="f-col md:gap-1 gap-sm justify-start max-w-sm md:p-1 p-0.5 lg:shadow-3xl md:shadow-2xl sm:shadow-lg shadow-md  md:rounded-sm rounded-xs">
         <div className="min-card-h">
           <Skeleton className="w-full h-full lg:rounded-2xl md:rounded-xl sm:rounded-lg rounded-md" />
         </div>

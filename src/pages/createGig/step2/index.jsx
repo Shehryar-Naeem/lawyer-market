@@ -50,13 +50,10 @@ const GigStepTwo = () => {
       toast.error(error.data.message);
     }
   }, [isError]);
-  console.log(error);
 
   const submitHandler = async (data) => {
     try {
-      console.log(data);
       const response = await gigstepTwo({ id: location.state.gigId.toString(), data: data });
-      console.log("response", response);
       
       if (response && response?.data?.success) {
 
