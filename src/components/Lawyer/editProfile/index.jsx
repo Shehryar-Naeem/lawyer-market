@@ -17,7 +17,7 @@ const EditProfile = () => {
       </TabList>
       <div className="md:border-2 border-1 border-solid border-gray-400 general-pad md:rounded-xs rounded-xxs h-full">
         <TabPanel>
-          <div className="f-col">
+          <div className="f-col h-full">
             <h3 className="lg:text-xl md:text-lg text-base font-extrabold capitalize">
               update your professional info
             </h3>
@@ -51,9 +51,9 @@ const EditProfile = () => {
             <button className="gig-btn">update</button>
           </div>
         </TabPanel>
-        <TabPanel >
+        <TabPanel>
           {" "}
-          <div className="f-col h-full">
+          <div className="f-col h-full relative">
             <h3 className="lg:text-xl md:text-lg text-base font-extrabold capitalize">
               update your education info
             </h3>

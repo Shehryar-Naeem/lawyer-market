@@ -21,6 +21,8 @@ import GigStepOne from "./pages/createGig/step1";
 import GigStepTwo from "./pages/createGig/step2";
 import GigStepThree from "./pages/createGig/step3";
 import EditProfile from "./components/Lawyer/editProfile";
+import PasswordTab from "./components/passwordTab";
+import Accounts from "./components/Accounts";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -93,8 +95,8 @@ function App() {
                 }
               >
                 <Route exact path="" element={<EditProfile/>} />
-                <Route exact path="password" element={<Gigs />} />
-                <Route exact path="accounts" element={<Bid />} />
+                <Route exact path="password" element={<PasswordTab />} />
+                <Route exact path="accounts" element={<Accounts />} />
               </Route>
 
               {/* <Route path="/settings/profile" element={<UserSetting />} /> */}
