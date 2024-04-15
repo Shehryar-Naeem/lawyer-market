@@ -213,7 +213,7 @@ input::placeholder {
     @apply border border-primary text-primary  placeholder-gray-600  md:text-lg  text-sm small-btn-border-radius focus:ring-primary focus:border-primary capitalize block w-full md:p-2.5 p-1;
   }
   .gig-btn {
-    @apply bg-black text-white lg:text-base  md:text-sm md:font-bold font-semibold text-xs  lg:py-1 md:py-0.10 py-0.8 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none;
+    @apply bg-black text-white lg:text-base  md:text-base md:font-bold font-semibold text-sm md:py-1 py-0.10 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none;
   }
   .general-pad {
     @apply lg:p-1 md:p-0.10 p-0.8;
@@ -240,7 +240,7 @@ input::placeholder {
   /* Adjust the duration and timing function as needed */
 }
 .underline-tab.active {
-  @apply md:border-b-[3px] border-b-1 border-solid border-black outline-none;
+  @apply md:border-b-[3px] border-b-2 border-solid border-black outline-none;
   animation: fadeIn 0.5s ease;
 }
 
