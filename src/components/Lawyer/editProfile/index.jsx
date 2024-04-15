@@ -58,7 +58,7 @@ const EditProfile = () => {
               update your education info
             </h3>
             <div className="f-col justify-between h-full">
-              <div className="grid grid-cols-1 gap lg:my-1 md:my-0.10 my-0.8 ">
+              <div className="grid grid-cols-1 gap lg:my-1 md:my-0.10 my-0.8">
                 <ProfileInputComp
                   lable="institution name"
                   placeholder="Enter your institution name"

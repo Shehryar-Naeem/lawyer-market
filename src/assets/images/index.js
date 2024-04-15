@@ -9,6 +9,8 @@ import brandLogo from "./pak.jpg"
 import close from "./close.svg"
 import upload from "./upload.svg"
 import brand from "./building-brand.jpg"
+import lawyer from "./lawyer.svg"
+import client from "./client.svg"
 
 
 
@@ -23,7 +25,9 @@ export const Images = {
     close,
     brandLogo,
     upload,
-    brand
+    brand,
+    lawyer,
+    client
 
 
 
