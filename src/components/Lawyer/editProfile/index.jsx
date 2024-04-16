@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import ProfileInputComp from "../../ProfileInputComp";
 import * as yup from "yup";
@@ -13,6 +13,8 @@ import FailureAlert from "../../alert";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../../loadingSpinner";
 import Loader from "../../loader";
+import { Chips } from "primereact/chips";
+import { classNames } from "primereact/utils";
 const professionalInfoSchema = yup.object().shape({
   firmName: yup.string().required("Firm name is required"),
   positionName: yup.string().required("Position name is required"),
@@ -22,14 +24,16 @@ const professionalInfoSchema = yup.object().shape({
 });
 
 const educationSchema = yup.object().shape({
-  institutionName: yup.string().required("Institution name is required"),
-  completionYear: yup.string().required("Completion year is required"),
+  institution: yup.string().required("Institution name is required"),
+  startYear: yup.number().required("Start year is required"),
+  endYear: yup.number().required("end yer is required"),
 });
 
 const EditProfile = () => {
+  const [value, setValue] = useState([]);
   const {
     data,
-    isFetching,
+    isLoading: isLawyerProfileLoading,
     isError: isLawyerProfileError,
     error: lawyerProfileError,
   } = useLawyerPrfofileQuery();
@@ -48,7 +52,6 @@ const EditProfile = () => {
         data?.LawyerProfile?.professionalInfo?.barAdmission?.licenseNumber ||
         "",
       experience: data?.LawyerProfile?.professionalInfo?.experience || "",
-      
     },
   });
 
@@ -56,10 +59,17 @@ const EditProfile = () => {
     register: registerEducation,
     handleSubmit: handleSubmitEducation,
     formState: { errors: educationErrors },
+    setValue: setEducationValue,
   } = useForm({
     resolver: yupResolver(educationSchema),
+    defaultValues: {
+      institution: data?.LawyerProfile?.education?.institution,
+      endYear: data?.LawyerProfile?.education?.endYear,
+      startYear: data?.LawyerProfile?.education?.startYear,
+    },
   });
 
+  // console.log(data);
   const [completeLawyerProfile, { isError, error, isLoading }] =
     useCompleteLawyerProfileMutation();
 
@@ -92,6 +102,18 @@ const EditProfile = () => {
       "experience",
       data?.LawyerProfile?.professionalInfo?.experience || ""
     );
+    setEducationValue(
+      "institution",
+      data?.LawyerProfile?.education?.institution || ""
+    );
+    setEducationValue(
+      "startYear",
+      data?.LawyerProfile?.education?.completionYear?.startYear || ""
+    );
+    setEducationValue(
+      "endYear",
+      data?.LawyerProfile?.education?.completionYear?.endYear || ""
+    );
   }, [data]);
 
   const submitProfessionalInfo = async (data) => {
@@ -101,7 +123,6 @@ const EditProfile = () => {
         Swal.fire({
           icon: "success",
           title: "Profile Updated",
-          text: response.data.message,
         });
       }
     } catch (error) {
@@ -109,6 +130,54 @@ const EditProfile = () => {
     }
   };
 
+  const submitEducation = async (data) => {
+    try {
+      const response = await completeLawyerProfile(data);
+      if (response?.data?.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Profile Updated",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const chipsTheme = {
+    root: ({ props }) => ({
+      className: classNames("flex", {
+        "opacity-60 select-none pointer-events-none cursor-default active:outline-0 outline-0":
+          props.disabled,
+      }),
+    }),
+    container: {
+      className: classNames(
+        "md:p-0.8 p-lg m-0 list-none cursor-text overflow-hidden focus:border-2 flex items-center flex-wrap",
+        "w-full",
+        "font-sans text-base text-gray-600 bg-white border border-black acti transition-colors duration-200 appearance-none small-btn-border-radius",
+        "hover:border-black hover:border-2 focus:outline-0"
+      ),
+    },
+    inputToken: {
+      className: classNames(
+        "focus:outline-0 active:outline-0 outline-0 flex flex-1 inline-flex"
+      ),
+    },
+    input: {
+      className: classNames(
+        "text-base text-gray-700 w-full p-0 border-none ring-0 ",
+        ""
+      ),
+    },
+    token: {
+      className: classNames(
+        "md:p-0.5 p-lg md:mr-lg mr-md bg-gray-300 dark:bg-gray-700 text-gray-700 md:text-base text-sm small-btn-border-radius",
+        "cursor-default inline-flex items-center "
+      ),
+    },
+    removeTokenIcon: "ml-0.8 ",
+  };
   return (
     <Tabs
       className={
@@ -122,7 +191,7 @@ const EditProfile = () => {
       </TabList>
       <div className="md:border-2 border-1 border-solid border-gray-400 general-pad md:rounded-xs rounded-xxs h-full">
         <TabPanel>
-          {isFetching ? (
+          {isLawyerProfileLoading ? (
             <LoadingSpinner />
           ) : (
             <>
@@ -230,59 +299,77 @@ const EditProfile = () => {
             <h3 className="lg:text-xl md:text-lg text-base font-extrabold capitalize">
               update your education info
             </h3>
-            <form className="f-col justify-between h-full">
+            <form
+              className="f-col justify-between h-full"
+              onSubmit={handleSubmitEducation(submitEducation)}
+            >
               <div className="grid grid-cols-1 gap lg:my-1 md:my-0.10 my-0.8">
-                <ProfileInputComp
-                  lable="institution name"
-                  placeholder="Enter your institution name"
-                  type="text"
-                  name={"institutionName"}
-                  register={registerEducation}
-
-                />
-                <ProfileInputComp
-                  lable="completion year"
-                  placeholder="Enter your completion year"
-                  type="text"
-                  name={"completionYear"}
-                  register={registerEducation}
-                />
+                <div className="f-col gap">
+                  <ProfileInputComp
+                    lable="institution name"
+                    placeholder="Enter your institution name"
+                    type="text"
+                    name={"institution"}
+                    register={registerEducation}
+                  />
+                  {educationErrors.institution && (
+                    <FailureAlert error={educationErrors.institution.message} />
+                  )}
+                </div>
+                <div className="grid md:grid-cols-2 grid-cols-1 gap">
+                  <div className="f-col gap">
+                    <ProfileInputComp
+                      lable="starting year"
+                      placeholder="Enter your starting year"
+                      type="number"
+                      name={"startYear"}
+                      register={registerEducation}
+                    />
+                    {educationErrors.startYear && (
+                      <FailureAlert error={educationErrors.startYear.message} />
+                    )}
+                  </div>
+                  <div className="f-col gap">
+                    <ProfileInputComp
+                      lable="ending year"
+                      placeholder="Enter your ending year"
+                      type="number"
+                      name={"endYear"}
+                      register={registerEducation}
+                    />
+                    {educationErrors.endYear && (
+                      <FailureAlert error={educationErrors.endYear.message} />
+                    )}
+                  </div>
+                </div>
               </div>
-              <button className="gig-btn">update</button>
+              <button type="submit" className="gig-btn">
+                update
+              </button>
             </form>
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="f-col h-full">
+          <div className="f-col gap h-full">
             <h3 className="lg:text-xl md:text-lg text-base font-extrabold capitalize">
               update your professional info
             </h3>
-            <div className="grid md:grid-cols-2 grid-cols-1 gap lg:my-1 md:my-0.10 my-0.8 ">
-              <ProfileInputComp
-                lable="firm name"
-                placeholder="Enter your firm name"
-                type="text"
-              />
-              <ProfileInputComp
-                lable="position name"
-                placeholder="Enter your position name"
-                type="text"
-              />
-              <ProfileInputComp
-                lable="state"
-                placeholder="Enter the state"
-                type="text"
-              />
-              <ProfileInputComp
-                lable="license number"
-                placeholder="Enter your license number"
-                type="text"
-              />
-              <ProfileInputComp
-                lable="Experience"
-                placeholder="Enter your experience"
-                type="text"
-              />
+            <div className="f-col justify-between h-full ">
+              <div className="f-col gap">
+                <label htmlFor={"days"} class="input-lable">
+                  Days
+                </label>
+                <Chips
+                  value={value}
+                  onChange={(e) => setValue(e.value)}
+                  placeholder={
+                    value.length < 6 ? "Enter the days you are available" : ""
+                  }
+                  variant="outlined"
+                  max={6}
+                  pt={chipsTheme}
+                />
+              </div>
             </div>
             <button className="gig-btn">update</button>
           </div>

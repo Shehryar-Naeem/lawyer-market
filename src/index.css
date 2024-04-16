@@ -36,6 +36,9 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+input{
+  outline: none;
+}
 textarea {
   resize: none;
 }
