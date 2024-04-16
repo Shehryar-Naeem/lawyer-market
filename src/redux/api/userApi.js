@@ -4,7 +4,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `/api/`,
   }),
-  tagTypes: ["Users", "Lawyers"],
+  tagTypes: ["Users", "Lawyers","Gigs"],
   endpoints: (builder) => ({
     signup: builder.mutation({
       query: (user) => ({
@@ -34,11 +34,27 @@ export const userApi = createApi({
       query: () => `user/get-profle`,
       providesTags: ["Users"],
     }),
+    updatePassword: builder.mutation({
+      query: (password) => ({
+        url: "user/update-user-password",
+        method: "PUT",
+        body: password,
+      }),
+      invalidatesTags: ["Users"],
+    }),
     createLawyer: builder.mutation({
       query: (lawyer) => ({
         url: "lawyer/create-lawyer-account",
         method: "POST",
         body: lawyer,
+      }),
+      invalidatesTags: ["Lawyers"],
+    }),
+    completeLawyerProfile: builder.mutation({
+      query: (data) => ({
+        url: "lawyer/complete-lawyer-profile",
+        method: "PUT",
+        body: data,
       }),
       invalidatesTags: ["Lawyers"],
     }),
@@ -82,10 +98,13 @@ export const {
   useLoginMutation,
   useGetUserQuery,
   useUpdateUserMutation,
+  useUpdatePasswordMutation,
   useCreateLawyerMutation,
+  useCompleteLawyerProfileMutation,
   useLawyerPrfofileQuery,
   useGigstepOneMutation,
   useGigstepTwoMutation,
   useGigstepThreeMutation,
   useGetUserGigsQuery,
+
 } = userApi;

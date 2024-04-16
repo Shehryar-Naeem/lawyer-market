@@ -63,7 +63,7 @@ const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
             <form className="space-y-4" onSubmit={handleSubmit(updateHandler)}>
               <div>
                 <label
-                  for="name"
+                  htmlFor="name"
                   className="capitalize block mb-2 md:text-base text-sm md:font-semibold font-normal text-gray-900 dark:text-white"
                 >
                   Your name
@@ -84,7 +84,7 @@ const UserModel = ({ modal, setModal, name, email, updateUser, isLoading }) => {
               </div>
               <div>
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="capitalize block mb-2 md:text-base text-sm md:font-semibold font-normal text-gray-900 dark:text-white"
                 >
                   Your email
