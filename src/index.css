@@ -115,7 +115,7 @@ input::placeholder {
     @apply py-4;
   }
   .fieldset-border {
-    @apply relative lg:border-2 md:border-1 border-1 border-slate-gray border-solid md:rounded-sm  sm:rounded-xs rounded-[0px]  md:p-6 p-3;
+    @apply relative lg:border-2 md:border-1 border-1 border-slate-gray border-solid md:rounded-sm  sm:rounded-xs rounded-[0px]  md:p-6 p-1 pt-2;
   }
   /* top-0 left-0 ml-3 lg:-mt-3 md:-mt-2  -mt-1 */
   .field-legend {

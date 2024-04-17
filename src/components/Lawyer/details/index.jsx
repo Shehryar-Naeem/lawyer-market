@@ -94,7 +94,7 @@ const LawyerDetail = () => {
           ) : (
             <div className="info-label-gap">
               <span className="info-label-text-bold">degree name:</span>
-              <span className="info-label-text">{education?.institution}</span>
+              <span className="info-label-text">{education?.degreeName}</span>
             </div>
           )}
           {isLoading ? (
