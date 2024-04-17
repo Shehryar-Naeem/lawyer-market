@@ -42,6 +42,14 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
+    updateProfilePicture: builder.mutation({
+      query: (data) => ({
+        url: "user/update-profile-pic",
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Users"],
+    }),
     createLawyer: builder.mutation({
       query: (lawyer) => ({
         url: "lawyer/create-lawyer-account",
@@ -97,6 +105,7 @@ export const {
   useSignupMutation,
   useLoginMutation,
   useGetUserQuery,
+  useUpdateProfilePictureMutation,
   useUpdateUserMutation,
   useUpdatePasswordMutation,
   useCreateLawyerMutation,
