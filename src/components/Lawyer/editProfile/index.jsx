@@ -16,7 +16,6 @@ import Loader from "../../loader";
 import { Chips } from "primereact/chips";
 import { classNames } from "primereact/utils";
 
-
 const professionalInfoSchema = yup.object().shape({
   firmName: yup.string().required("Firm name is required"),
   positionName: yup.string().required("Position name is required"),
@@ -29,6 +28,7 @@ const educationSchema = yup.object().shape({
   institution: yup.string().required("Institution name is required"),
   startYear: yup.number().required("Start year is required"),
   endYear: yup.number().required("end yer is required"),
+  degreeName: yup.string().required("Degree name is required"),
 });
 
 const availabilitySchema = yup.object().shape({
@@ -89,6 +89,7 @@ const EditProfile = () => {
       institution: data?.LawyerProfile?.education?.institution,
       endYear: data?.LawyerProfile?.education?.endYear,
       startYear: data?.LawyerProfile?.education?.startYear,
+      degreeName: data?.LawyerProfile?.education?.degreeName || "",
     },
   });
 
@@ -148,6 +149,10 @@ const EditProfile = () => {
     setEducationValue(
       "endYear",
       data?.LawyerProfile?.education?.completionYear?.endYear || ""
+    );
+    setEducationValue(
+      "degreeName",
+      data?.LawyerProfile?.education?.degreeName || ""
     );
     setAvailabilityValue("days", data?.LawyerProfile?.availability?.days || []);
     setValue(data?.LawyerProfile?.availability?.days || []);
@@ -386,6 +391,18 @@ const EditProfile = () => {
                     <FailureAlert error={educationErrors.institution.message} />
                   )}
                 </div>
+                <div className="f-col gap">
+                  <ProfileInputComp
+                    lable="degree name"
+                    placeholder="Enter your degree name"
+                    type="text"
+                    name={"degreeName"}
+                    register={registerEducation}
+                  />
+                  {educationErrors.degreeName && (
+                    <FailureAlert error={educationErrors.degreeName.message} />
+                  )}
+                </div>
                 <div className="grid md:grid-cols-2 grid-cols-1 gap">
                   <div className="f-col gap">
                     <ProfileInputComp
@@ -428,7 +445,7 @@ const EditProfile = () => {
         <TabPanel>
           <div className="f-col gap h-full">
             <h3 className="lg:text-xl md:text-lg text-base font-extrabold capitalize">
-              update your professional info
+              update your availability
             </h3>
             <form
               className="f-col justify-between h-full "
