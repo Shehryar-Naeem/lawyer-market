@@ -23,6 +23,8 @@ import GigStepThree from "./pages/createGig/step3";
 import EditProfile from "./components/Lawyer/editProfile";
 import PasswordTab from "./components/passwordTab";
 import Accounts from "./components/Accounts";
+import ForgetPassword from "./pages/forgetPassword";
+import ResetPassword from "./pages/resetPassword";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -71,6 +73,8 @@ function App() {
                 }
               />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/password/forgot" element={<ForgetPassword />} />
+              <Route path="/user/resetpassword/:token" element={<ResetPassword />} />
               <Route
                 exact
                 path="/user-profile"
@@ -94,7 +98,7 @@ function App() {
                   </ProtectRoute>
                 }
               >
-                <Route exact path="" element={<EditProfile/>} />
+                <Route exact path="" element={<EditProfile />} />
                 <Route exact path="password" element={<PasswordTab />} />
                 <Route exact path="accounts" element={<Accounts />} />
               </Route>

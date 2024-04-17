@@ -4,7 +4,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `/api/`,
   }),
-  tagTypes: ["Users", "Lawyers","Gigs"],
+  tagTypes: ["Users", "Lawyers", "Gigs"],
   endpoints: (builder) => ({
     signup: builder.mutation({
       query: (user) => ({
@@ -42,6 +42,23 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
+    forgotPassword: builder.mutation({
+      query: (email) => ({
+        url: "user/passwor/forget",
+        method: "POST",
+        body: email,
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    resetPassword: builder.mutation({
+      query: ({token,data}) => ({
+        url: `user/password/reset/${token}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Users"],
+    }),
+
     updateProfilePicture: builder.mutation({
       query: (data) => ({
         url: "user/update-profile-pic",
@@ -106,7 +123,9 @@ export const {
   useLoginMutation,
   useGetUserQuery,
   useUpdateProfilePictureMutation,
+  useForgotPasswordMutation,
   useUpdateUserMutation,
+  useResetPasswordMutation,
   useUpdatePasswordMutation,
   useCreateLawyerMutation,
   useCompleteLawyerProfileMutation,
@@ -115,5 +134,4 @@ export const {
   useGigstepTwoMutation,
   useGigstepThreeMutation,
   useGetUserGigsQuery,
-
 } = userApi;

@@ -15,6 +15,8 @@ import LoadingSpinner from "../../loadingSpinner";
 import Loader from "../../loader";
 import { Chips } from "primereact/chips";
 import { classNames } from "primereact/utils";
+
+
 const professionalInfoSchema = yup.object().shape({
   firmName: yup.string().required("Firm name is required"),
   positionName: yup.string().required("Position name is required"),
@@ -113,6 +115,7 @@ const EditProfile = () => {
       toast.error(lawyerProfileError.data.message);
     }
   }, [isError, isLawyerProfileError]);
+
   useEffect(() => {
     setProfessionalInfoValue(
       "firmName",
@@ -212,6 +215,7 @@ const EditProfile = () => {
     },
     removeTokenIcon: "ml-0.8 ",
   };
+
   const isWeekday = (input) => {
     const weekdays = [
       "monday",

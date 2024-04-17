@@ -3,7 +3,11 @@ import InputComp from "../../components/InputComp";
 import BlackBtn from "../../components/BlackBtn";
 
 import toast from "react-hot-toast";
-import { useCreateLawyerMutation, useLoginMutation, useSignupMutation } from "../../redux/api/userApi";
+import {
+  useCreateLawyerMutation,
+  useLoginMutation,
+  useSignupMutation,
+} from "../../redux/api/userApi";
 import { useDispatch } from "react-redux";
 import { userExist, userNotExist } from "../../redux/reducer/userReducer";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
@@ -16,7 +20,7 @@ import { IoMdEye } from "react-icons/io";
 import { IoIosEyeOff } from "react-icons/io";
 import CustomModal from "../../components/model";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 YupPassword(yup);
 
 const signUpSchema = yup.object({
@@ -107,7 +111,6 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     if (signupData?.success) {
       // dispatch(userExist(signupData?.user));
@@ -154,7 +157,7 @@ const SignUp = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user) {
         dispatch(userExist(user));
-        localStorage.removeItem("user")
+        localStorage.removeItem("user");
         toast.success(createLawyerData.message);
         navigate("/user-profile");
       }
@@ -318,11 +321,18 @@ const SignUp = () => {
                               {passwordShown ? <IoMdEye /> : <IoIosEyeOff />}
                             </div>
                           </div>
+
                           {loginErrors?.password?.message && (
                             <FailureAlert
                               error={loginErrors?.password?.message}
                             />
                           )}
+                          <Link
+                            to={"/password/forgot"}
+                            className="text-right capitalize hover:underline md:text-base text-sm md:font-extrabold font-bold text-gray-600 hover:text-black text-nowrap"
+                          >
+                            forgot password
+                          </Link>
                         </div>
 
                         <BlackBtn text={"login"} loading={loginLoading} />
