@@ -101,7 +101,7 @@ module.exports = {
         "white ": "#ffffff",
         "slate-gray": "#D9D9D9",
         "light-gray": "#555F5E",
-        "black": "101010",
+        // "black": "101010",
         "black-50": "rgba(0, 0, 0, 0.5)",
         "black-90": "rgba(0, 0, 0, 0.8)",
         "pale-blue": "#F5F6FF",

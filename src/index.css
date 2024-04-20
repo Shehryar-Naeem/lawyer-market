@@ -101,6 +101,9 @@ input::placeholder {
   .page-container {
     @apply relative lg:min-h-[calc(100vh-100px)] h-auto m-auto md:min-h-[calc(100vh-80px)] min-h-[calc(100vh-50px)] bg-gray-100;
   }
+  .page-container-without-bg {
+    @apply relative lg:min-h-[calc(100vh-100px)] h-auto m-auto md:min-h-[calc(100vh-80px)] min-h-[calc(100vh-50px)];
+  }
   .layout-pad {
     @apply lg:p-ly-pad md:p-md-ly-pad p-sm-ly-pad;
   }
@@ -122,7 +125,10 @@ input::placeholder {
     @apply absolute  top-0 left-0 -translate-y-2/4 lg:ml-2 md:ml-1 ml-4xl capitalize lg:p-4xl md:p-3xl p-2xl  bg-slate-gray leading-none xl:text-lg lg:text-base md:text-sm text-xs xl:font-extrabold lg:font-bold md:font-semibold font-medium md:rounded-xs rounded-xxs;
   }
   .input-lable {
-    @apply block  md:text-lg  text-sm font-medium text-primary dark:text-green-500 capitalize;
+    @apply block  md:text-lg  text-sm font-medium text-primary  capitalize;
+  }
+  .modal-input-label{
+    @apply block  md:text-base  text-sm font-medium text-primary  capitalize;
   }
   .border {
     @apply border-1 border-solid border-black;
@@ -307,7 +313,7 @@ input::placeholder {
 .paginationBox {
   display: flex;
   justify-content: center;
-  margin: 6vmax;
+  /* margin: 6vmax auto; */
   flex-wrap: wrap;
 }
 
@@ -315,6 +321,7 @@ input::placeholder {
   display: flex;
   justify-content: center;
   padding: 0;
+  margin-bottom: 3vmax;
   flex-wrap: wrap;
 }
 
@@ -322,20 +329,20 @@ input::placeholder {
   background-color: rgb(255, 255, 255);
   list-style: none;
   border: 1px solid #101010;
-  padding: 1vmax 1.5vmax;
+  padding: 0.7vmax 1vmax;
   transition: all 0.3s;
   cursor: pointer;
 }
 .page-item:first-child {
-  border-radius: 5px 0 0 5px;
+  border-radius: 10px 0 0 10px;
 }
 
 .page-item:last-child {
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 10px 10px 0;
 }
 .page-link {
   text-decoration: none;
-  font: 300 0.7vmax "Roboto";
+  font: 300 0.9 vmax "Roboto";
   color: rgb(80, 80, 80);
   transition: all 0.3s;
 }
@@ -360,12 +367,7 @@ input::placeholder {
   .products{
     /* padding: 0 6vmax; */
   }
-  .filterBox {
-    width: 20vmax;
-    position: static;
-    margin: auto;
-    height: 100%;
-  }
+
 
   .page-link {
     font: 300 1.7vmax "Roboto";

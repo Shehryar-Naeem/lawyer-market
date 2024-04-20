@@ -26,7 +26,7 @@ const GigCard = ({ gig, key }) => {
           <div className="flex md:gap-1 sm:gap-sm gap-xs items-center">
             <img
               src={gig?.user?.avatar?.url}
-              className="lg:w-sm-img md:w-xs-img lg:h-sm-img md:h-xs-img w-[30px] h-[30px] p-0 rounded-full"
+              className="md:w-[35px] md:h-[35px] w-[30px] h-[30px] p-0 rounded-full"
             />
             <h3 className="text-black lg:text-base  md:text-lg sm:text-base text-sm md:font-bold font-medium">
               {CaptializeFirstLetter(gig?.title)}

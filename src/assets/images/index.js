@@ -11,6 +11,7 @@ import upload from "./upload.svg"
 import brand from "./building-brand.jpg"
 import lawyer from "./lawyer.svg"
 import client from "./client.svg"
+import search from "./search.png"
 
 
 
@@ -27,7 +28,8 @@ export const Images = {
     upload,
     brand,
     lawyer,
-    client
+    client,
+    search
 
 
 

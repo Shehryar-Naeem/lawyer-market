@@ -5,16 +5,13 @@ import { useDispatch } from "react-redux";
 import { userExist } from "../../redux/reducer/userReducer";
 import Loader from "../loader";
 
-const CustomModal = ({
+const FilterModel = ({
   openModal,
   setOpenModal,
   title,
   children,
-  createLaywerHandler,
-  createLawyerLoading,
+
 }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const customTheme = {
     modal: {
       root: {
@@ -49,7 +46,7 @@ const CustomModal = ({
       },
       content: {
         base: "relative h-full w-full p-4 h-auto",
-        inner: "bg-white dark:bg-gray-800 dark:text-white rounded-sm shadow-lg",
+        inner:"bg-white dark:bg-gray-800 dark:text-white rounded-sm shadow-lg"
       },
       header: {
         base: "flex items-center justify-between rounded-t border-gray-400 border-b general-pad ",
@@ -62,7 +59,7 @@ const CustomModal = ({
         },
       },
       body: {
-        base: "p-6 flex-1 overflow-auto bg-gray-100",
+        base: "general-pad flex-1 overflow-auto bg-gray-100",
         popup: "pt-0",
       },
       footer: {
@@ -71,20 +68,20 @@ const CustomModal = ({
       },
     },
   };
-  const cancelHandler = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      dispatch(userExist(user));
-      localStorage.removeItem("user");
-      setOpenModal(!openModal);
-      navigate("/gigs");
-    }
-  };
+//   const cancelHandler = () => {
+//     const user = JSON.parse(localStorage.getItem("user"));
+//     if (user) {
+//       dispatch(userExist(user));
+//       localStorage.removeItem("user");
+//       setOpenModal(!openModal);
+//       navigate("/gigs");
+//     }
+//   };
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Modal
         show={openModal}
-        onClose={() => cancelHandler()}
+        // onClose={()=>cancelHandler()}
         // popup dismissible
         size={"sm"}
         className="animate-fade-in"
@@ -96,12 +93,17 @@ const CustomModal = ({
             <Button
               size="xs"
               className="!px-0 !py-0 uppercase bg-black lg:rounded-sm md:rounded-xs rounded-xxs enabled:focus:ring-0 enabled:hover:bg-black-90"
-              onClick={createLaywerHandler}
+            //   onClick={createLaywerHandler}
             >
-              {createLawyerLoading ? <Loader /> : "Create"}
+              {/* {createLawyerLoading ? (
+                <Loader/>
+              ) : (
+                "Create"
+              )} */}
+              apply    
             </Button>
             <Button
-              onClick={cancelHandler}
+            //   onClick={cancelHandler}
               size="xs"
               className="!px-0 !py-0 uppercase lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
             >
@@ -114,4 +116,4 @@ const CustomModal = ({
   );
 };
 
-export default CustomModal;
+export default FilterModel;
