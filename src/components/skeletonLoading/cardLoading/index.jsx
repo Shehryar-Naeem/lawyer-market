@@ -5,26 +5,26 @@ import GigCard from "../../card";
 const CardSkeletonLoading = () => {
   return (
     <>
-      <div className="f-col md:gap-1 gap-sm justify-start h- max-w-sm md:p-1 p-0.5 ">
+      <div className="f-col md:gap-1 gap-sm justify-start ">
         <div className="card-h">
-          <Skeleton className="w-full h-full lg:rounded-2xl md:rounded-xl sm:rounded-lg rounded-md" />
+          <Skeleton className="w-full h-full md:rounded-sm rounded-xs" />
         </div>
         <div className="f-col md:gap-1 sm:gap-sm gap-xs">
           <div className="flex md:gap-1 sm:gap-sm gap-xs items-center">
             <Skeleton
               circle
-              className="md:w-sm-img w-xs-img md:h-sm-img h-xs-img"
+              className="lg:w-sm-img md:w-xs-img lg:h-sm-img md:h-xs-img w-[30px] h-[30px] p-0"
             />
             <div className="w-full">
-              <Skeleton className="lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm" />
+              <Skeleton className="lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm p-0" />
             </div>
           </div>
-          <Skeleton className="w-3/4 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm" />
-          <Skeleton className="w-1/2 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm" />
-          <Skeleton className="w-1/4 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm" />
+          <Skeleton className="w-3/4 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm p-0" />
+          <Skeleton className="w-1/2 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm p-0"  />
+          <Skeleton className="w-1/4 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm p-0" />
         </div>
       </div>
-      <GigCard/>
+      {/* <GigCard/> */}
     </>
   );
 };

@@ -25,6 +25,7 @@ import PasswordTab from "./components/passwordTab";
 import Accounts from "./components/Accounts";
 import ForgetPassword from "./pages/forgetPassword";
 import ResetPassword from "./pages/resetPassword";
+import GetAllGigs from "./pages/getAllgigs";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -104,7 +105,7 @@ function App() {
               </Route>
 
               {/* <Route path="/settings/profile" element={<UserSetting />} /> */}
-              <Route path="/gigs" element={<CardSkeletonLoading />} />
+              <Route path="/gigs" element={<GetAllGigs />} />
               <Route
                 path="/lawyer-gig/step1"
                 element={

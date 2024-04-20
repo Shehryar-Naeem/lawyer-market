@@ -163,3 +163,19 @@ export const additionalServices = [
     name: "Extensive research and legal precedent identification",
   },
 ];
+
+// const fetch = require('node-fetch');
+
+// (async () => {
+//   const response = await fetch(
+//     'https://parseapi.back4app.com/classes/Pakistancities_City/sherik@123',
+//     {
+//       headers: {
+//         'X-Parse-Application-Id': 'avy19djnffwcZHDDToSbQncLyhLeygSkIKFq2APT', // This is your app's application id
+//         'X-Parse-REST-API-Key': '0x5ml78bKCZi1nWHsOe7LeiCbmoYjVOLg5p1bf8B', // This is your app's REST API key
+//       }
+//     }
+//   );
+//   const data = await response.json(); // Here you have the data that you need
+//   console.log(JSON.stringify(data, null, 2));
+// })();

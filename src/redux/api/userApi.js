@@ -115,6 +115,13 @@ export const userApi = createApi({
       query: () => `gig/get-gigs/me`,
       providesTags: ["Gigs"],
     }),
+    getAllgigs: builder.query({
+      query: ({ currentPage }) => {
+        console.log("Current page:", currentPage); // Log the current page to the console
+        return `gig/get-gigs?page=${currentPage}`; // Return the URL for the API request
+      },
+      providesTags: ["Gigs"],
+    }),
   }),
 });
 
@@ -134,4 +141,5 @@ export const {
   useGigstepTwoMutation,
   useGigstepThreeMutation,
   useGetUserGigsQuery,
+  useGetAllgigsQuery,
 } = userApi;
