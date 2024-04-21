@@ -171,7 +171,7 @@ input::placeholder {
   }
 
   .card-h {
-    @apply lg:h-c-img-h md:h-md-c-img-h h-sm-c-img-h;
+    @apply lg:min-h-[150px] md:min-h-[140px] min-h-[130px];
   }
   .min-card-h {
     @apply lg:h-min-c-img-h md:h-md-min-c-img-h h-sm-min-c-img-h;

@@ -41,7 +41,7 @@ const GetAllGigs = () => {
       <div className="bg-gray-100">
         <div className="container page-container-without-bg flex f-col justify-between">
           <div>
-            {isFetching ? (
+            {isLoading ? (
               <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad">
                 <>
                   {Array.from({ length: skeletonCount }).map((_, index) => (

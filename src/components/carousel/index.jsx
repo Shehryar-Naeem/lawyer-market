@@ -1,6 +1,5 @@
 import { Carousel } from "primereact/carousel";
 import { classNames } from "primereact/utils";
-import { carousalImages } from "../../data";
 
 const GigCarousel = ({ images, gig }) => {
   const customTheme = {
