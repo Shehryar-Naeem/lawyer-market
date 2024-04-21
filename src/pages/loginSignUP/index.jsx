@@ -136,7 +136,7 @@ const SignUp = () => {
       dispatch(userExist(loginData?.user));
       if (loginData?.redirectUrl === "lawyer") {
         toast.success(loginData.msg);
-        navigate("/user-profile");
+        navigate("/lawyer-profile");
       } else if (loginData?.redirectUrl === "client") {
         toast.success(loginData.msg);
         navigate("/all-gigs");
@@ -159,7 +159,7 @@ const SignUp = () => {
         dispatch(userExist(user));
         localStorage.removeItem("user");
         toast.success(createLawyerData.message);
-        navigate("/user-profile");
+        navigate("/lawyer-profile");
       }
     }
     if (createLawyerError) {

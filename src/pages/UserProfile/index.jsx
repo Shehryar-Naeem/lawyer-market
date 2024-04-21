@@ -94,28 +94,28 @@ const UserProfile = () => {
                   <div className="h-full w-full flex gap-1 flex-col bg-white shadow-2xl lg:p-2 md:p-1 p-0.5">
                     <div className="flex w-full overflow-auto">
                       <NavLink
-                        to={"/user-profile"}
+                        to={"/lawyer-profile"}
                         end
                         className={"underline-tab"}
                       >
                         lawyer info
                       </NavLink>
                       <NavLink
-                        to={"/user-profile/gigs"}
+                        to={"/lawyer-profile/gigs"}
                         className={"underline-tab"}
                         end
                       >
                         gigs
                       </NavLink>
                       <NavLink
-                        to={"/user-profile/bids"}
+                        to={"/lawyer-profile/bids"}
                         className={"underline-tab"}
                         end
                       >
                         bids
                       </NavLink>
                       <NavLink
-                        to={"/user-profile/chat"}
+                        to={"/lawyer-profile/chat"}
                         className={"underline-tab"}
                         end
                       >

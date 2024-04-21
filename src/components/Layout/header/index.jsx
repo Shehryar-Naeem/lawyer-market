@@ -1,19 +1,24 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Images } from "../../../assets/images";
 import { Avatar } from "primereact/avatar";
 import { Menu } from "primereact/menu";
 import { classNames } from "primereact/utils";
 import { Badge } from "primereact/badge";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { userNotExist } from "../../../redux/reducer/userReducer";
+import { switchProfileType } from "../../../redux/reducer/profileSlice";
 const Header = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { currentProfileType } = useSelector((state) => state.profile);
+  console.log(currentProfileType);
   const menuRight = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  let redirectUrl;
+
   const itemRenderer = (item) => (
     <div
       className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer"
@@ -36,7 +41,7 @@ const Header = () => {
         return (
           <div
             className="md:cursor-pointer flex items-center md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200 md:hover:bg-gray-100"
-            onClick={() => navigate("/user-profile")}
+            onClick={() => navigate("/lawyer-profile")}
           >
             <div className="item-center">
               <Avatar
@@ -106,6 +111,40 @@ const Header = () => {
     ),
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      const roles = user.roles.map((role) => role.roleType);
+      if (roles.includes("admin")) {
+        redirectUrl = "admin";
+      } else if (roles.includes("lawyer")) {
+        redirectUrl = "lawyer";
+      } else if (roles.includes("client")) {
+        redirectUrl = "client";
+      }
+
+      if (redirectUrl === "lawyer") {
+        dispatch(switchProfileType("lawyer"));
+      } else if (redirectUrl === "client") {
+        dispatch(switchProfileType("client"));
+      }
+    }
+  }, [isAuthenticated, user]);
+  const toggleUser = () => {
+    if (currentProfileType === "lawyer") {
+      dispatch(switchProfileType("client"));
+      navigate("/client-profile");
+    } else if (currentProfileType === "client") {
+      const isLaywerIncluded = user.roles.some(
+        (role) => role.roleType === "lawyer"
+      );
+      if (isLaywerIncluded) {
+        dispatch(switchProfileType("lawyer"));
+        navigate("/lawyer-profile");
+      } else {
+        toast.error("You don't have a lawyer profile");
+      }
+    }
+  };
   return (
     <header className="shadow-2xl z-9 sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
       <nav className="flex-between">
@@ -125,7 +164,15 @@ const Header = () => {
           </div>
         ) : (
           <>
-            <div className="item-center">
+            <div className="item-center gap">
+              {redirectUrl !== "admin" && (
+                <span className="cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey" onClick={toggleUser}>
+                  Switch to
+                  {currentProfileType === "lawyer" ? " client " : " lawyer "}
+                  profile
+                </span>
+              )}
+
               <Avatar
                 image={user?.avatar?.url}
                 className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full mr-1 object-cover cursor"

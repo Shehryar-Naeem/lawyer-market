@@ -67,7 +67,7 @@ function App() {
                 path="/"
                 element={
                   <ProtectRoute
-                    redirect="/user-profile"
+                    redirect="/lawyer-profile"
                     isAuthenticated={!isAuthenticated}
                   >
                     <Register />
@@ -79,7 +79,7 @@ function App() {
               <Route path="/user/resetpassword/:token" element={<ResetPassword />} />
               <Route
                 exact
-                path="/user-profile"
+                path="/lawyer-profile"
                 element={
                   <ProtectRoute isAuthenticated={isAuthenticated}>
                     <UserProfile />
