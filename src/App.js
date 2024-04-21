@@ -105,6 +105,9 @@ function App() {
                 <Route exact path="accounts" element={<Accounts />} />
               </Route>
 
+
+            
+
               <Route path="/gig/:id" element={<GigDetail />} />
 
               {/* <Route path="/settings/profile" element={<UserSetting />} /> */}

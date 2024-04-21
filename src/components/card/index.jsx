@@ -5,7 +5,7 @@ import Ratiing from "../rating";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import GigCarousel from "../carousel";
-import { Tag } from "antd";
+import Tag from "../tag";
 
 const GigCard = ({ gig, key }) => {
   const customTheme = {
