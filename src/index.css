@@ -21,6 +21,9 @@ body {
   height: 100%;
   overflow-x: hidden;
 }
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -36,7 +39,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-input{
+input {
   outline: none;
 }
 textarea {
@@ -49,14 +52,12 @@ input::placeholder {
   white-space: normal;
 }
 
-
 @media screen and (min-width: 768px) {
   .card-img:hover .ed-btn {
     bottom: 100% !important;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
   }
-  
 }
 
 @layer base {
@@ -64,6 +65,10 @@ input::placeholder {
   input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+  li{
+    list-style-type: none;
+  
   }
 }
 @layer components {
@@ -93,7 +98,7 @@ input::placeholder {
     @apply text-black lg:p-1 md:p-0.10 p-0.5 capitalize lg:text-base md:text-sm text-xs md:font-bold font-semibold md:rounded-[30px] rounded-[20px] outline-none md:cursor-pointer cursor-none;
   }
   .underline-tab {
-    @apply text-black text-nowrap lg:px-1 md:px-sm-ly-pad px-0.8  lg:py-2 md:py-1 py-0.10 capitalize lg:text-xl md:text-base text-sm md:font-bold font-semibold md:cursor-pointer cursor-none ;  
+    @apply text-black text-nowrap lg:px-1 md:px-sm-ly-pad px-0.8  lg:py-2 md:py-1 py-0.10 capitalize lg:text-xl md:text-base text-sm md:font-bold font-semibold md:cursor-pointer cursor-none;
   }
 }
 
@@ -103,6 +108,10 @@ input::placeholder {
   }
   .page-container-without-bg {
     @apply relative lg:min-h-[calc(100vh-100px)] h-auto m-auto md:min-h-[calc(100vh-80px)] min-h-[calc(100vh-50px)];
+  }
+  .layout-box-shadow{
+    @apply lg:shadow-xl md:shadow-lg shadow-md 
+    
   }
   .layout-pad {
     @apply lg:p-ly-pad md:p-md-ly-pad p-sm-ly-pad;
@@ -117,6 +126,9 @@ input::placeholder {
   .pad-y {
     @apply py-4;
   }
+  .pad-x {
+    @apply px-4;
+  }
   .fieldset-border {
     @apply relative lg:border-2 md:border-1 border-1 border-slate-gray border-solid md:rounded-sm  sm:rounded-xs rounded-[0px]  md:p-6 p-1 pt-2;
   }
@@ -127,7 +139,7 @@ input::placeholder {
   .input-lable {
     @apply block  md:text-lg  text-sm font-medium text-primary  capitalize;
   }
-  .modal-input-label{
+  .modal-input-label {
     @apply block  md:text-base  text-sm font-medium text-primary  capitalize;
   }
   .border {
@@ -165,19 +177,22 @@ input::placeholder {
     @apply lg:h-min-c-img-h md:h-md-min-c-img-h h-sm-min-c-img-h;
   }
   .card-text {
-    @apply text-black md:text-base text-sm font-medium capitalize;
+    @apply text-grey md:text-base text-sm font-medium capitalize;
   }
   .tag-text {
-    @apply text-black md:text-sm text-xs font-medium capitalize bg-gray-300 lg:p-3xl md:p-2xl sm:p-xl p-lg leading-none rounded-1;
+    @apply text-grey md:text-sm text-xs font-medium capitalize bg-gray-300 lg:p-3xl md:p-2xl sm:p-xl p-lg leading-none rounded-1;
   }
   .info-label-gap {
     @apply flex md:gap-1 gap-sm;
   }
   .info-label-text-bold {
-    @apply text-black md:text-base sm:text-sm text-xs font-bold capitalize text-nowrap;
+    @apply text-grey md:text-base sm:text-sm text-xs font-bold capitalize text-nowrap;
   }
   .info-label-text {
-    @apply text-black md:text-base sm:text-sm text-xs font-normal capitalize text-nowrap;
+    @apply text-grey md:text-base sm:text-sm text-xs font-normal capitalize text-nowrap;
+  }
+  .gig-detail-heading{
+    @apply md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey;
   }
   .white-shadow {
     @apply shadow-2xl bg-white;
@@ -258,8 +273,8 @@ input::placeholder {
 
   animation: fadeIn 0.5s ease;
 }
-.react-tabs__tab-panel.react-tabs__tab-panel--selected{
-  @apply h-full
+.react-tabs__tab-panel.react-tabs__tab-panel--selected {
+  @apply h-full;
 }
 @keyframes fadeIn {
   0% {
@@ -276,37 +291,40 @@ input::placeholder {
 .progress-spinner-circle {
   stroke-dasharray: 89, 200;
   stroke-dashoffset: 0;
-  animation: p-progress-spinner-dash 1.5s ease-in-out infinite, p-progress-spinner-color 6s ease-in-out infinite;
+  animation: p-progress-spinner-dash 1.5s ease-in-out infinite,
+    p-progress-spinner-color 6s ease-in-out infinite;
   stroke-linecap: round;
 }
 
-@keyframes p-progress-spinner-dash{
+@keyframes p-progress-spinner-dash {
   0% {
-      stroke-dasharray: 1, 200;
-      stroke-dashoffset: 0;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
   }
-  
+
   50% {
-      stroke-dasharray: 89, 200;
-      stroke-dashoffset: -35px;
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
   }
   100% {
-      stroke-dasharray: 89, 200;
-      stroke-dashoffset: -124px;
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
   }
 }
 @keyframes p-progress-spinner-color {
-  100%, 0% {
-      stroke: #ff5757;
+  100%,
+  0% {
+    stroke: #ff5757;
   }
   40% {
-      stroke: #696cff;
+    stroke: #696cff;
   }
   66% {
-      stroke: #1ea97c;
+    stroke: #1ea97c;
   }
-  80%, 90% {
-      stroke: #cc8925;
+  80%,
+  90% {
+    stroke: #cc8925;
   }
 }
 
@@ -321,7 +339,7 @@ input::placeholder {
   display: flex;
   justify-content: center;
   padding: 0;
-  margin-bottom: 3vmax;
+  margin: 3vmax 0;
   flex-wrap: wrap;
 }
 
@@ -364,10 +382,9 @@ input::placeholder {
 }
 
 @media screen and (max-width: 600px) {
-  .products{
+  .products {
     /* padding: 0 6vmax; */
   }
-
 
   .page-link {
     font: 300 1.7vmax "Roboto";

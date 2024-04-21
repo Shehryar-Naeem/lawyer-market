@@ -469,6 +469,7 @@ const EditProfile = () => {
                       }
                       variant="outlined"
                       max={6}
+                      unstyled={true}
                       pt={chipsTheme}
                     />
                     {availabilityErrors.days && (

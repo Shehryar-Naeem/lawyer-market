@@ -10,7 +10,7 @@ const Ratiing = ({readonly,cancel}) => {
   const customTheme = {
     
         root: ({ props }) => ({
-            className: classNames('relative flex flex-wrap items-center', 'gap', {
+            className: classNames('relative flex flex-wrap items-center', 'md:gap-sm gap-xs', {
                 'opacity-60 select-none pointer-events-none cursor-default': props?.disabled
             })
         }),
@@ -20,7 +20,7 @@ const Ratiing = ({readonly,cancel}) => {
         //     })
         // }),
         cancelicon: {
-            className: classNames('cursor-pointer text-red-500', 'w-5 h-5', 'transition duration-200 ease-in')
+            className: classNames('cursor-pointer text-red-500', 'md:w-5 w-3 md:h-5 h-3', 'transition duration-200 ease-in')
         },
         item: ({ props, context }) => ({
             className: classNames(
@@ -35,17 +35,17 @@ const Ratiing = ({readonly,cancel}) => {
             )
         }),
         officon: {
-            className: classNames('text-gray-700 hover:text-yellow-400', 'w-5 h-5', 'transition duration-200 ease-in')
+            className: classNames('text-gray-700 hover:text-yellow-400', 'md:w-5 w-3 md:h-5 h-3', 'transition duration-200 ease-in')
         },
         onicon: {
-            className: classNames('text-yellow-600', 'w-5 h-5', 'transition duration-200 ease-in')
+            className: classNames('text-yellow-600', 'md:w-5 w-3 md:h-5 h-3', 'transition duration-200 ease-in')
         }
     
 }
     
     return (
         <div className="item-center">
-            <Rating value={value} onChange={(e) => setValue(e.value)} pt={customTheme} readOnly={readonly} cancel={cancel} />
+            <Rating value={value} unstyled={true}  onChange={(e) => setValue(e.value)} pt={customTheme} readOnly={readonly} cancel={cancel} />
         </div>
     );
 }

@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
     <SkeletonTheme baseColor="#AEAEAE" highlightColor="#D9D9D9">
-      <PrimeReactProvider value={{ unstyled: true }}>
+      <PrimeReactProvider >
         <Provider store={store}>
           <App />
         </Provider>

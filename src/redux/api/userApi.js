@@ -117,8 +117,8 @@ export const userApi = createApi({
     }),
     getAllgigs: builder.query({
       query: ({ currentPage }) => {
-        console.log("Current page:", currentPage); // Log the current page to the console
-        return `gig/get-gigs?page=${currentPage}`; // Return the URL for the API request
+        // console.log("Current page:", currentPage);
+        return `gig/get-gigs?page=${currentPage}`; 
       },
       providesTags: ["Gigs"],
     }),

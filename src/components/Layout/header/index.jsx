@@ -28,21 +28,27 @@ const Header = () => {
     </div>
   );
   const customAvatar = {
-    image: "rounded-full",
+    image: "h-full w-full rounded-full object-cover",
   };
   const items = [
     {
       template: () => {
         return (
           <div
-            className="md:cursor-pointer flex items-center md:gap-1 gap-sm md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200 md:hover:bg-gray-100"
+            className="md:cursor-pointer flex items-center md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200 md:hover:bg-gray-100"
             onClick={() => navigate("/user-profile")}
           >
-            <div className="cursor lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full">
+            <div className="item-center">
               <Avatar
                 image={user?.avatar?.url}
-                imageAlt="avatar"
+                className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full mr-1 object-cover cursor"
+                imageAlt="user-profile"
+                shape="circle"
+                size="large"
                 pt={customAvatar}
+                onClick={(event) => menuRight.current.toggle(event)}
+                aria-controls="popup_menu_left"
+                aria-haspopup
               />
             </div>
             <div className="flex-col leading-none justify-center">
@@ -62,7 +68,7 @@ const Header = () => {
       icon: "pi pi-cog",
       template: itemRenderer,
       command: () => {
-        navigate("/settings/profile"); 
+        navigate("/settings/profile");
       },
     },
 
@@ -103,8 +109,12 @@ const Header = () => {
   return (
     <header className="shadow-2xl z-9 sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
       <nav className="flex-between">
-        <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo" >
-          <img src={Images.brandLogo} alt="brand_logo" className="w-full h-full object-fill"/>
+        <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
+          <img
+            src={Images.brandLogo}
+            alt="brand_logo"
+            className="w-full h-full object-fill"
+          />
         </div>
         {!isAuthenticated ? (
           <div className="item-center">
@@ -118,7 +128,7 @@ const Header = () => {
             <div className="item-center">
               <Avatar
                 image={user?.avatar?.url}
-                className="lg:w-avatar md:w-md-avatar w-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 object-cover cursor"
+                className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full mr-1 object-cover cursor"
                 imageAlt="user-profile"
                 shape="circle"
                 size="large"
@@ -133,6 +143,7 @@ const Header = () => {
               baseZIndex={9999999}
               closeOnEscape={true}
               pt={cusmtomeStyle}
+              unstyled={true}
               popup
               ref={menuRight}
               id="popup_menu_left"

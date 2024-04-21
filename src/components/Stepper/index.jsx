@@ -82,7 +82,7 @@ export default function TemplateDemo({step}) {
 
   return (
     <div className="card">
-      <Steps model={items} activeIndex={activeIndex} pt={customTheme} />
+      <Steps model={items} activeIndex={activeIndex} pt={customTheme} unstyled={true} />
     </div>
   );
 }

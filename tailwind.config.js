@@ -101,6 +101,7 @@ module.exports = {
         "white ": "#ffffff",
         "slate-gray": "#D9D9D9",
         "light-gray": "#555F5E",
+        "grey": "#404145",
         // "black": "101010",
         "black-50": "rgba(0, 0, 0, 0.5)",
         "black-90": "rgba(0, 0, 0, 0.8)",
@@ -125,6 +126,7 @@ module.exports = {
       },
       backgroundImage: {
         gradient: "linear-gradient(to right,#D9D9D9 42%,#ffffff 42% 100%)",
+        "blur-gradient": "linear-gradient(to right, #000000 42%, #ffffff 42% 100%)",
       },
 
       width: {

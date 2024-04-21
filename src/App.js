@@ -26,6 +26,7 @@ import Accounts from "./components/Accounts";
 import ForgetPassword from "./pages/forgetPassword";
 import ResetPassword from "./pages/resetPassword";
 import GetAllGigs from "./pages/getAllgigs";
+import GigDetail from "./pages/gigDetail";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -103,6 +104,8 @@ function App() {
                 <Route exact path="password" element={<PasswordTab />} />
                 <Route exact path="accounts" element={<Accounts />} />
               </Route>
+
+              <Route path="/gig/:id" element={<GigDetail />} />
 
               {/* <Route path="/settings/profile" element={<UserSetting />} /> */}
               <Route path="/gigs" element={<GetAllGigs />} />

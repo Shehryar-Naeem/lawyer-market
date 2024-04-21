@@ -1,3 +1,7 @@
+
+import img1 from "../assets/images/10320-200.png"
+import img2 from "../assets/images/building-brand.jpg"
+import img3 from "../assets/images/client.jpg"
 export const lawyerCategories = [
   {
     id: 1,
@@ -400,18 +404,21 @@ export const cites=[
   "Zhob",
   "Ziarat"
 ]
-// const fetch = require('node-fetch');
 
-// (async () => {
-//   const response = await fetch(
-//     'https://parseapi.back4app.com/classes/Pakistancities_City/sherik@123',
-//     {
-//       headers: {
-//         'X-Parse-Application-Id': 'avy19djnffwcZHDDToSbQncLyhLeygSkIKFq2APT', // This is your app's application id
-//         'X-Parse-REST-API-Key': '0x5ml78bKCZi1nWHsOe7LeiCbmoYjVOLg5p1bf8B', // This is your app's REST API key
-//       }
-//     }
-//   );
-//   const data = await response.json(); // Here you have the data that you need
-//   console.log(JSON.stringify(data, null, 2));
-// })();
+export const carousalImages = [
+  {
+    id: 1,
+    image: img1,
+    
+  },
+  {
+    id: 2,
+    image: img2,
+   
+  },
+  {
+    id: 3,
+    image: img3,
+    
+  }
+]

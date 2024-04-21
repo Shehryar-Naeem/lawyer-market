@@ -18,7 +18,7 @@ const AlertMessage = ({ content, severity }) => {
   };
 
   return (
-    <Message pt={customTheme} content={content} severity={severity} icon />
+    <Message pt={customTheme} content={content} severity={severity} icon unstyled={true} />
   );
 };
 
