@@ -12,7 +12,7 @@ const GigCard = ({ gig, key }) => {
     card: {
       root: {
         base: "p-0.5 md:rounded-md border border-gray-200 bg-white md:shadow-md shadow-sm ",
-        children: "flex h-full flex-col  gap p-0",
+        children: "f-col h-full   gap ",
       },
     },
   };
@@ -33,7 +33,7 @@ const GigCard = ({ gig, key }) => {
       direction === "left"
         ? currentScroll - scrollAmount
         : currentScroll + scrollAmount;
-        checkScrollButtons();
+    checkScrollButtons();
   };
 
   useEffect(() => {
@@ -55,8 +55,8 @@ const GigCard = ({ gig, key }) => {
           /> */}
           <GigCarousel images={gig?.images} gig={true} />
         </div>
-        <div className="f-col gap  justify-between h-full ">
-          <div className="flex gap items-center">
+        <div className="f-col gap  justify-between md:h-full  ">
+          <div className="flex gap items-center ">
             <img
               src={gig?.user?.avatar?.url}
               className="md:w-[35px] md:h-[35px] w-[30px] h-[30px] p-0 rounded-full"
@@ -70,7 +70,7 @@ const GigCard = ({ gig, key }) => {
               </h3>
             </Link>
           </div>
-          <div className="f-col gap justify-between h-full">
+          <div className="f-col gap justify-between h-full ">
             <div className="flex items-center space-x-1">
               {showLeftArrow && (
                 <button

@@ -183,7 +183,7 @@ input::placeholder {
     @apply text-grey md:text-base text-sm font-medium capitalize;
   }
   .tag-text {
-    @apply text-grey md:text-sm text-xs font-medium capitalize bg-gray-300 lg:p-3xl md:p-2xl sm:p-xl p-lg leading-none rounded-1;
+    @apply text-grey md:text-base text-sm font-medium capitalize bg-gray-300 lg:p-3xl md:p-2xl sm:p-xl p-lg leading-none rounded-1;
   }
   .info-label-gap {
     @apply flex md:gap-1 gap-sm;
