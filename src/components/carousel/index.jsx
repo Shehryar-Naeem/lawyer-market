@@ -16,12 +16,12 @@ const GigCarousel = ({ images, gig }) => {
         "absolute left-[0%] z-10 flex text-sm justify-center items-center self-center overflow-hidden  shrink-0 grow-0 ",
         `${
           gig ? "w-5 h-5 rounded-xxs" : "md:w-8 md:h-8 h-6 w-6 rounded-sm "
-        } text-gray-600 bg-grey border-0 bg-transparent transition duration-200 ease-in-out`
+        } text-gray-600 bg-[#404145] border-0 bg-transparent transition duration-200 ease-in-out`
       ),
     },
     nextButton: {
         className: classNames(
-          "absolute right-[0%] z-10 flex bg-grey   justify-center items-center self-center overflow-hidden  shrink-0 grow-0",
+          "absolute right-[0%] z-10 flex bg-[#404145]   justify-center items-center self-center overflow-hidden  shrink-0 grow-0",
           `${
             gig ? "w-5 h-5 rounded-xxs" : "md:w-8 md:h-8 h-6 w-6 rounded-sm "
           } text-gray-600   border-0 bg-transparent  transition duration-200 ease-in-out`

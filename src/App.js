@@ -27,6 +27,8 @@ import ForgetPassword from "./pages/forgetPassword";
 import ResetPassword from "./pages/resetPassword";
 import GetAllGigs from "./pages/getAllgigs";
 import GigDetail from "./pages/gigDetail";
+import ClientProfile from "./pages/clientProfile";
+import ClientPosts from "./components/client";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -76,7 +78,12 @@ function App() {
               />
               <Route path="/profile" element={<Profile />} />
               <Route path="/password/forgot" element={<ForgetPassword />} />
-              <Route path="/user/resetpassword/:token" element={<ResetPassword />} />
+              <Route
+                path="/user/resetpassword/:token"
+                element={<ResetPassword />}
+              />
+
+              {/* lawyer profile route */}
               <Route
                 exact
                 path="/lawyer-profile"
@@ -91,6 +98,26 @@ function App() {
                 <Route exact path="bids" element={<Bid />} />
                 <Route exact path="chat" element={<Chat />} />
               </Route>
+              {/* lawyer profile route */}
+
+              {/* client profile route */}
+              <Route
+                exact
+                path="/client-profile"
+                element={
+                  <ProtectRoute isAuthenticated={isAuthenticated}>
+                    <ClientProfile />
+                  </ProtectRoute>
+                }
+              >
+                <Route exact path="" element={<ClientPosts />} />
+                <Route exact path="gigs" element={<Gigs />} />
+
+                <Route exact path="chat" element={<Chat />} />
+              </Route>
+              {/* client profile route */}
+
+              {/* lawyer profile setting account */}
               <Route
                 exact
                 path="/settings/profile"
@@ -104,9 +131,7 @@ function App() {
                 <Route exact path="password" element={<PasswordTab />} />
                 <Route exact path="accounts" element={<Accounts />} />
               </Route>
-
-
-            
+              {/* lawyer profile setting account */}
 
               <Route path="/gig/:id" element={<GigDetail />} />
 

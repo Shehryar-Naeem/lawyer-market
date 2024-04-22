@@ -4,7 +4,7 @@ import { Avatar } from "primereact/avatar";
 import { Menu } from "primereact/menu";
 import { classNames } from "primereact/utils";
 import { Badge } from "primereact/badge";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -149,12 +149,21 @@ const Header = () => {
     <header className="shadow-2xl z-9 sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
       <nav className="flex-between">
         <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
-          <img
-            src={Images.brandLogo}
-            alt="brand_logo"
-            className="w-full h-full object-fill"
-          />
+          <NavLink to="/">
+            <img
+              src={Images.brandLogo}
+              alt="brand_logo"
+              className="w-full h-full object-fill"
+            />
+          </NavLink>
         </div>
+        <nav className="item-center">
+          <ul className="flex gap">
+            <li className="lg:text-lg  hover:underline md:text-base text-sm capitalize md:font-bold font-semibold">
+              <NavLink to={"/gigs"}>gigs</NavLink>
+            </li>
+          </ul>
+        </nav>
         {!isAuthenticated ? (
           <div className="item-center">
             <img
@@ -166,7 +175,10 @@ const Header = () => {
           <>
             <div className="item-center gap">
               {redirectUrl !== "admin" && (
-                <span className="cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey" onClick={toggleUser}>
+                <span
+                  className="md:w-auto w-[60px] cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey"
+                  onClick={toggleUser}
+                >
                   Switch to
                   {currentProfileType === "lawyer" ? " client " : " lawyer "}
                   profile
