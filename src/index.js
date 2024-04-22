@@ -9,19 +9,21 @@ import { PrimeReactProvider } from "primereact/api";
 import "react-loading-skeleton/dist/skeleton.css";
 // import Swal from 'sweetalert2/dist/sweetalert2.js'
 // import 'sweetalert2/src/scss/sweetalert2.scss'
-import{ SkeletonTheme } from "react-loading-skeleton";
+import { SkeletonTheme } from "react-loading-skeleton";
+import { Toaster } from "react-hot-toast";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <>
     <SkeletonTheme baseColor="#AEAEAE" highlightColor="#D9D9D9">
-      <PrimeReactProvider >
+      <PrimeReactProvider>
         <Provider store={store}>
+          <Toaster position="top-right" />
+
           <App />
         </Provider>
       </PrimeReactProvider>
     </SkeletonTheme>
   </>
 );
-

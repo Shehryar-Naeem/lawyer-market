@@ -1,16 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Images } from "../../../assets/images";
 import { Avatar } from "primereact/avatar";
 import { Menu } from "primereact/menu";
 import { classNames } from "primereact/utils";
 import { Badge } from "primereact/badge";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { userNotExist } from "../../../redux/reducer/userReducer";
 import { switchProfileType } from "../../../redux/reducer/profileSlice";
 const Header = () => {
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const { currentProfileType } = useSelector((state) => state.profile);
   console.log(currentProfileType);
@@ -146,73 +148,103 @@ const Header = () => {
     }
   };
   return (
-    <header className="shadow-2xl z-9 sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
-      <nav className="flex-between">
-        <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
-          <NavLink to="/">
-            <img
-              src={Images.brandLogo}
-              alt="brand_logo"
-              className="w-full h-full object-fill"
-            />
-          </NavLink>
-        </div>
-        <nav className="item-center">
-          <ul className="flex gap">
-            <li className="lg:text-lg  hover:underline md:text-base text-sm capitalize md:font-bold font-semibold">
-              <NavLink to={"/gigs"}>gigs</NavLink>
-            </li>
-          </ul>
-        </nav>
-        {!isAuthenticated ? (
-          <div className="item-center">
-            <img
-              src={Images.profileLogo}
-              className="lg:w-avatar md:w-md-avatar w-sm-avatar lg:h-avatar md:h-md-avatar h-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 md:cursor-pointer"
-            />
-          </div>
-        ) : (
-          <>
-            <div className="item-center gap">
-              {redirectUrl !== "admin" && (
-                <span
-                  className="md:w-auto w-[60px] cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey"
-                  onClick={toggleUser}
-                >
-                  Switch to
-                  {currentProfileType === "lawyer" ? " client " : " lawyer "}
-                  profile
-                </span>
-              )}
-
-              <Avatar
-                image={user?.avatar?.url}
-                className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full mr-1 object-cover cursor"
-                imageAlt="user-profile"
-                shape="circle"
-                size="large"
-                pt={customAvatar}
-                onClick={(event) => menuRight.current.toggle(event)}
-                aria-controls="popup_menu_left"
-                aria-haspopup
+    <>
+      <header className="shadow-2xl z-9 sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
+        <nav className="flex-between">
+          <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
+            <NavLink to="/">
+              <img
+                src={Images.brandLogo}
+                alt="brand_logo"
+                className="w-full h-full object-fill"
               />
-            </div>
-            <Menu
-              autoZIndex
-              baseZIndex={9999999}
-              closeOnEscape={true}
-              pt={cusmtomeStyle}
-              unstyled={true}
-              popup
-              ref={menuRight}
-              id="popup_menu_left"
-              model={items}
-              popupAlignment="right"
-            />
-          </>
-        )}
-      </nav>
-    </header>
+            </NavLink>
+          </div>
+          <div
+            className={`${
+              isMobileMenuOpen ? "flex" : "hidden" } md:flex flex-col md:flex-row gap items-center md:relative absolute md:w-auto w-full left-0 top-full md:bg-transparent transition-all bg-white md:px-0 px-2 md:pb-0 pb-4 md:shadow-none shadow-lg`} 
+          >
+            <NavLink to={"/gigs"} className="nav-link">
+              gigs
+            </NavLink>
+          </div>
+          <div className="flex">
+            {!isAuthenticated ? (
+              <div className="item-center">
+                <img
+                  src={Images.profileLogo}
+                  alt="profile_logo"
+                  className="lg:w-avatar md:w-md-avatar w-sm-avatar lg:h-avatar md:h-md-avatar h-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 md:cursor-pointer"
+                />
+              </div>
+            ) : (
+              <>
+                <div className="item-center gap">
+                  {redirectUrl !== "admin" && isAuthenticated && (
+                    <span
+                      className="md:w-auto w-[60px] cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey"
+                      onClick={toggleUser}
+                    >
+                      Switch to
+                      {currentProfileType === "lawyer"
+                        ? " client "
+                        : " lawyer "}
+                      profile
+                    </span>
+                  )}
+
+                  <Avatar
+                    image={user?.avatar?.url}
+                    className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full mr-1 object-cover cursor"
+                    imageAlt="user-profile"
+                    shape="circle"
+                    size="large"
+                    pt={customAvatar}
+                    onClick={(event) => menuRight.current.toggle(event)}
+                    aria-controls="popup_menu_left"
+                    aria-haspopup
+                  />
+                </div>
+                <Menu
+                  autoZIndex
+                  baseZIndex={9999999}
+                  closeOnEscape={true}
+                  pt={cusmtomeStyle}
+                  unstyled={true}
+                  popup
+                  ref={menuRight}
+                  id="popup_menu_left"
+                  model={items}
+                  popupAlignment="right"
+                />
+              </>
+            )}
+            <button
+              className="text-black focus:outline-none md:hidden"
+              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <svg
+                className="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <div>
+        <Outlet />
+      </div>
+    </>
   );
 };
 

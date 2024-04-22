@@ -171,7 +171,10 @@ input::placeholder {
   }
 
   .card-h {
-    @apply lg:min-h-[150px] md:min-h-[140px] min-h-[130px];
+    @apply min-h-[150px];
+  }
+  .nav-link {
+    @apply text-black capitalize transition-all lg:text-2xl md:text-xl text-lg md:font-bold  font-semibold md:hover:text-gray-600 text-nowrap lg:w-auto w-full block lg:p-0 p-2 md:border-none border-b-[1px] border-slate-400;
   }
   .min-card-h {
     @apply lg:h-min-c-img-h md:h-md-min-c-img-h h-sm-min-c-img-h;

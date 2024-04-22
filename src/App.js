@@ -1,6 +1,12 @@
 import { Suspense, lazy, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 import { useGetUserQuery } from "./redux/api/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
@@ -54,127 +60,251 @@ function App() {
     }
   }, [isLoading, isSuccess, isError, data, error, dispatch]);
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Header />,
+      children: [
+        {
+          path: "/",
+          element: (
+            <ProtectRoute
+              redirect="/lawyer-profile"
+              isAuthenticated={!isAuthenticated}
+            >
+              <Register />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/password/forgot",
+          element: <ForgetPassword />,
+        },
+        {
+          path: "/user/resetpassword/:token",
+          element: <ResetPassword />,
+        },
+        {
+          path: "/lawyer-profile",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated}>
+              <UserProfile />
+            </ProtectRoute>
+          ),
+          children: [
+            { path: "", element: <LawyerDetail /> },
+            { path: "gigs", element: <Gigs /> },
+            { path: "bids", element: <Bid /> },
+            { path: "chat", element: <Chat /> },
+          ],
+        },
+        {
+          path: "/client-profile",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated}>
+              <ClientProfile />
+            </ProtectRoute>
+          ),
+          children: [
+            { path: "", element: <ClientPosts /> },
+            { path: "gigs", element: <Gigs /> },
+            { path: "chat", element: <Chat /> },
+          ],
+        },
+        {
+          path: "/settings/profile",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated}>
+              <UserSetting />
+            </ProtectRoute>
+          ),
+          children: [
+            { path: "", element: <EditProfile /> },
+            { path: "password", element: <PasswordTab /> },
+            { path: "accounts", element: <Accounts /> },
+          ],
+        },
+        { path: "/gig/:id", element: <GigDetail /> },
+        { path: "/gigs", element: <GetAllGigs /> },
+        {
+          path: "/lawyer-gig/step1",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
+              <GigStepOne />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/lawyer-gig/step2",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
+              <GigStepTwo />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/lawyer-gig/step3",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
+              <GigStepThree />
+            </ProtectRoute>
+          ),
+        },
+      ],
+    },
+  ]);
+
+  // return loading ? (
+  //   <>
+  //     <p>loading</p>
+  //   </>
+  // ) : (
+  //   <>
+  //     <Router>
+  //       <Suspense>
+  //         <div className="h-full">
+  //           <Header />
+  //           <Routes>
+  //             <Route
+  //               path="/"
+  //               element={
+  //                 <ProtectRoute
+  //                   redirect="/lawyer-profile"
+  //                   isAuthenticated={!isAuthenticated}
+  //                 >
+  //                   <Register />
+  //                 </ProtectRoute>
+  //               }
+  //             />
+  //             <Route path="/profile" element={<Profile />} />
+  //             <Route path="/password/forgot" element={<ForgetPassword />} />
+  //             <Route
+  //               path="/user/resetpassword/:token"
+  //               element={<ResetPassword />}
+  //             />
+
+  //             {/* lawyer profile route */}
+  //             <Route
+  //               exact
+  //               path="/lawyer-profile"
+  //               element={
+  //                 <ProtectRoute isAuthenticated={isAuthenticated}>
+  //                   <UserProfile />
+  //                 </ProtectRoute>
+  //               }
+  //             >
+  //               <Route exact path="" element={<LawyerDetail />} />
+  //               <Route exact path="gigs" element={<Gigs />} />
+  //               <Route exact path="bids" element={<Bid />} />
+  //               <Route exact path="chat" element={<Chat />} />
+  //             </Route>
+  //             {/* lawyer profile route */}
+
+  //             {/* client profile route */}
+  //             <Route
+  //               exact
+  //               path="/client-profile"
+  //               element={
+  //                 <ProtectRoute isAuthenticated={isAuthenticated}>
+  //                   <ClientProfile />
+  //                 </ProtectRoute>
+  //               }
+  //             >
+  //               <Route exact path="" element={<ClientPosts />} />
+  //               <Route exact path="gigs" element={<Gigs />} />
+
+  //               <Route exact path="chat" element={<Chat />} />
+  //             </Route>
+  //             {/* client profile route */}
+
+  //             {/* lawyer profile setting account */}
+  //             <Route
+  //               exact
+  //               path="/settings/profile"
+  //               element={
+  //                 <ProtectRoute isAuthenticated={isAuthenticated}>
+  //                   <UserSetting />
+  //                 </ProtectRoute>
+  //               }
+  //             >
+  //               <Route exact path="" element={<EditProfile />} />
+  //               <Route exact path="password" element={<PasswordTab />} />
+  //               <Route exact path="accounts" element={<Accounts />} />
+  //             </Route>
+  //             {/* lawyer profile setting account */}
+
+  //             <Route path="/gig/:id" element={<GigDetail />} />
+
+  //             {/* <Route path="/settings/profile" element={<UserSetting />} /> */}
+  //             <Route path="/gigs" element={<GetAllGigs />} />
+  //             <Route
+  //               path="/lawyer-gig/step1"
+  //               element={
+  //                 <ProtectRoute
+  //                   isAuthenticated={isAuthenticated}
+  //                   isLawyer={true}
+  //                 >
+  //                   <GigStepOne />
+  //                 </ProtectRoute>
+  //               }
+  //             />
+  //             <Route
+  //               path="/lawyer-gig/step2"
+  //               element={
+  //                 <ProtectRoute
+  //                   isAuthenticated={isAuthenticated}
+  //                   isLawyer={true}
+  //                 >
+  //                   <GigStepTwo />
+  //                 </ProtectRoute>
+  //               }
+  //             />
+  //             <Route
+  //               path="/lawyer-gig/step3"
+  //               element={
+  //                 <ProtectRoute
+  //                   isAuthenticated={isAuthenticated}
+  //                   isLawyer={true}
+  //                 >
+  //                   <GigStepThree />
+  //                 </ProtectRoute>
+  //               }
+  //             />
+  //           </Routes>
+  //         </div>
+  //       </Suspense>
+  //       <Toaster position="top-right" />
+  //     </Router>
+
+  //     <RouterProvider router={createBrowserRouter()} />
+  //   </>
+  // );
   return loading ? (
     <>
-      <p>loading</p>
+      <p>Loading...</p>
     </>
   ) : (
     <>
-      <Router>
+      {/* <RouterProvider router={router}>
         <Suspense>
           <div className="h-full">
             <Header />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <ProtectRoute
-                    redirect="/lawyer-profile"
-                    isAuthenticated={!isAuthenticated}
-                  >
-                    <Register />
-                  </ProtectRoute>
-                }
-              />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/password/forgot" element={<ForgetPassword />} />
-              <Route
-                path="/user/resetpassword/:token"
-                element={<ResetPassword />}
-              />
-
-              {/* lawyer profile route */}
-              <Route
-                exact
-                path="/lawyer-profile"
-                element={
-                  <ProtectRoute isAuthenticated={isAuthenticated}>
-                    <UserProfile />
-                  </ProtectRoute>
-                }
-              >
-                <Route exact path="" element={<LawyerDetail />} />
-                <Route exact path="gigs" element={<Gigs />} />
-                <Route exact path="bids" element={<Bid />} />
-                <Route exact path="chat" element={<Chat />} />
-              </Route>
-              {/* lawyer profile route */}
-
-              {/* client profile route */}
-              <Route
-                exact
-                path="/client-profile"
-                element={
-                  <ProtectRoute isAuthenticated={isAuthenticated}>
-                    <ClientProfile />
-                  </ProtectRoute>
-                }
-              >
-                <Route exact path="" element={<ClientPosts />} />
-                <Route exact path="gigs" element={<Gigs />} />
-
-                <Route exact path="chat" element={<Chat />} />
-              </Route>
-              {/* client profile route */}
-
-              {/* lawyer profile setting account */}
-              <Route
-                exact
-                path="/settings/profile"
-                element={
-                  <ProtectRoute isAuthenticated={isAuthenticated}>
-                    <UserSetting />
-                  </ProtectRoute>
-                }
-              >
-                <Route exact path="" element={<EditProfile />} />
-                <Route exact path="password" element={<PasswordTab />} />
-                <Route exact path="accounts" element={<Accounts />} />
-              </Route>
-              {/* lawyer profile setting account */}
-
-              <Route path="/gig/:id" element={<GigDetail />} />
-
-              {/* <Route path="/settings/profile" element={<UserSetting />} /> */}
-              <Route path="/gigs" element={<GetAllGigs />} />
-              <Route
-                path="/lawyer-gig/step1"
-                element={
-                  <ProtectRoute
-                    isAuthenticated={isAuthenticated}
-                    isLawyer={true}
-                  >
-                    <GigStepOne />
-                  </ProtectRoute>
-                }
-              />
-              <Route
-                path="/lawyer-gig/step2"
-                element={
-                  <ProtectRoute
-                    isAuthenticated={isAuthenticated}
-                    isLawyer={true}
-                  >
-                    <GigStepTwo />
-                  </ProtectRoute>
-                }
-              />
-              <Route
-                path="/lawyer-gig/step3"
-                element={
-                  <ProtectRoute
-                    isAuthenticated={isAuthenticated}
-                    isLawyer={true}
-                  >
-                    <GigStepThree />
-                  </ProtectRoute>
-                }
-              />
-            </Routes>
+            <Toaster position="top-right" />
           </div>
         </Suspense>
-        <Toaster position="top-right" />
-      </Router>
+      </RouterProvider> */}
+      {/* <Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider router={router} />
+      </Suspense> */}
+      <Suspense fallback={<div>Loading app...</div>}>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <div className="h-full">
+            <RouterProvider router={router}></RouterProvider>
+          </div>
+        )}
+      </Suspense>
     </>
   );
 }
