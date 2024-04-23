@@ -182,7 +182,7 @@ const Header = () => {
                 <div className="item-center gap">
                   {redirectUrl !== "admin" && isAuthenticated && (
                     <span
-                      className="md:w-auto w-[60px] cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey"
+                      className="cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey"
                       onClick={toggleUser}
                     >
                       Switch to
@@ -220,11 +220,11 @@ const Header = () => {
               </>
             )}
             <button
-              className="text-black focus:outline-none md:hidden"
+              className="text-black focus:outline-none md:hidden mr-0.5"
               onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
             >
               <svg
-                className="w-8 h-8"
+                className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

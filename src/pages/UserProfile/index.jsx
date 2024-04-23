@@ -123,7 +123,7 @@ const UserProfile = () => {
                       </NavLink>
                     </div>
 
-                    <div>
+                    <div className="md:h-full h-auto" >
                       <Outlet />
                     </div>
                   </div>
