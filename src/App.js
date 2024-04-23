@@ -19,7 +19,7 @@ import CardSkeletonLoading from "./components/skeletonLoading/cardLoading";
 import LawyerDetail from "./components/Lawyer/details";
 import Gigs from "./components/Lawyer/gigs";
 import Bid from "./components/Lawyer/bids";
-import Chat from "./components/Lawyer/chats";
+import Chat from "./components/chatComp/chats";
 import Header from "./components/Layout/header";
 import UserSetting from "./pages/userSetting";
 import ProtectRoute from "./routes/ProtectedRoute";
@@ -35,6 +35,9 @@ import GetAllGigs from "./pages/getAllgigs";
 import GigDetail from "./pages/gigDetail";
 import ClientProfile from "./pages/clientProfile";
 import ClientPosts from "./components/client";
+import ChatHome from "./components/chatComp/subChat/chatHome";
+import UserChat from "./components/chatComp/subChat/chatby_id";
+
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -95,7 +98,17 @@ function App() {
             { path: "", element: <LawyerDetail /> },
             { path: "gigs", element: <Gigs /> },
             { path: "bids", element: <Bid /> },
-            { path: "chat", element: <Chat /> },
+            {
+              path: "chat",
+              element: <Chat />,
+              children: [
+                { path: "", element: <ChatHome /> },
+                {
+                  path: ":id",
+                  element: <UserChat />,
+                },
+              ],
+            },
           ],
         },
         {
