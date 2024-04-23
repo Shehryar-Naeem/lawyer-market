@@ -6,7 +6,7 @@ const Chat = () => {
     <div className="bg-gray-100 h-full md:p-1 p-0.10">
       <div className="flex gap h-full">
         <div className="h-full bg-white md:min-w-[250px] overflow-auto md:shadow-lg">
-          <div className="f-col gap md:p-0.8 px-0.5">
+          <div className="f-col gap md:p-0.8 p-0.5">
             <form
               className="relatvie"
               role="search"
@@ -25,10 +25,7 @@ const Chat = () => {
             <div className="f-col gap">
               <div className="flex gap items-center bg-gray-300 p-0.5 md:rounded-sm rounded-xs cursor-pointer hover:bg-gray-200">
                 <div className=" max-w-[30px] bg-gray-100 rounded-full overflow-hidden md:p-[2px] p-[1px] ">
-                  <img
-                    src={Images.client}
-                    className="rounded-full"
-                  />
+                  <img src={Images.client} className="rounded-full" />
                 </div>
                 <div className="f-col gap-0.5 w-full ">
                   <span className="md:text-base text-sm md:font-bold font-semibold capitalize">
@@ -46,7 +43,7 @@ const Chat = () => {
           </div>
         </div>
         <div className="h-full bg-white w-full overflow-auto md:shadow-lg">
-          df
+          <div className="f-col gap md:p-0.8 p-0.5">df</div>
         </div>
       </div>
     </div>
