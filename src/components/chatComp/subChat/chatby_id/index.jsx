@@ -1,9 +1,11 @@
-import React ,{Fragment}from "react";
+import React, { Fragment } from "react";
 import { IconButton, Skeleton, Stack } from "@mui/material";
 import {
   AttachFile as AttachFileIcon,
   Send as SendIcon,
 } from "@mui/icons-material";
+import { InputBox } from "../../../../styles/StyledComponents";
+import { orange } from "../../../../contants/color";
 
 const UserChat = () => {
   return (
@@ -28,7 +30,6 @@ const UserChat = () => {
 
         {/* <div ref={bottomRef} /> */}
       </Stack>
-
       <form
         style={{
           height: "10%",
@@ -63,12 +64,13 @@ const UserChat = () => {
             type="submit"
             sx={{
               rotate: "-30deg",
-              // bgcolor: orange,
+
+              bgcolor: "#555F5E",
               color: "white",
               marginLeft: "1rem",
               padding: "0.5rem",
               "&:hover": {
-                bgcolor: "error.dark",
+                bgcolor: "#D1D5DB",
               },
             }}
           >
