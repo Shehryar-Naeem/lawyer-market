@@ -53,7 +53,7 @@ const GetAllGigs = () => {
               <>
                 <div className="f-col md:gap-[2rem] gap-[1.5rem] mt-[2rem]">
                   <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
-                    <form className="relatvie flex-1 " role="search">
+                    <form className="relative flex-1 " role="search">
                       <input
                         name="all"
                         // value={inputValue.all}

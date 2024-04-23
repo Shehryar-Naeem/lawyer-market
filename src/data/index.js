@@ -1,7 +1,6 @@
-
-import img1 from "../assets/images/10320-200.png"
-import img2 from "../assets/images/building-brand.jpg"
-import img3 from "../assets/images/client.jpg"
+import img1 from "../assets/images/10320-200.png";
+import img2 from "../assets/images/building-brand.jpg";
+import img3 from "../assets/images/client.jpg";
 export const lawyerCategories = [
   {
     id: 1,
@@ -167,7 +166,7 @@ export const additionalServices = [
     name: "Extensive research and legal precedent identification",
   },
 ];
-export const cites=[
+export const cites = [
   "Islamabad",
   "Ahmed Nager",
   "Ahmadpur East",
@@ -402,23 +401,164 @@ export const cites=[
   "Sohbatpur",
   "Washuk",
   "Zhob",
-  "Ziarat"
-]
+  "Ziarat",
+];
 
 export const carousalImages = [
   {
     id: 1,
     image: img1,
-    
   },
   {
     id: 2,
     image: img2,
-   
   },
   {
     id: 3,
     image: img3,
-    
-  }
-]
+  },
+];
+
+export const messageData = [
+  {
+    id: "0f34",
+    chatName: "John Doe",
+    message: [
+      {
+        id: 1,
+        message: "Hello",
+        isSender: true,
+      },
+      {
+        id: 2,
+        message: "Hi",
+        isSender: false,
+      },
+      {
+        id: 3,
+        message: "How are you?",
+        isSender: true,
+      },
+      {
+        id: 4,
+        message: "I am fine",
+        isSender: false,
+      },
+      {
+        id: 1,
+        message: "Hello",
+        isSender: true,
+      },
+      {
+        id: 2,
+        message: "Hi",
+        isSender: false,
+      },
+      {
+        id: 3,
+        message: "How are you?",
+        isSender: true,
+      },
+      {
+        id: 4,
+        message: "I am fine",
+        isSender: false,
+      },
+  
+    ]
+  },
+  {
+    id: '0f35',
+    chatName: "John Doe",
+    message: [
+      {
+        id: 1,
+        message: "Hello",
+        isSender: true,
+      },
+      {
+        id: 2,
+        message: "Hi",
+        isSender: false,
+      },
+      {
+        id: 3,
+        message: "How are you?",
+        isSender: true,
+      },
+      {
+        id: 4,
+        message: "I am fine",
+        isSender: false,
+      },
+      {
+        id: 1,
+        message: "Hello",
+        isSender: true,
+      },
+      {
+        id: 2,
+        message: "Hi",
+        isSender: false,
+      },
+      {
+        id: 3,
+        message: "How are you?",
+        isSender: true,
+      },
+      {
+        id: 4,
+        message: "I am fine",
+        isSender: false,
+      },
+  
+    ]
+  },
+  {
+    id: "0f36",
+    chatName: "John Doe",
+    message: [
+      {
+        id: 1,
+        message: "Hello",
+        isSender: true,
+      },
+      {
+        id: 2,
+        message: "Hi",
+        isSender: false,
+      },
+      {
+        id: 3,
+        message: "How are you?",
+        isSender: true,
+      },
+      {
+        id: 4,
+        message: "I am fine",
+        isSender: false,
+      },
+      {
+        id: 1,
+        message: "Hello",
+        isSender: true,
+      },
+      {
+        id: 2,
+        message: "Hi",
+        isSender: false,
+      },
+      {
+        id: 3,
+        message: "How are you?",
+        isSender: true,
+      },
+      {
+        id: 4,
+        message: "I am fine",
+        isSender: false,
+      },
+  
+    ]
+  },
+];
