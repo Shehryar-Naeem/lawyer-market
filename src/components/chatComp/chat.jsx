@@ -1,10 +1,13 @@
 import React from "react";
 import { Images } from "../../assets/images";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-const ChatComp = ({ index }) => {
+const ChatComp = ({ data, index,setOpen,open }) => {
   return (
-    <div
+    <Link
+      to={`/lawyer-profile/chat/${data}`}
+      onClick={() => setOpen(!open)}
       key={index}
       className="flex gap w-full items-center bg-gray-300 p-0.5 md:rounded-sm rounded-xs cursor-pointer hover:bg-gray-400"
     >
@@ -22,7 +25,7 @@ const ChatComp = ({ index }) => {
           <div className="h-[9px] w-[9px]  block bg-green-400 rounded-full"></div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

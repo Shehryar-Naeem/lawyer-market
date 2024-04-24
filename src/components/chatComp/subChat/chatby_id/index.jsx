@@ -6,22 +6,30 @@ import {
 } from "@mui/icons-material";
 import { InputBox } from "../../../../styles/StyledComponents";
 import { orange } from "../../../../contants/color";
-
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Link } from "react-router-dom";
 const UserChat = () => {
   return (
     <Fragment>
       <Stack
         // ref={containerRef}
         boxSizing={"border-box"}
-        padding={"1rem"}
+        // padding={"1rem"}
         spacing={"1rem"}
         // bgcolor={grayColor}
+        position={"relative"}
         height={"90%"}
         sx={{
           overflowX: "hidden",
           overflowY: "auto",
         }}
       >
+        <div className="absolute top-0 w-full bg-gray-300 ">
+          <Link to="/lawyer-profile/chat/" className="lg:p-1 md:p-0.10 p-0.8 bg-gray-100 inline-flex items-center h-full cursor-pointer">
+
+          <IoMdArrowRoundBack />
+          </Link>
+        </div>
         {/* {allMessages.map((i) => (
           <MessageComponent key={i._id} message={i} user={user} />
         ))} */}
@@ -39,14 +47,14 @@ const UserChat = () => {
         <Stack
           direction={"row"}
           height={"100%"}
-          padding={"1rem"}
+          // padding={"1rem"}
           alignItems={"center"}
           position={"relative"}
         >
           <IconButton
             sx={{
               position: "absolute",
-              left: "1.5rem",
+              left: ".5rem",
               rotate: "30deg",
             }}
             // onClick={handleFileOpen}
@@ -65,12 +73,12 @@ const UserChat = () => {
             sx={{
               rotate: "-30deg",
 
-              bgcolor: "#555F5E",
+              bgcolor: "#7F8389",
               color: "white",
-              marginLeft: "1rem",
+              marginLeft: "0.5rem",
               padding: "0.5rem",
               "&:hover": {
-                bgcolor: "#D1D5DB",
+                bgcolor: "#959B9B",
               },
             }}
           >

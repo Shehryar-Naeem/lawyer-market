@@ -12,8 +12,8 @@ const Chat = () => {
         <div
           className={`${
             open
-              ? "transition-all lg:translate-x-0 -translate-x-full lg:relative absolute top-0 left-0 h-full max-w-full  bg-white md:min-w-[250px] md:shadow-lg shadow-md "
-              : "transition-all lg:translate-x-0 lg:relative absolute top-0 left-0 h-full max-w-full  bg-white md:min-w-[250px] md:shadow-lg  shadow-md"
+              ? "transition-all lg:translate-x-0 -translate-x-full z-99 lg:relative absolute top-0 left-0 h-full max-w-full  bg-white md:min-w-[250px] md:shadow-lg shadow-md "
+              : "transition-all lg:translate-x-0 lg:relative absolute z-99 top-0 left-0 h-full max-w-full  bg-white md:min-w-[250px] md:shadow-lg  shadow-md"
           } `}
         >
           <div className="f-col w-full justify-between h-full gap md:p-0.8 p-0.5">
@@ -35,7 +35,7 @@ const Chat = () => {
             <div className="f-col h-full gap overflow-auto custom-scroll">
               {messageData.map((data, index) => (
                 <>
-                  <ChatComp index={index} />
+                  <ChatComp data={data.id} index={index} setOpen={setOpen} open={open} />
                 </>
               ))}
             </div>
