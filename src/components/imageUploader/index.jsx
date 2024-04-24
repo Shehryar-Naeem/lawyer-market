@@ -5,14 +5,15 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { userExist } from "../../redux/reducer/userReducer";
 
-const ImageUploader = ({ avatar }) => {
+const 
+ImageUploader = ({ avatar }) => {
   const [profile, setProfileImage] = useState(avatar);
   const dispatch = useDispatch();
-  const [updateProfilePicture, { isError }] = useUpdateProfilePictureMutation();
+  const [updateProfilePicture, { isError,error }] = useUpdateProfilePictureMutation();
 
   useEffect(() => {
     if (isError) {
-      toast.error("Failed to update profile picture");
+      toast.error(error.data.message);
 
     }
   }, [isError]);
@@ -35,9 +36,8 @@ const ImageUploader = ({ avatar }) => {
             }
           })
           .catch((error) => {
-            toast.dismiss(toastId);
             setProfileImage(avatar);
-            toast.error("Failed to update profile picture");
+            toast.dismiss(toastId);
           });
       };
       reader.readAsDataURL(file);

@@ -42,7 +42,7 @@ const GetAllGigs = () => {
         <div className="container page-container-without-bg flex f-col justify-between">
           <div>
             {isLoading ? (
-              <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad">
+              <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap general-pad">
                 <>
                   {Array.from({ length: skeletonCount }).map((_, index) => (
                     <CardSkeletonLoading key={index} />
@@ -73,7 +73,7 @@ const GetAllGigs = () => {
                   </div>
 
                   <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
-                    <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad ">
+                    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap general-pad ">
                       {data?.gigs?.map((gig) => (
                         <GigCard key={gig._id} gig={gig} />
                       ))}

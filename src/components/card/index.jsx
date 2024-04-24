@@ -47,7 +47,7 @@ const GigCard = ({ gig, key }) => {
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Card key={key}>
-        <div className="card-h md:rounded-sm rounded-xs overflow-hidden ">
+        <div className="min-h-[140px] max-h-[150px]  md:rounded-sm rounded-xs overflow-hidden ">
           {/* <img
             src={gig?.images[0]?.url}
             alt="gig"
@@ -55,7 +55,7 @@ const GigCard = ({ gig, key }) => {
           /> */}
           <GigCarousel images={gig?.images} gig={true} />
         </div>
-        <div className="f-col gap  justify-between md:h-full  ">
+        <div className="f-col gap  justify-between   ">
           <div className="flex gap items-center ">
             <img
               src={gig?.user?.avatar?.url}
@@ -70,7 +70,7 @@ const GigCard = ({ gig, key }) => {
               </h3>
             </Link>
           </div>
-          <div className="f-col gap justify-between h-full ">
+          <div className="f-col gap justify-between  ">
             <div className="flex items-center space-x-1">
               {showLeftArrow && (
                 <button

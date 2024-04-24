@@ -158,7 +158,7 @@ const GigStepThree = () => {
       
       if (response && response?.data?.success) {
 
-        navigate("/user-profile/gigs");
+        navigate("/gigs");
       }
     } catch (error) {
       console.error("An error occurred while processing gigStepOne:", error);

@@ -15,7 +15,6 @@ const Header = () => {
 
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const { currentProfileType } = useSelector((state) => state.profile);
-  console.log(currentProfileType);
   const menuRight = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();

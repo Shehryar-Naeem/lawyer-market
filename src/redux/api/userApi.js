@@ -29,6 +29,7 @@ export const userApi = createApi({
         body: user,
       }),
       invalidatesTags: ["Users"],
+      
     }),
     getUser: builder.query({
       query: () => `user/get-profle`,
