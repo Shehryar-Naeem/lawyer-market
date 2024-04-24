@@ -36,6 +36,7 @@ const ImageUploader = ({ avatar }) => {
           })
           .catch((error) => {
             toast.dismiss(toastId);
+            setProfileImage(avatar);
             toast.error("Failed to update profile picture");
           });
       };
