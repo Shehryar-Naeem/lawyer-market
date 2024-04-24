@@ -13,6 +13,7 @@ const ImageUploader = ({ avatar }) => {
   useEffect(() => {
     if (isError) {
       toast.error("Failed to update profile picture");
+
     }
   }, [isError]);
 
@@ -34,6 +35,7 @@ const ImageUploader = ({ avatar }) => {
             }
           })
           .catch((error) => {
+            toast.dismiss(toastId);
             toast.error("Failed to update profile picture");
           });
       };
