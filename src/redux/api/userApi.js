@@ -117,9 +117,17 @@ export const userApi = createApi({
       providesTags: ["Gigs"],
     }),
     getAllgigs: builder.query({
-      query: ({ currentPage }) => {
+      query: ({ currentPage, category, services, city, minPrice, maxPrice, search }) => {
         // console.log("Current page:", currentPage);
-        return `gig/get-gigs?page=${currentPage}`; 
+        let url=`gig/get-gigs?page=${currentPage}`;
+        if(category) url+=`&category=${category}`;
+        if(services) url+=`&pricing.services=${services}`;
+        if(city) url+=`&city=${city}`;
+        if(minPrice) url+=`&ricing.price[lte]=${minPrice}`;
+        if(maxPrice) url+=`&pricing.price[gte]=${maxPrice}`;
+        if(search) url+=`&keyword=${search}`;
+        
+        return url; 
       },
       providesTags: ["Gigs"],
     }),

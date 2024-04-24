@@ -4,18 +4,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userExist } from "../../redux/reducer/userReducer";
 import Loader from "../loader";
+import { set } from "react-hook-form";
 
 const FilterModel = ({
   openModal,
   setOpenModal,
   title,
   children,
+  handleClearFilters,
+  handleFilterSubmit
 
 }) => {
   const customTheme = {
     modal: {
       root: {
-        base: "fixed inset-x-0 top-0 z-99 backdrop-blur-sm h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
+        base: "fixed inset-x-0 top-0 z-[9999] backdrop-blur-sm h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
         show: {
           on: "flex bg-gray-900 bg-opacity-50 dark:bg-opacity-80",
           off: "hidden",
@@ -81,7 +84,7 @@ const FilterModel = ({
     <Flowbite theme={{ theme: customTheme }}>
       <Modal
         show={openModal}
-        // onClose={()=>cancelHandler()}
+        onClose={()=>setOpenModal(!openModal)}
         // popup dismissible
         size={"sm"}
         className="animate-fade-in"
@@ -92,6 +95,7 @@ const FilterModel = ({
           <div className="flex justify-center gap-4">
             <Button
               size="xs"
+              onClick={handleFilterSubmit}
               className="!px-0 !py-0 uppercase bg-black lg:rounded-sm md:rounded-xs rounded-xxs enabled:focus:ring-0 enabled:hover:bg-black-90"
             //   onClick={createLaywerHandler}
             >
@@ -103,11 +107,11 @@ const FilterModel = ({
               apply    
             </Button>
             <Button
-            //   onClick={cancelHandler}
+              onClick={handleClearFilters}
               size="xs"
               className="!px-0 !py-0 uppercase lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
             >
-              cancel
+              clear
             </Button>
           </div>
         </Modal.Footer>

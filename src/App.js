@@ -38,7 +38,6 @@ import ClientPosts from "./components/client";
 import ChatHome from "./components/chatComp/subChat/chatHome";
 import UserChat from "./components/chatComp/subChat/chatby_id";
 
-
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
 

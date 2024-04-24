@@ -12,9 +12,24 @@ import { cites, lawyerCategories, lawyerServices } from "../../data";
 const GetAllGigs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
+  const [category, setCategary] = useState("");
+  const [search, setSearch] = useState("");
+  const [services, setServices] = useState("");
+  const [city, setCity] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [formValues, setFormValues] = useState({
+    category: "",
+    services: "",
+    city: "",
+    minPrice: "",
+    maxPrice: "",
+  });
+  const [filterValues, setFilterValues] = useState({});
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const { data, error, isError, isFetching, isLoading } = useGetAllgigsQuery(
-    { currentPage },
+    { currentPage, search,...filterValues },
     {
       pollingInterval: 30000,
       refetchOnMountOrArgChange: 60,
@@ -23,6 +38,7 @@ const GetAllGigs = () => {
       skip: currentPage <= 0,
     }
   );
+  console.log(data);
   useEffect(() => {
     if (isError) {
       toast.error(error.data.message);
@@ -32,17 +48,45 @@ const GetAllGigs = () => {
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
-  const skeletonCount = Math.floor(window.innerHeight / 100) * 1.5 + 2;
+
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+    setCurrentPage(1);
   };
+
+  const handleFilterSubmit = (event) => {
+    // alert("Filter Submitted");
+    event.preventDefault();
+    setFilterValues(formValues);
+    setIsFormSubmitted(true);
+    setCurrentPage(1);
+    setOpenModal(false);
+  };
+
+  const handleClearFilters = () => {
+    setFormValues({
+      category: "",
+      services: "",
+      city: "",
+      minPrice: "",
+      maxPrice: "",
+    });
+    setSearch("");
+    setFilterValues({});
+  };
+  const skeletonCount = Math.floor(window.innerHeight / 100) * 1.5 + 2;
+
   return (
     <>
       <div className="bg-gray-100">
         <div className="container page-container-without-bg flex f-col justify-between">
           <div>
             {isLoading ? (
-              <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap general-pad">
+              <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad">
                 <>
                   {Array.from({ length: skeletonCount }).map((_, index) => (
                     <CardSkeletonLoading key={index} />
@@ -53,15 +97,19 @@ const GetAllGigs = () => {
               <>
                 <div className="f-col md:gap-[2rem] gap-[1.5rem] mt-[2rem]">
                   <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
-                    <form className="relative flex-1 " role="search">
+                    <form
+                      className="relative flex-1 "
+                      role="search"
+                      // onSubmit={handleFilterSubmit}
+                    >
                       <input
-                        name="all"
-                        // value={inputValue.all}
+                        name="search"
+                        value={search}
                         type="text"
                         className="w-full general-pad text-[1rem] border border-gray-300 md:rounded-sm  rounded-xs outline-none focus:ring-0"
                         placeholder="search..."
                         aria-label="Search"
-                        onChange={handleFilterChange}
+                        onChange={(e)=>setSearch(e.target.value)}
                       />
                     </form>
                     <button
@@ -73,7 +121,7 @@ const GetAllGigs = () => {
                   </div>
 
                   <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
-                    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap general-pad ">
+                    <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad ">
                       {data?.gigs?.map((gig) => (
                         <GigCard key={gig._id} gig={gig} />
                       ))}
@@ -85,24 +133,22 @@ const GetAllGigs = () => {
           </div>
 
           <div className="paginationBox">
-            {data?.resultPerPage <= count && (
-              <div className="paginationBox">
-                <Pagination
-                  activePage={currentPage}
-                  itemsCountPerPage={data?.resultPerPage}
-                  totalItemsCount={data?.gigsCount}
-                  onChange={setCurrentPageNo}
-                  nextPageText="Next"
-                  prevPageText="Prev"
-                  firstPageText="1st"
-                  lastPageText="Last"
-                  itemClass="page-item"
-                  linkClass="page-link"
-                  activeClass="pageItemActive"
-                  activeLinkClass="pageLinkActive"
-                />
-              </div>
-            )}
+            <div className="paginationBox">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={data?.resultPerPage}
+                totalItemsCount={data?.gigsCount}
+                onChange={setCurrentPageNo}
+                nextPageText="Next"
+                prevPageText="Prev"
+                firstPageText="1st"
+                lastPageText="Last"
+                itemClass="page-item"
+                linkClass="page-link"
+                activeClass="pageItemActive"
+                activeLinkClass="pageLinkActive"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -111,14 +157,22 @@ const GetAllGigs = () => {
           title={"Apply Filter"}
           openModal={openModal}
           setOpenModal={setOpenModal}
+          handleClearFilters={handleClearFilters}
+          handleFilterSubmit={handleFilterSubmit}
+          
         >
-          <div className="f-col gap">
+          <form className="f-col gap" >
             <div className="flex flex-col lg:gap-0.8 md:gap-0.5 gap-xs">
               <label htmlFor={"category"} class="modal-input-label">
                 category
               </label>
-              <select className="border border-gray-300 text-gray-400  md:text-base text-sm small-btn-border-radius focus:ring-gray-400 focus:border-gray-400 block w-full md:p-0.8 p-0.5">
-                <option>select category...</option>
+              <select
+                className="border border-gray-300 text-gray-400  md:text-base text-sm small-btn-border-radius focus:ring-gray-400 focus:border-gray-400 block w-full md:p-0.8 p-0.5"
+                value={formValues.category}
+                name="category"
+                onChange={handleFilterChange}
+              >
+                <option value={""}>select category...</option>
                 {lawyerCategories.map((category, index) => (
                   <option key={index} value={category.name}>
                     {category.name}
@@ -127,25 +181,34 @@ const GetAllGigs = () => {
               </select>
             </div>
             <div className="flex flex-col lg:gap-0.8 md:gap-0.5 gap-xs">
-              <label htmlFor={"category"} class="modal-input-label">
+              <label htmlFor={"services"} class="modal-input-label">
                 services
               </label>
-              <select className="border border-gray-300 text-gray-400  md:text-base text-sm small-btn-border-radius focus:ring-gray-400 focus:border-gray-400 block w-full md:p-0.8 p-0.5">
-                <option>select services...</option>
+              <select
+                className="border border-gray-300 text-gray-400  md:text-base text-sm small-btn-border-radius focus:ring-gray-400 focus:border-gray-400 block w-full md:p-0.8 p-0.5"
+                value={formValues.services}
+                name="services"
+                onChange={handleFilterChange}
+              >
+                <option value={""}>select services...</option>
                 {lawyerServices.map((service, index) => (
                   <option key={index} value={service.name}>
                     {service.name}
                   </option>
                 ))}
               </select>
-            
             </div>
             <div className="flex flex-col lg:gap-0.8 md:gap-0.5 gap-xs">
-              <label htmlFor={"category"} class="modal-input-label">
+              <label htmlFor={"city"} class="modal-input-label">
                 city
               </label>
-              <select className="border border-gray-300 text-gray-400  md:text-base text-sm small-btn-border-radius focus:ring-gray-400 focus:border-gray-400 block w-full md:p-0.8 p-0.5">
-                <option>select city...</option>
+              <select
+                className="border border-gray-300 text-gray-400  md:text-base text-sm small-btn-border-radius focus:ring-gray-400 focus:border-gray-400 block w-full md:p-0.8 p-0.5"
+                value={formValues.city}
+                name="city"
+                onChange={handleFilterChange}
+              >
+                <option value={""}>select city...</option>
                 {cites.map((city, index) => (
                   <option key={index} value={city}>
                     {city}
@@ -161,27 +224,35 @@ const GetAllGigs = () => {
               /> */}
             </div>
             <div className="flex flex-col lg:gap-0.8 md:gap-0.5 gap-xs">
-              <label htmlFor={"category"} class="modal-input-label">
+              <label htmlFor={"minPrice"} class="modal-input-label">
                 price
               </label>
               <div className="flex gap">
                 <input
                   type={"number"}
                   id={"price"}
+                  name="minPrice"
+                  value={formValues.minPrice}
+                  onChange={handleFilterChange}
+                  placeholder="min price"
                   className="border border-gray-300 text-gray-400  md:text-base text-sm small-btn-border-radius focus:ring-gray-400 focus:border-gray-400 block w-full md:p-0.8 p-0.5"
                   // placeholder={placeholder}
                   // {...register(name)}
                 />
-              <input
-                type={"number"}
-                id={"price"}
-                className="border border-gray-300 text-gray-400  md:text-base text-sm small-btn-border-radius focus:ring-gray-400 focus:border-gray-400 block w-full md:p-0.8 p-0.5"
-                // placeholder={placeholder}
-                // {...register(name)}
-              />
+                <input
+                  type={"number"}
+                  id={"price"}
+                  name="maxPrice"
+                  value={formValues.maxPrice}
+                  onChange={handleFilterChange}
+                  placeholder="max price"
+                  className="border border-gray-300 text-gray-400  md:text-base text-sm small-btn-border-radius focus:ring-gray-400 focus:border-gray-400 block w-full md:p-0.8 p-0.5"
+                  // placeholder={placeholder}
+                  // {...register(name)}
+                />
               </div>
             </div>
-          </div>
+          </form>
         </FilterModel>
       )}
       {/* <FilterModel openModal={openModal} setOpenModal={setOpenModal} /> */}

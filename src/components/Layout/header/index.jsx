@@ -148,7 +148,7 @@ const Header = () => {
   };
   return (
     <>
-      <header className="shadow-2xl z-9 sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
+      <header className="shadow-2xl z-[9999] sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
         <nav className="flex-between">
           <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
             <NavLink to="/">
@@ -161,7 +161,8 @@ const Header = () => {
           </div>
           <div
             className={`${
-              isMobileMenuOpen ? "flex" : "hidden" } md:flex flex-col md:flex-row gap items-center md:relative absolute md:w-auto w-full left-0 top-full md:bg-transparent transition-all bg-white md:px-0 px-2 md:pb-0 pb-4 md:shadow-none shadow-lg`} 
+              isMobileMenuOpen ? "flex" : "hidden"
+            } md:flex flex-col md:flex-row gap items-center md:relative absolute md:w-auto w-full left-0 top-full md:bg-transparent transition-all bg-white md:px-0 px-2 md:pb-0 pb-4 md:shadow-none shadow-lg`}
           >
             <NavLink to={"/gigs"} className="nav-link">
               gigs

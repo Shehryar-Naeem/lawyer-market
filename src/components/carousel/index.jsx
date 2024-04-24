@@ -3,8 +3,8 @@ import { classNames } from "primereact/utils";
 
 const GigCarousel = ({ images, gig }) => {
   const customTheme = {
-    root: "flex flex-col w-full h-full overflow-hidden",
-    content: "flex flex-col w-full h-full overflow-hideen ",
+    root: "flex flex-col w-full h-full object-contain overflow-hidden",
+    content: "flex flex-col w-full h-full object-contain overflow-hideen ",
     container: ({ props }) => ({
       className: classNames("flex w-full h-full overflow-hidden relative", {
         "flex-row": props.orientation !== "vertical",
@@ -13,22 +13,22 @@ const GigCarousel = ({ images, gig }) => {
     }),
     previousbutton: {
       className: classNames(
-        "absolute left-[0%] z-10 flex text-sm justify-center items-center self-center overflow-hidden  shrink-0 grow-0 ",
+        "absolute left-[0%] z-10 !bg-[#404145] flex text-sm justify-center items-center self-center overflow-hidden  shrink-0 grow-0 ",
         `${
           gig ? "w-5 h-5 rounded-xxs" : "md:w-8 md:h-8 h-6 w-6 rounded-sm "
-        } text-gray-600 bg-[#404145] border-0 bg-transparent transition duration-200 ease-in-out`
+        } text-gray-600 border-0  transition duration-200 ease-in-out`
       ),
     },
     nextButton: {
         className: classNames(
-          "absolute right-[0%] z-10 flex bg-[#404145]   justify-center items-center self-center overflow-hidden  shrink-0 grow-0",
+          "absolute right-[0%] z-10 flex !bg-[#404145]   justify-center items-center self-center overflow-hidden  shrink-0 grow-0",
           `${
             gig ? "w-5 h-5 rounded-xxs" : "md:w-8 md:h-8 h-6 w-6 rounded-sm "
-          } text-gray-600   border-0 bg-transparent  transition duration-200 ease-in-out`
+          } text-gray-600   border-0   transition duration-200 ease-in-out`
         ),
       },
     previousButtonIcon: {
-      className: classNames(`text-white ${gig ? "md:w-3 w-2 " : "md:w-4 w-3"}`),
+      className: classNames(`text-white  ${gig ? "md:w-3 w-2 " : "md:w-4 w-3"}`),
     },
     nextButtonIcon: {
       className: classNames(`text-white ${gig ? "md:w-3 w-2 " : "md:w-4 w-3"}`),
@@ -36,7 +36,7 @@ const GigCarousel = ({ images, gig }) => {
    
     itemscontent: "w-full h-full",
     itemscontainer: ({ props }) => ({
-      className: classNames("flex  w-full  h-full", {
+      className: classNames("flex  w-full  h-full object-contain", {
         "flex-row": props.orientation !== "vertical",
         "flex-col": props.orientation == "vertical",
       }),

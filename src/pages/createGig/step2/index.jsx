@@ -122,7 +122,7 @@ const GigStepTwo = () => {
                 {errors.price && <FailureAlert error={errors.price.message} />}
               </div>
 
-              <div className="flex items-center lg:gap-1 md:gap-0.10 gap-0.8 ">
+              {/* <div className="flex items-center lg:gap-1 md:gap-0.10 gap-0.8 ">
                 <input
                   type="checkbox"
                   checked={isChecked}
@@ -171,7 +171,7 @@ const GigStepTwo = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
 
               <div className="flex items-end justify-end">
                 <button type="submit" className="gig-btn">
