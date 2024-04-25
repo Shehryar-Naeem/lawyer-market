@@ -20,7 +20,6 @@ root.render(
       <PrimeReactProvider>
         <Provider store={store}>
           <Toaster position="top-right" />
-
           <App />
         </Provider>
       </PrimeReactProvider>

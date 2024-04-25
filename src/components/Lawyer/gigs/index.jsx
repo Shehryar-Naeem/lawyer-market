@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { MdAdd } from "react-icons/md";
 import LawyerGigSkeletonLoading from "../../skeletonLoading/lawyergig";
-import { useGetUserGigsQuery } from "../../../redux/api/userApi";
+import { useGetMeGigsQuery } from "../../../redux/api/userApi";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import GigCard from "../../card";
 const Gigs = () => {
-  const { data, error, isError, isFetching } = useGetUserGigsQuery();
+  const { data, error, isError, isFetching } = useGetMeGigsQuery();
   useEffect(() => {
     if (isError) {
       toast.error(error.data.message);
@@ -18,27 +18,21 @@ const Gigs = () => {
         {isFetching ? (
           <LawyerGigSkeletonLoading />
         ) : (
-          data?.gigs?.map((gig) => (
-            <Link
-              to={`/lawyer-gig/${gig._id}`}
-              key={gig._id}
-              className="lg:shadow-3xl md:shadow-2xl sm:shadow-lg shadow-md md:rounded-sm rounded-xs item-center flex-col lg:gap-sm md:gap-xs sm:gap-xxs  min-h-gig-card-h item-center"
-            >
-              <GigCard />
-            </Link>
-          ))
+          data?.gigs?.map((gig, index) => <GigCard key={index} gig={gig} me={true} />)
         )}
-        <Link
-          to={"/lawyer-gig/step1"}
-          className="md:rounded-sm rounded-xs item-center flex-col lg:gap-sm md:gap-xs sm:gap-xxs  min-h-gig-card-h item-center lg:shadow-3xl md:shadow-2xl sm:shadow-lg shadow-md"
-        >
-          <span className="gray-circle">
-            <MdAdd />
-          </span>
-          <span className="md:text-base sm:text-sm text-xs text-black md:font-semibold font-medium ">
-            Create a new Gig
-          </span>
-        </Link>
+        {data?.gigs.length < 2 && (
+          <Link
+            to={"/lawyer-gig/step1"}
+            className="md:rounded-sm rounded-xs item-center flex-col lg:gap-sm md:gap-xs sm:gap-xxs  min-h-gig-card-h item-center lg:shadow-3xl md:shadow-2xl sm:shadow-lg shadow-md"
+          >
+            <span className="gray-circle">
+              <MdAdd />
+            </span>
+            <span className="md:text-base sm:text-sm text-xs text-black md:font-semibold font-medium ">
+              Create a new Gig
+            </span>
+          </Link>
+        )}
       </div>
     </div>
   );

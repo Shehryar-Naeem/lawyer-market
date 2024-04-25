@@ -5,16 +5,15 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { userExist } from "../../redux/reducer/userReducer";
 
-const 
-ImageUploader = ({ avatar }) => {
+const ImageUploader = ({ avatar }) => {
   const [profile, setProfileImage] = useState(avatar);
   const dispatch = useDispatch();
-  const [updateProfilePicture, { isError,error }] = useUpdateProfilePictureMutation();
+  const [updateProfilePicture, { isError, error }] =
+    useUpdateProfilePictureMutation();
 
   useEffect(() => {
     if (isError) {
       toast.error(error.data.message);
-
     }
   }, [isError]);
 
@@ -27,7 +26,6 @@ ImageUploader = ({ avatar }) => {
         const toastId = toast.loading("uploading...");
         updateProfilePicture({ avatar: e.target.result })
           .then((response) => {
-            console.log(response);
             if (response.data.success) {
               dispatch(userExist(response.data?.user));
               toast.success("Image uploaded", {
@@ -51,7 +49,7 @@ ImageUploader = ({ avatar }) => {
         className="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-full cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 overflow-hidden shadow-2xl relative"
       >
         <img src={profile} alt="profile" />
-        <div className="absolute bg-primary/30 md:flex md:items-center md:justify-center w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-100 backdrop-blur-sm hidden " >
+        <div className="absolute bg-primary/30 md:flex md:items-center md:justify-center w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-100 backdrop-blur-sm hidden ">
           <img src={Images.UploadLogo} alt="upload" className="w-16 h-16" />
         </div>
 

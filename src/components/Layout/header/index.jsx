@@ -148,7 +148,7 @@ const Header = () => {
   };
   return (
     <>
-      <header className="shadow-2xl z-[9999] sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
+      <header className="shadow-2xl z-[999] sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
         <nav className="flex-between">
           <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
             <NavLink to="/">

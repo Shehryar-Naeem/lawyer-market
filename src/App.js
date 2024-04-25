@@ -1,9 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
@@ -15,7 +11,6 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 
 import "primeicons/primeicons.css";
-import CardSkeletonLoading from "./components/skeletonLoading/cardLoading";
 import LawyerDetail from "./components/Lawyer/details";
 import Gigs from "./components/Lawyer/gigs";
 import Bid from "./components/Lawyer/bids";
@@ -37,6 +32,7 @@ import ClientProfile from "./pages/clientProfile";
 import ClientPosts from "./components/client";
 import ChatHome from "./components/chatComp/subChat/chatHome";
 import UserChat from "./components/chatComp/subChat/chatby_id";
+import { Toaster } from "react-hot-toast";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -136,7 +132,14 @@ function App() {
             { path: "accounts", element: <Accounts /> },
           ],
         },
-        { path: "/gig/:id", element: <GigDetail /> },
+        {
+          path: "/gig/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated}>
+              <GigDetail />
+            </ProtectRoute>
+          ),
+        },
         { path: "/gigs", element: <GetAllGigs /> },
         {
           path: "/lawyer-gig/step1",

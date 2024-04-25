@@ -29,7 +29,6 @@ export const userApi = createApi({
         body: user,
       }),
       invalidatesTags: ["Users"],
-      
     }),
     getUser: builder.query({
       query: () => `user/get-profle`,
@@ -52,7 +51,7 @@ export const userApi = createApi({
       invalidatesTags: ["Users"],
     }),
     resetPassword: builder.mutation({
-      query: ({token,data}) => ({
+      query: ({ token, data }) => ({
         url: `user/password/reset/${token}`,
         method: "PUT",
         body: data,
@@ -117,18 +116,34 @@ export const userApi = createApi({
       providesTags: ["Gigs"],
     }),
     getAllgigs: builder.query({
-      query: ({ currentPage, category, services, city, minPrice, maxPrice, search }) => {
+      query: ({
+        currentPage,
+        category,
+        services,
+        city,
+        minPrice,
+        maxPrice,
+        search,
+      }) => {
         // console.log("Current page:", currentPage);
-        let url=`gig/get-gigs?page=${currentPage}`;
-        if(category) url+=`&category=${category}`;
-        if(services) url+=`&pricing.services=${services}`;
-        if(city) url+=`&city=${city}`;
-        if(minPrice) url+=`&ricing.price[lte]=${minPrice}`;
-        if(maxPrice) url+=`&pricing.price[gte]=${maxPrice}`;
-        if(search) url+=`&keyword=${search}`;
-        
-        return url; 
+        let url = `gig/get-gigs?page=${currentPage}`;
+        if (category) url += `&category=${category}`;
+        if (services) url += `&pricing.services=${services}`;
+        if (city) url += `&city=${city}`;
+        if (minPrice) url += `&ricing.price[lte]=${minPrice}`;
+        if (maxPrice) url += `&pricing.price[gte]=${maxPrice}`;
+        if (search) url += `&keyword=${search}`;
+
+        return url;
       },
+      providesTags: ["Gigs"],
+    }),
+    getGigById: builder.query({
+      query: (id) => `gig/get-gig/${id}`,
+      providesTags: ["Gigs"],
+    }),
+    getMeGigs: builder.query({
+      query: () => `gig/get-gigs/me`,
       providesTags: ["Gigs"],
     }),
   }),
@@ -151,4 +166,6 @@ export const {
   useGigstepThreeMutation,
   useGetUserGigsQuery,
   useGetAllgigsQuery,
+  useGetGigByIdQuery,
+  useGetMeGigsQuery,
 } = userApi;

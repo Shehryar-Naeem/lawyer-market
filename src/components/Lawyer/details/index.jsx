@@ -5,7 +5,6 @@ import LawyerProfileLoading from "../../skeletonLoading/LawyerProfileLoading";
 const LawyerDetail = () => {
   const { data, isLoading, isSuccess, isError, error } =
     useLawyerPrfofileQuery();
-  console.log(data);
   useEffect(() => {
     if (isError) {
       console.log(error.data.message);

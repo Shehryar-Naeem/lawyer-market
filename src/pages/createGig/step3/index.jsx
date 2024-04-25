@@ -26,7 +26,7 @@ const imageSchema = yup.object().shape({
 
 const GigStepThree = () => {
   const location = useLocation();
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -44,14 +44,12 @@ const GigStepThree = () => {
 
   useEffect(() => {
     setValue("images", images);
-   
   }, [images]);
   useEffect(() => {
-   
-      if (isError) {
-        toast.error(error.data.message);
-      }
-    }, [isError, error]);
+    if (isError) {
+      toast.error(error.data.message);
+    }
+  }, [isError, error]);
   // const handleImageUpload = (e, index) => {
   //   const files = Array.from(e.target.files);
 
@@ -155,14 +153,12 @@ const GigStepThree = () => {
       console.log("id", id);
       const response = await gigstepThree({ id, data });
       console.log("response", response);
-      
-      if (response && response?.data?.success) {
 
+      if (response && response?.data?.success) {
         navigate("/gigs");
       }
     } catch (error) {
       console.error("An error occurred while processing gigStepOne:", error);
-
     }
   };
   return (
@@ -245,9 +241,7 @@ const GigStepThree = () => {
               </div>
               <div className="flex items-end justify-end">
                 <button type="submit" className="gig-btn">
-                {
-                    isLoading ? <Loader /> :"save and publish"
-                  }
+                  {isLoading ? <Loader /> : "save and publish"}
                 </button>
               </div>
             </div>

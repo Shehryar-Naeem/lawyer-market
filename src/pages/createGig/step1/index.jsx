@@ -41,8 +41,7 @@ const GigStepOne = () => {
     resolver: yupResolver(gigStepOneSchema),
   });
 
-  const [gitstepTwo, {  error, isError, isLoading }] =
-    useGigstepOneMutation();
+  const [gitstepTwo, { error, isError, isLoading }] = useGigstepOneMutation();
   const navigate = useNavigate();
   const watchDes = watch("description");
   const renderHeader = () => {
@@ -64,10 +63,11 @@ const GigStepOne = () => {
   const submitHandler = async (data) => {
     try {
       const response = await gitstepTwo(data);
-      
-      if (response && response?.data?.success) {
 
-        navigate("/lawyer-gig/step2", { state: { gigId: response.data.gig?._id } });
+      if (response && response?.data?.success) {
+        navigate("/lawyer-gig/step2", {
+          state: { gigId: response.data.gig?._id },
+        });
       }
     } catch (error) {
       console.error("An error occurred while processing gigStepOne:", error);
@@ -134,7 +134,11 @@ const GigStepOne = () => {
                 <label className="gig-label">discription</label>
                 <Editor
                   name="description"
-                  onTextChange={(e) => setValue("description", e.htmlValue)}
+                  onTextChange={(e) => {
+                    // Remove HTML tags from the content
+                    const textValue = e.htmlValue.replace(/<[^>]+>/g, "");
+                    setValue("description", textValue);
+                  }}
                   headerTemplate={header}
                   style={{ height: "320px" }}
                 />

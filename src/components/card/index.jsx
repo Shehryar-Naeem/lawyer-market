@@ -6,13 +6,16 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import GigCarousel from "../carousel";
 import Tag from "../tag";
+import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 
-const GigCard = ({ gig, key }) => {
+const GigCard = ({ gig, key, me }) => {
+  console.log(gig);
   const customTheme = {
     card: {
       root: {
-        base: "p-0.5 md:rounded-md border border-gray-200 bg-white md:shadow-md shadow-sm ",
-        children: "f-col h-full   gap ",
+        base: "p-0.5 md:rounded-md border border-gray-200 bg-white md:shadow-md shadow-sm relative card-img overflow-hidden",
+        children: "f-col h-full relative gap ",
       },
     },
   };
@@ -85,7 +88,7 @@ const GigCard = ({ gig, key }) => {
                 className="flex gap-0.5 overflow-auto hide-scroll relative"
               >
                 {gig?.category?.map((cat, index) => (
-                  <Tag cat={cat} key={index} />
+                  <Tag cat={cat.split(" ")[0]} key={index} />
                 ))}
               </ul>
               {showRightArrow && (
@@ -109,6 +112,26 @@ const GigCard = ({ gig, key }) => {
             </div>
           </div>
         </div>
+        {me && (
+          <div className="absolute bottom-0 md:left-0 z-10 right-0 md:w-full h-full md:flex md:items-center md:justify-center flex  items-end  justify-end general-pad transition-all duration-500 ease-linear  md:translate-y-[100%] ed-btn">
+            <div className="lg:gap-0.10 md:gap-0.10 gap-sm flex ">
+              <Link
+                to={"/edit-gig/" + gig?._id}
+                // htmlFor={`edit-image-${index}`}
+                className="md:w-[40px] md:h-[40px] md:rounded-full text-2xl item-center  md:bg-white cursor-pointer"
+              >
+                <CiEdit />
+                
+              </Link>
+              <span
+                className="md:w-[40px] md:h-[40px] md:rounded-full text-2xl item-center md:bg-white text-red-500"
+                // onClick={() => handleDeleteImage(index)}
+              >
+                <MdDelete />
+              </span>
+            </div>
+          </div>
+        )}
       </Card>
     </Flowbite>
   );
