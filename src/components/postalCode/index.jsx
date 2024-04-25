@@ -3,11 +3,12 @@ import { useUpdateUserMutation } from "../../redux/api/userApi";
 import { userExist } from "../../redux/reducer/userReducer";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import Loader from "../loader";
 
 const PostalCode = ({ compData, show, setshow }) => {
   const dispatch = useDispatch();
   const [postalCode, setPostalCode] = useState(0);
-  const [updateUser, { data, isSuccess, error }] = useUpdateUserMutation();
+  const [updateUser, { data, isSuccess, error,isLoading }] = useUpdateUserMutation();
 
   useEffect(() => {
     setPostalCode(compData);
@@ -43,8 +44,8 @@ const PostalCode = ({ compData, show, setshow }) => {
           >
             cancel
           </button>
-          <button type="button" onClick={update} className="blue-btn">
-            update
+          <button onClick={update} type="button" className="item-center blue-btn">
+            {isLoading ? <Loader/> :"update"}
           </button>
         </div>
       </div>

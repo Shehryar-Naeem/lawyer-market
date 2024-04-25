@@ -10,7 +10,6 @@ import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 
 const GigCard = ({ gig, key, me }) => {
-  console.log(gig);
   const customTheme = {
     card: {
       root: {

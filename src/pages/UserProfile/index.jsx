@@ -14,6 +14,7 @@ import AlertMessage from "../../components/alertMessage";
 import { Images } from "../../assets/images";
 
 import ProfileData from "../../components/userProfile/ProfileData";
+import GigDetailLoading from "../../components/skeletonLoading/sectionLoading";
 
 const UserProfile = () => {
   const {
@@ -22,9 +23,10 @@ const UserProfile = () => {
     isSuccess: userSuccess,
     isError: userIsError,
     error: userError,
+    isFetching,
     refetch,
   } = useGetUserQuery();
-  const { data: lawyerData, isLoading: isLawyerLoading } =
+  const { data: lawyerData } =
     useLawyerPrfofileQuery();
 
   const [modal, setModal] = useState(false);
@@ -71,8 +73,30 @@ const UserProfile = () => {
   );
   return (
     <>
-      {userLoading ? (
-        <p>loading</p>
+      {isFetching ? (
+        <div className="page-container">
+          <div className="container f-col general-pad gap-8">
+            <div className=" general-pad ">
+              <div className="grid grid-cols-3 lg:gap-3 md:gap-2 gap-1 ">
+                <div className="h-full md:col-span-1 col-span-3 ">
+                  <div className="md:h-full h-[50vh] f-col md:gap-2 gap-1 ">
+                    <div className="h-1/2">
+                      <GigDetailLoading />
+                    </div>
+                    <div className="h-1/2">
+                      <GigDetailLoading />
+                    </div>
+                  </div>
+                </div>
+                <div className="md:col-span-2 col-span-3 ">
+                  <div className="h-screen">
+                    <GigDetailLoading />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       ) : (
         <>
           <div className="page-container">
@@ -123,7 +147,7 @@ const UserProfile = () => {
                       </NavLink>
                     </div>
 
-                    <div className="md:h-full h-auto" >
+                    <div className="md:h-full h-auto">
                       <Outlet />
                     </div>
                   </div>

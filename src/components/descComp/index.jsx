@@ -3,14 +3,16 @@ import { useUpdateUserMutation } from "../../redux/api/userApi";
 import { userExist } from "../../redux/reducer/userReducer";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-
+import Loader from "../loader";
 const DesComp = ({ compData, show, setshow }) => {
   const dispatch = useDispatch();
   const [desc, setDesc] = useState("");
-  const [updateUser, { data, isSuccess, error }] = useUpdateUserMutation();
+  const [updateUser, { data, isSuccess, error, isLoading }] =
+    useUpdateUserMutation();
 
   useEffect(() => {
     setDesc(compData);
+  
     if (isSuccess) {
       toast.success(data?.message);
       setshow(false);
@@ -43,8 +45,8 @@ const DesComp = ({ compData, show, setshow }) => {
           >
             cancel
           </button>
-          <button onClick={update} type="button" className="blue-btn">
-            update
+          <button onClick={update} type="button" className="item-center blue-btn">
+            {isLoading ? <Loader/> :"update"}
           </button>
         </div>
       </div>

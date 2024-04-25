@@ -3,12 +3,13 @@ import { useUpdateUserMutation } from "../../redux/api/userApi";
 import { userExist } from "../../redux/reducer/userReducer";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import Loader from "../loader";
 
 const GenderComp = ({ compData, show, setshow }) => {
   const dispatch = useDispatch();
   const [gender, setGender] = useState("");
 
-  const [updateUser, { data, isSuccess, isError, error }] =
+  const [updateUser, { data, isSuccess, isError, error,isLoading }] =
     useUpdateUserMutation();
 
   useEffect(() => {
@@ -46,9 +47,9 @@ const GenderComp = ({ compData, show, setshow }) => {
         >
           cancel
         </button>
-        <button onClick={update} type="button" className="blue-btn">
-          update
-        </button>
+        <button onClick={update} type="button" className="item-center blue-btn">
+            {isLoading ? <Loader/> :"update"}
+          </button>
       </div>
     </div>
   );

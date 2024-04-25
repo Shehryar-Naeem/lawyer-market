@@ -6,10 +6,12 @@ import { useDispatch } from "react-redux";
 
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { cites } from "../../data";
+import Loader from "../loader";
 const City = ({ compData, show, setshow }) => {
   const dispatch = useDispatch();
   const [city, setCity] = useState(null);
-  const [updateUser, { data, isSuccess, error }] = useUpdateUserMutation();
+  const [updateUser, { data, isSuccess, error, isLoading }] =
+    useUpdateUserMutation();
   useEffect(() => {
     setCity(compData);
     if (isSuccess) {
@@ -25,7 +27,7 @@ const City = ({ compData, show, setshow }) => {
     e.preventDefault();
     updateUser({ city: city });
   };
-  
+
   return (
     <div className="profile-edit-container">
       {/* <GooglePlacesAutocomplete 
@@ -56,8 +58,8 @@ const City = ({ compData, show, setshow }) => {
         >
           cancel
         </button>
-        <button type="button" onClick={update} className="blue-btn">
-          update
+        <button onClick={update} type="button" className="item-center blue-btn">
+          {isLoading ? <Loader /> : "update"}
         </button>
       </div>
     </div>

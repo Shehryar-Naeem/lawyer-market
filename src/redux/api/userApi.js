@@ -111,10 +111,10 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Gigs"],
     }),
-    getUserGigs: builder.query({
-      query: () => `gig/get-gigs/me`,
-      providesTags: ["Gigs"],
-    }),
+    // getUserGigs: builder.query({
+    //   query: () => `gig/get-gigs/me`,
+    //   providesTags: ["Gigs"],
+    // }),
     getAllgigs: builder.query({
       query: ({
         currentPage,
@@ -129,11 +129,12 @@ export const userApi = createApi({
         let url = `gig/get-gigs?page=${currentPage}`;
         if (category) url += `&category=${category}`;
         if (services) url += `&pricing.services=${services}`;
-        if (city) url += `&city=${city}`;
+        if (city) url += `&city=${city.toLowerCase()}`;
         if (minPrice) url += `&ricing.price[lte]=${minPrice}`;
         if (maxPrice) url += `&pricing.price[gte]=${maxPrice}`;
         if (search) url += `&keyword=${search}`;
 
+        console.log(url);
         return url;
       },
       providesTags: ["Gigs"],
@@ -164,7 +165,7 @@ export const {
   useGigstepOneMutation,
   useGigstepTwoMutation,
   useGigstepThreeMutation,
-  useGetUserGigsQuery,
+
   useGetAllgigsQuery,
   useGetGigByIdQuery,
   useGetMeGigsQuery,

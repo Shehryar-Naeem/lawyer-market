@@ -43,7 +43,7 @@ const GigDetail = () => {
                   </div>
                 </div>
                 <div className="h-full md:col-span-1 col-span-3 ">
-                  <div className="h-full f-col md:gap-2 gap-1 ">
+                  <div className="md:h-full h-[50vh] f-col md:gap-2 gap-1 ">
                     <div className="h-1/2">
                       <GigDetailLoading />
                     </div>
