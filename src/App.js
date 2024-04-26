@@ -1,8 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
-import {
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useGetUserQuery } from "./redux/api/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
@@ -33,6 +30,8 @@ import ClientPosts from "./components/client";
 import ChatHome from "./components/chatComp/subChat/chatHome";
 import UserChat from "./components/chatComp/subChat/chatby_id";
 import { Toaster } from "react-hot-toast";
+import CreateLawyerAccount from "./pages/createLaywerAccount";
+import CreateLawyerComp from "./components/createLawyerComp";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -66,12 +65,12 @@ function App() {
         {
           path: "/",
           element: (
-            <ProtectRoute
-              redirect="/lawyer-profile"
-              isAuthenticated={!isAuthenticated}
-            >
-              <Register />
-            </ProtectRoute>
+            // <ProtectRoute
+            //   redirect="/lawyer-profile"
+            //   isAuthenticated={!isAuthenticated}
+            // >
+            <Register />
+            // </ProtectRoute>
           ),
         },
         {
@@ -85,7 +84,7 @@ function App() {
         {
           path: "/lawyer-profile",
           element: (
-            <ProtectRoute isAuthenticated={isAuthenticated}>
+            <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
               <UserProfile />
             </ProtectRoute>
           ),
@@ -109,7 +108,7 @@ function App() {
         {
           path: "/client-profile",
           element: (
-            <ProtectRoute isAuthenticated={isAuthenticated}>
+            <ProtectRoute isAuthenticated={isAuthenticated} isclient={true}>
               <ClientProfile />
             </ProtectRoute>
           ),
@@ -118,6 +117,15 @@ function App() {
             { path: "gigs", element: <Gigs /> },
             { path: "chat", element: <Chat /> },
           ],
+        },
+        {
+          path: "/client-profile/create-lawyer-account",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isclient={true}>
+              <CreateLawyerAccount />
+            </ProtectRoute>
+          ),
+          children: [{ path: "", element: <CreateLawyerComp /> }],
         },
         {
           path: "/settings/profile",

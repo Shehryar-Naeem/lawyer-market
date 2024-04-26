@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { userExist } from "../../redux/reducer/userReducer";
 
 const ImageUploader = ({ avatar }) => {
-  const [profile, setProfileImage] = useState(avatar);
+  const [profile, setProfileImage] = useState("");
   const dispatch = useDispatch();
   const [updateProfilePicture, { isError, error }] =
     useUpdateProfilePictureMutation();
@@ -16,6 +16,9 @@ const ImageUploader = ({ avatar }) => {
       toast.error(error.data.message);
     }
   }, [isError]);
+  useEffect(() => {
+    setProfileImage(avatar);
+  }, [avatar]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];

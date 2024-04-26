@@ -15,6 +15,13 @@ const Header = () => {
 
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const { currentProfileType } = useSelector((state) => state.profile);
+  const roles =
+    isAuthenticated && user && user.roles?.map((role) => role.roleType);
+  let isOnlyClient =
+    isAuthenticated &&
+    roles.includes("client") &&
+    !roles.includes("lawyer") &&
+    !roles.includes("admin");
   const menuRight = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,7 +49,9 @@ const Header = () => {
         return (
           <div
             className="md:cursor-pointer flex items-center md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200 md:hover:bg-gray-100"
-            onClick={() => navigate("/lawyer-profile")}
+            onClick={() =>
+              navigate(isOnlyClient ? "/client-profile" : "/lawyer-profile")
+            }
           >
             <div className="item-center">
               <Avatar
@@ -69,7 +78,7 @@ const Header = () => {
         );
       },
     },
-    {
+    !isOnlyClient && {
       label: "Settings",
       icon: "pi pi-cog",
       template: itemRenderer,
@@ -77,7 +86,14 @@ const Header = () => {
         navigate("/settings/profile");
       },
     },
-
+    isOnlyClient && {
+      label: "create lawyer account",
+      icon: "pi pi-cog",
+      template: itemRenderer,
+      command: () => {
+        navigate("/client-profile/create-lawyer-account");
+      },
+    },
     {
       label: "Logout",
       icon: "pi pi-sign-out",
@@ -85,6 +101,8 @@ const Header = () => {
       template: itemRenderer,
       command: async () => {
         try {
+          
+
           const { data } = await axios.get(`/api/user/logout`, {
             withCredentials: true,
           });
@@ -94,7 +112,10 @@ const Header = () => {
           toast.success(data.message);
           navigate("/");
         } catch (error) {
+
           toast.error(error?.response?.data?.message || "Something went wrong");
+          dispatch(userNotExist());
+          navigate("/");
         }
       },
     },

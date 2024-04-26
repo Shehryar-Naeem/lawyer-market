@@ -10,12 +10,32 @@ const ProtectRoute = ({
   redirect = "/",
 }) => {
   const { user } = useSelector((state) => state.auth);
-  const lawyerRole = user?.roles.some((role) => role?.roleType === "lawyer");
-  const clientRole = user?.roles.some((role) => role?.roleType === "client");
 
-  if (!isAuthenticated) return <Navigate to={redirect} />;
-  if (isLawyer === true && !lawyerRole) return <Navigate to={redirect} />;
-  if (isclient === true && !clientRole) return <Navigate to={redirect} />;
+  if (!isAuthenticated) {
+    return <Navigate to={redirect} />;
+  }
+ 
+  if (user) {
+    const lawyerRole =
+      isLawyer &&
+      user &&
+      user?.roles.some((role) => role?.roleType === "lawyer");
+    const clientRole =
+      isclient &&
+      user &&
+      user?.roles.some((role) => role?.roleType === "client");
+      
+    if (isLawyer === true && lawyerRole===false) {
+      alert("You are not a lawyer");
+      console.log("lawyerRole", lawyerRole);
+      return <Navigate to={redirect} />;
+    }
+    if (isclient === true && clientRole === false) {
+      alert("You are not a client");
+      console.log("clientRole", clientRole);
+      return <Navigate to={redirect} />;
+    }
+  }
 
   return children ? children : <Outlet />;
 };

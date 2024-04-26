@@ -35,9 +35,9 @@ const UserProfile = () => {
   const [infoAlet, setInfoAlert] = useState(false);
   const diaptch = useDispatch();
   useEffect(() => {
-    if (userSuccess) {
-      diaptch(userExist(userData?.user));
-    }
+    // if (userSuccess) {
+    //   diaptch(userExist(userData?.user));
+    // }
     if (userIsError) {
       toast.error(userError.data?.message);
     }

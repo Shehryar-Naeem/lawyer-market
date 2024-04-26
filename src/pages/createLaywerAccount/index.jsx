@@ -14,27 +14,25 @@ import AlertMessage from "../../components/alertMessage";
 import { Images } from "../../assets/images";
 
 import ProfileData from "../../components/userProfile/ProfileData";
-import GigDetailLoading from "../../components/skeletonLoading/sectionLoading";
+import { Create } from "@mui/icons-material";
 
-const ClientProfile = () => {
+const CreateLawyerAccount = () => {
   const {
     data: userData,
     isLoading: userLoading,
     isSuccess: userSuccess,
-    isFetching,
     isError: userIsError,
     error: userError,
-  
+    refetch,
   } = useGetUserQuery();
   const { data: lawyerData, isLoading: isLawyerLoading } =
     useLawyerPrfofileQuery();
-    
-    const [modal, setModal] = useState(false);
-    const [updateUser, { error, data, isSuccess, isLoading }] =
+
+  const [modal, setModal] = useState(false);
+  const [updateUser, { error, data, isSuccess, isLoading }] =
     useUpdateUserMutation();
-    const [infoAlet, setInfoAlert] = useState(false);
-    const diaptch = useDispatch();
-    console.log(isSuccess, error, data, "isSuccess, error, data");
+  const [infoAlet, setInfoAlert] = useState(false);
+  const diaptch = useDispatch();
   useEffect(() => {
     // if (userSuccess) {
     //   diaptch(userExist(userData?.user));
@@ -74,30 +72,8 @@ const ClientProfile = () => {
   );
   return (
     <>
-      {isFetching ? (
-        <div className="page-container">
-        <div className="container f-col general-pad gap-8">
-          <div className=" general-pad ">
-            <div className="grid grid-cols-3 lg:gap-3 md:gap-2 gap-1 ">
-              <div className="h-full md:col-span-1 col-span-3 ">
-                <div className="md:h-full h-[50vh] f-col md:gap-2 gap-1 ">
-                  <div className="h-1/2">
-                    <GigDetailLoading />
-                  </div>
-                  <div className="h-1/2">
-                    <GigDetailLoading />
-                  </div>
-                </div>
-              </div>
-              <div className="md:col-span-2 col-span-3 ">
-                <div className="h-screen">
-                  <GigDetailLoading />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {userLoading ? (
+        <p>loading</p>
       ) : (
         <>
           <div className="page-container">
@@ -119,30 +95,15 @@ const ClientProfile = () => {
                   <div className="h-full w-full flex gap-1 flex-col bg-white shadow-2xl lg:p-2 md:p-1 p-0.5">
                     <div className="flex w-full overflow-auto">
                       <NavLink
-                        to={"/client-profile"}
+                        to={"/client-profile/create-lawyer-account"}
                         end
                         className={"underline-tab"}
                       >
-                        posts
+                        Create lawyer Account
                       </NavLink>
-                      <NavLink
-                        to={"/client-profile/gigs"}
-                        className={"underline-tab"}
-                        end
-                      >
-                        proposals
-                      </NavLink>
-                      <NavLink
-                        to={"/client-profile/chat"}
-                        className={"underline-tab"}
-                        end
-                      >
-                        chat
-                      </NavLink>
-                   
                     </div>
 
-                    <div>
+                    <div className="h-full">
                       <Outlet />
                     </div>
                   </div>
@@ -166,4 +127,4 @@ const ClientProfile = () => {
   );
 };
 
-export default ClientProfile;
+export default CreateLawyerAccount;

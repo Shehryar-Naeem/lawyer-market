@@ -31,7 +31,7 @@ export const userApi = createApi({
       invalidatesTags: ["Users"],
     }),
     getUser: builder.query({
-      query: () => `user/get-profle`,
+      query: () => `user/get-profile`,
       providesTags: ["Users"],
     }),
     updatePassword: builder.mutation({

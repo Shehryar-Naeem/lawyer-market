@@ -29,7 +29,7 @@ const GetAllGigs = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const { data, error, isError, isFetching, isLoading } = useGetAllgigsQuery(
-    { currentPage, search,...filterValues },
+    { currentPage, search, ...filterValues },
     {
       pollingInterval: 30000,
       refetchOnMountOrArgChange: 60,
@@ -38,7 +38,6 @@ const GetAllGigs = () => {
       skip: currentPage <= 0,
     }
   );
-  console.log(data);
   useEffect(() => {
     if (isError) {
       toast.error(error.data.message);
@@ -109,7 +108,7 @@ const GetAllGigs = () => {
                         className="w-full general-pad text-[1rem] border border-gray-300 md:rounded-sm  rounded-xs outline-none focus:ring-0"
                         placeholder="search..."
                         aria-label="Search"
-                        onChange={(e)=>setSearch(e.target.value)}
+                        onChange={(e) => setSearch(e.target.value)}
                       />
                     </form>
                     <button
@@ -159,9 +158,8 @@ const GetAllGigs = () => {
           setOpenModal={setOpenModal}
           handleClearFilters={handleClearFilters}
           handleFilterSubmit={handleFilterSubmit}
-          
         >
-          <form className="f-col gap" >
+          <form className="f-col gap">
             <div className="flex flex-col lg:gap-0.8 md:gap-0.5 gap-xs">
               <label htmlFor={"category"} class="modal-input-label">
                 category

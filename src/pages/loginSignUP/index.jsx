@@ -5,10 +5,11 @@ import BlackBtn from "../../components/BlackBtn";
 import toast from "react-hot-toast";
 import {
   useCreateLawyerMutation,
+  useGetUserQuery,
   useLoginMutation,
   useSignupMutation,
 } from "../../redux/api/userApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userExist, userNotExist } from "../../redux/reducer/userReducer";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import * as yup from "yup";
@@ -20,7 +21,8 @@ import { IoMdEye } from "react-icons/io";
 import { IoIosEyeOff } from "react-icons/io";
 import CustomModal from "../../components/model";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { fetchUserData } from "../../utils/helper";
 YupPassword(yup);
 
 const signUpSchema = yup.object({
@@ -57,7 +59,10 @@ const loginSchema = yup.object({
 const SignUp = () => {
   const [passwordShown, setPasswordShown] = useState(true);
   const [openModal, setOpenModal] = useState(false);
+  const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [
     signup,
@@ -90,7 +95,6 @@ const SignUp = () => {
       error: createLawyerErrorMsg,
     },
   ] = useCreateLawyerMutation();
-
   const {
     register: registerSignUp,
     handleSubmit: handleSubmitSignUp,
@@ -110,68 +114,42 @@ const SignUp = () => {
   });
 
   const dispatch = useDispatch();
+  const roles = user && user.roles.map((role) => role.roleType);
 
   useEffect(() => {
-    if (signupData?.success) {
-      // dispatch(userExist(signupData?.user));
-      localStorage.setItem("user", JSON.stringify(signupData?.user));
-      toast.success(signupData.msg);
-      setOpenModal(true);
+    if (location.state?.from) {
+      navigate(location.state.from);
+    } else {
+      if (roles?.includes("admin")) {
+        navigate("/admin/dashboard");
+        alert("admin");
+      } else if (roles?.includes("lawyer")) {
+        alert("lawyer");
+        navigate("/lawyer-profile");
+      } else if (roles?.includes("client")) {
+        alert("client");
+        navigate("/client-profile");
+      }
     }
-
+  }, []);
+  useEffect(() => {
     if (signupError) {
       console.log(signupErrorMsg);
       toast.error(signupErrorMsg?.data?.message);
     }
-  }, [
-    signupSuccess,
-    signupError,
-    dispatch,
-    signupData,
-    signupErrorMsg,
-    siginLoading,
-  ]);
+  }, [signupError, dispatch, signupErrorMsg]);
   useEffect(() => {
-    if (loginSuccess) {
-      dispatch(userExist(loginData?.user));
-      if (loginData?.redirectUrl === "lawyer") {
-        toast.success(loginData.msg);
-        navigate("/lawyer-profile");
-      } else if (loginData?.redirectUrl === "client") {
-        toast.success(loginData.msg);
-        navigate("/all-gigs");
-      } else if (loginData?.redirectUrl === "admin") {
-        toast.success(loginData.msg);
-
-        navigate("/admin/dashboard");
-      }
-    }
     if (loginError) {
       toast.error(loginErrorMsg?.data?.message);
       dispatch(userNotExist());
     }
-  }, [loginSuccess, loginError, loginData, loginErrorMsg, dispatch]);
+  }, [loginError, loginErrorMsg, dispatch]);
 
   useEffect(() => {
-    if (createLawyerSuccess) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        dispatch(userExist(user));
-        localStorage.removeItem("user");
-        toast.success(createLawyerData.message);
-        navigate("/lawyer-profile");
-      }
-    }
     if (createLawyerError) {
       toast.error(createLawyerErrorMsg?.data?.message);
     }
-  }, [
-    createLawyerSuccess,
-    createLawyerError,
-    createLawyerData,
-    createLawyerErrorMsg,
-    createLawyerLoading,
-  ]);
+  }, [createLawyerError, createLawyerData]);
 
   const registerHandler = async (data) => {
     try {
@@ -180,8 +158,14 @@ const SignUp = () => {
         email: data.email,
         password: data.password,
       };
-      await signup(user);
+      const response = await signup(user);
       resetSignUp();
+      if (response?.data?.success) {
+        // dispatch(userExist(signupData?.user));
+        localStorage.setItem("user", JSON.stringify(response?.data?.user));
+        toast.success(response?.data?.msg);
+        setOpenModal(true);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -192,8 +176,26 @@ const SignUp = () => {
         email: data.email,
         password: data.password,
       };
-      await login(user);
+      const response = await login(user);
+      console.log(response);
       resetLogin();
+      if (response?.data?.success) {
+        dispatch(userExist(response?.data?.user));
+        toast.success(response?.data.msg);
+        navigate("/gigs");
+        // navigate("/gigs");
+        // if (loginData?.redirectUrl === "lawyer") {
+        //   toast.success(loginData.msg);
+        //   navigate("/lawyer-profile");
+        // } else if (loginData?.redirectUrl === "client") {
+        //   toast.success(loginData.msg);
+        //   navigate("/client-profile");
+        // } else if (loginData?.redirectUrl === "admin") {
+        //   toast.success(loginData.msg);
+
+        //   navigate("/admin/dashboard");
+        // }
+      }
     } catch (err) {
       console.error(err);
     }
@@ -202,8 +204,23 @@ const SignUp = () => {
     setPasswordShown(!passwordShown);
   };
   const createLaywerHandler = async () => {
-    await createLawyer();
-    setOpenModal(false);
+    const { data } = await createLawyer();
+    if (data?.success) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user) {
+        const userData = await fetchUserData();
+        if (userData?.success) {
+          dispatch(userExist(userData?.user));
+          localStorage.removeItem("user");
+          toast.success(data?.message);
+          navigate("/gigs", {
+            replace: true,
+          });
+        } else {
+          toast.error(userData);
+        }
+      }
+    }
   };
   return (
     <>
