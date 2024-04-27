@@ -8,8 +8,12 @@ import GigCarousel from "../carousel";
 import Tag from "../tag";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
+import { useDeleteGigMutation } from "../../redux/api/userApi";
+import toast from "react-hot-toast";
 
 const GigCard = ({ gig, key, me }) => {
+  const [deleteGig, { isError, isLoading, error }] = useDeleteGigMutation();
+
   const customTheme = {
     card: {
       root: {
@@ -46,6 +50,18 @@ const GigCard = ({ gig, key, me }) => {
     return () =>
       scrollElement.removeEventListener("scroll", checkScrollButtons);
   }, []);
+  const handleDeleteGig = async () => {
+    const toastId = toast.loading("uploading...");
+    const response = await deleteGig(gig?._id);
+    if (response?.data.success) {
+      toast.success("Gig Deleted Successfully", {
+        id: toastId,
+      });
+    } else if (response?.error) {
+      toast.error("Error Deleting Gig");
+    }
+  };
+
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Card key={key}>
@@ -115,16 +131,15 @@ const GigCard = ({ gig, key, me }) => {
           <div className="absolute bottom-0 md:left-0 z-10 right-0 md:w-full h-full md:flex md:items-center md:justify-center flex  items-end  justify-end general-pad transition-all duration-500 ease-linear  md:translate-y-[100%] ed-btn">
             <div className="lg:gap-0.10 md:gap-0.10 gap-sm flex ">
               <Link
-                to={"/edit-gig/" + gig?._id}
+                to={"/edit-gig/step1/" + gig?._id}
                 // htmlFor={`edit-image-${index}`}
                 className="md:w-[40px] md:h-[40px] md:rounded-full text-2xl item-center  md:bg-white cursor-pointer"
               >
                 <CiEdit />
-                
               </Link>
               <span
                 className="md:w-[40px] md:h-[40px] md:rounded-full text-2xl item-center md:bg-white text-red-500"
-                // onClick={() => handleDeleteImage(index)}
+                onClick={handleDeleteGig}
               >
                 <MdDelete />
               </span>

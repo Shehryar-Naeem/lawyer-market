@@ -32,6 +32,9 @@ import UserChat from "./components/chatComp/subChat/chatby_id";
 import { Toaster } from "react-hot-toast";
 import CreateLawyerAccount from "./pages/createLaywerAccount";
 import CreateLawyerComp from "./components/createLawyerComp";
+import EditGigStep1 from "./components/editGig/editGigDetailStep1";
+import EditGigStep2 from "./components/editGig/editGigStep2";
+import EditGigStep3 from "./components/editGig/editGigStep3";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -145,6 +148,30 @@ function App() {
           element: (
             <ProtectRoute isAuthenticated={isAuthenticated}>
               <GigDetail />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/edit-gig/step1/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
+              <EditGigStep1 />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/edit-gig/step2",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
+              <EditGigStep2 />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/edit-gig/step3",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
+              <EditGigStep3 />
             </ProtectRoute>
           ),
         },

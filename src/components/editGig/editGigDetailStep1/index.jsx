@@ -9,8 +9,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import PageHeading from "../../../components/pageHeading";
 import FailureAlert from "../../../components/alert";
-import { useGigstepOneMutation } from "../../../redux/api/userApi";
-import { useNavigate } from "react-router-dom";
+import {
+  useGetGigDetailQuery,
+  useGigstepOneMutation,
+  useUpdateGigMutation,
+  userApi,
+} from "../../../redux/api/userApi";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../../../components/loader";
 import toast from "react-hot-toast";
 
@@ -22,7 +27,7 @@ const gigStepOneSchema = yup.object().shape({
     .required("Title is required"),
   description: yup
     .string()
-    .min(40, "Description must be higher than 15 characters")
+    .min(100, "Description must be higher than 100 characters")
     .required("Description is required"),
   category: yup
     .array()
@@ -30,20 +35,35 @@ const gigStepOneSchema = yup.object().shape({
     .required("Category is required"),
 });
 
-const GigStepOne = () => {
+const EditGigStep1 = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     setValue,
   } = useForm({
     resolver: yupResolver(gigStepOneSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      category: [],
+    },
   });
+  const { id } = useParams();
 
-  const [gigstepOne, { error, isError, isLoading }] = useGigstepOneMutation();
+  const [updateGig, { isError, isLoading, isSuccess, error }] =
+    useUpdateGigMutation();
+  const {
+    data: gigData,
+    error: gigError,
+    isSuccess: gigIsSuccess,
+    isError: isGigError,
+    isLoading: gigIsGigLoading,
+    isFetching,
+    refetch,
+  } = useGetGigDetailQuery(id);
+
   const navigate = useNavigate();
-  const watchDes = watch("description");
   const renderHeader = () => {
     return (
       <span className="ql-formats">
@@ -58,14 +78,30 @@ const GigStepOne = () => {
     if (isError) {
       toast.error(error.data.message);
     }
+    if (isGigError) {
+      toast.error(gigError.data.message);
+    }
   }, [isError]);
-
+  useEffect(() => {
+    if (gigIsSuccess) {
+      setValue("title", gigData?.gig?.title);
+      setValue("description", gigData?.gig?.description);
+      setValue("category", gigData?.gig?.category);
+    }
+  }, [
+    gigIsSuccess,
+    setValue,
+    gigData?.gig?.title,
+    gigData?.gig?.description,
+    gigData?.gig?.category,
+  ]);
   const submitHandler = async (data) => {
     try {
-      const response = await gigstepOne(data);
+      const response = await updateGig({ id, data });
 
       if (response && response?.data?.success) {
-        navigate("/lawyer-gig/step2", {
+        refetch();
+        navigate("/edit-gig/step2", {
           state: { gigId: response.data.gig?._id },
         });
       }
@@ -142,6 +178,7 @@ const GigStepOne = () => {
                   headerTemplate={header}
                   style={{ height: "320px" }}
                 /> */}
+
                 <textarea
                   name="description"
                   placeholder="description"
@@ -150,6 +187,7 @@ const GigStepOne = () => {
                   {...register("description")}
                   // maxlength="80"
                 />
+
                 {errors.description && (
                   <FailureAlert error={errors.description?.message} />
                 )}
@@ -199,4 +237,4 @@ const GigStepOne = () => {
   );
 };
 
-export default GigStepOne;
+export default EditGigStep1;

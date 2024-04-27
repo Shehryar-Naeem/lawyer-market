@@ -122,12 +122,9 @@ const SignUp = () => {
     } else {
       if (roles?.includes("admin")) {
         navigate("/admin/dashboard");
-        alert("admin");
       } else if (roles?.includes("lawyer")) {
-        alert("lawyer");
         navigate("/lawyer-profile");
       } else if (roles?.includes("client")) {
-        alert("client");
         navigate("/client-profile");
       }
     }

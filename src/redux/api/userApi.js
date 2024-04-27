@@ -111,6 +111,7 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Gigs"],
     }),
+
     // getUserGigs: builder.query({
     //   query: () => `gig/get-gigs/me`,
     //   providesTags: ["Gigs"],
@@ -143,9 +144,28 @@ export const userApi = createApi({
       query: (id) => `gig/get-gig/${id}`,
       providesTags: ["Gigs"],
     }),
+    getGigDetail: builder.query({
+      query: (id) => `gig/get-gig-detail/${id}`,
+      providesTags: ["Gigs"],
+    }),
     getMeGigs: builder.query({
       query: () => `gig/get-gigs/me`,
       providesTags: ["Gigs"],
+    }),
+    deleteGig: builder.mutation({
+      query: (id) => ({
+        url: `gig/delete-gig/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Gigs"],
+    }),
+    updateGig: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `gig/update-gig/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      validatetags: ["Gigs"],
     }),
   }),
 });
@@ -168,5 +188,8 @@ export const {
 
   useGetAllgigsQuery,
   useGetGigByIdQuery,
+  useGetGigDetailQuery,
   useGetMeGigsQuery,
+  useDeleteGigMutation,
+  useUpdateGigMutation,
 } = userApi;
