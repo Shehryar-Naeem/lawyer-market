@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { IconButton, Skeleton, Stack } from "@mui/material";
 import {
   AttachFile as AttachFileIcon,
@@ -7,8 +7,26 @@ import {
 import { InputBox } from "../../../../styles/StyledComponents";
 import { orange } from "../../../../contants/color";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link } from "react-router-dom";
-const UserChat = () => {
+import { Link, useLocation, useParams } from "react-router-dom";
+import { useGetSingleConversationMessagesQuery, useSendMessageMutation } from "../../../../redux/api/userApi";
+const ClientChatById = () => {
+  const {pathname} = useLocation();
+  const [path, setPath] = useState("")
+  const {id} = useParams()
+  const [sendMessage,{isLoading:isSendingLoading,isError:isSendingError,error:sendingError}]=useSendMessageMutation()
+  const {data,isLoading,isFetching,isError,error}= useGetSingleConversationMessagesQuery(id)
+  useEffect(() => { 
+    if(pathname.indexOf("/lawyer-profile/chat/") !== -1){
+      setPath("lawyer-profile/chat")
+    }else if(pathname.indexOf("/client-profile/chat")!== -1){
+      setPath("client-profile/chat")
+    }
+  }, [pathname]);
+
+
+
+  
+
   return (
     <Fragment>
       <Stack
@@ -25,9 +43,11 @@ const UserChat = () => {
         }}
       >
         <div className="absolute top-0 w-full bg-gray-300 ">
-          <Link to="/lawyer-profile/chat" className="lg:p-1 md:p-0.10 p-0.8 bg-gray-100 inline-flex items-center h-full cursor-pointer">
-
-          <IoMdArrowRoundBack />
+          <Link
+            to={`/${path}`}
+            className="lg:p-1 md:p-0.10 p-0.8 bg-gray-100 inline-flex items-center h-full cursor-pointer"
+          >
+            <IoMdArrowRoundBack />
           </Link>
         </div>
         {/* {allMessages.map((i) => (
@@ -92,4 +112,4 @@ const UserChat = () => {
   );
 };
 
-export default UserChat;
+export default ClientChatById;

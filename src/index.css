@@ -264,8 +264,14 @@ input::placeholder {
   .general-pad {
     @apply lg:p-1 md:p-0.10 p-0.8;
   }
+  .chat-navlink{
+    @apply flex gap w-full items-center bg-gray-300 p-0.5 md:rounded-sm rounded-xs cursor-pointer hover:bg-gray-400
+  }
 }
 
+.chat-navlink.active{
+  @apply bg-gray-400;
+}
 @media screen and (max-width: 912px) {
   #root {
     /* position: relative; */

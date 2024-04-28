@@ -35,6 +35,9 @@ import CreateLawyerComp from "./components/createLawyerComp";
 import EditGigStep1 from "./components/editGig/editGigDetailStep1";
 import EditGigStep2 from "./components/editGig/editGigStep2";
 import EditGigStep3 from "./components/editGig/editGigStep3";
+import ClientChat from "./components/clientchatComp/chats";
+import ClientChatHome from "./components/clientchatComp/subChat/chatHome";
+import ClientChatById from "./components/clientchatComp/subChat/chatby_id";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -97,15 +100,15 @@ function App() {
             { path: "bids", element: <Bid /> },
             {
               path: "chat",
-              element: <Chat />,
+              element: <ClientChat />,
               children: [
-                { path: "", element: <ChatHome /> },
+                { path: "", element: <ClientChatHome /> },
                 {
                   path: ":id",
-                  element: <UserChat />,
+                  element: <ClientChatById />,
                 },
               ],
-            },
+            }
           ],
         },
         {
@@ -118,7 +121,17 @@ function App() {
           children: [
             { path: "", element: <ClientPosts /> },
             { path: "gigs", element: <Gigs /> },
-            { path: "chat", element: <Chat /> },
+            {
+              path: "chat",
+              element: <ClientChat />,
+              children: [
+                { path: "", element: <ClientChatHome /> },
+                {
+                  path: ":id",
+                  element: <ClientChatById />,
+                },
+              ],
+            },
           ],
         },
         {

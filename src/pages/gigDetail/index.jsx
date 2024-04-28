@@ -10,26 +10,53 @@ import Tag from "../../components/tag";
 import LawyerRating from "../../components/LawyerRating";
 import FilterModel from "../../components/fillterModel";
 import Ratiing from "../../components/rating";
-import { useGetGigByIdQuery } from "../../redux/api/userApi";
-import { useParams } from "react-router-dom";
+import {
+  useCreateConversationMutation,
+  useGetGigByIdQuery,
+} from "../../redux/api/userApi";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import GigDetailLoading from "../../components/skeletonLoading/sectionLoading";
 import { CaptializeFirstLetter } from "../../utils/helper";
 
 const GigDetail = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [userId, setUserId] = useState(null);
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const { data, isLoading, isError, error } = useGetGigByIdQuery(id);
+  const [
+    createConversation,
+    {
+      isLoading: isCreateConversation,
+      isError: isConversationError,
+      error: conversationError,
+    },
+  ] = useCreateConversationMutation();
   useEffect(() => {
     if (isError) {
       toast.error(error);
     }
-  }, [isError]);
+    if(isConversationError){
+      toast.error(conversationError.data.message)
+    }
+    setUserId(data?.gig?.user?._id);
+  }, [isError, data?.gig?.user?._id, error,isConversationError,conversationError]);
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
   };
+
   const gigDetail = data?.gig;
+
+  const createConversatioHandler = async () => {
+    const { data } = await createConversation({ receiverId: userId });
+    if (data?.success) {
+      toast.success(data.message);
+      navigate(`/client-profile/chat/${data.conversation._id}`);
+    } else {
+      toast.error(data.message);
+    }
+  };
   return (
     <>
       {isLoading ? (
@@ -231,7 +258,7 @@ const GigDetail = () => {
                           <p className="text-grey md:text-base sm:text-sm text-xs font-semibold">
                             Hire me for your work
                           </p>
-                          <button className="gig-btn">hire</button>
+                          <button className="gig-btn" onClick={createConversatioHandler}>hire</button>
                         </div>
                       </div>
                       <div className="general-pad f-col gap bg-white layout-box-shadow ">
