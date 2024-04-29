@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGetAllgigsQuery } from "../../redux/api/userApi";
+import { useGetAllgigsQuery, userApi } from "../../redux/api/userApi";
 import CardSkeletonLoading from "../../components/skeletonLoading/cardLoading";
 import GigCard from "../../components/card";
 import toast from "react-hot-toast";
@@ -8,8 +8,13 @@ import { Images } from "../../assets/images";
 import { FaSliders } from "react-icons/fa6";
 import FilterModel from "../../components/fillterModel";
 import { cites, lawyerCategories, lawyerServices } from "../../data";
+import { useSocket } from "../../socket/socket";
+import { useDispatch } from "react-redux";
+import { isIncludeInOnlineUsers } from "../../contants/helper";
 
 const GetAllGigs = () => {
+  const dispatch = useDispatch();
+  const { onlineUsers } = useSocket();
   const [currentPage, setCurrentPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const [category, setCategary] = useState("");
@@ -18,6 +23,7 @@ const GetAllGigs = () => {
   const [city, setCity] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  // console.log("onlineUsers",onlineUsers);
   const [formValues, setFormValues] = useState({
     category: "",
     services: "",
@@ -28,16 +34,17 @@ const GetAllGigs = () => {
   const [filterValues, setFilterValues] = useState({});
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
-  const { data, error, isError, isFetching, isLoading } = useGetAllgigsQuery(
-    { currentPage, search, ...filterValues },
-    {
-      pollingInterval: 30000,
-      refetchOnMountOrArgChange: 60,
-      refetchOnFocus: true,
-      refetchOnReconnect: true,
-      skip: currentPage <= 0,
-    }
-  );
+  const { data, error, isError, isFetching, isLoading, refetch } =
+    useGetAllgigsQuery(
+      { currentPage, search, ...filterValues },
+      {
+        pollingInterval: 30000,
+        refetchOnMountOrArgChange: 60,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        skip: currentPage <= 0,
+      }
+    );
   useEffect(() => {
     if (isError) {
       toast.error(error.data.message);
@@ -77,6 +84,10 @@ const GetAllGigs = () => {
     setSearch("");
     setFilterValues({});
   };
+  // useEffect(() => {
+
+  // },[onlineUsers])
+  // console.log("onlineUsers",onlineUsers);
   const skeletonCount = Math.floor(window.innerHeight / 100) * 1.5 + 2;
 
   return (
@@ -122,7 +133,14 @@ const GetAllGigs = () => {
                   <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
                     <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad ">
                       {data?.gigs?.map((gig) => (
-                        <GigCard key={gig._id} gig={gig} />
+                        <GigCard
+                          key={gig._id}
+                          gig={gig}
+                          isOnline={isIncludeInOnlineUsers(
+                            onlineUsers,
+                            gig?.user?._id
+                          )}
+                        />
                       ))}
                     </div>
                   </div>

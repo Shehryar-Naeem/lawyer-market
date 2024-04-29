@@ -17,3 +17,19 @@ export const fetchUserData = async () => {
       return error.data.response.message;
   }
 };
+
+
+export const getOrSaveFromStorage = ({ key, value, get }) => {
+  if (get)
+    return localStorage.getItem(key)
+      ? JSON.parse(localStorage.getItem(key))
+      : null;
+  else localStorage.setItem(key, JSON.stringify(value));
+};
+
+
+export const getOtherUser = (conversation, userId) => {
+  return conversation.participants.senderId.toString() === userId.toString()
+  ? conversation.participants.receiverId
+  : conversation.participants.senderId;
+}

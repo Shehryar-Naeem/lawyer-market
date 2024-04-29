@@ -267,6 +267,10 @@ input::placeholder {
   .chat-navlink{
     @apply flex gap w-full items-center bg-gray-300 p-0.5 md:rounded-sm rounded-xs cursor-pointer hover:bg-gray-400
   }
+  .online-sign{
+    @apply h-[9px] w-[9px]  block bg-green-400 rounded-full;
+  
+  }
 }
 
 .chat-navlink.active{

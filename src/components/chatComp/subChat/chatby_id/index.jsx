@@ -8,7 +8,15 @@ import { InputBox } from "../../../../styles/StyledComponents";
 import { orange } from "../../../../contants/color";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+const messageSchem= yup.object().shape({
+  text: yup.string().required("Message is required"),
+});
+
 const UserChat = () => {
+
   return (
     <Fragment>
       <Stack

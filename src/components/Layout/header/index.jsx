@@ -10,8 +10,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { userNotExist } from "../../../redux/reducer/userReducer";
 import { switchProfileType } from "../../../redux/reducer/profileSlice";
+import { userApi } from "../../../redux/api/userApi";
+import { useSocket } from "../../../socket/socket";
+import { isIncludeInOnlineUsers } from "../../../contants/helper";
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { onlineUsers } = useSocket();
 
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const { currentProfileType } = useSelector((state) => state.profile);
@@ -101,18 +105,15 @@ const Header = () => {
       template: itemRenderer,
       command: async () => {
         try {
-          
-
           const { data } = await axios.get(`/api/user/logout`, {
             withCredentials: true,
           });
-
+          dispatch(userApi.util.resetApiState());
           dispatch(userNotExist());
 
           toast.success(data.message);
           navigate("/");
         } catch (error) {
-
           toast.error(error?.response?.data?.message || "Something went wrong");
           dispatch(userNotExist());
           navigate("/");
@@ -262,8 +263,19 @@ const Header = () => {
           </div>
         </nav>
       </header>
-      <div>
+      <div className="relative">
         <Outlet />
+        {/* {isOnline && ( */}
+        {isIncludeInOnlineUsers(onlineUsers, user?._id) && (
+          <div className="bg-gray-200 md:p-1 m-2 md:mr-[30px] mr-[24px] p-0.8 flex gap-1 fixed right-0 bottom-0 rounded-lg items-center">
+            <span className="online-sign"></span>
+            <span className="md:text-lg leading-none text-base text-green-400  font-semibold capitalize">
+              online
+            </span>
+          </div>
+        )}
+
+        {/* )} */}
       </div>
     </>
   );

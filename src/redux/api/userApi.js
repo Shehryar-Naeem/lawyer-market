@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CONVERSATION, GIGS, LAWYER, MESSAGE, USER } from "../../contants/color";
+
 export const userApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: `/api/`,
   }),
-  tagTypes: [USER, LAWYER, GIGS,CONVERSATION,MESSAGE],
+  tagTypes: ["Users", "Lawyer", "Gigs", "Conversations", "Messages"],
   endpoints: (builder) => ({
     signup: builder.mutation({
       query: (user) => ({
@@ -13,7 +13,7 @@ export const userApi = createApi({
         method: "POST",
         body: user,
       }),
-      invalidatesTags: [USER],
+      invalidatesTags: ["Users"],
     }),
     login: builder.mutation({
       query: (user) => ({
@@ -21,19 +21,20 @@ export const userApi = createApi({
         method: "POST",
         body: user,
       }),
-      invalidatesTags: [USER],
+      invalidatesTags: ["Users"],
     }),
+    
     updateUser: builder.mutation({
       query: (user) => ({
         url: "user/update-login-detail",
         method: "PUT",
         body: user,
       }),
-      invalidatesTags: [USER],
+      invalidatesTags: ["Users"],
     }),
     getUser: builder.query({
       query: () => `user/get-profile`,
-      providesTags: [USER],
+      providesTags: ["Users"],
     }),
     updatePassword: builder.mutation({
       query: (password) => ({
@@ -41,7 +42,7 @@ export const userApi = createApi({
         method: "PUT",
         body: password,
       }),
-      invalidatesTags: [USER],
+      invalidatesTags: ["Users"],
     }),
     forgotPassword: builder.mutation({
       query: (email) => ({
@@ -49,7 +50,7 @@ export const userApi = createApi({
         method: "POST",
         body: email,
       }),
-      invalidatesTags: [USER],
+      invalidatesTags: ["Users"],
     }),
     resetPassword: builder.mutation({
       query: ({ token, data }) => ({
@@ -57,7 +58,7 @@ export const userApi = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: [USER],
+      invalidatesTags: ["Users"],
     }),
 
     updateProfilePicture: builder.mutation({
@@ -66,7 +67,7 @@ export const userApi = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: [USER],
+      invalidatesTags: ["Users"],
     }),
     createLawyer: builder.mutation({
       query: (lawyer) => ({
@@ -74,7 +75,7 @@ export const userApi = createApi({
         method: "POST",
         body: lawyer,
       }),
-      invalidatesTags: [LAWYER],
+      invalidatesTags: ["Lawyer"],
     }),
     completeLawyerProfile: builder.mutation({
       query: (data) => ({
@@ -82,11 +83,11 @@ export const userApi = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: [LAWYER],
+      invalidatesTags: ["Lawyer"],
     }),
     lawyerPrfofile: builder.query({
       query: () => `lawyer/get-lawyer`,
-      providesTags: [LAWYER],
+      providesTags: ["Lawyer"],
     }),
     gigstepOne: builder.mutation({
       query: (gig) => ({
@@ -94,7 +95,7 @@ export const userApi = createApi({
         method: "POST",
         body: gig,
       }),
-      invalidatesTags: [GIGS],
+      invalidatesTags: ["Gigs"],
     }),
     gigstepTwo: builder.mutation({
       query: ({ id, data }) => ({
@@ -102,7 +103,7 @@ export const userApi = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: [GIGS],
+      invalidatesTags: ["Gigs"],
     }),
     gigstepThree: builder.mutation({
       query: ({ id, data }) => ({
@@ -110,7 +111,7 @@ export const userApi = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: [GIGS],
+      invalidatesTags: ["Gigs"],
     }),
 
     // getUserGigs: builder.query({
@@ -139,26 +140,26 @@ export const userApi = createApi({
         console.log(url);
         return url;
       },
-      providesTags: [GIGS],
+      providesTags: ["Gigs"],
     }),
     getGigById: builder.query({
       query: (id) => `gig/get-gig/${id}`,
-      providesTags: [GIGS],
+      providesTags: ["Gigs"],
     }),
     getGigDetail: builder.query({
       query: (id) => `gig/get-gig-detail/${id}`,
-      providesTags: [GIGS],
+      providesTags: ["Gigs"],
     }),
     getMeGigs: builder.query({
       query: () => `gig/get-gigs/me`,
-      providesTags: [GIGS],
+      providesTags: ["Gigs"],
     }),
     deleteGig: builder.mutation({
       query: (id) => ({
         url: `gig/delete-gig/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [GIGS],
+      invalidatesTags: ["Gigs"],
     }),
     updateGig: builder.mutation({
       query: ({ id, data }) => ({
@@ -166,7 +167,7 @@ export const userApi = createApi({
         method: "PUT",
         body: data,
       }),
-      validatetags: [GIGS],
+      validatetags: ["Gigs"],
     }),
     createConversation: builder.mutation({
       query: (data) => ({
@@ -174,23 +175,28 @@ export const userApi = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: [CONVERSATION],
+      invalidatesTags: ["Conversations"],
     }),
-    meConversations : builder.query({
+    meConversations: builder.query({
       query: () => `conversation/me/conversation`,
-      providesTags: [CONVERSATION],
+      providesTags: ["Conversations"],
     }),
+    getConversation: builder.query({
+      query: (id) => `conversation/get-single-conversation/${id}`,
+      providesTags: ["Conversations"],
+    }),
+
     sendMessage: builder.mutation({
-      query: ({id,data}) => ({
+      query: ({ id, data }) => ({
         url: `message/send-message/${id}`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: [MESSAGE],
+      invalidatesTags: ["Messages"],
     }),
     getSingleConversationMessages: builder.query({
-      query: (id) => `message/get-single-conversation-messages/${id}`,
-      providesTags: [MESSAGE],
+      query: (id) => `message/me/conversation/messages/${id}`,
+      providesTags: ["Messages"],
     }),
   }),
 });
@@ -210,6 +216,7 @@ export const {
   useGigstepOneMutation,
   useGigstepTwoMutation,
   useGigstepThreeMutation,
+  useGetConversationQuery,
 
   useGetAllgigsQuery,
   useGetGigByIdQuery,

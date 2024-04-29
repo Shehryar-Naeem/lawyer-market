@@ -23,6 +23,7 @@ import {
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/loader";
+import LoadingSpinner from "../../loadingSpinner";
 
 const gigStepTwoSchema = yup.object().shape({
   services: yup
@@ -48,7 +49,6 @@ const EditGigStep2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-
   const [gigstepTwo, { isError, error, isLoading }] = useGigstepTwoMutation();
   const {
     data: gigData,
@@ -72,7 +72,7 @@ const EditGigStep2 = () => {
   useEffect(() => {
     if (gigIsSuccess) {
       setValue("services", gigData?.gig?.pricing?.services);
-      setValue("price",gigData?.gig?.pricing?.price);
+      setValue("price", gigData?.gig?.pricing?.price);
     }
   }, [
     gigIsSuccess,
@@ -109,52 +109,60 @@ const EditGigStep2 = () => {
 
           <form onSubmit={handleSubmit(submitHandler)}>
             <div className="f-col md:shadow-lg shadow-md bg-white lg:p-ly-pad md:p-3xl p-3xl lg:gap-0.10 md:gap-0.8 gap-sm">
-              <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
-                <label className="gig-label">services</label>
-                <ul class="w-full overflow-hidden lg:p-1 md:p-0.10 p-0.8 small-btn-border-radius text-sm font-medium  text-gray-900 bg-white border-1 border-black flex flex-wrap">
-                  {lawyerServices.map((category) => (
-                    <li
-                      class="border-b border-gray-400 md:w-2/4 w-full"
-                      key={category.id}
-                    >
-                      <div class="flex items-center lg:p-1 md:p-0.10 p-0.8 gap ">
-                        <input
-                          id={category.name}
-                          type="checkbox"
-                          name={category.name}
-                          value={category.name}
-                          {...register("services")}
-                          className="md:w-6 md:h-6 w-4 h-4 bg-gray-300 border-gray-600 md:border-2 border-1 focus:ring-gray-500 md:focus:ring-2 focus:ring-1 md:rounded-xs rounded-xxs checked:bg-black lg:text-2xl md:text-xl text-base"
-                        />
-                        <label
-                          htmlFor={category.name}
-                          className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-bold font-semibold text-gray-900 dark:text-gray-300 cursor"
+              {isFetching ? (
+                <>
+                  <LoadingSpinner />
+                </>
+              ) : (
+                <>
+                  <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
+                    <label className="gig-label">services</label>
+                    <ul class="w-full overflow-hidden lg:p-1 md:p-0.10 p-0.8 small-btn-border-radius text-sm font-medium  text-gray-900 bg-white border-1 border-black flex flex-wrap">
+                      {lawyerServices.map((category) => (
+                        <li
+                          class="border-b border-gray-400 md:w-2/4 w-full"
+                          key={category.id}
                         >
-                          {category.name}
-                        </label>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                {errors.services && (
-                  <FailureAlert error={errors.services.message} />
-                )}
-              </div>
+                          <div class="flex items-center lg:p-1 md:p-0.10 p-0.8 gap ">
+                            <input
+                              id={category.name}
+                              type="checkbox"
+                              name={category.name}
+                              value={category.name}
+                              {...register("services")}
+                              className="md:w-6 md:h-6 w-4 h-4 bg-gray-300 border-gray-600 md:border-2 border-1 focus:ring-gray-500 md:focus:ring-2 focus:ring-1 md:rounded-xs rounded-xxs checked:bg-black lg:text-2xl md:text-xl text-base"
+                            />
+                            <label
+                              htmlFor={category.name}
+                              className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-bold font-semibold text-gray-900 dark:text-gray-300 cursor"
+                            >
+                              {category.name}
+                            </label>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    {errors.services && (
+                      <FailureAlert error={errors.services.message} />
+                    )}
+                  </div>
 
-              <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
-                <label className="gig-label">price</label>
-                <div>
-                  <input
-                    placeholder="service charges"
-                    className="input-gig"
-                    type="number"
-                    {...register("price")}
-                  />
-                </div>
-                {errors.price && <FailureAlert error={errors.price.message} />}
-              </div>
+                  <div className="f-col lg:gap-0.10 md:gap-0.8 gap-sm ">
+                    <label className="gig-label">price</label>
+                    <div>
+                      <input
+                        placeholder="service charges"
+                        className="input-gig"
+                        type="number"
+                        {...register("price")}
+                      />
+                    </div>
+                    {errors.price && (
+                      <FailureAlert error={errors.price.message} />
+                    )}
+                  </div>
 
-              {/* <div className="flex items-center lg:gap-1 md:gap-0.10 gap-0.8 ">
+                  {/* <div className="flex items-center lg:gap-1 md:gap-0.10 gap-0.8 ">
                 <input
                   type="checkbox"
                   checked={isChecked}
@@ -205,11 +213,13 @@ const EditGigStep2 = () => {
                 </div>
               )} */}
 
-              <div className="flex items-end justify-end">
-                <button type="submit" className="gig-btn">
-                  {isLoading ? <Loader /> : "save and continue"}
-                </button>
-              </div>
+                  <div className="flex items-end justify-end">
+                    <button type="submit" className="gig-btn">
+                      {isLoading ? <Loader /> : "save and continue"}
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </form>
         </div>

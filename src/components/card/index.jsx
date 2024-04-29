@@ -11,7 +11,10 @@ import { MdDelete } from "react-icons/md";
 import { useDeleteGigMutation } from "../../redux/api/userApi";
 import toast from "react-hot-toast";
 
-const GigCard = ({ gig, key, me }) => {
+const GigCard = ({ gig, key, me, isOnline }) => {
+  // console.log(gig);
+  // console.log(isOnline);
+
   const [deleteGig, { isError, isLoading, error }] = useDeleteGigMutation();
 
   const customTheme = {
@@ -65,13 +68,21 @@ const GigCard = ({ gig, key, me }) => {
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Card key={key}>
-        <div className="min-h-[140px] max-h-[150px] object-contain md:rounded-sm rounded-xs overflow-hidden ">
+        <div className="min-h-[140px] max-h-[150px] object-contain md:rounded-sm rounded-xs overflow-hidden  relative">
           {/* <img
             src={gig?.images[0]?.url}
             alt="gig"
             className="w-full h-full object-cover"
           /> */}
           <GigCarousel images={gig?.images} gig={true} />
+          {isOnline && (
+            <div className="bg-gray-200 md:p-0.5 m-0.5 p-0.5 flex gap-[5px] absolute right-0 bottom-0 rounded-lg items-center">
+              <span className="h-[6px] w-[6px]  block bg-green-400 rounded-full"></span>
+              <span className="md:text-[10px] leading-none text-[8px] text-green-400  font-semibold capitalize">
+                online
+              </span>
+            </div>
+          )}
         </div>
         <div className="f-col gap  justify-between   ">
           <div className="flex gap items-center ">

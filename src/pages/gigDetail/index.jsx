@@ -18,6 +18,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import GigDetailLoading from "../../components/skeletonLoading/sectionLoading";
 import { CaptializeFirstLetter } from "../../utils/helper";
+import Loader from "../../components/loader";
 
 const GigDetail = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -258,7 +259,7 @@ const GigDetail = () => {
                           <p className="text-grey md:text-base sm:text-sm text-xs font-semibold">
                             Hire me for your work
                           </p>
-                          <button className="gig-btn" onClick={createConversatioHandler}>hire</button>
+                          <button className="gig-btn" onClick={createConversatioHandler}>{isLoading?<Loader/>:"hire"}</button>
                         </div>
                       </div>
                       <div className="general-pad f-col gap bg-white layout-box-shadow ">

@@ -7,21 +7,25 @@ import ClientChatComp from "../chat";
 import { useMeConversationsQuery } from "../../../redux/api/userApi";
 import toast from "react-hot-toast";
 import ChatLoading from "../../skeletonLoading/chatloading";
+import { useSocket } from "../../../socket/socket";
+import { isIncludeInOnlineUsers } from "../../../contants/helper";
 
 const ClientChat = () => {
+  const {onlineUsers} = useSocket();
+
   const [open, setOpen] = React.useState(false);
   const [path, setPath] = React.useState("");
   const { data, isLoading, isError, isFetching, error } =
     useMeConversationsQuery();
   const { pathname } = useLocation();
-  console.log("pathname", pathname);
 
+  // console.log("data", data);
 
   useEffect(() => {
     if (isError) {
       toast.error(error.data.message);
     }
-  }, [isError, error]);
+  }, [isError]);
   useEffect(() => {
     if (pathname.indexOf("/lawyer-profile/chat") !== -1) {
       setPath("lawyer-profile/chat");
@@ -57,22 +61,31 @@ const ClientChat = () => {
               />
             </form>
             <div className="f-col h-full gap overflow-auto custom-scroll">
-              {isFetching
-                ? Array.from({ length: 11 }).map((_, index) => (
-                    <ChatLoading key={index} />
-                  ))
-                : data?.conversations?.map((data, index) => (
-                    <>
-                      <ClientChatComp
-                        _id={data._id}
-                        index={index}
-                        path={path}
-                        setOpen={setOpen}
-                        data={data}
-                        open={open}
-                      />
-                    </>
-                  ))}
+              {isFetching ? (
+                Array.from({ length: 6 }).map((_, index) => (
+                  <ChatLoading key={index} />
+                ))
+              ) : data?.conversations?.length > 0 ? (
+                data?.conversations?.map((data, index) => (
+                  <>
+                    <ClientChatComp
+                      _id={data._id}
+                      index={index}
+                      path={path}
+                      setOpen={setOpen}
+                      data={data}
+                      open={open}
+                      isOnline={isIncludeInOnlineUsers(onlineUsers, data.otherMember._id)}
+                    />
+                  </>
+                ))
+              ) : (
+                <>
+                  <div className="item-center h-full w-full">
+                  <h1 className="lg:text-xl md:text-lg text-base lg:font-bold md:font-bold font-semibold">No chat</h1>
+                </div>
+                </>
+              )}
             </div>
           </div>
         </div>

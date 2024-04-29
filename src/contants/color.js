@@ -16,3 +16,6 @@ export const GIGS = "Gigs";
 export const CONVERSATION ="Conversation";
 export const MESSAGE = "Message";
 
+
+// export const SERVER = "http://localhost:7012";
+export const SERVER = "https://lawyer-backend-production-5a92.up.railway.app";
