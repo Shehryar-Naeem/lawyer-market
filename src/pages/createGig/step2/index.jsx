@@ -100,6 +100,7 @@ const GigStepTwo = () => {
                         >
                           {category.name}
                         </label>
+                        
                       </div>
                     </li>
                   ))}

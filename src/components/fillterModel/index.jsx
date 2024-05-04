@@ -93,10 +93,10 @@ const FilterModel = ({
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
           <div className="flex justify-center gap-4">
-            <Button
+            <button
               size="xs"
               onClick={handleFilterSubmit}
-              className="!px-0 !py-0 uppercase bg-black lg:rounded-sm md:rounded-xs rounded-xxs enabled:focus:ring-0 enabled:hover:bg-black-90"
+              className="p-2.5 uppercase tex-center bg-black lg:rounded-sm md:rounded-xs rounded-xxs enabled:focus:ring-0 enabled:hover:bg-black-90 text-white text-sm font-bold "
             //   onClick={createLaywerHandler}
             >
               {/* {createLawyerLoading ? (
@@ -105,14 +105,14 @@ const FilterModel = ({
                 "Create"
               )} */}
               apply    
-            </Button>
-            <Button
+            </button>
+            <button
               onClick={handleClearFilters}
               size="xs"
-              className="!px-0 !py-0 uppercase lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
+              className="p-2.5 uppercase tex-center lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400 text-white text-sm font-bold "
             >
               clear
-            </Button>
+            </button>
           </div>
         </Modal.Footer>
       </Modal>

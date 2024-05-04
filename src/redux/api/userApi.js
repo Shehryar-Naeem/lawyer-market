@@ -5,7 +5,15 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `/api/`,
   }),
-  tagTypes: ["Users", "Lawyer", "Gigs", "Conversations", "Messages"],
+  tagTypes: [
+    "Users",
+    "Lawyer",
+    "Gigs",
+    "Conversations",
+    "Messages",
+    "jobs",
+    "bids",
+  ],
   endpoints: (builder) => ({
     signup: builder.mutation({
       query: (user) => ({
@@ -23,7 +31,6 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
-    
     updateUser: builder.mutation({
       query: (user) => ({
         url: "user/update-login-detail",
@@ -137,7 +144,7 @@ export const userApi = createApi({
         if (maxPrice) url += `&pricing.price[gte]=${maxPrice}`;
         if (search) url += `&keyword=${search}`;
 
-        console.log(url);
+        // console.log(url);
         return url;
       },
       providesTags: ["Gigs"],
@@ -167,7 +174,27 @@ export const userApi = createApi({
         method: "PUT",
         body: data,
       }),
-      validatetags: ["Gigs"],
+      invalidatesTags: ["Gigs"],
+    }),
+
+    addReview: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `gig/add/review/${id}`,
+        method: `PUT`,
+        body: data,
+      }),
+      invalidatesTags: ["Gigs"],
+    }),
+    getReviewsOfGigs: builder.query({
+      query: (id) => `gig/gig-reviews/${id}`,
+      providesTags: ["Gigs"],
+    }),
+    deleteGigReview: builder.mutation({
+      query: ({ gigId, reviewId }) => ({
+        url: `gig/delete/review/${gigId}/${reviewId}`,
+        method: `DELETE`,
+      }),
+      invalidatesTags: ["Gigs"],
     }),
     createConversation: builder.mutation({
       query: (data) => ({
@@ -198,6 +225,63 @@ export const userApi = createApi({
       query: (id) => `message/me/conversation/messages/${id}`,
       providesTags: ["Messages"],
     }),
+    createJob: builder.mutation({
+      query: (data) => ({
+        url: `job/create-job`,
+        method: `POST`,
+        body: data,
+      }),
+      invalidatesTags: ["jobs"],
+    }),
+    stopReceivingRuquest: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `job//stop-recieving-request/${id}`,
+        method: `PUT`,
+      }),
+      invalidatesTags: ["jobs"],
+    }),
+    getJobs: builder.query({
+      query: ({ currentPage, category, city, minPrice, maxPrice, search }) => {
+        // `job/get-all-jobs`
+        let url = `job/get-all-jobs?page=${currentPage}`;
+        if (category) url += `&category=${category}`;
+        if (city) url += `&location=${city}`;
+        if (minPrice) url += `&price[lte]=${minPrice}`;
+        if (maxPrice) url += `&price[gte]=${maxPrice}`;
+        if (search) url += `&keyword=${search}`;
+
+        return url;
+      },
+      providesTags: ["jobs"],
+    }),
+    getJobById: builder.query({
+      query: (id) => `job/get-job/${id}`,
+      providesTags: ["jobs"],
+    }),
+    getMeJobs: builder.query({
+      query: () => `job/get-me-jobs`,
+      providesTags: ["jobs"],
+    }),
+    sendProposal: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `bid/send-proposal/${id}`,
+        method: `POST`,
+        body: data,
+      }),
+      invalidatesTags: ["bids"],
+    }),
+    getAllPostBids: builder.query({
+      query: (id) => `bid/get-post-bids/${id}`,
+      providesTags: ["bids"],
+    }),
+    acceptBid: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `bid/accept-bid/${id}`,
+        method: `PUT`,
+        body: data,
+      }),
+      invalidatesTags: ["bids"],
+    }),
   }),
 });
 
@@ -217,7 +301,6 @@ export const {
   useGigstepTwoMutation,
   useGigstepThreeMutation,
   useGetConversationQuery,
-
   useGetAllgigsQuery,
   useGetGigByIdQuery,
   useGetGigDetailQuery,
@@ -226,7 +309,16 @@ export const {
   useUpdateGigMutation,
   useCreateConversationMutation,
   useMeConversationsQuery,
-
   useSendMessageMutation,
   useGetSingleConversationMessagesQuery,
+  useAddReviewMutation,
+  useGetReviewsOfGigsQuery,
+  useDeleteGigReviewMutation,
+  useCreateJobMutation,
+  useGetJobsQuery,
+  useGetJobByIdQuery,
+  useGetMeJobsQuery,
+  useSendProposalMutation,
+  useGetAllPostBidsQuery,
+  useAcceptBidMutation,
 } = userApi;

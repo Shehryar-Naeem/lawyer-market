@@ -96,7 +96,7 @@ const GetAllGigs = () => {
         <div className="container page-container-without-bg flex f-col justify-between">
           <div>
             {isLoading ? (
-              <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad">
+              <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 place-items-center gap general-pad">
                 <>
                   {Array.from({ length: skeletonCount }).map((_, index) => (
                     <CardSkeletonLoading key={index} />
@@ -131,7 +131,7 @@ const GetAllGigs = () => {
                   </div>
 
                   <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
-                    <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad ">
+                    <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad place-items-center">
                       {data?.gigs?.map((gig) => (
                         <GigCard
                           key={gig._id}
@@ -149,7 +149,7 @@ const GetAllGigs = () => {
             )}
           </div>
 
-          <div className="paginationBox">
+          {!isLoading && (
             <div className="paginationBox">
               <Pagination
                 activePage={currentPage}
@@ -166,7 +166,7 @@ const GetAllGigs = () => {
                 activeLinkClass="pageLinkActive"
               />
             </div>
-          </div>
+          )}
         </div>
       </div>
       {openModal && (

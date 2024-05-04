@@ -1,9 +1,12 @@
+import React from "react";
 import { Suspense, lazy, useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useGetUserQuery } from "./redux/api/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import UserProfile from "./pages/UserProfile";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 
@@ -38,6 +41,13 @@ import EditGigStep3 from "./components/editGig/editGigStep3";
 import ClientChat from "./components/clientchatComp/chats";
 import ClientChatHome from "./components/clientchatComp/subChat/chatHome";
 import ClientChatById from "./components/clientchatComp/subChat/chatby_id";
+import CreateClientPost from "./pages/cleintPost";
+import AllPosts from "./pages/allposts";
+import SendProposal from "./pages/sendProposal";
+import PostDetail from "./pages/postDetail";
+import LandingPage from "./pages/LandingPage";
+import Home from "./pages/home";
+import LandingLayout from "./components/Layout/LandingLayout";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -63,13 +73,32 @@ function App() {
     }
   }, [isLoading, isSuccess, isError, data, error, dispatch]);
 
+  React.useEffect(() => {
+    AOS.init({
+      offset: 100,
+      duration: 900,
+      easing: "ease-in-sine",
+      delay: 100,
+    });
+    AOS.refresh();
+  }, []);
   const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <LandingLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+      ],
+    },
     {
       path: "/",
       element: <Header />,
       children: [
         {
-          path: "/",
+          path: "/join-now",
           element: (
             // <ProtectRoute
             //   redirect="/lawyer-profile"
@@ -108,7 +137,7 @@ function App() {
                   element: <ClientChatById />,
                 },
               ],
-            }
+            },
           ],
         },
         {
@@ -189,6 +218,7 @@ function App() {
           ),
         },
         { path: "/gigs", element: <GetAllGigs /> },
+        { path: "/jobs", element: <AllPosts /> },
         {
           path: "/lawyer-gig/step1",
           element: (
@@ -210,6 +240,30 @@ function App() {
           element: (
             <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
               <GigStepThree />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/client/create-job",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isclient={true}>
+              <CreateClientPost />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/lawyer/send-proposal/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
+              <SendProposal />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/post-detail/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated}>
+              <PostDetail />
             </ProtectRoute>
           ),
         },

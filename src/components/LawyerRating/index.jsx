@@ -1,17 +1,19 @@
 import React from "react";
 import { Images } from "../../assets/images";
-import { Avatar } from "flowbite-react";
+import { Avatar } from "primereact/avatar";
+
 import { FaStar } from "react-icons/fa6";
 
-const LawyerRating = () => {
+const LawyerRating = ({ review }) => {
+  console.log(review);
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
   };
   return (
-    <div className="pad-y border-t border-gray-400  f-col gap">
+    <div className="pad-y border-b border-gray-400  f-col gap">
       <div className="flex items-center gap">
         <Avatar
-          image={Images.ProfilImg}
+          image={review?.user?.avatar?.url}
           className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full md:mr-1 mr-0.5 object-cover cursor"
           imageAlt="user-profile"
           shape="circle"
@@ -20,7 +22,7 @@ const LawyerRating = () => {
         />
         <div className="flex-col gap">
           <span className="lg:text-lg md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey">
-            Name
+            {review?.user?.name}
           </span>
           <div className="flex gap justify-between md:w-[200px] w-auto">
             <div className="flex md:gap-xs gap-[1px] items-center ">
@@ -28,20 +30,20 @@ const LawyerRating = () => {
                 <FaStar />
               </span>
               <b className="md:text-base text-sm text-grey md:font-extrabold font-bold">
-                4.9
+                {review?.rating}
               </b>
-              <span className="md:text-base text-sm text-grey md:font-semibold font-medium">
+              {/* <span className="md:text-base text-sm text-grey md:font-semibold font-medium">
                 (221)
-              </span>
+              </span> */}
             </div>
-            <span className="lg:text-lg md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey">
+            {/* <span className="lg:text-lg md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey">
               experience
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
       <p className="text-grey md:text-base sm:text-sm text-xs font-medium tracking-wide ">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, labore
+        {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, labore
         ex! Dolorum vitae quas, numquam incidunt eligendi dignissimos porro
         praesentium accusantium aliquid. Autem illum cum dolore dolor obcaecati
         facere amet. Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -50,7 +52,8 @@ const LawyerRating = () => {
         dolore dolor obcaecati facere amet. Lorem ipsum dolor sit amet
         consectetur adipisicing elit. Tempora, labore ex! Dolorum vitae quas,
         numquam incidunt eligendi dignissimos porro praesentium accusantium
-        aliquid. Autem illum cum dolore dolor obcaecati facere amet.
+        aliquid. Autem illum cum dolore dolor obcaecati facere amet. */}
+        {review?.comment}
       </p>
     </div>
   );

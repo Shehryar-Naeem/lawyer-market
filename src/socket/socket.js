@@ -1,6 +1,6 @@
 import { createContext, useMemo, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { SERVER } from "../contants/color";
+// import { SERVER } from "../contants/color";
 import { useSelector } from "react-redux";
 
 const SocketContext = createContext();
@@ -14,7 +14,9 @@ export const SocketProvider = ({ children }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useMemo(() => {
     if (isAuthenticated) {
-      return io(SERVER, {
+    
+   
+      return io("http://localhost:7012/", {
         withCredentials: true,
         query: {
           _id: user?._id,
@@ -22,7 +24,7 @@ export const SocketProvider = ({ children }) => {
       });
     }
     return null;
-  }, [isAuthenticated]);
+  }, [isAuthenticated,user?._id]);
   useEffect(() => {
     if (socket) {
       socket.on("getOnlineUsers", (data) => {

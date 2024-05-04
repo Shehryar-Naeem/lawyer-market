@@ -1,6 +1,15 @@
 import img1 from "../assets/images/10320-200.png";
 import img2 from "../assets/images/building-brand.jpg";
 import img3 from "../assets/images/client.jpg";
+
+import bar1 from "../assets/images/bar1.jpg";
+import bar2 from "../assets/images/bar2.jpg";
+import bar3 from "../assets/images/sindhheight_court.jpeg";
+import bar4 from "../assets/images/islamabad judge.jpeg";
+import bar5 from "../assets/images/peshawar.jpeg";
+import bar6 from "../assets/images/blouchitan.jpg";
+import bar7 from "../assets/images/federalshariat.jpeg";
+
 export const lawyerCategories = [
   {
     id: 1,
@@ -464,11 +473,10 @@ export const messageData = [
         message: "I am fine",
         isSender: false,
       },
-  
-    ]
+    ],
   },
   {
-    id: '0f35',
+    id: "0f35",
     chatName: "John Doe",
     message: [
       {
@@ -511,8 +519,7 @@ export const messageData = [
         message: "I am fine",
         isSender: false,
       },
-  
-    ]
+    ],
   },
   {
     id: "0f36",
@@ -558,7 +565,134 @@ export const messageData = [
         message: "I am fine",
         isSender: false,
       },
-  
-    ]
+    ],
+  },
+];
+
+export const heroSectionData = [
+  {
+    id: 1,
+    bar: "bg-bar1 bg-cover bg-center bg-no-repeat",
+    title: "Sindh High Court",
+    description:
+      "The Sindh High Court is the highest judicial institution of the province of Sindh. Established in 1906, the Court is situated at Karachi, the capital of Sindh. The Court has appellate jurisdiction over Sindh and Balochistan. A bench of the High Court is based in Sukkur and a circuit bench in Hyderabad.",
+  },
+  {
+    id: 2,
+    bar: "bg-bar2 bg-cover bg-center bg-no-repeat",
+    title: "Islamabad High Court",
+    description:
+      "The Islamabad High Court is the superior court of the capital territory of Pakistan. The court was established in 2010 and has appellate jurisdiction over the Islamabad Capital Territory and the Federally Administered Tribal Areas. The court has original jurisdiction over cases involving violations of fundamental rights.",
+  },
+  {
+    id: 3,
+    bar: "bg-bar3 bg-cover bg-center bg-no-repeat",
+    title: "Peshawar High Court",
+    description:
+      "The Peshawar High Court is the highest judicial institution of Khyber Pakhtunkhwa. Established in 1906, the Court is situated in Peshawar. The Court has appellate jurisdiction over Khyber Pakhtunkhwa and the Federally Administered Tribal Areas. A bench of the High Court is based in Abbottabad.",
+  },
+  // {
+  //   id: 4,
+  //   bar: "bg-bar4 bg-cover bg-center bg-no-repeat",
+  //   title: "Balochistan High Court",
+  //   description:
+  //     "The Balochistan High Court is the highest judicial institution of the province of Balochistan. Established in 1976, the Court is situated in Quetta. The Court has appellate jurisdiction over Balochistan and the Federally Administered Tribal Areas. A bench of the High Court is based in Sibi.",
+  // },
+  {
+    id: 5,
+    bar: "bg-bar5 bg-cover bg-center bg-no-repeat",
+    title: "Khyber Pakhtunkhwa High Court",
+    description:
+      "The Khyber Pakhtunkhwa High Court is the highest judicial institution of Khyber Pakhtunkhwa. Established in 1906, the Court is situated in Peshawar. The Court has appellate jurisdiction over Khyber Pakhtunkhwa and the Federally Administered Tribal Areas. A bench of the High Court is based in Abbottabad.",
+  },
+  {
+    id: 6,
+    bar: "bg-bar6 bg-cover bg-center bg-no-repeat",
+    title: "Balochistan High Court",
+    description:
+      "The Balochistan High Court is the highest judicial institution of the province of Balochistan. Established in 1976, the Court is situated in Quetta. The Court has appellate jurisdiction over Balochistan and the Federally Administered Tribal Areas. A bench of the High Court is based in Sibi.",
+  },
+  {
+    id: 7,
+    bar: "bg-bar7 bg-cover bg-center bg-no-repeat",
+    title: "Federal Shariat Court",
+    description:
+      "The Federal Shariat Court is a constitutional court of Pakistan, which has the power to examine and determine whether the laws of the country comply with Islamic law. The Court was established in 1980 and is based in Islamabad. The Court has appellate jurisdiction over cases involving Islamic law.",
+  },
+];
+
+
+export const gigData = [
+  {
+    id: 1,
+    title: "Family Lawyer",
+    description:
+      "Family lawyers are legal professionals who specialize in matters of family law. They represent clients in legal proceedings, draft legal documents, and provide legal advice on issues such as divorce, child custody, and adoption.",
+    price: 1000,
+    image: img1,
+  },
+  {
+    id: 2,
+    title: "Criminal Defense Lawyer",
+    description:
+      "Criminal defense lawyers are legal professionals who specialize in defending individuals who have been accused of committing a crime. They represent clients in court, negotiate plea deals, and provide legal advice on criminal matters.",
+    price: 1500,
+    image: img2,
+  },
+  {
+    id: 3,
+    title: "Business Lawyer",
+    description:
+      "Business lawyers are legal professionals who specialize in matters of business law. They provide legal advice on issues such as contracts, intellectual property, and corporate governance, and represent clients in legal proceedings.",
+    price: 2000,
+    image: img3,
+  },
+  {
+    id: 1,
+    title: "Family Lawyer",
+    description:
+      "Family lawyers are legal professionals who specialize in matters of family law. They represent clients in legal proceedings, draft legal documents, and provide legal advice on issues such as divorce, child custody, and adoption.",
+    price: 1000,
+    image: img1,
+  },
+  {
+    id: 2,
+    title: "Criminal Defense Lawyer",
+    description:
+      "Criminal defense lawyers are legal professionals who specialize in defending individuals who have been accused of committing a crime. They represent clients in court, negotiate plea deals, and provide legal advice on criminal matters.",
+    price: 1500,
+    image: img2,
+  },
+  {
+    id: 3,
+    title: "Business Lawyer",
+    description:
+      "Business lawyers are legal professionals who specialize in matters of business law. They provide legal advice on issues such as contracts, intellectual property, and corporate governance, and represent clients in legal proceedings.",
+    price: 2000,
+    image: img3,
+  },
+  {
+    id: 1,
+    title: "Family Lawyer",
+    description:
+      "Family lawyers are legal professionals who specialize in matters of family law. They represent clients in legal proceedings, draft legal documents, and provide legal advice on issues such as divorce, child custody, and adoption.",
+    price: 1000,
+    image: img1,
+  },
+  {
+    id: 2,
+    title: "Criminal Defense Lawyer",
+    description:
+      "Criminal defense lawyers are legal professionals who specialize in defending individuals who have been accused of committing a crime. They represent clients in court, negotiate plea deals, and provide legal advice on criminal matters.",
+    price: 1500,
+    image: img2,
+  },
+  {
+    id: 3,
+    title: "Business Lawyer",
+    description:
+      "Business lawyers are legal professionals who specialize in matters of business law. They provide legal advice on issues such as contracts, intellectual property, and corporate governance, and represent clients in legal proceedings.",
+    price: 2000,
+    image: img3,
   },
 ];

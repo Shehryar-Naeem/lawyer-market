@@ -131,7 +131,6 @@ const SignUp = () => {
   }, []);
   useEffect(() => {
     if (signupError) {
-      console.log(signupErrorMsg);
       toast.error(signupErrorMsg?.data?.message);
     }
   }, [signupError, dispatch, signupErrorMsg]);
@@ -174,7 +173,6 @@ const SignUp = () => {
         password: data.password,
       };
       const response = await login(user);
-      console.log(response);
       resetLogin();
       if (response?.data?.success) {
         dispatch(userExist(response?.data?.user));

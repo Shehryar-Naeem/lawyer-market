@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: "jit",
+  darkMode: "class",
   content: [
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
@@ -97,14 +98,18 @@ module.exports = {
         "gig-card-h": "232px",
       },
       colors: {
-        primary: "#000000",
+        primary: "#404145",
+        // secondary: "#00c3c7",
+        // dark: "#ffcf22",
         "white ": "#ffffff",
         "slate-gray": "#D9D9D9",
         "light-gray": "#555F5E",
-        "grey": "#404145",
+        grey: "#404145",
         // "black": "101010",
         "black-50": "rgba(0, 0, 0, 0.5)",
         "black-90": "rgba(0, 0, 0, 0.8)",
+
+        "black-transparent": "rgba(0, 0, 0, 0.1)",
         "pale-blue": "#F5F6FF",
         "white-400": "rgba(255, 255, 255, 0.80)",
       },
@@ -126,7 +131,15 @@ module.exports = {
       },
       backgroundImage: {
         gradient: "linear-gradient(to right,#D9D9D9 42%,#ffffff 42% 100%)",
-        "blur-gradient": "linear-gradient(to right, #000000 42%, #ffffff 42% 100%)",
+        "blur-gradient":
+          "linear-gradient(to right, #000000 42%, #ffffff 42% 100%)",
+        bar1: "url('/src/assets/images/bar1.jpg')",
+        bar2: "url('/src/assets/images/bar2.jpg')",
+        bar3: "url('/src/assets/images/sindhheight_court.jpeg')",
+        bar4: "url('/src/assets/images/islamabad judge.jpeg')",
+        bar5: "url('/src/assets/images/peshawar.jpeg')",
+        bar6: "url('/src/assets/images/blouchitan.jpg')",
+        bar7: "url('/src/assets/images/federalshariat.jpeg')",
       },
 
       width: {

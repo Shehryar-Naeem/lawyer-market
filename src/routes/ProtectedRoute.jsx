@@ -8,7 +8,7 @@ const ProtectRoute = ({
   isAuthenticated,
   isLawyer,
   isclient,
-  redirect = "/",
+  redirect = "/join-now",
 }) => {
   const { user } = useSelector((state) => state.auth);
 

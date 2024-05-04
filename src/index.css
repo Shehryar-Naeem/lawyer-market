@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,9 +15,9 @@ body {
   font-family: "Red Hat Display", sans-serif;
 }
 #root {
-  position: absolute;
-  width: 100%;
-  min-height: 100vh;
+  /* position: absolute; */
+  /* width: 100%; */
+  /* min-height: 100vh; */
   height: 100%;
   overflow-x: hidden;
 }
@@ -32,11 +32,14 @@ input::-webkit-inner-spin-button {
 img {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: cover;
 }
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+input {
+  outline: nonee;
 }
 
 input {
@@ -53,22 +56,19 @@ input::placeholder {
 }
 .custom-scroll::-webkit-scrollbar {
   width: 07px;
-
 }
 .custom-scroll::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #acacac; 
+  box-shadow: inset 0 0 5px #acacac;
   border-radius: 10px;
   height: 07px;
-
 }
- 
+
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: #acacac; 
+  background: #acacac;
   border-radius: 10px;
- 
 }
 .custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: #E5E7EB; 
+  background: #e5e7eb;
 }
 
 @media screen and (min-width: 768px) {
@@ -85,9 +85,8 @@ input::placeholder {
     -webkit-appearance: none;
     margin: 0;
   }
-  li{
+  li {
     list-style-type: none;
-  
   }
 }
 @layer components {
@@ -128,9 +127,8 @@ input::placeholder {
   .page-container-without-bg {
     @apply relative lg:min-h-[calc(100vh-100px)] h-auto m-auto md:min-h-[calc(100vh-80px)] min-h-[calc(100vh-50px)];
   }
-  .layout-box-shadow{
-    @apply lg:shadow-xl md:shadow-lg shadow-md 
-    
+  .layout-box-shadow {
+    @apply lg:shadow-xl md:shadow-lg shadow-md;
   }
   .layout-pad {
     @apply lg:p-ly-pad md:p-md-ly-pad p-sm-ly-pad;
@@ -213,7 +211,7 @@ input::placeholder {
   .info-label-text {
     @apply text-grey md:text-base sm:text-sm text-xs font-normal capitalize text-nowrap;
   }
-  .gig-detail-heading{
+  .gig-detail-heading {
     @apply md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey;
   }
   .white-shadow {
@@ -256,24 +254,39 @@ input::placeholder {
     @apply border border-primary resize-none text-gray-900  block xl:text-base lg:text-sm text-xs md:font-semibold font-medium md:p-2.5 p-1 small-btn-border-radius cursor placeholder:text-gray-400 w-full focus:ring-primary focus:border-primary;
   }
   .input-gig {
-    @apply border border-primary text-primary  placeholder-gray-600  md:text-lg  text-sm small-btn-border-radius focus:ring-primary focus:border-primary capitalize block w-full md:p-2.5 p-1;
+    @apply border border-primary text-primary  placeholder-gray-600  md:text-lg  text-sm small-btn-border-radius focus:ring-primary focus:border-primary capitalize block w-full md:p-2.5 p-1 !leading-none;
   }
   .gig-btn {
-    @apply bg-black text-white lg:text-base  md:text-base md:font-bold font-semibold text-sm md:py-1 py-0.10 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none;
+    @apply bg-black text-white   md:text-base md:font-bold font-semibold text-sm md:py-1 py-0.10 md:px-4 px-2 small-btn-border-radius  uppercase md:hover:bg-gray-800 shadow-none md:cursor-pointer cursor-none;
+  }
+  .btn {
+    @apply text-white md:text-base md:font-bold font-semibold text-sm md:py-1 py-0.10 md:px-4 px-2 small-btn-border-radius  uppercase !leading-none md:cursor-pointer cursor-none;
   }
   .general-pad {
     @apply lg:p-1 md:p-0.10 p-0.8;
   }
-  .chat-navlink{
-    @apply flex gap w-full items-center bg-gray-300 p-0.5 md:rounded-sm rounded-xs cursor-pointer hover:bg-gray-400
+  .chat-navlink {
+    @apply flex gap w-full items-center bg-gray-300 p-0.5 md:rounded-sm rounded-xs cursor-pointer hover:bg-gray-400;
   }
-  .online-sign{
+  .online-sign {
     @apply h-[9px] w-[9px]  block bg-green-400 rounded-full;
-  
   }
+  .heading {
+    @apply lg:text-2xl md:text-xl text-lg text-grey md:font-bold font-semibold;
+  }
+  .para {
+    @apply text-grey md:text-base sm:text-sm text-xs font-medium tracking-wide;
+  }
+  .landing-pad-x{
+    @apply lg:px-[30px] md:px-[25px] px-[20px];
+  }
+  .landing-pad-y{
+    @apply lg:pt-[40px] md:pt-[35px] pt-[30px];
+  }
+
 }
 
-.chat-navlink.active{
+.chat-navlink.active {
   @apply bg-gray-400;
 }
 @media screen and (max-width: 912px) {

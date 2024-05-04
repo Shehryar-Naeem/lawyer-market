@@ -2,27 +2,50 @@ import React, { useEffect, useState } from "react";
 import PageHeading from "../../components/pageHeading";
 import GigCarousel from "../../components/carousel";
 import { Avatar } from "primereact/avatar";
-
-import { Images } from "../../assets/images";
-import { carousalImages } from "../../data";
 import { FaStar } from "react-icons/fa6";
 import Tag from "../../components/tag";
 import LawyerRating from "../../components/LawyerRating";
-import FilterModel from "../../components/fillterModel";
 import Ratiing from "../../components/rating";
 import {
+  useAddReviewMutation,
   useCreateConversationMutation,
   useGetGigByIdQuery,
+  useGetReviewsOfGigsQuery,
 } from "../../redux/api/userApi";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import GigDetailLoading from "../../components/skeletonLoading/sectionLoading";
 import { CaptializeFirstLetter } from "../../utils/helper";
 import Loader from "../../components/loader";
+import RatingModel from "../../components/RatingModel";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import FailureAlert from "../../components/alert";
+
+const reviewSchema = yup.object().shape({
+  rating: yup.number().required("rating is required"),
+  comment: yup.string().required("comment is required"),
+});
 
 const GigDetail = () => {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    watch,
+    reset
+  } = useForm({
+    resolver: yupResolver(reviewSchema),
+    defaultValues: {
+      rating: null,
+      comment: "",
+    },
+  });
   const [openModal, setOpenModal] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [rating, setRating] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useGetGigByIdQuery(id);
@@ -34,29 +57,80 @@ const GigDetail = () => {
       error: conversationError,
     },
   ] = useCreateConversationMutation();
+  const [
+    addReview,
+    {
+      isLoading: isReviewloading,
+      isError: isReveiwError,
+      error: reviewError,
+      isSuccess,
+    },
+  ] = useAddReviewMutation();
+  const {
+    data: gigReviewData,
+    isLoading: getReviewLoading,
+    isError: isGetReviewError,
+    error: getReviewError,
+    isFetching,
+  } = useGetReviewsOfGigsQuery(id);
+  // console.log(data);
+
   useEffect(() => {
     if (isError) {
       toast.error(error);
     }
-    if(isConversationError){
-      toast.error(conversationError.data.message)
+    if (isConversationError) {
+      toast.error(conversationError?.data?.message);
     }
+    if (isReveiwError) {
+      toast.error(reviewError?.data?.message);
+    }
+
+    if (isGetReviewError) {
+      toast.error(getReviewError?.data?.message);
+    }
+
     setUserId(data?.gig?.user?._id);
-  }, [isError, data?.gig?.user?._id, error,isConversationError,conversationError]);
+  }, [
+    isError,
+    data,
+    error,
+    isConversationError,
+    conversationError,
+    isReveiwError,
+    reviewError,
+    isGetReviewError,
+    getReviewError,
+  ]);
+
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
   };
 
   const gigDetail = data?.gig;
+  const gigReviews = data?.gig.reviews;
 
   const createConversatioHandler = async () => {
     const { data } = await createConversation({ receiverId: userId });
     if (data?.success) {
       toast.success(data.message);
       navigate(`/client-profile/chat/${data.conversation._id}`);
-    } else {
-      toast.error(data.message);
+    } 
+  };
+  const addReviewHandler = async (data) => {
+    const response = await addReview({ id: id, data: data });
+    console.log(response);
+    if (response?.data?.success) {
+      toast.success(response.data.message);
+      setOpenModal(!openModal);
     }
+    reset()
+  
+  };
+  const onClear = () => {
+    setValue("rating", 0);
+    setValue("comment", "");
+    setRating(0);
   };
   return (
     <>
@@ -97,7 +171,7 @@ const GigDetail = () => {
                         <GigCarousel images={gigDetail?.images} />
                       </div>
 
-                      <h2 className="lg:text-2xl md:text-xl text-lg text-grey md:font-bold font-semibold">
+                      <h2 className="heading">
                         {CaptializeFirstLetter(gigDetail?.title)}
                       </h2>
                       <div className="flex items-center gap">
@@ -133,7 +207,7 @@ const GigDetail = () => {
                       </div>
                       <div className="f-col gap">
                         <h3 className="gig-detail-heading">About this gig</h3>
-                        <p className="text-grey md:text-base sm:text-sm text-xs font-medium tracking-wide ">
+                        <p className="para">
                           {CaptializeFirstLetter(
                             gigDetail?.description.replace(/<[^>]+>/g, "")
                           )}
@@ -259,7 +333,14 @@ const GigDetail = () => {
                           <p className="text-grey md:text-base sm:text-sm text-xs font-semibold">
                             Hire me for your work
                           </p>
-                          <button className="gig-btn" onClick={createConversatioHandler}>{isLoading?<Loader/>:"hire"}</button>
+                          <button
+                            className="gig-btn"
+                            onClick={createConversatioHandler}
+                          >
+                            {isCreateConversation ?<div className="item-center">
+                              <Loader/>
+                            </div> : "hire"}
+                          </button>
                         </div>
                       </div>
                       <div className="general-pad f-col gap bg-white layout-box-shadow ">
@@ -280,30 +361,64 @@ const GigDetail = () => {
               </div>
               <PageHeading text="Reviews" />
               <div className="w-full general-pad">
-                <div className="bg-white general-pad layout-box-shadow grid md:grid-cols-2 grid-cols-1 gap ">
-                  <LawyerRating />
-                  <LawyerRating />
-                  <LawyerRating />
+                <div className="bg-white general-pad layout-box-shadow grid lg:grid-cols-3 grid-cols-1 gap ">
+                  {isFetching ? (
+                    // <div className="col-span-2">
+                    <GigDetailLoading />
+                  ) : // </div>
+                  gigReviewData?.reviews?.length < 1 ? (
+                    <div className="col-span-3 h-[400px] flex items-center justify-center">
+                      <p className="text-center lg:text-2xl md:text-xl text-lg lg:font-extrabold md:font-bold font-semibold capitalize">No reviews yet</p>
+                    </div>
+
+                  ) : (
+                    gigReviewData?.reviews?.map((review, index) => (
+                      <>
+                        <LawyerRating review={review} />
+                      </>
+                    ))
+                  )}
+                  {/* <LawyerRating />
+                  <LawyerRating /> */}
                 </div>
               </div>
             </div>
           </div>
           {openModal && (
-            <FilterModel
-              title={"feedback"}
+            <RatingModel
+              isReviewloading={isReviewloading}
+              title={"comment"}
               openModal={openModal}
               setOpenModal={setOpenModal}
+              handleSubmit={handleSubmit}
+              reset={reset}
+
+              addReviewHandler={addReviewHandler}
+              onClear={onClear}
             >
-              <div className="f-col gap items-start justify-start w-full">
-                <Ratiing />
+              <form className="f-col gap items-start justify-start w-full">
+                <Ratiing
+                  setValue={setValue}
+                  watch={watch}
+                  register={register}
+                  rating={rating}
+                  setRating={setRating}
+                />
+                {errors.rating && (
+                  <FailureAlert error={errors.rating.message} />
+                )}
                 <div className="w-full">
                   <textarea
-                    className="w-full h-32 border border-gray-400 p-0.5 small-btn-border-radius"
-                    placeholder="feedback"
+                    className="w-full h-32 border border-gray-400 p-0.5 small-btn-border-radius focus:border-black focus:ring-0 focus:outline-none"
+                    placeholder="comment"
+                    {...register("comment")}
                   ></textarea>
+                  {errors.comment && (
+                    <FailureAlert error={errors.comment.message} />
+                  )}
                 </div>
-              </div>
-            </FilterModel>
+              </form>
+            </RatingModel>
           )}
         </>
       )}

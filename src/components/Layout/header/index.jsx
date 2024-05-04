@@ -13,6 +13,7 @@ import { switchProfileType } from "../../../redux/reducer/profileSlice";
 import { userApi } from "../../../redux/api/userApi";
 import { useSocket } from "../../../socket/socket";
 import { isIncludeInOnlineUsers } from "../../../contants/helper";
+import Footer from "../../Footer/Footer"
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { onlineUsers } = useSocket();
@@ -112,11 +113,11 @@ const Header = () => {
           dispatch(userNotExist());
 
           toast.success(data.message);
-          navigate("/");
+          navigate("/join-now");
         } catch (error) {
           toast.error(error?.response?.data?.message || "Something went wrong");
           dispatch(userNotExist());
-          navigate("/");
+          navigate("/join-now");
         }
       },
     },
@@ -170,113 +171,131 @@ const Header = () => {
   };
   return (
     <>
-      <header className="shadow-2xl z-[999] sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
-        <nav className="flex-between">
-          <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
-            <NavLink to="/">
-              <img
-                src={Images.brandLogo}
-                alt="brand_logo"
-                className="w-full h-full object-fill"
-              />
-            </NavLink>
-          </div>
-          <div
-            className={`${
-              isMobileMenuOpen ? "flex" : "hidden"
-            } md:flex flex-col md:flex-row gap items-center md:relative absolute md:w-auto w-full left-0 top-full md:bg-transparent transition-all bg-white md:px-0 px-2 md:pb-0 pb-4 md:shadow-none shadow-lg`}
-          >
-            <NavLink to={"/gigs"} className="nav-link">
-              gigs
-            </NavLink>
-          </div>
-          <div className="flex">
-            {!isAuthenticated ? (
-              <div className="item-center">
+      <div>
+        <header className="shadow-2xl z-[999] sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
+          <nav className="flex-between">
+            <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
+              <NavLink to="/">
                 <img
+                  src={Images.brandLogo}
+                  alt="brand_logo"
+                  className="w-full h-full object-fill"
+                />
+              </NavLink>
+            </div>
+            <div
+              className={`${
+                isMobileMenuOpen ? "flex" : "hidden"
+              } md:flex flex-col md:flex-row gap items-center md:relative absolute md:w-auto w-full left-0 top-full md:bg-transparent transition-all bg-white md:px-0 px-2 md:pb-0 pb-4 md:shadow-none shadow-lg`}
+            >
+              <NavLink
+                to={"/gigs"}
+                className="nav-link"
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                gigs
+              </NavLink>
+              <NavLink
+                to={"/jobs"}
+                className="nav-link"
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                Jobs
+              </NavLink>
+            </div>
+            <div className="flex">
+              {!isAuthenticated ? (
+                <div className="item-center">
+                  {/* <img
                   src={Images.profileLogo}
                   alt="profile_logo"
                   className="lg:w-avatar md:w-md-avatar w-sm-avatar lg:h-avatar md:h-md-avatar h-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 md:cursor-pointer"
-                />
-              </div>
-            ) : (
-              <>
-                <div className="item-center gap">
-                  {redirectUrl !== "admin" && isAuthenticated && (
-                    <span
-                      className="cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey"
-                      onClick={toggleUser}
-                    >
-                      Switch to
-                      {currentProfileType === "lawyer"
-                        ? " client "
-                        : " lawyer "}
-                      profile
-                    </span>
-                  )}
-
-                  <Avatar
-                    image={user?.avatar?.url}
-                    className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full mr-1 object-cover cursor"
-                    imageAlt="user-profile"
-                    shape="circle"
-                    size="large"
-                    pt={customAvatar}
-                    onClick={(event) => menuRight.current.toggle(event)}
-                    aria-controls="popup_menu_left"
-                    aria-haspopup
-                  />
+                /> */}
+                  <Link to={"/join-now"} className="gig-btn">
+                    Join now
+                  </Link>
                 </div>
-                <Menu
-                  autoZIndex
-                  baseZIndex={9999999}
-                  closeOnEscape={true}
-                  pt={cusmtomeStyle}
-                  unstyled={true}
-                  popup
-                  ref={menuRight}
-                  id="popup_menu_left"
-                  model={items}
-                  popupAlignment="right"
-                />
-              </>
-            )}
-            <button
-              className="text-black focus:outline-none md:hidden mr-0.5"
-              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                ></path>
-              </svg>
-            </button>
-          </div>
-        </nav>
-      </header>
-      <div className="relative">
-        <Outlet />
-        {/* {isOnline && ( */}
-        {isIncludeInOnlineUsers(onlineUsers, user?._id) && (
-          <div className="bg-gray-200 md:p-1 m-2 md:mr-[30px] mr-[24px] p-0.8 flex gap-1 fixed right-0 bottom-0 rounded-lg items-center">
-            <span className="online-sign"></span>
-            <span className="md:text-lg leading-none text-base text-green-400  font-semibold capitalize">
-              online
-            </span>
-          </div>
-        )}
+              ) : (
+                <>
+                  <div className="item-center gap">
+                    {redirectUrl !== "admin" && isAuthenticated && (
+                      <span
+                        className="cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey"
+                        onClick={toggleUser}
+                      >
+                        Switch to
+                        {currentProfileType === "lawyer"
+                          ? " client "
+                          : " lawyer "}
+                        profile
+                      </span>
+                    )}
 
-        {/* )} */}
+                    <Avatar
+                      image={user?.avatar?.url}
+                      className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full mr-1 object-cover cursor"
+                      imageAlt="user-profile"
+                      shape="circle"
+                      size="large"
+                      pt={customAvatar}
+                      onClick={(event) => menuRight.current.toggle(event)}
+                      aria-controls="popup_menu_left"
+                      aria-haspopup
+                    />
+                  </div>
+                  <Menu
+                    autoZIndex
+                    baseZIndex={9999999}
+                    closeOnEscape={true}
+                    pt={cusmtomeStyle}
+                    unstyled={true}
+                    popup
+                    ref={menuRight}
+                    id="popup_menu_left"
+                    model={items}
+                    popupAlignment="right"
+                  />
+                </>
+              )}
+              <button
+                className="text-black focus:outline-none md:hidden mr-0.5"
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </nav>
+        </header>
+        <div>
+          <Outlet />
+          {/* {isOnline && ( */}
+          {isIncludeInOnlineUsers(onlineUsers, user?._id) && (
+            <div className="bg-gray-200 md:p-1 m-2 md:mr-[30px] mr-[24px] p-0.8 flex gap-1 fixed right-0 bottom-0 rounded-lg items-center">
+              <span className="online-sign"></span>
+              <span className="md:text-lg leading-none text-base text-green-400  font-semibold capitalize">
+                online
+              </span>
+            </div>
+          )}
+
+          {/* )} */}
+        </div>
+       
       </div>
+      
     </>
   );
 };

@@ -3,8 +3,8 @@ import { classNames } from "primereact/utils";
 
 const GigCarousel = ({ images, gig }) => {
   const customTheme = {
-    root: "flex flex-col w-full h-full object-contain overflow-hidden",
-    content: "flex flex-col w-full h-full object-contain overflow-hideen ",
+    root: "flex flex-col w-full h-full object-cover object-center overflow-hidden",
+    content: "flex flex-col w-full h-full object-cover object-center overflow-hideen ",
     container: ({ props }) => ({
       className: classNames("flex w-full h-full overflow-hidden relative", {
         "flex-row": props.orientation !== "vertical",
@@ -36,7 +36,7 @@ const GigCarousel = ({ images, gig }) => {
    
     itemscontent: "w-full h-full",
     itemscontainer: ({ props }) => ({
-      className: classNames("flex  w-full  h-full object-contain", {
+      className: classNames("flex  w-full  h-full object-cover object-center", {
         "flex-row": props.orientation !== "vertical",
         "flex-col": props.orientation == "vertical",
       }),
@@ -86,7 +86,7 @@ const GigCarousel = ({ images, gig }) => {
   ];
   const productTemplate = (product) => {
     return (
-      <div className="w-full h-full">
+      <div className="w-full h-full object-cover">
         <img src={product?.url} alt={"carousal"} />
       </div>
     );

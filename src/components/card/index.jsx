@@ -20,8 +20,8 @@ const GigCard = ({ gig, key, me, isOnline }) => {
   const customTheme = {
     card: {
       root: {
-        base: "p-0.5 md:rounded-md border border-gray-200 bg-white md:shadow-md shadow-sm relative card-img overflow-hidden",
-        children: "f-col h-full relative gap ",
+        base: "p-0.5 md:rounded-sm rounded-xxs border border-gray-200 bg-white  relative card-img overflow-hidden  md:w-full w-[200px] bg-[#F9FAFB]",
+        children: "f-col h-full relative gap",
       },
     },
   };

@@ -13,7 +13,11 @@ import lawyer from "./lawyer.svg";
 import client from "./client.svg";
 import search from "./search.png";
 import chat from "./chat.png";
-
+import about from "./about.jpg"
+import blog1 from "./blog1.jpeg"
+import blog2 from "./blog2.jpg";
+import blog3 from "./blog3.png";
+import explorer from "./explore.png"
 export const Images = {
   Google,
   ProfilImg,
@@ -30,4 +34,9 @@ export const Images = {
   client,
   search,
   chat,
+  about,
+  blog1,
+  blog2,
+  blog3,
+  explorer
 };
