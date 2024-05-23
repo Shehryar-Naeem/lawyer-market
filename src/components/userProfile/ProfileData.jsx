@@ -9,7 +9,7 @@ import PostalCode from "../postalCode";
 
 const ProfileData = ({ userData, setModal, modal }) => {
   return (
-    <div className="md:col-span-2 col-span-6 flex flex-col lg:gap-3 md:gap-2 gap-1 ">
+    <div className="md:col-span-2 col-span-6 flex flex-col lg:gap-3 md:gap-2 gap-1">
       <div className="block_container">
         <ImageUploader avatar={userData?.user?.avatar?.url} />
         <div className="item-center flex-col">
@@ -26,11 +26,11 @@ const ProfileData = ({ userData, setModal, modal }) => {
           </p>
         </div>
       </div>
-      <div className="block_container">
+      <div className="w-full flex items-start justify-start gap-1 flex-col bg-white shadow-2xl lg:p-2 md:p-1 p-0.5 h-full">
         <ProfileComp
-          label={"your self"}
-          data={userData?.user?.yourSelf}
-          tooltip={"Edit your self"}
+          label={"CNIC"}
+          data={userData?.user?.cnic}
+          tooltip={"Edit your CNIC"}
           Comp={DesComp}
         />
         <ProfileComp

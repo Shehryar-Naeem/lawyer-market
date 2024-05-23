@@ -1,5 +1,4 @@
 import React from "react";
-import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
@@ -8,6 +7,7 @@ const ProtectRoute = ({
   isAuthenticated,
   isLawyer,
   isclient,
+  isAdmin,
   redirect = "/join-now",
 }) => {
   const { user } = useSelector((state) => state.auth);
@@ -26,6 +26,9 @@ const ProtectRoute = ({
       user &&
       user?.roles.some((role) => role?.roleType === "client");
 
+    const adminRole =
+      isAdmin && user && user?.roles.some((role) => role?.roleType === "admin");
+
     if (isLawyer === true && lawyerRole === false) {
       return <Navigate to={redirect} />;
     }
@@ -34,9 +37,12 @@ const ProtectRoute = ({
       console.log("clientRole", clientRole);
       return <Navigate to={redirect} />;
     }
+    if (isAdmin === true && adminRole === false) {
+      return <Navigate to={redirect} />;
+    }
   }
 
   return children ? children : <Outlet />;
-};
+};  
 
 export default ProtectRoute;

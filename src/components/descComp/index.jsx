@@ -12,7 +12,7 @@ const DesComp = ({ compData, show, setshow }) => {
 
   useEffect(() => {
     setDesc(compData);
-  
+
     if (isSuccess) {
       toast.success(data?.message);
       setshow(false);
@@ -24,19 +24,19 @@ const DesComp = ({ compData, show, setshow }) => {
   }, [data, isSuccess, dispatch]);
   const update = (e) => {
     e.preventDefault();
-    updateUser({ yourSelf: desc });
+    updateUser({ cnic: desc });
   };
   return (
     <form>
       <div className="profile-edit-container">
-        <textarea
+        <input
           id="message"
-          rows="5"
+          // rows="5"
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 small-btn-border-radius border border-gray-300 focus:ring-gray-500 focus:border-gray-500 "
-          placeholder="Write your thoughts here..."
-        ></textarea>
+          placeholder="enter your CNIC..."
+        />
         <div className="flex-column gap-sm">
           <button
             type="button"
@@ -45,8 +45,12 @@ const DesComp = ({ compData, show, setshow }) => {
           >
             cancel
           </button>
-          <button onClick={update} type="button" className="item-center blue-btn">
-            {isLoading ? <Loader/> :"update"}
+          <button
+            onClick={update}
+            type="button"
+            className="item-center blue-btn"
+          >
+            {isLoading ? <Loader /> : "update"}
           </button>
         </div>
       </div>

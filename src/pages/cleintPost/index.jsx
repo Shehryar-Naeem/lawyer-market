@@ -12,15 +12,18 @@ import { useCreateJobMutation } from "../../redux/api/userApi";
 import toast from "react-hot-toast";
 import Loader from "../../components/loader";
 import { useNavigate } from "react-router-dom";
-
 const createPostSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
-  budget: yup.number().required("Budget is required"),
+  budget: yup
+    .number("It should be a number")
+    .positive("Number should be greater than 0")
+    .required("Budget is required")
+    .transform((value, originalValue) => originalValue.trim() === "" ? null : value),
   category: yup.string().required("Category is required"),
   experience: yup.string().required("Experience is required"),
-  location: yup.string().required("Location Preference is required"),
-  majorIssues: yup.array().min(1, "Major Issues is required"),
+  location: yup.string().required("Location preference is required"),
+  majorIssues: yup.array().min(1, "Major issues are required"),
 });
 
 const CreateClientPost = () => {
@@ -40,7 +43,7 @@ const CreateClientPost = () => {
     if (isError) {
       toast.error("Failed to create job");
     }
-  }, []);
+  }, [isError]);
   const [issues, setIssues] = useState([]);
   const chipsTheme = {
     root: ({ props }) => ({
@@ -117,7 +120,7 @@ const CreateClientPost = () => {
                   name="description"
                   placeholder="description"
                   id="description"
-                  className="border border-primary resize-none text-gray-900  block xl:text-lg lg:base text-sm md:font-semibold font-medium md:p-2.5 p-1 small-btn-border-radius cursor placeholder:text-gray-400 w-full focus:ring-primary focus:border-primary md:h-[320px] h-[270px]"
+                  className="textarea-field"
                   {...register("description")}
                   // maxlength="80"
                 />
@@ -158,7 +161,7 @@ const CreateClientPost = () => {
                 <ProfileInputComp
                   lable="experience"
                   placeholder="experience"
-                  type="number"
+                  type="text"
                   register={register}
                   name="experience"
                 />
@@ -176,7 +179,7 @@ const CreateClientPost = () => {
                   {...register("location")}
                   name="location"
                 >
-                  <option value={""}>select category...</option>
+                  <option value={""}>select city...</option>
                   {cites.map((city, index) => (
                     <option key={index} value={city}>
                       {city}

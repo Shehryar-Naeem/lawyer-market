@@ -3,7 +3,7 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import ProfileInputComp from "../../ProfileInputComp";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import {
   useCompleteLawyerProfileMutation,
   useLawyerPrfofileQuery,
@@ -15,6 +15,7 @@ import LoadingSpinner from "../../loadingSpinner";
 import Loader from "../../loader";
 import { Chips } from "primereact/chips";
 import { classNames } from "primereact/utils";
+import { Images } from "../../../assets/images";
 
 const professionalInfoSchema = yup.object().shape({
   firmName: yup.string().required("Firm name is required"),
@@ -52,13 +53,21 @@ const availabilitySchema = yup.object().shape({
     ),
 });
 
+const documentSchema = yup.object().shape({
+  cnicPicture: yup.string().required("CNIC picture is required"),
+  lawyerIdCard: yup.string().required("Lawyer ID card is required"),
+});
+
 const EditProfile = () => {
   const [value, setValue] = useState([]);
+  const [cnicPicture, setCnicPicture] = useState("");
+  const [lawyerIdCard, setLawyerIdCard] = useState("");
   const {
     data,
     isLoading: isLawyerProfileLoading,
     isError: isLawyerProfileError,
     error: lawyerProfileError,
+    isSuccess,
   } = useLawyerPrfofileQuery();
   const {
     register: registerProfessionalInfo,
@@ -105,6 +114,19 @@ const EditProfile = () => {
     },
   });
 
+  const {
+    register: registerDocument,
+    handleSubmit: handleSubmitDocument,
+    formState: { errors: documentErrors },
+    setValue: setDocumentValue,
+  } = useForm({
+    resolver: yupResolver(documentSchema),
+    defaultValues: {
+      cnicPicture: data?.LawyerProfile?.documents?.cnicPicture || "",
+      lawyerIdCard: data?.LawyerProfile?.documents?.lawyerIdCard || "",
+    },
+  });
+
   const [completeLawyerProfile, { isError, error, isLoading }] =
     useCompleteLawyerProfileMutation();
 
@@ -115,7 +137,7 @@ const EditProfile = () => {
     if (isLawyerProfileError) {
       toast.error(lawyerProfileError.data.message);
     }
-  }, [isError, isLawyerProfileError]);
+  }, [isError, isLawyerProfileError, error, lawyerProfileError]);
 
   useEffect(() => {
     setProfessionalInfoValue(
@@ -156,7 +178,39 @@ const EditProfile = () => {
     );
     setAvailabilityValue("days", data?.LawyerProfile?.availability?.days || []);
     setValue(data?.LawyerProfile?.availability?.days || []);
+    if (isSuccess) {
+      setDocumentValue(
+        "cnicPicture",
+        data?.LawyerProfile?.cnicPicture?.url || ""
+      );
+      setCnicPicture(data?.LawyerProfile?.cnicPicture?.url || "");
+      setDocumentValue(
+        "lawyerIdCard",
+        data?.LawyerProfile?.lawyerIdCard?.url || ""
+      );
+      setLawyerIdCard(data?.LawyerProfile?.lawyerIdCard?.url || "");
+    }
   }, [data]);
+
+  const handleCnicPictureUpload = async (e) => {
+    const file = e.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setCnicPicture(fileReader.result);
+      setDocumentValue("cnicPicture", fileReader.result);
+    };
+    fileReader.readAsDataURL(file);
+  };
+
+  const handleLawyerIdPictureUpload = async (e) => {
+    const file = e.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setLawyerIdCard(fileReader.result);
+      setDocumentValue("lawyerIdCard", fileReader.result);
+    };
+    fileReader.readAsDataURL(file);
+  };
 
   const submitProfessionalInfo = async (data) => {
     try {
@@ -253,18 +307,35 @@ const EditProfile = () => {
       console.log(error);
     }
   };
+
+  const submitDocument = async (data) => {
+    try {
+      const response = await completeLawyerProfile(data);
+      if (response?.data?.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Profile Updated",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(documentErrors);
   return (
     <Tabs
       className={
         "w-full h-full flex flex-col lg:gap-1 md:gap-0.10 gap-0.8 mt-1"
       }
     >
-      <TabList className="item-center">
+      <TabList className="item-center overflow-x-auto overflow-y-hidden">
         <Tab className="sub-tab">Professional Info</Tab>
         <Tab className="sub-tab">Education</Tab>
         <Tab className="sub-tab">Available At</Tab>
+        <Tab className="sub-tab">upload doucment</Tab>
       </TabList>
       <div className="md:border-2 border-1 border-solid border-gray-400 general-pad md:rounded-xs rounded-xxs h-full">
+        {/* professional info */}
         <TabPanel>
           {isLawyerProfileLoading ? (
             <LoadingSpinner />
@@ -368,6 +439,9 @@ const EditProfile = () => {
             </>
           )}
         </TabPanel>
+        {/* professional info */}
+
+        {/* education info */}
         <TabPanel>
           {" "}
           <div className="f-col h-full relative">
@@ -442,6 +516,9 @@ const EditProfile = () => {
             </form>
           </div>
         </TabPanel>
+        {/* education info */}
+
+        {/* availablity */}
         <TabPanel>
           <div className="f-col gap h-full">
             <h3 className="lg:text-xl md:text-lg text-base font-extrabold capitalize">
@@ -490,6 +567,147 @@ const EditProfile = () => {
             </form>
           </div>
         </TabPanel>
+        {/* availablity */}
+
+        {/* upload document */}
+        <TabPanel>
+          <div className="f-col gap h-full">
+            <h3 className="lg:text-xl md:text-lg text-base font-extrabold capitalize">
+              update your documents
+            </h3>
+            <form
+              className="f-col justify-between h-full "
+              onSubmit={handleSubmitDocument(submitDocument)}
+            >
+              <div className="h-full f-col gap">
+                <div className="f-col gap">
+                  <label htmlFor={"days"} class="input-lable">
+                    add CNIC picture
+                  </label>
+                  <div className="f-col gap">
+                    {/* <div className="profile-input">
+                      <input
+                        type="file"
+                        name="cnicPicture"
+                        {...registerDocument("cnicPicture")}
+                      />
+                    </div> */}
+                    <div className="flex md:flex-row gap justify-between items-center">
+                      <div className="max-w-[200px] w-full general-pad md:shadow-lg shadow-md ">
+                        <label
+                          htmlFor="cnic-image"
+                          className="flex flex-col items-center justify-center border-2 border-gray-300 border-dashed cursor-pointer bg-gray-50 dark:hover:bg-bray-800  hover:bg-gray-100  overflow-hidden relative small-btn-border-radius lg:p-2 md:p-1 p-0.10"
+                        >
+                          <img
+                            src={Images.upload}
+                            className="lg:w-[70px] md:w-[60px] w-[50px] "
+                            alt="brand_logo"
+                          />
+                          <p className="lg:text-lg md:text-base text-sm text-center capitalize md:font-extrabold font-bold">
+                            upload your cnic picture{" "}
+                            <span className="md:font-black">browse</span>
+                          </p>
+                          <input
+                            id="cnic-image"
+                            type="file"
+                            className="hidden"
+                            accept="image/*"
+                            multiple
+                            {...registerDocument("cnicPicture")}
+                            // onChange={(e) => handleImageUpload(e, 0)}
+                            onChange={handleCnicPictureUpload}
+                          />
+                        </label>
+                      </div>
+                      {cnicPicture && (
+                        <div className="card-pic">
+                          <img
+                            src={cnicPicture}
+                            alt="cnic"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {documentErrors.cnicPicture && (
+                      <FailureAlert
+                        // error={availabilityErrors.cnicPicture.message}
+                        error={documentErrors.cnicPicture.message}
+                      />
+                    )}
+                  </div>
+                </div>
+                <div className="f-col gap">
+                  <label htmlFor={"days"} class="input-lable">
+                    add lawyer Id card
+                  </label>
+                  <div className="f-col gap">
+                    {/* <div className="profile-input">
+                      <input
+                        type="file"
+                        name="cnicPicture"
+                        {...registerDocument("cnicPicture")}
+                      />
+                    </div> */}
+                    <div className="flex md:flex-row gap justify-between items-center">
+                      <div className="max-w-[200px] w-full general-pad md:shadow-lg shadow-md ">
+                        <label
+                          htmlFor="lawyer-id-card"
+                          className="flex flex-col items-center justify-center border-2 border-gray-300 border-dashed cursor-pointer bg-gray-50 dark:hover:bg-bray-800  hover:bg-gray-100  overflow-hidden relative small-btn-border-radius lg:p-2 md:p-1 p-0.10"
+                        >
+                          <img
+                            src={Images.upload}
+                            className="lg:w-[70px] md:w-[60px] w-[50px] "
+                            alt="brand_logo"
+                          />
+                          <p className="lg:text-lg md:text-base text-sm text-center capitalize md:font-extrabold font-bold">
+                            upload your lawyer ID card picture{" "}
+                            <span className="md:font-black">browse</span>
+                          </p>
+                          <input
+                            id="lawyer-id-card"
+                            type="file"
+                            className="hidden"
+                            accept="image/*"
+                            multiple
+                            {...registerDocument("cnicPicture")}
+                            onChange={handleLawyerIdPictureUpload}
+                          />
+                        </label>
+                      </div>
+                      {lawyerIdCard && (
+                        <div className="card-pic">
+                          <img
+                            src={lawyerIdCard}
+                            alt="cnic"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {documentErrors.lawyerIdCard && (
+                      <FailureAlert
+                        error={documentErrors.lawyerIdCard.message}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <button type="submit" className="gig-btn">
+                {isLoading ? (
+                  <div className="item-center">
+                    <Loader />
+                  </div>
+                ) : (
+                  "update"
+                )}
+              </button>
+            </form>
+          </div>
+        </TabPanel>
+        {/* upload document */}
       </div>
     </Tabs>
   );

@@ -93,20 +93,20 @@ const CustomModal = ({
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
           <div className="flex justify-center gap-4">
-            <Button
-              size="xs"
-              className="!px-0 !py-0 uppercase bg-black lg:rounded-sm md:rounded-xs rounded-xxs enabled:focus:ring-0 enabled:hover:bg-black-90"
+            <button
+             
+              className="filteBlackBtn"
               onClick={createLaywerHandler}
             >
               {createLawyerLoading ? <Loader /> : "Create"}
-            </Button>
-            <Button
+            </button>
+            <button
               onClick={cancelHandler}
-              size="xs"
-              className="!px-0 !py-0 uppercase lg:rounded-sm md:rounded-xs rounded-xxs bg-gray-500 enabled:focus:ring-0 enabled:hover:bg-gray-400"
+              
+              className="filterGrayBtn"
             >
               cancel
-            </Button>
+            </button>
           </div>
         </Modal.Footer>
       </Modal>

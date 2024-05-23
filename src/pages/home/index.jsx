@@ -36,12 +36,9 @@ const Home = () => {
     pauseOnFocus: true,
   };
   return (
-    <div>
+    <div className="relative">
       <section className="relative overflow-hidden ">
-        {/* <div className="h-[700px] relative">
-       
-          <Hero />
-        </div> */}
+        
         <div className="h-full ">
           <Slider {...settings}>
             {heroSectionData.map((data) => (
@@ -232,7 +229,7 @@ const Home = () => {
           </VerticalTimeline>
         </section>
       </div>
-      {/* <BannerPic img={Banner2} /> */}
+      <BannerPic img={Banner2} />
       <Testimonial />
     </div>
   );

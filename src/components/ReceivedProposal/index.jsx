@@ -7,6 +7,7 @@ import {
 } from "../../redux/api/userApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { FaLocationDot } from "react-icons/fa6";
 
 const ReceivedProposal = ({ bid, key }) => {
   const navigate = useNavigate();
@@ -68,9 +69,22 @@ const ReceivedProposal = ({ bid, key }) => {
     }
   };
 
+  const hireIt = async () => {
+    const data = {
+      status: "hired",
+    };
+    const response = await acceptBid({
+      id: bid?._id,
+      data,
+    });
+    if (response?.data?.success) {
+      toast.success("hire lawyer successfully");
+    }
+  };
+
   return (
     <div className="pad-y border-b border-gray-400  f-col gap" key={key}>
-      <div className="flex md:flex-row flex-col md:items-center gap md:justify-between items-start justify-start" >
+      <div className="flex md:flex-row flex-col md:items-center gap md:justify-between items-start justify-start">
         <div className="flex items-center gap">
           <Avatar
             //   image={review?.user?.avatar.url}
@@ -86,35 +100,24 @@ const ReceivedProposal = ({ bid, key }) => {
               {/* {review?.user?.name} */}
               {bid?.lawyer?.name}
             </span>
-            {/* <div className="flex gap justify-between md:w-[200px] w-auto">
-            <div className="flex md:gap-xs gap-[1px] items-center ">
-              <span className="md:text-base text-sm text-grey ">
-                <FaStar />
+            <div className="flex gap-0.5 items-center">
+              <span className="md:text-base text-sm">
+                <FaLocationDot />
               </span>
-              <b className="md:text-base text-sm text-grey md:font-extrabold font-bold">
-                {review?.rating}
-              </b>
-              <span className="md:text-base text-sm text-grey md:font-semibold font-medium">
-                (221)
-              </span>
+              <p className="text-sm font-medium">{bid?.lawyer?.city}</p>
             </div>
-            <span className="lg:text-lg md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey">
-              experience
-            </span>
-          </div> */}
           </div>
         </div>
         {bid?.status === "pending" ? (
           <div className="flex gap md:items-center items-start">
             <button
-              className="btn bg-green-500 hover:bg-green-400"
+              className="btn md:w-auto w-full item-center green-bg"
               onClick={acceptIt}
             >
               Accept
             </button>
             <button
-        
-              className="btn bg-red-500 hover:bg-red-400"
+              className="btn md:w-auto w-full item-center red-bg"
               onClick={rejectIt}
             >
               Reject
@@ -122,15 +125,30 @@ const ReceivedProposal = ({ bid, key }) => {
           </div>
         ) : bid?.status === "accepted" ? (
           <div className="flex md:flex-row flex-col gap md:items-center items-start">
-            <button className="gig-btn" onClick={createConversatioHandler}>
+            <button
+              className="gig-btn md:w-auto w-full item-center"
+              onClick={createConversatioHandler}
+            >
               {isCreateConversation ? "loading..." : "reply"}
             </button>
-            <span className="btn bg-green-500 hover:bg-green-400">
+            <span className="btn md:w-auto w-full item-center green-bg">
               Accepted
             </span>
+            <button
+              className="btn md:w-auto w-full item-center blue-bg"
+              onClick={hireIt}
+            >
+              hire
+            </button>
           </div>
         ) : bid?.status === "rejected" ? (
-          <span className="btn bg-red-500 hover:bg-red-400">Rejected</span>
+          <span className="btn md:w-auto w-full item-center red-bg">
+            Rejected
+          </span>
+        ) : bid?.status === "hired" ? (
+          <span className="btn md:w-auto w-full item-center blue-bg">
+            Hired
+          </span>
         ) : null}
       </div>
       <p className="text-grey md:text-base sm:text-sm  font-medium tracking-wide ">

@@ -8,6 +8,7 @@ import LawyerRating from "../../components/LawyerRating";
 import Ratiing from "../../components/rating";
 import {
   useAddReviewMutation,
+  useAllowReviewQuery,
   useCreateConversationMutation,
   useGetGigByIdQuery,
   useGetReviewsOfGigsQuery,
@@ -15,7 +16,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import GigDetailLoading from "../../components/skeletonLoading/sectionLoading";
-import { CaptializeFirstLetter } from "../../utils/helper";
+import { CaptializeFirstLetter, options } from "../../utils/helper";
 import Loader from "../../components/loader";
 import RatingModel from "../../components/RatingModel";
 import { useForm } from "react-hook-form";
@@ -35,7 +36,7 @@ const GigDetail = () => {
     setValue,
     formState: { errors },
     watch,
-    reset
+    reset,
   } = useForm({
     resolver: yupResolver(reviewSchema),
     defaultValues: {
@@ -49,6 +50,12 @@ const GigDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useGetGigByIdQuery(id);
+  const {
+    data: allowReview,
+    isLoading: reviewLoading,
+    isError: isReviewErrorStatus,
+    error: allReviewStatusError,
+  } = useAllowReviewQuery(id);
   const [
     createConversation,
     {
@@ -71,8 +78,8 @@ const GigDetail = () => {
     isLoading: getReviewLoading,
     isError: isGetReviewError,
     error: getReviewError,
-    isFetching,
-  } = useGetReviewsOfGigsQuery(id);
+    
+  } = useGetReviewsOfGigsQuery(id,options);
   // console.log(data);
 
   useEffect(() => {
@@ -103,6 +110,12 @@ const GigDetail = () => {
     getReviewError,
   ]);
 
+  useEffect(() => {
+    if (isReviewErrorStatus) {
+      toast.error(allReviewStatusError?.data?.message);
+    }
+  }, [isReviewErrorStatus, allReviewStatusError]);
+
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
   };
@@ -115,7 +128,7 @@ const GigDetail = () => {
     if (data?.success) {
       toast.success(data.message);
       navigate(`/client-profile/chat/${data.conversation._id}`);
-    } 
+    }
   };
   const addReviewHandler = async (data) => {
     const response = await addReview({ id: id, data: data });
@@ -124,14 +137,14 @@ const GigDetail = () => {
       toast.success(response.data.message);
       setOpenModal(!openModal);
     }
-    reset()
-  
+    reset();
   };
   const onClear = () => {
     setValue("rating", 0);
     setValue("comment", "");
     setRating(0);
   };
+  console.log("gigReviewData", gigReviewData);
   return (
     <>
       {isLoading ? (
@@ -337,24 +350,30 @@ const GigDetail = () => {
                             className="gig-btn"
                             onClick={createConversatioHandler}
                           >
-                            {isCreateConversation ?<div className="item-center">
-                              <Loader/>
-                            </div> : "hire"}
+                            {isCreateConversation ? (
+                              <div className="item-center">
+                                <Loader />
+                              </div>
+                            ) : (
+                              "contact"
+                            )}
                           </button>
                         </div>
                       </div>
-                      <div className="general-pad f-col gap bg-white layout-box-shadow ">
-                        <div className="f-col md:gap-1 gap-0.10 border border-gray-400 general-pad small-btn-border-radius">
-                          <h3 className="gig-detail-heading">Give rating</h3>
+                      {allowReview?.data && (
+                        <div className="general-pad f-col gap bg-white layout-box-shadow ">
+                          <div className="f-col md:gap-1 gap-0.10 border border-gray-400 general-pad small-btn-border-radius">
+                            <h3 className="gig-detail-heading">Give rating</h3>
 
-                          <button
-                            className="gig-btn"
-                            onClick={() => setOpenModal(!openModal)}
-                          >
-                            rating
-                          </button>
+                            <button
+                              className="gig-btn"
+                              onClick={() => setOpenModal(!openModal)}
+                            >
+                              rating
+                            </button>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -362,15 +381,16 @@ const GigDetail = () => {
               <PageHeading text="Reviews" />
               <div className="w-full general-pad">
                 <div className="bg-white general-pad layout-box-shadow grid lg:grid-cols-3 grid-cols-1 gap ">
-                  {isFetching ? (
+                  {getReviewLoading ? (
                     // <div className="col-span-2">
                     <GigDetailLoading />
                   ) : // </div>
                   gigReviewData?.reviews?.length < 1 ? (
                     <div className="col-span-3 h-[400px] flex items-center justify-center">
-                      <p className="text-center lg:text-2xl md:text-xl text-lg lg:font-extrabold md:font-bold font-semibold capitalize">No reviews yet</p>
+                      <p className="text-center lg:text-2xl md:text-xl text-lg lg:font-extrabold md:font-bold font-semibold capitalize">
+                        No reviews yet
+                      </p>
                     </div>
-
                   ) : (
                     gigReviewData?.reviews?.map((review, index) => (
                       <>
@@ -392,7 +412,6 @@ const GigDetail = () => {
               setOpenModal={setOpenModal}
               handleSubmit={handleSubmit}
               reset={reset}
-
               addReviewHandler={addReviewHandler}
               onClear={onClear}
             >

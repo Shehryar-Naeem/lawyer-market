@@ -7,7 +7,9 @@ const CardSkeletonLoading = () => {
     <>
       <div className="f-col md:gap-1 gap-sm justify-start md:w-full w-[200px]">
         <div className="card-h">
-          <Skeleton className="w-full h-full md:rounded-sm rounded-xs" />
+          <div className="h-full">
+            <Skeleton className="w-full h-full md:rounded-sm rounded-xs" />
+          </div>
         </div>
         <div className="f-col md:gap-1 sm:gap-sm gap-xs">
           <div className="flex md:gap-1 sm:gap-sm gap-xs items-center">
@@ -20,7 +22,7 @@ const CardSkeletonLoading = () => {
             </div>
           </div>
           <Skeleton className="w-3/4 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm p-0" />
-          <Skeleton className="w-1/2 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm p-0"  />
+          <Skeleton className="w-1/2 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm p-0" />
           <Skeleton className="w-1/4 lg:h-4 md:h-3 h-2 md:rounded-lg sm:rounded-md rounded-sm p-0" />
         </div>
       </div>

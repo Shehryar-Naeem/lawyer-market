@@ -10,6 +10,7 @@ const LawyerDetail = () => {
       console.log(error.data.message);
     }
   }, [isError, error]);
+  console.log(data);
 
   const professionalInfo = data?.LawyerProfile?.professionalInfo;
   const education = data?.LawyerProfile?.education;
@@ -124,6 +125,49 @@ const LawyerDetail = () => {
                 </span>
               ))}
             </div>
+          )}
+        </div>
+      </div>
+      <div className="fieldset-border">
+        <caption className="field-legend">
+          Identification and License Cards
+        </caption>
+        <div className="flex flex-wrap md:gap-sm gap-xs">
+          {/* <div className="info-label-gap">
+            <span className="info-label-text-bold">Availability hours:</span>
+            <span className="info-label-text">John Doe</span>
+          </div> */}
+          {isLoading ? (
+            <LawyerProfileLoading />
+          ) : (
+            data?.LawyerProfile?.cnicPicture && (
+              <div className="f-col gap-0.8">
+                <span className="info-label-text-bold">CNIC Pic</span>
+                <div className="card-pic">
+                  <img
+                    src={data?.LawyerProfile?.cnicPicture.url}
+                    alt="cnic"
+                    className="w-full h-full object-fill"
+                  />
+                </div>
+              </div>
+            )
+          )}
+          {isLoading ? (
+            <LawyerProfileLoading />
+          ) : (
+            data?.LawyerProfile?.lawyerIdCard && (
+              <div className="f-col gap-0.8">
+                <span className="info-label-text-bold">lawyer Id Card</span>
+                <div className="card-pic">
+                  <img
+                    src={data?.LawyerProfile?.lawyerIdCard.url}
+                    alt="cnic"
+                    className="w-full h-full object-fill"
+                  />
+                </div>
+              </div>
+            )
           )}
         </div>
       </div>

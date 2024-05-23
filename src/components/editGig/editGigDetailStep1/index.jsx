@@ -192,7 +192,7 @@ const EditGigStep1 = () => {
                       name="description"
                       placeholder="description"
                       id="description"
-                      className="border border-primary resize-none text-gray-900  block xl:text-lg lg:base text-sm md:font-semibold font-medium md:p-2.5 p-1 small-btn-border-radius cursor placeholder:text-gray-400 w-full focus:ring-primary focus:border-primary  md:h-[320px] h-[270px]"
+                      className="gig-decription"
                       {...register("description")}
                       // maxlength="80"
                     />
@@ -220,7 +220,7 @@ const EditGigStep1 = () => {
                             />
                             <label
                               htmlFor={category.name}
-                              className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-bold font-semibold text-gray-900 dark:text-gray-300"
+                              className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-medium font-normal text-gray-900 dark:text-gray-300"
                             >
                               {category.name}
                             </label>

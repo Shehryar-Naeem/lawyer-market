@@ -15,7 +15,7 @@ import { Images } from "../../assets/images";
 
 import ProfileData from "../../components/userProfile/ProfileData";
 
-const UserSetting = () => {
+const UserSetting = ({ client }) => {
   const {
     data: userData,
     isLoading: userLoading,
@@ -92,23 +92,33 @@ const UserSetting = () => {
                 />
                 <div className="md:col-span-4 col-span-6 flex flex-col md:gap-1 gap-sm">
                   <div className="h-full w-full flex gap-1 flex-col bg-white shadow-2xl lg:p-2 md:p-1 p-0.5">
-                    <div className="flex w-full ">
+                    <div className="flex w-full overflow-x-auto ">
+                      {!client && (
+                        <NavLink
+                          to={"/settings/profile"}
+                          end
+                          className={"underline-tab"}
+                        >
+                          lawyer info
+                        </NavLink>
+                      )}
                       <NavLink
-                        to={"/settings/profile"}
-                        end
-                        className={"underline-tab"}
-                      >
-                        lawyer info
-                      </NavLink>
-                      <NavLink
-                        to={"/settings/profile/password"}
+                        to={
+                          client
+                            ? "/settings/client-profile"
+                            : "/settings/profile/password"
+                        }
                         className={"underline-tab"}
                         end
                       >
                         password
                       </NavLink>
                       <NavLink
-                        to={"/settings/profile/accounts"}
+                        to={
+                          client
+                            ? "/settings/client-profile/accounts"
+                            : "/settings/profile/accounts"
+                        }
                         className={"underline-tab"}
                         end
                       >

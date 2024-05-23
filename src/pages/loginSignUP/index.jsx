@@ -121,7 +121,7 @@ const SignUp = () => {
       navigate(location.state.from);
     } else {
       if (roles?.includes("admin")) {
-        navigate("/admin/dashboard");
+        navigate("/dashboard/admin/home");
       } else if (roles?.includes("lawyer")) {
         navigate("/lawyer-profile");
       } else if (roles?.includes("client")) {
@@ -177,7 +177,11 @@ const SignUp = () => {
       if (response?.data?.success) {
         dispatch(userExist(response?.data?.user));
         toast.success(response?.data.msg);
-        navigate("/gigs");
+        if (response?.data?.redirectUrl === "admin") {
+          navigate("/dashboard/admin/home");
+        } else {
+          navigate("/gigs");
+        }
         // navigate("/gigs");
         // if (loginData?.redirectUrl === "lawyer") {
         //   toast.success(loginData.msg);

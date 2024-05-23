@@ -21,6 +21,7 @@ const PostDetail = () => {
     isFetching: isPostBidFetching,
     error: postBidError,
   } = useGetAllPostBidsQuery(id);
+
   useEffect(() => {
     if (isError) {
       toast.error(error?.data?.message || "An error occurred");

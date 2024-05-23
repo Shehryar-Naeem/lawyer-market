@@ -92,7 +92,7 @@ const SendProposal = () => {
                           placeholder="description"
                           id="proposal"
                           {...register("proposal")}
-                          className="border border-primary resize-none text-gray-900  block xl:text-lg lg:base text-sm md:font-semibold font-medium md:p-2.5 p-1 small-btn-border-radius cursor placeholder:text-gray-400 w-full focus:ring-primary focus:border-primary md:h-[320px] h-[270px]"
+                          className="textarea-field"
                         />
                         {errors.proposal && (
                           <FailureAlert error={errors.proposal.message} />

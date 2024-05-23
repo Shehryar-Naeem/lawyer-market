@@ -13,8 +13,8 @@ import { switchProfileType } from "../../../redux/reducer/profileSlice";
 import { userApi } from "../../../redux/api/userApi";
 import { useSocket } from "../../../socket/socket";
 import { isIncludeInOnlineUsers } from "../../../contants/helper";
-import Footer from "../../Footer/Footer"
-const LandingLayout = () => {
+import Footer from "../../Footer/Footer";
+const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { onlineUsers } = useSocket();
 
@@ -145,8 +145,13 @@ const LandingLayout = () => {
       } else if (roles.includes("client")) {
         redirectUrl = "client";
       }
-
-      if (redirectUrl === "lawyer") {
+      if (
+        redirectUrl === "admin" ||
+        roles.includes("lawyer") ||
+        roles.includes("client")
+      ) {
+        dispatch(switchProfileType("lawyer"));
+      } else if (redirectUrl === "lawyer") {
         dispatch(switchProfileType("lawyer"));
       } else if (redirectUrl === "client") {
         dispatch(switchProfileType("client"));
@@ -203,7 +208,7 @@ const LandingLayout = () => {
                 Jobs
               </NavLink>
             </div>
-            <div className="flex">
+            <div className="flex items-center gap">
               {!isAuthenticated ? (
                 <div className="item-center">
                   {/* <img
@@ -293,11 +298,9 @@ const LandingLayout = () => {
 
           {/* )} */}
         </div>
-        <Footer />
       </div>
-      
     </>
   );
 };
 
-export default LandingLayout;
+export default Header;

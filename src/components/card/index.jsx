@@ -68,7 +68,7 @@ const GigCard = ({ gig, key, me, isOnline }) => {
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Card key={key}>
-        <div className="min-h-[140px] max-h-[150px] object-contain md:rounded-sm rounded-xs overflow-hidden  relative">
+        <div className="h-[140px] md:h-[150px] object-cover md:rounded-sm rounded-xs overflow-hidden  relative">
           {/* <img
             src={gig?.images[0]?.url}
             alt="gig"
@@ -94,7 +94,7 @@ const GigCard = ({ gig, key, me, isOnline }) => {
               to={`/gig/${gig?._id}`}
               className="transition-all hover:underline"
             >
-              <h3 className="text-black lg:text-base  md:text-lg sm:text-base text-sm md:font-bold font-medium">
+              <h3 className="text-black lg:text-base  md:text-lg sm:text-base text-sm md:font-bold font-medium line-clamp-2">
                 {CaptializeFirstLetter(gig?.title)}
               </h3>
             </Link>

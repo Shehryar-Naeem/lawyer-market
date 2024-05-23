@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Images } from "../../../assets/images";
+import { Images } from "../../assets/images";
 import { Avatar } from "primereact/avatar";
 import { Menu } from "primereact/menu";
 import { classNames } from "primereact/utils";
@@ -8,13 +8,13 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { userNotExist } from "../../../redux/reducer/userReducer";
-import { switchProfileType } from "../../../redux/reducer/profileSlice";
-import { userApi } from "../../../redux/api/userApi";
-import { useSocket } from "../../../socket/socket";
-import { isIncludeInOnlineUsers } from "../../../contants/helper";
-import Footer from "../../Footer/Footer"
-const Header = () => {
+import { userNotExist } from "../../redux/reducer/userReducer";
+import { switchProfileType } from "../../redux/reducer/profileSlice";
+import { userApi } from "../../redux/api/userApi";
+import { useSocket } from "../../socket/socket";
+import { isIncludeInOnlineUsers } from "../../contants/helper";
+import Footer from "../../components/Footer/Footer";
+const LandingLayout = ({ isFooter }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { onlineUsers } = useSocket();
 
@@ -27,6 +27,7 @@ const Header = () => {
     roles.includes("client") &&
     !roles.includes("lawyer") &&
     !roles.includes("admin");
+  let isAdmin = isAuthenticated && roles.includes("admin");
   const menuRight = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -92,13 +93,31 @@ const Header = () => {
       },
     },
     isOnlyClient && {
-      label: "create lawyer account",
+      label: "Settings",
       icon: "pi pi-cog",
+      template: itemRenderer,
+      command: () => {
+        navigate("/settings/client-profile");
+      },
+    },
+
+    isOnlyClient && {
+      label: "create lawyer account",
+      icon: "pi pi-user",
       template: itemRenderer,
       command: () => {
         navigate("/client-profile/create-lawyer-account");
       },
     },
+    isAdmin && {
+      label: "Admin",
+      icon: "pi pi-user-edit",
+      template: itemRenderer,
+      command: () => {
+        navigate("/dashboard/admin/home");
+      },
+    },
+
     {
       label: "Logout",
       icon: "pi pi-sign-out",
@@ -146,7 +165,13 @@ const Header = () => {
         redirectUrl = "client";
       }
 
-      if (redirectUrl === "lawyer") {
+      if (
+        redirectUrl === "admin" ||
+        roles.includes("lawyer") ||
+        roles.includes("client")
+      ) {
+        dispatch(switchProfileType("lawyer"));
+      } else if (redirectUrl === "lawyer") {
         dispatch(switchProfileType("lawyer"));
       } else if (redirectUrl === "client") {
         dispatch(switchProfileType("client"));
@@ -171,7 +196,7 @@ const Header = () => {
   };
   return (
     <>
-      <div>
+      <div className="relative">
         <header className="shadow-2xl z-[999] sticky top-0 w-full lg:p-ly-pad md:p-md-ly-pad sm:p-sm-ly-pad p-xl bg-white">
           <nav className="flex-between">
             <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
@@ -193,7 +218,7 @@ const Header = () => {
                 className="nav-link"
                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
               >
-                gigs
+                Gigs
               </NavLink>
               <NavLink
                 to={"/jobs"}
@@ -203,7 +228,7 @@ const Header = () => {
                 Jobs
               </NavLink>
             </div>
-            <div className="flex">
+            <div className="flex items-center gap-0.5">
               {!isAuthenticated ? (
                 <div className="item-center">
                   {/* <img
@@ -212,13 +237,13 @@ const Header = () => {
                   className="lg:w-avatar md:w-md-avatar w-sm-avatar lg:h-avatar md:h-md-avatar h-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 md:cursor-pointer"
                 /> */}
                   <Link to={"/join-now"} className="gig-btn">
-                    Join now
+                    sign up
                   </Link>
                 </div>
               ) : (
                 <>
                   <div className="item-center gap">
-                    {redirectUrl !== "admin" && isAuthenticated && (
+                    {isAuthenticated && (
                       <span
                         className="cursor-pointer md:text-sm text-xs hover:underline font-bold text-grey"
                         onClick={toggleUser}
@@ -283,7 +308,7 @@ const Header = () => {
           <Outlet />
           {/* {isOnline && ( */}
           {isIncludeInOnlineUsers(onlineUsers, user?._id) && (
-            <div className="bg-gray-200 md:p-1 m-2 md:mr-[30px] mr-[24px] p-0.8 flex gap-1 fixed right-0 bottom-0 rounded-lg items-center">
+            <div className="bg-gray-200 md:p-1 m-2 md:mr-[30px] mr-[24px] p-0.8 flex gap-1 fixed left-0  z-[9999] bottom-0 rounded-lg items-center">
               <span className="online-sign"></span>
               <span className="md:text-lg leading-none text-base text-green-400  font-semibold capitalize">
                 online
@@ -293,11 +318,10 @@ const Header = () => {
 
           {/* )} */}
         </div>
-       
+        {isFooter && <Footer />}
       </div>
-      
     </>
   );
 };
 
-export default Header;
+export default LandingLayout;

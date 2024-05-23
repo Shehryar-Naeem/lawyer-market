@@ -15,7 +15,7 @@ import LawyerDetail from "./components/Lawyer/details";
 import Gigs from "./components/Lawyer/gigs";
 import Bid from "./components/Lawyer/bids";
 import Chat from "./components/chatComp/chats";
-import Header from "./components/Layout/header";
+// import Header from "./Layout/header";
 import UserSetting from "./pages/userSetting";
 import ProtectRoute from "./routes/ProtectedRoute";
 import GigStepOne from "./pages/createGig/step1";
@@ -45,9 +45,25 @@ import CreateClientPost from "./pages/cleintPost";
 import AllPosts from "./pages/allposts";
 import SendProposal from "./pages/sendProposal";
 import PostDetail from "./pages/postDetail";
-import LandingPage from "./pages/LandingPage";
 import Home from "./pages/home";
-import LandingLayout from "./components/Layout/LandingLayout";
+import LandingLayout from "./Layout/LandingLayout";
+import AdminLayout from "./Layout/adminLayout";
+import AdminHomePage from "./pages/dashboard/homePage";
+import ClientPage from "./pages/dashboard/AllUsers";
+import LawyerPage from "./pages/dashboard/lawyerPage";
+import GigsPage from "./pages/dashboard/GigsPage";
+import JobPage from "./pages/dashboard/JobPage";
+import UpdateGigByAdmin from "./pages/dashboard/updateGig";
+import UpdateJobByAdmin from "./pages/dashboard/updateJob";
+import AllUsers from "./pages/dashboard/AllUsers";
+import UserDetailByAdmin from "./pages/dashboard/userDetail";
+import GetAllLawyer from "./pages/dashboard/allLawyers";
+import UpdateLawyer from "./pages/dashboard/updateLawyer";
+import VerificationRequest from "./pages/dashboard/verification-requests";
+import ManageVerificationRequest from "./pages/dashboard/mangeVerificationRequest";
+import Hired from "./components/hired";
+import EditJob from "./pages/editJob/idnex";
+import ActiveJobs from "./pages/activeJobs";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -85,7 +101,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingLayout />,
+      element: <LandingLayout isFooter={true} />,
       children: [
         {
           path: "/",
@@ -95,7 +111,7 @@ function App() {
     },
     {
       path: "/",
-      element: <Header />,
+      element: <LandingLayout />,
       children: [
         {
           path: "/join-now",
@@ -128,6 +144,10 @@ function App() {
             { path: "gigs", element: <Gigs /> },
             { path: "bids", element: <Bid /> },
             {
+              path: "active-jobs",
+              element: <ActiveJobs />,
+            },
+            {
               path: "chat",
               element: <ClientChat />,
               children: [
@@ -149,7 +169,7 @@ function App() {
           ),
           children: [
             { path: "", element: <ClientPosts /> },
-            { path: "gigs", element: <Gigs /> },
+            { path: "hired", element: <Hired /> },
             {
               path: "chat",
               element: <ClientChat />,
@@ -182,6 +202,18 @@ function App() {
           children: [
             { path: "", element: <EditProfile /> },
             { path: "password", element: <PasswordTab /> },
+            { path: "accounts", element: <Accounts /> },
+          ],
+        },
+        {
+          path: "/settings/client-profile",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated}>
+              <UserSetting client={true} />
+            </ProtectRoute>
+          ),
+          children: [
+            { path: "", element: <PasswordTab /> },
             { path: "accounts", element: <Accounts /> },
           ],
         },
@@ -252,6 +284,14 @@ function App() {
           ),
         },
         {
+          path: "/edit-job/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isclient={true}>
+              <EditJob />
+            </ProtectRoute>
+          ),
+        },
+        {
           path: "/lawyer/send-proposal/:id",
           element: (
             <ProtectRoute isAuthenticated={isAuthenticated} isLawyer={true}>
@@ -264,6 +304,96 @@ function App() {
           element: (
             <ProtectRoute isAuthenticated={isAuthenticated}>
               <PostDetail />
+            </ProtectRoute>
+          ),
+        },
+      ],
+    },
+    {
+      path: "/",
+      element: <AdminLayout />,
+      children: [
+        {
+          path: "/dashboard/admin/home",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <AdminHomePage />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/dashboard/admin/users/all",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <AllUsers />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/dashboard/admin/users/lawyers",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <LawyerPage />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/dashboard/admin/gigs",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <GigsPage />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/dashboard/admin/gigs/edit/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <UpdateGigByAdmin />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/dashboard/admin/jobs",
+          element: <JobPage />,
+        },
+        {
+          path: "/dashboard/admin/jobs/edit/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <UpdateJobByAdmin />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/dashboard/admin/users/user/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <UserDetailByAdmin />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/dashboard/admin/users/lawyer/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <UpdateLawyer />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/dashboard/admin/verification-requests",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <VerificationRequest />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/dashboard/admin/verification-requests/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated} isAdmin={true}>
+              <ManageVerificationRequest />
             </ProtectRoute>
           ),
         },
@@ -417,7 +547,7 @@ function App() {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <div className="h-full">
+          <div className="h-full relative">
             <RouterProvider router={router}></RouterProvider>
           </div>
         )}

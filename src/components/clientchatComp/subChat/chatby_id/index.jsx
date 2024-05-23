@@ -20,6 +20,7 @@ import ChatLoading from "../../../skeletonLoading/chatloading";
 import { useSocket } from "../../../../socket/socket";
 import toast from "react-hot-toast";
 import { getOtherUser } from "../../../../utils/helper";
+import { clearNotification } from "../../../../redux/reducer/conversation";
 const ClientChatById = () => {
   const { pathname } = useLocation();
   const [path, setPath] = useState("");
@@ -34,37 +35,29 @@ const ClientChatById = () => {
   const containerRef = useRef(null);
   const bottomRef = useRef(null);
 
-  const [
-    sendMessage,
-    {
-      isLoading: isSendingLoading,
-      isError: isSendingError,
-      error: sendingError,
-    },
-  ] = useSendMessageMutation();
+  const [sendMessage] = useSendMessageMutation();
 
-  const { data, isLoading, isFetching, isError, error } =
+  const { data, isLoading, isFetching, isError, error, refetch } =
     useGetSingleConversationMessagesQuery(id, {
-      // pollingInterval: 30000,
-      // refetchOnMountOrArgChange: 60,
-      // refetchOnFocus: true,
-      // refetchOnReconnect: true,
+      pollingInterval: 100,
+      refetchOnMountOrArgChange: 60,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
     });
   const { data: conversation } = useGetConversationQuery(id);
 
   const { user } = useSelector((state) => state.auth);
 
-  // console.log("data", conversation);
-
   useEffect(() => {
     if (data) {
+      refetch();
       setMessages(data.messages);
     }
     if (conversation) {
       const receiverId = getOtherUser(conversation?.conversation, user._id);
       setReceiverId(receiverId);
     }
-  }, [data]);
+  }, [data, conversation, user._id]);
 
   useEffect(() => {
     socket?.on("newMessage", (data) => {
@@ -74,7 +67,7 @@ const ClientChatById = () => {
     return () => {
       socket?.off("newMessage");
     };
-  }, [socket]);
+  }, [socket, id]);
 
   useEffect(() => {
     const lastMessageIsFromOtherUser =
@@ -113,9 +106,20 @@ const ClientChatById = () => {
   }, [pathname]);
 
   useEffect(() => {
-    if (bottomRef.current)
+    if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    }
+  }, [messages, bottomRef]);
+
+  useEffect(() => {
+    socket.emit("joinConversation", { conversationId: id, userId: user._id });
+    return () => {
+      socket.emit("leaveConversation", { userId: user._id });
+    };
+  }, [id, user._id, socket]);
+  useEffect(() => {
+    dispatch(clearNotification({ conversationId: id }));
+  }, [id]);
 
   // const allMessages = oldMessages;
 
@@ -223,7 +227,7 @@ const ClientChatById = () => {
           alignItems={"center"}
           position={"relative"}
         >
-          <IconButton
+          {/* <IconButton
             sx={{
               position: "absolute",
               left: ".5rem",
@@ -232,7 +236,7 @@ const ClientChatById = () => {
             // onClick={handleFileOpen}
           >
             <AttachFileIcon />
-          </IconButton>
+          </IconButton> */}
 
           <InputBox
             placeholder="Type Message Here..."

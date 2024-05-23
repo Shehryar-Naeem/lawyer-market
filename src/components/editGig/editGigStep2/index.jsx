@@ -134,7 +134,7 @@ const EditGigStep2 = () => {
                             />
                             <label
                               htmlFor={category.name}
-                              className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-bold font-semibold text-gray-900 dark:text-gray-300 cursor"
+                              className="check-box-label"
                             >
                               {category.name}
                             </label>

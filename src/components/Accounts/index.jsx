@@ -12,11 +12,7 @@ const Accounts = () => {
       </h3>
       <div className="f-col gap">
         {roles?.map((role) => (
-          <AccountComp
-            key={role.id}
-            role={role}
-          
-          />
+          <AccountComp key={role.id} role={role} />
         ))}
       </div>
     </div>

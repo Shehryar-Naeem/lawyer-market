@@ -126,11 +126,11 @@ const ClientProfile = () => {
                         posts
                       </NavLink>
                       <NavLink
-                        to={"/client-profile/gigs"}
+                        to={"/client-profile/hired"}
                         className={"underline-tab"}
                         end
                       >
-                        proposals
+                        Hired 
                       </NavLink>
                       <NavLink
                         to={"/client-profile/chat"}
@@ -142,7 +142,7 @@ const ClientProfile = () => {
                    
                     </div>
 
-                    <div>
+                    <div className="h-full">
                       <Outlet />
                     </div>
                   </div>

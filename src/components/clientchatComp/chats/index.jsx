@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Images } from "../../../assets/images";
 import { Outlet, useLocation } from "react-router-dom";
 import { messageData } from "../../../data";
@@ -9,12 +9,18 @@ import toast from "react-hot-toast";
 import ChatLoading from "../../skeletonLoading/chatloading";
 import { useSocket } from "../../../socket/socket";
 import { isIncludeInOnlineUsers } from "../../../contants/helper";
+import { useDispatch, useSelector } from "react-redux";
+import { setNotification } from "../../../redux/reducer/conversation";
+import { idID } from "@mui/material/locale";
 
 const ClientChat = () => {
-  const {onlineUsers} = useSocket();
+  const { onlineUsers, socket } = useSocket();
 
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+  const { notifications } = useSelector((state) => state.notifications);
   const [path, setPath] = React.useState("");
+
   const { data, isLoading, isError, isFetching, error } =
     useMeConversationsQuery();
   const { pathname } = useLocation();
@@ -33,6 +39,17 @@ const ClientChat = () => {
       setPath("client-profile/chat");
     }
   }, [pathname]);
+
+  useEffect(() => {
+    socket.on("newMessageNotification", (data) => {
+      const { conversationId } = data;
+      dispatch(setNotification({ conversationId }));
+    });
+
+    return () => {
+      socket.off("newMessageNotification");
+    };
+  }, [socket]);
 
   return (
     <div className="bg-gray-100 h-full md:p-1 p-0.10">
@@ -75,15 +92,21 @@ const ClientChat = () => {
                       setOpen={setOpen}
                       data={data}
                       open={open}
-                      isOnline={isIncludeInOnlineUsers(onlineUsers, data.otherMember._id)}
+                      isOnline={isIncludeInOnlineUsers(
+                        onlineUsers,
+                        data.otherMember._id
+                      )}
+                      notification={notifications[data._id]}
                     />
                   </>
                 ))
               ) : (
                 <>
                   <div className="item-center h-full w-full">
-                  <h1 className="lg:text-xl md:text-lg text-base lg:font-bold md:font-bold font-semibold">No chat</h1>
-                </div>
+                    <h1 className="lg:text-xl md:text-lg text-base lg:font-bold md:font-bold font-semibold">
+                      No chat
+                    </h1>
+                  </div>
                 </>
               )}
             </div>

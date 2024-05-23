@@ -26,8 +26,7 @@ const UserProfile = () => {
     isFetching,
     refetch,
   } = useGetUserQuery();
-  const { data: lawyerData } =
-    useLawyerPrfofileQuery();
+  const { data: lawyerData } = useLawyerPrfofileQuery();
 
   const [modal, setModal] = useState(false);
   const [updateUser, { error, data, isSuccess, isLoading }] =
@@ -137,6 +136,13 @@ const UserProfile = () => {
                         end
                       >
                         bids
+                      </NavLink>
+                      <NavLink
+                        to={"/lawyer-profile/active-jobs"}
+                        className={"underline-tab"}
+                        end
+                      >
+                        jobs
                       </NavLink>
                       <NavLink
                         to={"/lawyer-profile/chat"}

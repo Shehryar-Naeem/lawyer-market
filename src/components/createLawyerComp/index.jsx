@@ -25,14 +25,13 @@ const CreateLawyerComp = () => {
   const createLaywerHandler = async () => {
     const { data } = await createLawyer();
     if (data?.success) {
+      refetch();
       const userData = await fetchUserData();
       console.log(userData);
       if (userData?.success) {
         dispatch(userExist(userData?.user));
         toast.success(data?.message);
-        navigate("/gigs", {
-          replace: true,
-        });
+        navigate("/gigs");
       } else {
         toast.error(userData);
       }

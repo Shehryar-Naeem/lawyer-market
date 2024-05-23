@@ -91,7 +91,7 @@ const GigStepOne = () => {
                   <label className="gig-label">Gig Title</label>
                   <div className="relative">
                     <span
-                      className="xl:text-xl lg:text-lg md:text-base text-sm  md:font-extrabold font-bold absolute md:p-0.8 p-0.5 top-0"
+                      className="xl:text-xl lg:text-lg md:text-base text-sm  md:font-medium font-normal absolute md:p-0.8 p-0.5 top-0"
                       // style={{
                       //   transform: `translateY(${errors.title ? "" : ""})`,
                       // }}
@@ -146,7 +146,7 @@ const GigStepOne = () => {
                   name="description"
                   placeholder="description"
                   id="description"
-                  className="border border-primary resize-none text-gray-900  block xl:text-lg lg:base text-sm md:font-semibold font-medium md:p-2.5 p-1 small-btn-border-radius cursor placeholder:text-gray-400 w-full focus:ring-primary focus:border-primary  md:h-[320px] h-[270px]"
+                  className="gig-decription"
                   {...register("description")}
                   // maxlength="80"
                 />
@@ -173,7 +173,7 @@ const GigStepOne = () => {
                         />
                         <label
                           htmlFor={category.name}
-                          className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-bold font-semibold text-gray-900 dark:text-gray-300"
+                          className="caplitalize inline-flex lg:text-lg md:text-base text-sm md:font-medium font-normal text-gray-900 dark:text-gray-300"
                         >
                           {category.name}
                         </label>

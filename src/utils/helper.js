@@ -14,10 +14,16 @@ export const fetchUserData = async () => {
     const { data } = await axios.get("/api/user/get-profile");
     return data;
   } catch (error) {
-      return error.data.response.message;
+    return error.data.response.message;
   }
 };
 
+export const options = {
+  pollingInterval: 6000,
+  refetchOnMountOrArgChange: true,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
+};
 
 export const getOrSaveFromStorage = ({ key, value, get }) => {
   if (get)
@@ -27,9 +33,8 @@ export const getOrSaveFromStorage = ({ key, value, get }) => {
   else localStorage.setItem(key, JSON.stringify(value));
 };
 
-
 export const getOtherUser = (conversation, userId) => {
   return conversation.participants.senderId.toString() === userId.toString()
-  ? conversation.participants.receiverId
-  : conversation.participants.senderId;
-}
+    ? conversation.participants.receiverId
+    : conversation.participants.senderId;
+};

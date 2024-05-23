@@ -13,6 +13,7 @@ export const userApi = createApi({
     "Messages",
     "jobs",
     "bids",
+    "verification",
   ],
   endpoints: (builder) => ({
     signup: builder.mutation({
@@ -67,7 +68,6 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
-
     updateProfilePicture: builder.mutation({
       query: (data) => ({
         url: "user/update-profile-pic",
@@ -120,7 +120,6 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Gigs"],
     }),
-
     // getUserGigs: builder.query({
     //   query: () => `gig/get-gigs/me`,
     //   providesTags: [GIGS],
@@ -176,7 +175,6 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Gigs"],
     }),
-
     addReview: builder.mutation({
       query: ({ id, data }) => ({
         url: `gig/add/review/${id}`,
@@ -212,7 +210,6 @@ export const userApi = createApi({
       query: (id) => `conversation/get-single-conversation/${id}`,
       providesTags: ["Conversations"],
     }),
-
     sendMessage: builder.mutation({
       query: ({ id, data }) => ({
         url: `message/send-message/${id}`,
@@ -234,12 +231,20 @@ export const userApi = createApi({
       invalidatesTags: ["jobs"],
     }),
     stopReceivingRuquest: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `job//stop-recieving-request/${id}`,
+      query: ({ id }) => ({
+        url: `job/stop-recieving-request/${id}`,
         method: `PUT`,
       }),
       invalidatesTags: ["jobs"],
     }),
+    deleteJob: builder.mutation({
+      query: (id) => ({
+        url: `job/delete-job/${id}`,
+        method: `DELETE`,
+      }),
+      invalidatesTags: ["jobs"],
+    }),
+
     getJobs: builder.query({
       query: ({ currentPage, category, city, minPrice, maxPrice, search }) => {
         // `job/get-all-jobs`
@@ -262,6 +267,14 @@ export const userApi = createApi({
       query: () => `job/get-me-jobs`,
       providesTags: ["jobs"],
     }),
+    updateJob: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `job/update-job/${id}`,
+        method: `PUT`,
+        body: data,
+      }),
+      invalidatesTags: ["jobs"],
+    }),
     sendProposal: builder.mutation({
       query: ({ id, data }) => ({
         url: `bid/send-proposal/${id}`,
@@ -281,6 +294,189 @@ export const userApi = createApi({
         body: data,
       }),
       invalidatesTags: ["bids"],
+    }),
+    getMeBids: builder.query({
+      query: () => `bid/get-me-bids`,
+      providesTags: ["bids"],
+    }),
+
+    // admin routes
+    getGigsByAdmin: builder.query({
+      query: () => `gig/get-gigs/admin`,
+      providesTags: ["Gigs"],
+    }),
+    getGigByAdmin: builder.query({
+      query: (id) => `gig/admin/gig/${id}`,
+      providesTags: ["Gigs"],
+    }),
+    mangeGigbyAdmin: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `gig/admin/update-gig/${id}`,
+        method: `PUT`,
+        body: data,
+      }),
+      invalidatesTags: ["Gigs"],
+    }),
+    deleteGigByAdmin: builder.mutation({
+      query: (id) => ({
+        url: `gig/admin/delete-gig/${id}`,
+        method: `DELETE`,
+      }),
+      invalidatesTags: ["Gigs"],
+    }),
+    getJobsByAdmin: builder.query({
+      query: () => `job/get-jobs/admin`,
+      providesTags: ["jobs"],
+    }),
+    mangeJobbyAdmin: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `job/update-job/admin/${id}`,
+        method: `PUT`,
+        body: data,
+      }),
+      invalidatesTags: ["jobs"],
+    }),
+    MeHiredJobs: builder.query({
+      query: () => `job/me/hired-jobs`,
+      providesTags: ["jobs"],
+    }),
+
+    getJobByIdAtAdmin: builder.query({
+      query: (id) => `job/get-job/admin/${id}`,
+      providesTags: ["jobs"],
+    }),
+    deleteJobByAdmin: builder.mutation({
+      query: (id) => ({
+        url: `job/delete-job/admin/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["jobs"],
+    }),
+    getAllUserByAdmin: builder.query({
+      query: () => `user/get-all-users/admin`,
+      providesTags: ["Users"],
+    }),
+    getuserDetailByAdmin: builder.query({
+      query: (id) => `user/get-user/admin/${id}`,
+      providesTags: ["Users"],
+    }),
+    updateProfileByAdmin: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `user/update-user/admin/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+
+      invalidatesTags: ["Users"],
+    }),
+
+    updatePicByAdmin: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `user/update-pic/admin/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+
+      invalidatesTags: ["Users"],
+    }),
+
+    getAllLawyersByAdmin: builder.query({
+      query: () => `lawyer/get-lawyers/admin`,
+      providesTags: ["Lawyer"],
+    }),
+    getLawyerDetailByAdmin: builder.query({
+      query: (id) => `lawyer/get-lawyer/admin/${id}`,
+      providesTags: ["Lawyer"],
+    }),
+    deletelaywerByAdmin: builder.mutation({
+      query: (id) => ({
+        url: `lawyer/delete-lawyer/admin/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Lawyer"],
+    }),
+    sendVeificationReqeust: builder.mutation({
+      query: (data) => ({
+        url: `verification/send-verification-request`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["verification"],
+    }),
+    getVerificationRequests: builder.query({
+      query: () => `verification/get-verification-requests/admin`,
+      providesTags: ["verification"],
+    }),
+    getVerificationReqeust: builder.query({
+      query: (id) => `verification/get-verification-request/admin/${id}`,
+      providesTags: ["verification"],
+    }),
+
+    verifyRequest: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `verification/verify-lawyer/admin/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["verification"],
+    }),
+    deleteRequest: builder.mutation({
+      query: (id) => ({
+        url: `user/delete-request/admin/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["verification"],
+    }),
+
+    addRole: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `user/add-new-role/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    removeRole: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `user/remove-role/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    deleteUserByAdmin: builder.mutation({
+      query: (id) => ({
+        url: `user/delete-user/admin/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    stats: builder.query({
+      query: () => `user/stats/admin`,
+      providesTags: ["Users"],
+    }),
+    deleteMeRoles: builder.mutation({
+      query: (data) => ({
+        url: `user/delete/me-role`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    getMeHiredJobs: builder.query({
+      query: () => `job/me/lawyer-active-jobs`,
+      providesTags: ["jobs"],
+    }),
+    allowReview: builder.query({
+      query: (id) => `job/allow-review/${id}`,
+      providesTags: ["jobs"],
+    }),
+    completeTheJob: builder.mutation({
+      query: (id) => ({
+        url: `job/complete-job/${id}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["jobs"],
     }),
   }),
 });
@@ -317,8 +513,43 @@ export const {
   useCreateJobMutation,
   useGetJobsQuery,
   useGetJobByIdQuery,
+  useUpdateJobMutation,
   useGetMeJobsQuery,
   useSendProposalMutation,
   useGetAllPostBidsQuery,
   useAcceptBidMutation,
+
+  useGetGigsByAdminQuery,
+  useGetGigByAdminQuery,
+
+  useMangeGigbyAdminMutation,
+  useDeleteGigByAdminMutation,
+  useGetJobsByAdminQuery,
+  useMangeJobbyAdminMutation,
+  useGetJobByIdAtAdminQuery,
+  useDeleteJobByAdminMutation,
+  useGetAllUserByAdminQuery,
+  useGetuserDetailByAdminQuery,
+  useUpdatePicByAdminMutation,
+  useUpdateProfileByAdminMutation,
+  useGetAllLawyersByAdminQuery,
+  useGetLawyerDetailByAdminQuery,
+  useDeletelaywerByAdminMutation,
+  useSendVeificationReqeustMutation,
+  useGetVerificationRequestsQuery,
+  useGetMeBidsQuery,
+  useVerifyRequestMutation,
+  useGetVerificationReqeustQuery,
+  useDeleteRequestMutation,
+  useStopReceivingRuquestMutation,
+  useDeleteJobMutation,
+  useMeHiredJobsQuery,
+  useAddRoleMutation,
+  useRemoveRoleMutation,
+  useDeleteUserByAdminMutation,
+  useStatsQuery,
+  useDeleteMeRolesMutation,
+  useGetMeHiredJobsQuery,
+  useAllowReviewQuery,
+  useCompleteTheJobMutation,
 } = userApi;

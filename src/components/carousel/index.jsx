@@ -102,7 +102,7 @@ const GigCarousel = ({ images, gig }) => {
         itemTemplate={productTemplate}
         pt={customTheme}
         circular={true}
-        //   autoplayInterval={3000}
+        autoplayInterval={3000}
       />
     </>
   );

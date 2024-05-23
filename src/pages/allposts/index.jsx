@@ -27,7 +27,7 @@ const AllPosts = () => {
   const { data, isLoading, isError, error, isFetching } = useGetJobsQuery(
     { currentPage, search, ...filterValues },
     {
-      pollingInterval: 30000,
+      pollingInterval: 3000,
       refetchOnMountOrArgChange: 60,
       refetchOnFocus: true,
       refetchOnReconnect: true,
@@ -71,7 +71,7 @@ const AllPosts = () => {
     setCurrentPage(e);
   };
 
-  // console.log(data?.data?.length, "data");
+  console.log("data", data);
   const skeletonCount = Math.floor(window.innerHeight / 100);
   return (
     <>
@@ -80,34 +80,36 @@ const AllPosts = () => {
           <div>
             <>
               <div className="f-col md:gap-[2rem] gap-[1.5rem] mt-[2rem]">
-                <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
-                  <form
-                    className="relative flex-1 "
-                    role="search"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      // setFilterSearch(search);
-                    }}
-                  >
-                    <input
-                      name="search"
-                      value={search}
-                      type="text"
-                      className="w-full general-pad text-[1rem] border border-gray-300 md:rounded-sm  rounded-xs outline-none focus:ring-0"
-                      placeholder="search..."
-                      aria-label="Search"
-                      onChange={(e) => setSearch(e.target.value)}
-                    />
-                  </form>
-                  <button
-                    className="border border-gray-300 md:rounded-sm rounded-xs cursor-pointer md:px-1 md:text-xl text-lg px-0.10"
-                    onClick={() => setOpenModal(!openModal)}
-                  >
-                    <FaSliders />
-                  </button>
-                </div>
+                {data?.data?.length < 1 ? null : (
+                  <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
+                    <form
+                      className="relative flex-1 "
+                      role="search"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        // setFilterSearch(search);
+                      }}
+                    >
+                      <input
+                        name="search"
+                        value={search}
+                        type="text"
+                        className="w-full general-pad text-[1rem] border border-gray-300 md:rounded-sm  rounded-xs outline-none focus:ring-0"
+                        placeholder="search..."
+                        aria-label="Search"
+                        onChange={(e) => setSearch(e.target.value)}
+                      />
+                    </form>
+                    <button
+                      className="border border-gray-300 md:rounded-sm rounded-xs cursor-pointer md:px-1 md:text-xl text-lg px-0.10"
+                      onClick={() => setOpenModal(!openModal)}
+                    >
+                      <FaSliders />
+                    </button>
+                  </div>
+                )}
                 <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
-                  {isFetching ? (
+                  {isLoading ? (
                     <div className="f-col lg:gap-2 md:gap-1.5 gap-1 h-full">
                       <>
                         {Array.from({ length: skeletonCount }).map(
@@ -144,24 +146,25 @@ const AllPosts = () => {
             </>
           </div>
           <div>
-            {!isLoading && (
-              <div className="paginationBox">
-                <Pagination
-                  activePage={currentPage}
-                  itemsCountPerPage={data?.resultPerPage}
-                  totalItemsCount={data?.jobCounts}
-                  onChange={onPageChange}
-                  nextPageText="Next"
-                  prevPageText="Prev"
-                  firstPageText="1st"
-                  lastPageText="Last"
-                  itemClass="page-item"
-                  linkClass="page-link"
-                  activeClass="pageItemActive"
-                  activeLinkClass="pageLinkActive"
-                />
-              </div>
-            )}
+            {!isLoading &&
+              (data?.data?.length < 1 ? null : (
+                <div className="paginationBox">
+                  <Pagination
+                    activePage={currentPage}
+                    itemsCountPerPage={data?.resultPerPage}
+                    totalItemsCount={data?.jobCounts}
+                    onChange={onPageChange}
+                    nextPageText="Next"
+                    prevPageText="Prev"
+                    firstPageText="1st"
+                    lastPageText="Last"
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    activeClass="pageItemActive"
+                    activeLinkClass="pageLinkActive"
+                  />
+                </div>
+              ))}
           </div>
         </div>
       </div>
