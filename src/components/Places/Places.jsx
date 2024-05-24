@@ -68,13 +68,13 @@ const PlacesData = [
 const Places = ({ handleOrderPopup }) => {
   return (
     <>
-      <div className="dark:bg-gray-900 dark:text-white bg-gray-50 py-10 ">
+      <div className="dark:bg-gray-900 dark:text-white bg-gray-50">
         <section
           data-aos="fade-up"
           className="container landing-pad-x landing-pad-y"
         >
           <LandingHeading text={"Best Gigs"} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 place-items-center gap ">
             {PlacesData.map((item, index) => (
               <PlaceCard
                 handleOrderPopup={handleOrderPopup}
@@ -83,7 +83,7 @@ const Places = ({ handleOrderPopup }) => {
               />
             ))}
           </div>
-          <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap place-items-center ">
+          <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 place-items-center gap ">
             {gigData?.map((gig) => (
               <GigCard
                 key={gig._id}

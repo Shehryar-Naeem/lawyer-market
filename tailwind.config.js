@@ -197,9 +197,9 @@ module.exports = {
         gradient: "linear-gradient(to right,#D9D9D9 42%,#ffffff 42% 100%)",
         "blur-gradient":
           "linear-gradient(to right, #000000 42%, #ffffff 42% 100%)",
-        bar1: "url('/src/assets/images/bar1.jpg')",
-        bar2: "url('/src/assets/images/bar2.jpg')",
-        bar3: "url('/src/assets/images/sindhheight_court.jpeg')",
+        bar1: "url('/src/assets/images/hero1.jpg')",
+        bar2: "url('/src/assets/images/hero2.jpeg')",
+        bar3: "url('/src/assets/images/hero3.jpeg')",
         bar4: "url('/src/assets/images/islamabad judge.jpeg')",
         bar5: "url('/src/assets/images/peshawar.jpeg')",
         bar6: "url('/src/assets/images/blouchitan.jpg')",

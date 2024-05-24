@@ -315,7 +315,7 @@ input::placeholder {
     @apply lg:px-[30px] md:px-[25px] px-[20px];
   }
   .landing-pad-y {
-    @apply lg:pt-[40px] md:pt-[35px] pt-[30px];
+    @apply lg:py-[40px] md:py-[35px] py-[30px];
   }
   .textarea-field {
     @apply border border-primary resize-none text-gray-900  block xl:text-lg md:text-base text-sm font-normal md:p-2.5 p-1 small-btn-border-radius cursor w-full focus:ring-primary focus:border-primary md:h-[320px] h-[270px] placeholder-gray-400;

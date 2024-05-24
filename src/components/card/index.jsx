@@ -20,7 +20,7 @@ const GigCard = ({ gig, key, me, isOnline }) => {
   const customTheme = {
     card: {
       root: {
-        base: "p-0.5 md:rounded-sm rounded-xxs border border-gray-200 bg-white  relative card-img overflow-hidden  md:w-full w-[200px] bg-[#F9FAFB]",
+        base: "p-0.5 md:rounded-sm rounded-xxs border border-gray-200 bg-white  relative card-img overflow-hidden   bg-[#F9FAFB]",
         children: "f-col h-full relative gap",
       },
     },
@@ -68,7 +68,7 @@ const GigCard = ({ gig, key, me, isOnline }) => {
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Card key={key}>
-        <div className="h-[140px] md:h-[150px] object-cover md:rounded-sm rounded-xs overflow-hidden  relative">
+        <div className="h-[150px] md:h-[160px] object-cover md:rounded-sm rounded-xs overflow-hidden  relative">
           {/* <img
             src={gig?.images[0]?.url}
             alt="gig"
@@ -86,13 +86,13 @@ const GigCard = ({ gig, key, me, isOnline }) => {
         </div>
         <div className="f-col gap  justify-between   ">
           <div className="flex gap items-center ">
-            <img
-              src={gig?.user?.avatar?.url}
-              className="md:w-[35px] md:h-[35px] w-[30px] h-[30px] p-0 rounded-full"
-            />
+            <div className="md:min-w-[35px] md:min-h-[35px] w-[30px] h-[30px] ">
+              <img src={gig?.user?.avatar?.url} className=" p-0 w-full h-full rounded-full object-contain" />
+            </div>
+
             <Link
               to={`/gig/${gig?._id}`}
-              className="transition-all hover:underline"
+              className="transition-all hover:underline w-full"
             >
               <h3 className="text-black lg:text-base  md:text-lg sm:text-base text-sm md:font-bold font-medium line-clamp-2">
                 {CaptializeFirstLetter(gig?.title)}

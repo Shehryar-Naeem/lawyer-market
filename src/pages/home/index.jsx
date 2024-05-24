@@ -22,6 +22,7 @@ import { FaChildReaching } from "react-icons/fa6";
 import { MdMapsHomeWork } from "react-icons/md";
 import { GrSchedule } from "react-icons/gr";
 import { GiFocusedLightning, GiSatelliteCommunication } from "react-icons/gi";
+import Benefits from "../../components/benefits";
 const Home = () => {
   var settings = {
     dots: false,
@@ -38,31 +39,34 @@ const Home = () => {
   return (
     <div className="relative">
       <section className="relative overflow-hidden ">
-        
         <div className="h-full ">
-          <Slider {...settings}>
+          <Slider
+          //  {...settings}
+          >
             {heroSectionData.map((data) => (
               <div className="h-full ">
                 <div
-                  className={`flex gap ${data.bar} h-[480px] md:h-[650px] ralative  before:absolute before:content-[''] before:bg-[rgba(80,80,80,0.06)] before:w-full before:h-full before:top-0 before:left-0 before:right-0 before:bottom-0`}
+                  className={`flex gap ${data.bar} bg-fixed h-[480px] md:h-[650px]  lg:h-[810px] ralative `}
                 >
-                  <div className="flex flex-col  landing-pad-x justify-center items-center m-auto gap-4  max-w-[660px] w-full text-center sm:text-left relative z-10">
-                    <h1
-                      data-aos="zoom-out"
-                      data-aos-duration="500"
-                      // data-aos-once="true"
-                      className="text-3xl md:text-4xl  lg:text-7xl font-bold text-white text-center"
-                    >
-                      {data.title}
-                    </h1>
-                    <p
-                      data-aos="fade-up"
-                      data-aos-duration="500"
-                      data-aos-delay="100"
-                      className="lg:taxt-xl md:text-lg text-base md:font-bold font-semibold text-white text-center"
-                    >
-                      {data.description}
-                    </p>
+                  <div className="container flex md:items-end  items-center md:justify-normal justify-center ">
+                    <div className="flex flex-col md:mb-[150px] mx-[20px]  bg-[rgba(66,64,64,0.57)] gap-4  max-w-[760px] w-full text-center sm:text-left relative z-10 lg:rounded-lg md:rounded-md rounded-sm lg:p-3 md:p-2 p-1">
+                      <h1
+                        data-aos="zoom-out"
+                        data-aos-duration="500"
+                        // data-aos-once="true"
+                        className="text-3xl md:text-4xl  lg:text-7xl font-bold text-white text-start"
+                      >
+                        {data.title}
+                      </h1>
+                      <p
+                        data-aos="fade-up"
+                        data-aos-duration="500"
+                        data-aos-delay="100"
+                        className="lg:taxt-xl md:text-lg text-base md:font-bold font-semibold text-white text-start"
+                      >
+                        {data.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -101,12 +105,13 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <Benefits />
 
       <Places />
       <BannerPic img={BannerImg} />
-      <BlogsComp />
+
       <Banner />
-      <div className="bg-gray-100 lg:mt-[40px] md:mt-[32px] mt-[24px]">
+      {/* <div className="bg-gray-100 lg:mt-[40px] md:mt-[32px] mt-[24px]">
         <section className="flex f-col container md:gap-2 gap-1.5 landing-pad-x landing-pad-y ">
           <LandingHeading text={"Benefits"} />
           <VerticalTimeline>
@@ -119,14 +124,13 @@ const Home = () => {
               contentArrowStyle={{
                 borderRight: "7px solid  #333333",
               }}
-              // date="2011 - present"
+             
               iconStyle={{ background: "#333333", color: "#fff" }}
               icon={<FaChildReaching />}
             >
               <h3 className="vertical-timeline-element-title">
                 Expand Your Reach
               </h3>
-              {/* <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4> */}
               <p>
                 Gain access to a nationwide client base without geographical
                 limits. Showcase your expertise and attract clients from all
@@ -143,9 +147,7 @@ const Home = () => {
               <h3 className="vertical-timeline-element-title">
                 Flexible Work Opportunities
               </h3>
-              {/* <h4 className="vertical-timeline-element-subtitle">
-                San Francisco, CA
-              </h4> */}
+            
               <p>
                 Enjoy the freedom to choose when and where you work. Our
                 platform allows you to manage your workload according to your
@@ -155,16 +157,13 @@ const Home = () => {
             </VerticalTimelineElement>
             <VerticalTimelineElement
               className="vertical-timeline-element--work"
-              // date="2008 - 2010"
               iconStyle={{ background: "#333333", color: "#fff" }}
               icon={<GrSchedule />}
             >
               <h3 className="vertical-timeline-element-title">
                 Streamlined Client Management
               </h3>
-              {/* <h4 className="vertical-timeline-element-subtitle">
-              
-              </h4> */}
+            
               <p>
                 Simplify how you manage client interactions with integrated
                 tools for communication, scheduling, and document handling.
@@ -174,7 +173,6 @@ const Home = () => {
 
             <VerticalTimelineElement
               className="vertical-timeline-element--education"
-              // date="April 2013"
               iconStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
               icon={<VscWorkspaceTrusted />}
             >
@@ -182,7 +180,6 @@ const Home = () => {
                 Trusted Legal Professionals
               </h3>
               <h4 className="vertical-timeline-element-subtitle">
-                {/* Online Course */}
               </h4>
               <p>
                 Access a diverse pool of verified lawyers with a wide range of
@@ -199,9 +196,7 @@ const Home = () => {
               <h3 className="vertical-timeline-element-title">
                 Direct Communication
               </h3>
-              {/* <h4 className="vertical-timeline-element-subtitle">
-                Certification
-              </h4> */}
+            
               <p>
                 Use our built-in chat system to communicate directly with
                 lawyers. Ask questions, share documents, and receive updates
@@ -217,9 +212,7 @@ const Home = () => {
               <h3 className="vertical-timeline-element-title">
                 Satisfaction Guaranteed
               </h3>
-              {/* <h4 className="vertical-timeline-element-subtitle">
-                Bachelor Degree
-              </h4> */}
+           
               <p>
                 Our client-focused approach ensures your satisfaction. Benefit
                 from our dispute resolution support and a commitment to
@@ -228,7 +221,8 @@ const Home = () => {
             </VerticalTimelineElement>
           </VerticalTimeline>
         </section>
-      </div>
+      </div> */}
+      <BlogsComp />
       <BannerPic img={Banner2} />
       <Testimonial />
     </div>

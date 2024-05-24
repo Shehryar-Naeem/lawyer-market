@@ -598,29 +598,8 @@ export const heroSectionData = [
   //   description:
   //     "The Balochistan High Court is the highest judicial institution of the province of Balochistan. Established in 1976, the Court is situated in Quetta. The Court has appellate jurisdiction over Balochistan and the Federally Administered Tribal Areas. A bench of the High Court is based in Sibi.",
   // },
-  {
-    id: 5,
-    bar: "bg-bar5 bg-cover bg-center bg-no-repeat",
-    title: "Khyber Pakhtunkhwa High Court",
-    description:
-      "The Khyber Pakhtunkhwa High Court is the highest judicial institution of Khyber Pakhtunkhwa. Established in 1906, the Court is situated in Peshawar. The Court has appellate jurisdiction over Khyber Pakhtunkhwa and the Federally Administered Tribal Areas. A bench of the High Court is based in Abbottabad.",
-  },
-  {
-    id: 6,
-    bar: "bg-bar6 bg-cover bg-center bg-no-repeat",
-    title: "Balochistan High Court",
-    description:
-      "The Balochistan High Court is the highest judicial institution of the province of Balochistan. Established in 1976, the Court is situated in Quetta. The Court has appellate jurisdiction over Balochistan and the Federally Administered Tribal Areas. A bench of the High Court is based in Sibi.",
-  },
-  {
-    id: 7,
-    bar: "bg-bar7 bg-cover bg-center bg-no-repeat",
-    title: "Federal Shariat Court",
-    description:
-      "The Federal Shariat Court is a constitutional court of Pakistan, which has the power to examine and determine whether the laws of the country comply with Islamic law. The Court was established in 1980 and is based in Islamabad. The Court has appellate jurisdiction over cases involving Islamic law.",
-  },
+  
 ];
-
 
 export const gigData = [
   {
@@ -694,5 +673,44 @@ export const gigData = [
       "Business lawyers are legal professionals who specialize in matters of business law. They provide legal advice on issues such as contracts, intellectual property, and corporate governance, and represent clients in legal proceedings.",
     price: 2000,
     image: img3,
+  },
+];
+
+export const lawyerBenefits = [
+  {
+    id: 1,
+    title: "Verified Lawyers",
+    description:
+      "Our platform features verified lawyers with checked qualifications and experience, ensuring reliable and expert legal professionals.",
+  },
+  {
+    id: 2,
+    title: "Bar Association",
+    description:
+      "Every lawyer on our platform is a Bar Association member, ensuring high standards of practice, ethics, and professional integrity.",
+  },
+  {
+    id: 3,
+    title: "Fast Response Time",
+    description:
+      "Our platform ensures fast lawyer response times for urgent legal matters, providing swift resolution and peace of mind.",
+  },
+  {
+    id: 4,
+    title: "Better Services",
+    description:
+      "We prioritize exceptional legal services, connecting you with highly qualified lawyers dedicated to personalized solutions and optimal outcomes.",
+  },
+  {
+    id: 5,
+    title: "Multiple Lawyers",
+    description:
+      "Our platform offers access to multiple lawyers, enabling you to compare services, fees, and expertise to find the best legal professional for your needs.",
+  },
+  {
+    id: 6,
+    title: "Specialised Lawyer",
+    description:
+      "We provide access to specialized lawyers in various legal fields, ensuring expert advice and representation for your specific legal requirements.",
   },
 ];

@@ -4,7 +4,6 @@ import { FaUsers } from "react-icons/fa";
 
 import { GiInjustice } from "react-icons/gi";
 import { FaRegClipboard } from "react-icons/fa";
-import LandingHeading from "../../../components/landing_heading";
 import Skeleton from "react-loading-skeleton";
 import { useStatsQuery } from "../../../redux/api/userApi";
 import { options } from "../../../utils/helper";
@@ -14,6 +13,8 @@ import { FaUser } from "react-icons/fa";
 import { MdRequestQuote } from "react-icons/md";
 import { FaIdBadge } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
+import DashboardHeading from "../../../components/dashboardHeading";
+
 
 
 const AdminHomePage = () => {
@@ -31,7 +32,7 @@ const AdminHomePage = () => {
       // className="f-col md:shadow-lg shadow-md bg-white lg:p-ly-pad md:p-3xl p-3xl lg:gap-0.10 md:gap-0.8 gap-sm"
       >
         <div className="f-col gap h-full">
-          <LandingHeading text={"Overview"} />
+          <DashboardHeading text={"Overview"} />
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap">
             {isLoading ? (
               <>
@@ -67,7 +68,7 @@ const AdminHomePage = () => {
           </div>
         </div>
         <div className="f-col gap">
-          <LandingHeading text={"Clients"} />
+          <DashboardHeading text={"Clients"} />
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap">
             {isLoading ? (
               <>
@@ -87,7 +88,7 @@ const AdminHomePage = () => {
           </div>
         </div>
         <div className="f-col gap">
-          <LandingHeading text={"Lawyer"} />
+          <DashboardHeading text={"Lawyer"} />
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap">
             {isLoading ? (
               <>
@@ -107,7 +108,7 @@ const AdminHomePage = () => {
           </div>
         </div>
         <div className="f-col gap">
-          <LandingHeading text={"Verification Request"} />
+          <DashboardHeading text={"Verification Request"} />
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap">
             {isLoading ? (
               <>
