@@ -10,7 +10,7 @@ const Banner = () => {
     <>
       <div className="min-h-[550px] bg-gray-100">
         <div className="min-h-[550px] flex justify-center items-center backdrop-blur-xl py-12 sm:py-0 ">
-          <div className="container landing-pad-x landing-pad-y">
+          <div className="container landing-pad-x">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
               {/* Image section */}
               <div data-aos="flip-up">

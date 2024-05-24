@@ -5,7 +5,7 @@ import profileLogo from "./profile.svg";
 import error from "./error.svg";
 import success from "./success.svg";
 import info from "./info.svg";
-import brandLogo from "./pak.jpg";
+import brandLogo from "./Logo.png";
 import close from "./close.svg";
 import upload from "./upload.svg";
 import brand from "./building-brand.jpg";
@@ -18,6 +18,9 @@ import blog1 from "./blog1.jpeg"
 import blog2 from "./blog2.jpg";
 import blog3 from "./blog3.png";
 import explorer from "./explore.png"
+import hero4 from "./hero4.jpeg"
+import hero5 from "./hero5.jpeg"
+import about2 from "./about2.jpeg"
 export const Images = {
   Google,
   ProfilImg,
@@ -38,5 +41,8 @@ export const Images = {
   blog1,
   blog2,
   blog3,
-  explorer
+  hero4,
+  explorer,
+  hero5,
+  about2
 };

@@ -64,6 +64,7 @@ import ManageVerificationRequest from "./pages/dashboard/mangeVerificationReques
 import Hired from "./components/hired";
 import EditJob from "./pages/editJob/idnex";
 import ActiveJobs from "./pages/activeJobs";
+import InitialLoader from "./components/initialLoader"
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -528,7 +529,7 @@ function App() {
   // );
   return loading ? (
     <>
-      <p>Loading...</p>
+      <InitialLoader />
     </>
   ) : (
     <>
@@ -543,9 +544,9 @@ function App() {
       {/* <Suspense fallback={<div>Loading...</div>}>
         <RouterProvider router={router} />
       </Suspense> */}
-      <Suspense fallback={<div>Loading app...</div>}>
+      <Suspense fallback={<InitialLoader />}>
         {loading ? (
-          <div>Loading...</div>
+          <InitialLoader />
         ) : (
           <div className="h-full relative">
             <RouterProvider router={router}></RouterProvider>

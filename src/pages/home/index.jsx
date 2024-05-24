@@ -23,6 +23,7 @@ import { MdMapsHomeWork } from "react-icons/md";
 import { GrSchedule } from "react-icons/gr";
 import { GiFocusedLightning, GiSatelliteCommunication } from "react-icons/gi";
 import Benefits from "../../components/benefits";
+import HeroSection from "../../components/heroSection";
 const Home = () => {
   var settings = {
     dots: false,
@@ -38,7 +39,7 @@ const Home = () => {
   };
   return (
     <div className="relative">
-      <section className="relative overflow-hidden ">
+      {/* <section className="relative overflow-hidden ">
         <div className="h-full ">
           <Slider
           //  {...settings}
@@ -73,9 +74,11 @@ const Home = () => {
             ))}
           </Slider>
         </div>
-      </section>
+      </section> */}
 
-      <section className="flex f-col container md:gap-2 gap-1.5 landing-pad-x landing-pad-y">
+      <HeroSection />
+
+      <section className="flex f-col container md:gap-2 gap-1.5 landing-pad-x">
         <LandingHeading text={"about"} />
         <div className="flex md:flex-row flex-col-reverse items-center md:gap-1.5 gap-1 ">
           <div className="md:w-1/2  f-col gap w-full items-start">
@@ -84,21 +87,21 @@ const Home = () => {
                 className="md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tight"
                 data-aos="fade-up"
               >
-                The Islamabad High Court is the superior court of the capital
-                territory of Pakistan. The court was established in 2010 and has
-                appellate jurisdiction over the Islamabad Capital Territory and
-                the Federally Administered Tribal Areas. The court has original
-                jurisdiction over cases involving violations of fundamental
-                rights.,
+                Welcome to the world's premier online legal platform. We connect
+                you with verified, Bar Association member lawyers, ensuring
+                top-quality legal services. Benefit from fast response times,
+                access to multiple and specialized lawyers, and exceptional
+                personalized solutions. Join us today and experience the
+                difference expert legal support can make for your needs.
               </p>
             </div>
           </div>
           <div
-            className="md:w-1/2  w-full drop-shadow-[-10px_10px_12px_rgba(0,0,0,1) md:order-2  md:min-h-[440px] h-full w-full flex items-center justify-center "
+            className="md:w-1/2  w-full drop-shadow-[-10px_10px_12px_rgba(0,0,0,1) md:order-2  md:min-h-[340px] h-full w-full flex items-center justify-center "
             data-aos="zoom-in"
           >
             <img
-              src={Images.about}
+              src={Images.about2}
               alt="about"
               className="w-full h-full md:object-cover object-cover"
             />

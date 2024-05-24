@@ -136,7 +136,7 @@ const GetAllGigs = () => {
 
                   <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
                     {data?.gigs?.length > 0 ? (
-                      <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad place-items-center">
+                      <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap general-pad place-items-center w-full">
                         {data?.gigs?.map((gig) => (
                           <GigCard
                             key={gig._id}

@@ -7,7 +7,7 @@ const Benefits = () => {
   return (
     <section
       data-aos="fade-up"
-      className="container landing-pad-x landing-pad-y"
+      className="container landing-pad-x"
     >
       <LandingHeading text={"Pakistan Lawyer Market Place"} />
 

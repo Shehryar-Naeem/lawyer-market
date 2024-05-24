@@ -9,7 +9,7 @@ const BenefitComp = ({ benefit, key }) => {
       <h3 class="text-black text-2xl px-[40px] font-bold text-center leading-none">
         {benefit.title}
       </h3>
-      <p className="md:text-base text-sm leading-6 tracking-wide text-black text-center ">
+      <p className="md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tigh">
         {benefit.description}
       </p>
       {/* <button

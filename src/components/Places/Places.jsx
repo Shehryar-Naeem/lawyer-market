@@ -71,7 +71,7 @@ const Places = ({ handleOrderPopup }) => {
       <div className="dark:bg-gray-900 dark:text-white bg-gray-50">
         <section
           data-aos="fade-up"
-          className="container landing-pad-x landing-pad-y"
+          className="container landing-pad-x"
         >
           <LandingHeading text={"Best Gigs"} />
           <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 place-items-center gap ">
