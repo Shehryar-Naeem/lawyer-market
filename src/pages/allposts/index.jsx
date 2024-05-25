@@ -80,34 +80,33 @@ const AllPosts = () => {
           <div>
             <>
               <div className="f-col md:gap-[2rem] gap-[1.5rem] mt-[2rem]">
-              
-                  <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
-                    <form
-                      className="relative flex-1 "
-                      role="search"
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        // setFilterSearch(search);
-                      }}
-                    >
-                      <input
-                        name="search"
-                        value={search}
-                        type="text"
-                        className="w-full general-pad text-[1rem] border border-gray-300 md:rounded-sm  rounded-xs outline-none focus:ring-0"
-                        placeholder="search..."
-                        aria-label="Search"
-                        onChange={(e) => setSearch(e.target.value)}
-                      />
-                    </form>
-                    <button
-                      className="border border-gray-300 md:rounded-sm rounded-xs cursor-pointer md:px-1 md:text-xl text-lg px-0.10"
-                      onClick={() => setOpenModal(!openModal)}
-                    >
-                      <FaSliders />
-                    </button>
-                  </div>
-                
+                <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
+                  <form
+                    className="relative flex-1 "
+                    role="search"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      // setFilterSearch(search);
+                    }}
+                  >
+                    <input
+                      name="search"
+                      value={search}
+                      type="text"
+                      className="w-full general-pad text-[1rem] border border-gray-300 md:rounded-sm  rounded-xs outline-none focus:ring-0"
+                      placeholder="search..."
+                      aria-label="Search"
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                  </form>
+                  <button
+                    className="border border-gray-300 md:rounded-sm rounded-xs cursor-pointer md:px-1 md:text-xl text-lg px-0.10"
+                    onClick={() => setOpenModal(!openModal)}
+                  >
+                    <FaSliders />
+                  </button>
+                </div>
+
                 <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
                   {isLoading ? (
                     <div className="f-col lg:gap-2 md:gap-1.5 gap-1 h-full">
