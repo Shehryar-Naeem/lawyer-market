@@ -7,6 +7,7 @@ import Tag from "../tag";
 import { useCompleteTheJobMutation } from "../../redux/api/userApi";
 import toast from "react-hot-toast";
 import Loader from "../loader";
+import { Link } from "react-router-dom";
 
 const HiredComp = ({ key, hire }) => {
   const customAvatar = {
@@ -31,7 +32,7 @@ const HiredComp = ({ key, hire }) => {
   return (
     <div className="general-pad border-b-1 border-gray-300 f-col gap" key={key}>
       <div className="flex md:flex-row flex-col md:items-center gap md:justify-between items-start justify-start">
-        <div className="flex items-center gap">
+        <Link to={`/user/${hire?.hiredLawyer._id}`} className="flex items-center gap">
           <Avatar
             //   image={review?.user?.avatar.url}
             // image={bid?.lawyer?.avatar?.url || Images.userProfile}
@@ -55,7 +56,7 @@ const HiredComp = ({ key, hire }) => {
               <p className="text-sm font-medium">{hire?.hiredLawyer?.city}</p>
             </div>
           </div>
-        </div>
+        </Link>
         {hire?.status === "pending" ? (
           <div className="flex gap md:items-center items-start">
             <span className="btn yellow-bg">pending</span>

@@ -1,5 +1,5 @@
 import React from "react";
-import FooterLogo from "../../assets/logo.png";
+
 import {
   FaFacebook,
   FaInstagram,
@@ -8,7 +8,8 @@ import {
   FaMobileAlt,
 } from "react-icons/fa";
 import NatureVid from "../../assets/video/footer.mp4";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { Images } from "../../assets/images";
 
 const FooterLinks = [
   {
@@ -44,14 +45,20 @@ const Footer = () => {
         <div className="container">
           <div className="grid md:grid-cols-3 py-5 bg-white/80 backdrop-blur-sm rounded-t-xl">
             <div className="py-8 px-4">
-              <h1 className="flex items-center gap-3 text-xl sm:text-3xl font-bold text-justify sm:text-left">
-                <img src={FooterLogo} alt="" className="max-h-[60px]" />
-                {/* TravelloGo */}
-              </h1>
-              <p className="text-sm">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
-                facere ab hic accusamus omnis dolor voluptatibus illo, tempore
-                eum tenetur.
+              <div className="ml-1 lg:w-brand-logo  md:w-md-brand-logo w-sm-brand-logo h lg:h-brand-logo md:h-md-brand-logo h-sm-brand-logo">
+                <NavLink to="/">
+                  <img
+                    src={Images.brandLogo}
+                    alt="brand_logo"
+                    className="w-full h-full object-fill"
+                  />
+                </NavLink>
+              </div>
+              <p className="text-sm font-medium text-gray-500 tracking-wide leading-tight">
+                Discover top-quality legal services with verified lawyers, fast
+                response times, and personalized solutions on our premier online
+                legal platform. Join us today for expert legal support tailored
+                to your needs.
               </p>
               <br />
               <div className="flex items-center gap-3 ">
@@ -60,7 +67,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3 mt-3">
                 <FaMobileAlt />
-                <p>+91 3121234567</p>
+                <p>+91 3111404107</p>
               </div>
               {/* social handles */}
               <div>

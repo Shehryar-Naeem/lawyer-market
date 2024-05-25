@@ -478,6 +478,18 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["jobs"],
     }),
+    getAllGigsOfUser: builder.query({
+      query: (id) => `gig/get/user-gigs/${id}`,
+      providesTags: ["Gigs"],
+    }),
+    getTopGigs: builder.query({
+      query: () => `gig/get/top-ten/gigs`,
+      providesTags: ["Gigs"],
+    }),
+    getUserData: builder.query({
+      query: (id) => `user/get/user-data/${id}`,
+      providesTags: ["Users"],
+    }),
   }),
 });
 
@@ -552,4 +564,7 @@ export const {
   useGetMeHiredJobsQuery,
   useAllowReviewQuery,
   useCompleteTheJobMutation,
+  useGetAllGigsOfUserQuery,
+  useGetTopGigsQuery,
+  useGetUserDataQuery
 } = userApi;

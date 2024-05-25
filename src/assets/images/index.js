@@ -5,7 +5,7 @@ import profileLogo from "./profile.svg";
 import error from "./error.svg";
 import success from "./success.svg";
 import info from "./info.svg";
-import brandLogo from "./Logo.png";
+import brandLogo from "./brand_logo.png";
 import close from "./close.svg";
 import upload from "./upload.svg";
 import brand from "./building-brand.jpg";

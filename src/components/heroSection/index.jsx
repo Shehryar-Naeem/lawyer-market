@@ -12,7 +12,10 @@ const HeroSection = () => {
           <br />
           <span class="heading__2 text-gray-500">in the Pakistan</span>
         </h1>
-        <p data-aos="zoom-in" className="md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tigh">
+        <p
+          data-aos="zoom-in"
+          className="md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tigh"
+        >
           Our platform features verified lawyers who are Bar Association
           members, ensuring high standards of practice, ethics, and professional
           integrity. With fast response times for urgent matters, access to

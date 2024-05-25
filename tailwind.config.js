@@ -222,9 +222,9 @@ module.exports = {
         "icon-width": "30px",
         "md-icon-width": "25px",
         "sm-icon-width": "20px",
-        "brand-logo": "100px",
-        "md-brand-logo": "80px",
-        "sm-brand-logo": "60px",
+        "brand-logo": "170px",
+        "md-brand-logo": "100px",
+        "sm-brand-logo": "80px",
       },
       height: {
         "img-height": "150px",

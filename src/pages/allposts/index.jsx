@@ -80,7 +80,7 @@ const AllPosts = () => {
           <div>
             <>
               <div className="f-col md:gap-[2rem] gap-[1.5rem] mt-[2rem]">
-                {data?.data?.length < 1 ? null : (
+              
                   <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
                     <form
                       className="relative flex-1 "
@@ -107,7 +107,7 @@ const AllPosts = () => {
                       <FaSliders />
                     </button>
                   </div>
-                )}
+                
                 <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
                   {isLoading ? (
                     <div className="f-col lg:gap-2 md:gap-1.5 gap-1 h-full">

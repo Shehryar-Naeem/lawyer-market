@@ -94,7 +94,7 @@ const ManageVerificationRequest = () => {
                     </h3>
                     <div className="flex gap items-center pb-0.5 border-b-1 border-gray-400">
                       <label htmlFor={"name"} className="input-lable">
-                        reeuest _id:
+                        request _id:
                       </label>
                       <span className="md:text-base text-sm font-medium ">
                         {requestData?._id}

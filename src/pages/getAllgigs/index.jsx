@@ -108,7 +108,7 @@ const GetAllGigs = () => {
             ) : (
               <>
                 <div className="f-col md:gap-[2rem] gap-[1.5rem] mt-[2rem]">
-                  {data?.gigs?.length > 0 && (
+                  
                     <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
                       <form
                         className="relative flex-1 "
@@ -132,7 +132,7 @@ const GetAllGigs = () => {
                         <FaSliders />
                       </button>
                     </div>
-                  )}
+                  
 
                   <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
                     {data?.gigs?.length > 0 ? (
