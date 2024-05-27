@@ -38,3 +38,7 @@ export const getOtherUser = (conversation, userId) => {
     ? conversation.participants.receiverId
     : conversation.participants.senderId;
 };
+
+export const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' }); 
+}

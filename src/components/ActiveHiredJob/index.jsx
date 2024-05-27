@@ -4,11 +4,17 @@ import { Avatar } from "primereact/avatar";
 import { FaLocationDot } from "react-icons/fa6";
 import { CaptializeFirstLetter } from "../../utils/helper";
 import Tag from "../tag";
-import { useCompleteTheJobMutation } from "../../redux/api/userApi";
+import {
+  useCompleteTheJobMutation,
+  useCreateConversationMutation,
+} from "../../redux/api/userApi";
 import toast from "react-hot-toast";
 import Loader from "../loader";
+import { Link, useNavigate } from "react-router-dom";
 
 const ActivehiredJob = ({ key, job }) => {
+  const navigate = useNavigate();
+
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
   };
@@ -25,6 +31,27 @@ const ActivehiredJob = ({ key, job }) => {
     const response = await completeTheJob(job._id);
     if (response?.data?.success) {
       toast.success("marked the task as completed successfully");
+    }
+  };
+  const [
+    createConversation,
+    {
+      isLoading: isCreateConversation,
+      isError: isConversationError,
+      error: conversationError,
+    },
+  ] = useCreateConversationMutation();
+  useEffect(() => {
+    if (isConversationError) {
+      toast.error(conversationError.data.message);
+    }
+  }, [isConversationError, conversationError]);
+
+  const createConversatioHandler = async () => {
+    const { data } = await createConversation({ receiverId: job?.user?._id });
+    if (data?.success) {
+      toast.success(data.message);
+      navigate(`/client-profile/chat/${data.conversation._id}`);
     }
   };
   return (
@@ -64,8 +91,11 @@ const ActivehiredJob = ({ key, job }) => {
           </div>
         ) : job?.status === "accepted" ? (
           <div className="flex md:flex-row flex-col gap md:items-center items-start">
-            <button className="gig-btn md:w-auto w-full item-center">
-              reply
+            <button
+              className="gig-btn md:w-auto w-full item-center"
+              onClick={createConversatioHandler}
+            >
+              {isCreateConversation ? <Loader /> : "Chat"}
             </button>
             <span className="btn md:w-auto w-full item-center green-bg">
               Accepted
@@ -77,9 +107,21 @@ const ActivehiredJob = ({ key, job }) => {
           </span>
         ) : job?.status === "hired" ? (
           <div className="flex md:w-auto w-full gap md:flex-row flex-col">
+            <button
+              className="gig-btn md:w-auto w-full item-center"
+              onClick={createConversatioHandler}
+            >
+              {isCreateConversation ? <Loader /> : "Chat"}
+            </button>
+            <Link
+              to={`/post-document/${job?._id}`}
+              className="btn md:w-auto w-full item-center yellow-bg"
+            >
+              document
+            </Link>
             <span className="btn md:w-auto w-full item-center green-bg">
               Hired
-            </span>
+            </span>{" "}
             <button
               className="btn md:w-auto w-full item-center blue-bg"
               onClick={MarkAsComplete}

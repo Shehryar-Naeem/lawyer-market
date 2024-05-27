@@ -12,6 +12,7 @@ import { useSocket } from "../../socket/socket";
 import { useDispatch } from "react-redux";
 import { isIncludeInOnlineUsers } from "../../contants/helper";
 import Empty from "../../components/empty";
+import { scrollToTop } from "../../utils/helper";
 
 const GetAllGigs = () => {
   const dispatch = useDispatch();
@@ -92,6 +93,10 @@ const GetAllGigs = () => {
   // console.log("onlineUsers",onlineUsers);
   const skeletonCount = Math.floor(window.innerHeight / 100) * 1.5 + 2;
 
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+
   return (
     <>
       <div className="bg-gray-100">
@@ -108,31 +113,29 @@ const GetAllGigs = () => {
             ) : (
               <>
                 <div className="f-col md:gap-[2rem] gap-[1.5rem] mt-[2rem]">
-                  
-                    <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
-                      <form
-                        className="relative flex-1 "
-                        role="search"
-                        // onSubmit={handleFilterSubmit}
-                      >
-                        <input
-                          name="search"
-                          value={search}
-                          type="text"
-                          className="w-full general-pad text-[1rem] border border-gray-300 md:rounded-sm  rounded-xs outline-none focus:ring-0"
-                          placeholder="search..."
-                          aria-label="Search"
-                          onChange={(e) => setSearch(e.target.value)}
-                        />
-                      </form>
-                      <button
-                        className="border border-gray-300 md:rounded-sm rounded-xs cursor-pointer md:px-1 md:text-xl text-lg px-0.10"
-                        onClick={() => setOpenModal(!openModal)}
-                      >
-                        <FaSliders />
-                      </button>
-                    </div>
-                  
+                  <div className="bg-white general-pad mx-2 rounded-[10px] flex flex-wrap gap justify-center  md:shadow-lg shadow-md">
+                    <form
+                      className="relative flex-1 "
+                      role="search"
+                      // onSubmit={handleFilterSubmit}
+                    >
+                      <input
+                        name="search"
+                        value={search}
+                        type="text"
+                        className="w-full general-pad text-[1rem] border border-gray-300 md:rounded-sm  rounded-xs outline-none focus:ring-0"
+                        placeholder="search..."
+                        aria-label="Search"
+                        onChange={(e) => setSearch(e.target.value)}
+                      />
+                    </form>
+                    <button
+                      className="border border-gray-300 md:rounded-sm rounded-xs cursor-pointer md:px-1 md:text-xl text-lg px-0.10"
+                      onClick={() => setOpenModal(!openModal)}
+                    >
+                      <FaSliders />
+                    </button>
+                  </div>
 
                   <div className="bg-white general-pad lg:rounded-lg md:rounded-md rounded-sm mx-2 ">
                     {data?.gigs?.length > 0 ? (

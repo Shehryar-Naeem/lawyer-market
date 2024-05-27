@@ -32,7 +32,9 @@ const ClientPosts = () => {
         ) : data?.data?.length < 1 ? (
           <Empty text="No job yet" />
         ) : (
-          data?.data?.map((post) => <Post key={post._id} post={post} mangeBtns={true} />)
+          data?.data?.map((post) => (
+            <Post key={post._id} post={post} mangeBtns={true} />
+          ))
         )}
         {/* <Post /> */}
       </div>

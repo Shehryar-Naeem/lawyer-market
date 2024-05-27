@@ -4,12 +4,16 @@ import { Avatar } from "primereact/avatar";
 import { FaLocationDot } from "react-icons/fa6";
 import { CaptializeFirstLetter } from "../../utils/helper";
 import Tag from "../tag";
-import { useCompleteTheJobMutation } from "../../redux/api/userApi";
+import {
+  useCompleteTheJobMutation,
+  useCreateConversationMutation,
+} from "../../redux/api/userApi";
 import toast from "react-hot-toast";
 import Loader from "../loader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HiredComp = ({ key, hire }) => {
+  const navigate = useNavigate();
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
   };
@@ -28,11 +32,36 @@ const HiredComp = ({ key, hire }) => {
       toast.success("marked the task as completed successfully");
     }
   };
+  const [
+    createConversation,
+    {
+      isLoading: isCreateConversation,
+      isError: isConversationError,
+      error: conversationError,
+    },
+  ] = useCreateConversationMutation();
+  useEffect(() => {
+    if (isConversationError) {
+      toast.error(conversationError.data.message);
+    }
+  }, [isConversationError, conversationError]);
+  const createConversatioHandler = async () => {
+    const { data } = await createConversation({
+      receiverId: hire?.hiredLawyer?._id,
+    });
+    if (data?.success) {
+      toast.success(data.message);
+      navigate(`/client-profile/chat/${data.conversation._id}`);
+    }
+  };
 
   return (
     <div className="general-pad border-b-1 border-gray-300 f-col gap" key={key}>
       <div className="flex md:flex-row flex-col md:items-center gap md:justify-between items-start justify-start">
-        <Link to={`/user/${hire?.hiredLawyer._id}`} className="flex items-center gap">
+        <Link
+          to={`/user/${hire?.hiredLawyer._id}`}
+          className="flex items-center gap"
+        >
           <Avatar
             //   image={review?.user?.avatar.url}
             // image={bid?.lawyer?.avatar?.url || Images.userProfile}
@@ -70,6 +99,18 @@ const HiredComp = ({ key, hire }) => {
           <span className="btn red-bg">Rejected</span>
         ) : hire?.status === "hired" ? (
           <div className="flex md:w-auto w-full gap md:flex-row flex-col">
+            <button
+              className="gig-btn md:w-auto w-full item-center"
+              onClick={createConversatioHandler}
+            >
+              {isCreateConversation ? <Loader /> : "reply"}
+            </button>
+            <Link
+              to={`/post-document/${hire?._id}`}
+              className="btn md:w-auto w-full item-center yellow-bg"
+            >
+              document
+            </Link>
             <span className="btn md:w-auto w-full item-center green-bg">
               Hired
             </span>

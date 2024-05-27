@@ -65,12 +65,12 @@ const VerificationRequest = () => {
             >
               <Edit />
             </Link>
-            <button
+            {/* <button
               className="text-red-500 lg:text-2xl md:text-xl text-lg"
               //   onClick={() => handleDelete(row.original)}
             >
               <Delete />
-            </button>
+            </button> */}
           </div>
         );
       },

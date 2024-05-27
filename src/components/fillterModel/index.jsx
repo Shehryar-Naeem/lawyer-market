@@ -49,7 +49,8 @@ const FilterModel = ({
       },
       content: {
         base: "relative h-full w-full p-4 h-auto",
-        inner:"bg-white dark:bg-gray-800 dark:text-white rounded-sm shadow-lg"
+        inner:"bg-white dark:bg-gray-800 dark:text-white rounded-sm shadow-lg pop-animation"
+
       },
       header: {
         base: "flex items-center justify-between rounded-t border-gray-400 border-b general-pad ",
@@ -87,7 +88,7 @@ const FilterModel = ({
         onClose={()=>setOpenModal(!openModal)}
         // popup dismissible
         size={"sm"}
-        className="animate-fade-in"
+        // className="pop-animation"
       >
         <Modal.Header>{title}</Modal.Header>
         <Modal.Body>{children}</Modal.Body>

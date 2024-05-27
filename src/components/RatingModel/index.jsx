@@ -15,12 +15,12 @@ const RatingModel = ({
   handleSubmit,
   addReviewHandler,
   onClear,
-  reset
+  reset,
 }) => {
   useEffect(() => {
     return () => {
       onClear();
-      reset()
+      reset();
     };
   }, []);
 
@@ -58,7 +58,8 @@ const RatingModel = ({
       },
       content: {
         base: "relative h-full w-full p-4 h-auto",
-        inner: "bg-white dark:bg-gray-800 dark:text-white rounded-sm shadow-lg",
+        inner:
+          "bg-white dark:bg-gray-800 dark:text-white rounded-sm shadow-lg pop-animation",
       },
       header: {
         base: "flex items-center justify-between rounded-t border-gray-400 border-b general-pad ",
@@ -96,7 +97,6 @@ const RatingModel = ({
         onClose={() => setOpenModal(!openModal)}
         // popup dismissible
         size={"sm"}
-        className="animate-fade-in"
       >
         <Modal.Header>{title}</Modal.Header>
         <Modal.Body>{children}</Modal.Body>
@@ -112,7 +112,7 @@ const RatingModel = ({
               ) : (
                 "Create"
               )} */}
-              {isReviewloading ? <Loader /> : "apply"}
+              {isReviewloading ? <Loader /> : "rate it"}
             </button>
             <button
               onClick={onClear}

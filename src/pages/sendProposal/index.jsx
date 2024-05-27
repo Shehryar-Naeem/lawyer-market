@@ -15,7 +15,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FailureAlert from "../../components/alert";
 import Loader from "../../components/loader";
 
-
 const proposalSchema = yup.object().shape({
   proposal: yup.string().required("Proposal is required"),
   pricing: yup
@@ -116,11 +115,7 @@ const SendProposal = () => {
                           className="gig-btn"
                           type="submit"
                         >
-                          {isSendingLoading ? (
-                            <Loader/>
-                          ) : (
-                            "Send Proposal"
-                          )}
+                          {isSendingLoading ? <Loader /> : "Send Proposal"}
                         </button>
                       </div>
                     </div>

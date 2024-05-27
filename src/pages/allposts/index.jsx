@@ -10,6 +10,7 @@ import { cites, lawyerCategories } from "../../data";
 import { MdOutlineNotInterested } from "react-icons/md";
 import JobSkeleton from "../../components/skeletonLoading/jobLoading";
 import Empty from "../../components/empty";
+import { scrollToTop } from "../../utils/helper";
 
 const AllPosts = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -23,6 +24,9 @@ const AllPosts = () => {
   });
   const [filterValues, setFilterValues] = useState({});
   const [filterSearch, setFilterSearch] = useState("");
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   const { data, isLoading, isError, error, isFetching } = useGetJobsQuery(
     { currentPage, search, ...filterValues },

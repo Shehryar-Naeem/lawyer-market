@@ -56,6 +56,7 @@ const GigDetail = () => {
     isError: isReviewErrorStatus,
     error: allReviewStatusError,
   } = useAllowReviewQuery(id);
+
   const [
     createConversation,
     {
@@ -78,8 +79,7 @@ const GigDetail = () => {
     isLoading: getReviewLoading,
     isError: isGetReviewError,
     error: getReviewError,
-    
-  } = useGetReviewsOfGigsQuery(id,options);
+  } = useGetReviewsOfGigsQuery(id, options);
   // console.log(data);
 
   useEffect(() => {
@@ -144,7 +144,7 @@ const GigDetail = () => {
     setValue("comment", "");
     setRating(0);
   };
-  console.log("gigReviewData", gigReviewData);
+  // console.log("gigReviewData", gigReviewData);
   return (
     <>
       {isLoading ? (
@@ -202,7 +202,7 @@ const GigDetail = () => {
                           </span>
                           <div className="flex gap justify-between md:w-[200px] w-auto">
                             <div className="flex md:gap-xs gap-[1px] items-center ">
-                              <span className="md:text-base text-sm text-grey ">
+                              <span className="md:text-base text-sm text-yellow-400">
                                 <FaStar />
                               </span>
                               <b className="md:text-base text-sm text-grey md:font-extrabold font-bold">

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Images } from "../../assets/images";
 import { Avatar } from "primereact/avatar";
 import {
@@ -8,6 +8,7 @@ import {
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
+import Loader from "../loader";
 
 const ReceivedProposal = ({ bid, key }) => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const ReceivedProposal = ({ bid, key }) => {
     image: "h-full w-full rounded-full object-cover",
   };
 
+  const [toastId, setToastId] = useState(null);
   const [acceptBid, { isError, isLoading, error }] = useAcceptBidMutation();
   const [
     createConversation,
@@ -43,6 +45,16 @@ const ReceivedProposal = ({ bid, key }) => {
       toast.error(conversationError?.data?.message);
     }
   }, [isError, error]);
+  useEffect(() => {
+    if (isLoading && !toastId) {
+      const id = toast.loading("loading...");
+
+      setToastId(id);
+    }
+  }, [isLoading, toastId]);
+
+  // useEffect(() => {}, [isLoading]);
+
   const acceptIt = async () => {
     const data = {
       status: "accepted",
@@ -52,6 +64,8 @@ const ReceivedProposal = ({ bid, key }) => {
       data,
     });
     if (response?.data?.success) {
+      toast.dismiss(toastId);
+      setToastId(null);
       toast.success("Bid accepted");
     }
   };
@@ -65,6 +79,8 @@ const ReceivedProposal = ({ bid, key }) => {
       data,
     });
     if (response?.data?.success) {
+      toast.dismiss(toastId);
+      setToastId(null);
       toast.success("Bid rejected successfully");
     }
   };
@@ -78,6 +94,8 @@ const ReceivedProposal = ({ bid, key }) => {
       data,
     });
     if (response?.data?.success) {
+      toast.dismiss(toastId);
+      setToastId(null);
       toast.success("hire lawyer successfully");
     }
   };
@@ -109,7 +127,7 @@ const ReceivedProposal = ({ bid, key }) => {
           </div>
         </div>
         {bid?.status === "pending" ? (
-          <div className="flex gap md:items-center items-start">
+          <div className="flex gap md:items-center items-start md:w-auto w-full">
             <button
               className="btn md:w-auto w-full item-center green-bg"
               onClick={acceptIt}
@@ -124,12 +142,12 @@ const ReceivedProposal = ({ bid, key }) => {
             </button>
           </div>
         ) : bid?.status === "accepted" ? (
-          <div className="flex md:flex-row flex-col gap md:items-center items-start">
+          <div className="flex md:flex-row flex-col gap md:items-center items-start md:w-auto w-full">
             <button
               className="gig-btn md:w-auto w-full item-center"
               onClick={createConversatioHandler}
             >
-              {isCreateConversation ? "loading..." : "reply"}
+              {isCreateConversation ? <Loader /> : "reply"}
             </button>
             <span className="btn md:w-auto w-full item-center green-bg">
               Accepted
@@ -146,9 +164,17 @@ const ReceivedProposal = ({ bid, key }) => {
             Rejected
           </span>
         ) : bid?.status === "hired" ? (
-          <span className="btn md:w-auto w-full item-center blue-bg">
-            Hired
-          </span>
+          <div className="flex md:flex-row flex-col gap md:items-center items-start md:w-auto w-full">
+            <button
+              className="gig-btn md:w-auto w-full item-center"
+              onClick={createConversatioHandler}
+            >
+              {isCreateConversation ? <Loader /> : "reply"}
+            </button>
+            <span className="btn md:w-auto w-full item-center blue-bg">
+              Hired
+            </span>
+          </div>
         ) : null}
       </div>
       <p className="text-grey md:text-base sm:text-sm  font-medium tracking-wide ">

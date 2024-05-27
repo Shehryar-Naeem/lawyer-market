@@ -1,6 +1,6 @@
 /* HTML: <div class="loader"></div> */
 .loader {
-    height: 80px;
+    height: 120px;
     aspect-ratio: 1;
     display: grid;
   }

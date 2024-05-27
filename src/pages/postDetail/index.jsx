@@ -43,6 +43,7 @@ const PostDetail = () => {
           ) : (
             <Post
               post={data?.data}
+              notShowLink={true}
               isProposal={true}
               postBids={getPostbids?.data.length}
             />

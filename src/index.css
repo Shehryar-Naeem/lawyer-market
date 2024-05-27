@@ -215,6 +215,7 @@ input::placeholder {
   .card-text {
     @apply text-grey md:text-base text-sm font-medium capitalize;
   }
+
   .tag-text {
     @apply text-grey md:text-base text-sm font-medium capitalize bg-gray-300 lg:p-3xl md:p-2xl sm:p-xl p-lg leading-none rounded-1;
   }
@@ -267,8 +268,11 @@ input::placeholder {
     @apply lg:text-base md:text-sm text-xs md:font-extrabold font-bold bg-gray-200;
   }
   .text-input {
-    @apply bg-gray-50 border resize-none text-gray-900  small-btn-border-radius lg:!indent-[53px] md:!indent-[39px] indent-[32px] focus:ring-primary focus:border-primary block xl:text-xl lg:text-lg md:text-base text-sm md:font-medium font-normal w-full md:p-[7px] p-[5px] placeholder:text-gray-400 overflow-hidden;
+    @apply bg-gray-50 border resize-none text-gray-900  small-btn-border-radius focus:ring-primary focus:border-primary block xl:text-xl lg:text-lg md:text-base text-sm md:font-medium font-normal w-full md:p-[7px] p-[5px] placeholder:text-gray-400 overflow-hidden;
   }
+  /* .text-input {
+    @apply bg-gray-50 border resize-none text-gray-900  small-btn-border-radius lg:!indent-[53px] md:!indent-[39px] indent-[32px] focus:ring-primary focus:border-primary block xl:text-xl lg:text-lg md:text-base text-sm md:font-medium font-normal w-full md:p-[7px] p-[5px] placeholder:text-gray-400 overflow-hidden;
+  } */
   .profile-input {
     @apply border border-primary text-primary placeholder-gray-400  lg:text-lg md:text-base text-sm font-normal small-btn-border-radius focus:ring-primary focus:border-primary block w-full lg:p-2.5 md:p-1 p-0.8;
   }
@@ -354,10 +358,9 @@ input::placeholder {
   .gray-bg {
     @apply bg-gray-500 hover:bg-gray-400;
   }
-  .delete-btn{
-    @apply flex items-center justify-center md:text-base text-sm red-bg text-white rounded-full md:h-8 md:w-8 h-6 w-6
+  .delete-btn {
+    @apply flex items-center justify-center md:text-base text-sm red-bg text-white rounded-full md:h-8 md:w-8 h-6 w-6;
   }
-
 }
 
 .chat-navlink.active {
@@ -513,5 +516,19 @@ input::placeholder {
   }
   .page-item {
     padding: 0.5vmax 1.5vmax;
+  }
+}
+.pop-animation {
+  animation: pop 0.3s ease-in-out;
+  position: relative;
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.8);
+    /* top: -100%; */
+  }
+  100% {
+    transform: scale(1);
+    /* top: 0; */
   }
 }

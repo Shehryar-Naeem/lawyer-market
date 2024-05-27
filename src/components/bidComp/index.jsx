@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Images } from "../../assets/images";
 import { Avatar } from "primereact/avatar";
 import { FaLocationDot } from "react-icons/fa6";
 import { CaptializeFirstLetter } from "../../utils/helper";
 import Tag from "../tag";
+import { useCreateConversationMutation } from "../../redux/api/userApi";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import Loader from "../loader";
 
 const BidComp = ({ key, bid }) => {
+  const navigate = useNavigate();
+  // console.log(bid);
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
+  };
+  const [
+    createConversation,
+    {
+      isLoading: isCreateConversation,
+      isError: isConversationError,
+      error: conversationError,
+    },
+  ] = useCreateConversationMutation();
+  useEffect(() => {
+    if (isConversationError) {
+      toast.error(conversationError.data.message);
+    }
+  }, [isConversationError, conversationError]);
+
+  const createConversatioHandler = async () => {
+    const { data } = await createConversation({ receiverId: bid?.client?._id });
+    if (data?.success) {
+      toast.success(data.message);
+      navigate(`/client-profile/chat/${data.conversation._id}`);
+    }
   };
 
   return (
@@ -45,9 +72,12 @@ const BidComp = ({ key, bid }) => {
             </span>
           </div>
         ) : bid?.status === "accepted" ? (
-          <div className="flex md:flex-row flex-col gap md:items-center items-start">
-            <button className="gig-btn md:w-auto w-full item-center">
-              reply
+          <div className="flex md:flex-row flex-col gap md:items-center items-start md:w-auto w-full">
+            <button
+              className="gig-btn md:w-auto w-full item-center"
+              onClick={createConversatioHandler}
+            >
+              {isCreateConversation ? <Loader /> : "Chat"}
             </button>
             <span className="btn green-bg md:w-auto w-full item-center">
               Accepted
@@ -58,9 +88,17 @@ const BidComp = ({ key, bid }) => {
             Rejected
           </span>
         ) : bid?.status === "hired" ? (
-          <span className="btn green-bg md:w-auto w-full item-center">
-            Hired
-          </span>
+          <div className="flex md:flex-row flex-col gap md:items-center items-start md:w-auto w-full">
+            <button
+              className="gig-btn md:w-auto w-full item-center"
+              onClick={createConversatioHandler}
+            >
+              {isCreateConversation ? <Loader /> : "Chat"}
+            </button>
+            <span className="btn green-bg md:w-auto w-full item-center">
+              Hired
+            </span>
+          </div>
         ) : (
           ""
         )}

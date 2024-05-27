@@ -13,10 +13,11 @@
   max-width: var(--max-width);
   margin: auto;
 
-  /* min-height: calc(100vh - 100px); */
+  min-height: 540px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5rem;
+  place-items: center;
 }
 
 .hero_content__container {
@@ -41,11 +42,11 @@
   font-weight: 700;
 }
 
-.hero_content__container p {
+/* .hero_content__container p {
   font-size: 1rem;
   color: var(--text-color);
   margin-bottom: 2rem;
-}
+} */
 
 .hero_content__container form {
   display: flex;
@@ -160,4 +161,3 @@
     transform: translate(-50%, 50%);
   }
 }
-

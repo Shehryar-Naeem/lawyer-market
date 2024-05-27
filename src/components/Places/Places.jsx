@@ -65,16 +65,14 @@ const PlacesData = [
   },
 ];
 
-const Places = ({ handleOrderPopup }) => {
+const Places = ({ currentData }) => {
+
   return (
     <>
       <div className="dark:bg-gray-900 dark:text-white bg-gray-50">
-        <section
-          data-aos="fade-up"
-          className="container landing-pad-x"
-        >
+        <section data-aos="fade-up" className="container landing-pad-x landing-pad-y">
           <LandingHeading text={"Best Gigs"} />
-          <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 place-items-center gap ">
+          {/* <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 place-items-center gap ">
             {PlacesData.map((item, index) => (
               <PlaceCard
                 handleOrderPopup={handleOrderPopup}
@@ -82,14 +80,10 @@ const Places = ({ handleOrderPopup }) => {
                 {...item}
               />
             ))}
-          </div>
+          </div> */}
           <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 place-items-center gap ">
-            {gigData?.map((gig) => (
-              <GigCard
-                key={gig._id}
-                gig={gig}
-                // isOnline={isIncludeInOnlineUsers(onlineUsers, gig?.user?._id)}
-              />
+            {currentData?.map((gig) => (
+              <GigCard key={gig._id} gig={gig} />
             ))}
           </div>
         </section>

@@ -26,7 +26,7 @@ const LawyerRating = ({ review }) => {
           </span>
           <div className="flex gap justify-between md:w-[200px] w-auto">
             <div className="flex md:gap-xs gap-[1px] items-center ">
-              <span className="md:text-base text-sm text-grey ">
+              <span className="md:text-base text-sm text-yellow-400 ">
                 <FaStar />
               </span>
               <b className="md:text-base text-sm text-grey md:font-extrabold font-bold">

@@ -14,6 +14,8 @@ export const userApi = createApi({
     "jobs",
     "bids",
     "verification",
+    "support",
+    "document",
   ],
   endpoints: (builder) => ({
     signup: builder.mutation({
@@ -490,6 +492,26 @@ export const userApi = createApi({
       query: (id) => `user/get/user-data/${id}`,
       providesTags: ["Users"],
     }),
+    sendMessageToSupport: builder.mutation({
+      query: (data) => ({
+        url: `customer-support/send/message/customer-support`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["support"],
+    }),
+    getSupportMessages: builder.query({
+      query: () => `customer-support/get/messages/customer-support`,
+      providesTags: ["support"],
+    }),
+    uploadDocumentRelatedToJob: builder.mutation({
+      query: ({ id, document }) => ({
+        url: `document//upload-document/${id}`,
+        method: "POST",
+        body: document,
+      }),
+      invalidatesTags: ["document"],
+    }),
   }),
 });
 
@@ -566,5 +588,7 @@ export const {
   useCompleteTheJobMutation,
   useGetAllGigsOfUserQuery,
   useGetTopGigsQuery,
-  useGetUserDataQuery
+  useGetUserDataQuery,
+  useSendMessageToSupportMutation,
+  useGetSupportMessagesQuery,
 } = userApi;

@@ -17,7 +17,8 @@ import Loader from "../loader";
 const customAvatar = {
   image: "h-full w-full rounded-full object-cover",
 };
-const Post = ({ showSenderBtn, isProposal, post, postBids, mangeBtns }) => {
+const Post = ({ showSenderBtn,notShowLink, isProposal, post, postBids, mangeBtns }) => {
+  console.log(post);
   const [
     stopReceivingRuquest,
     {
@@ -36,10 +37,10 @@ const Post = ({ showSenderBtn, isProposal, post, postBids, mangeBtns }) => {
       error: deleteJobErrorData,
     },
   ] = useDeleteJobMutation();
-  const arry = CaptializeFirstLetter(post?.description).split(" ");
-  const maxWords = 20;
+  // const arry = CaptializeFirstLetter(post?.description).split(" ");
+  // const maxWords = 20;
 
-  const displayWord = arry.length <= maxWords ? arry : arry.slice(0, maxWords);
+  // const displayWord = arry.length <= maxWords ? arry : arry.slice(0, maxWords);
   // console.log(displayWord);
   useEffect(() => {
     if (stopReceivingError) {
@@ -85,9 +86,17 @@ const Post = ({ showSenderBtn, isProposal, post, postBids, mangeBtns }) => {
           <span className="lg:text-lg md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey">
             {post?.user?.name}
           </span>
+          {post?.user && (
+            <div className="flex gap-0.5 items-center">
+              <span className="md:text-base text-sm">
+                <FaLocationDot />
+              </span>
+              <p className="text-sm font-medium">{post?.user?.city}</p>
+            </div>
+          )}
         </div>
       </div>
-      {!showSenderBtn ? (
+      {!notShowLink ? (
         <>
           <Link
             className="heading hover:underline"
@@ -100,8 +109,13 @@ const Post = ({ showSenderBtn, isProposal, post, postBids, mangeBtns }) => {
         <h2 className="heading">{CaptializeFirstLetter(post?.title)}</h2>
       )}
       <div className="f-col md:gap-1.5 gap-1">
-        <p className="para">
-          {displayWord.join(" ")}
+        <p
+          className="para 
+        
+        "
+        >
+          {CaptializeFirstLetter(post?.description)}
+          {/* {displayWord.join(" ")}
           {arry.length > maxWords && (
             <>
               &nbsp;
@@ -112,7 +126,7 @@ const Post = ({ showSenderBtn, isProposal, post, postBids, mangeBtns }) => {
                 show more
               </Link>
             </>
-          )}
+          )} */}
         </p>
         <div className="flex flex-wrap gap">
           <div className="flex gap-0.5 items-center">

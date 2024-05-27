@@ -54,9 +54,10 @@ const GigCard = ({ gig, key, me, isOnline }) => {
       scrollElement.removeEventListener("scroll", checkScrollButtons);
   }, []);
   const handleDeleteGig = async () => {
-    const toastId = toast.loading("uploading...");
+    const toastId = toast.loading("deleting...");
     const response = await deleteGig(gig?._id);
     if (response?.data.success) {
+      toast.dismiss(toastId);
       toast.success("Gig Deleted Successfully", {
         id: toastId,
       });
@@ -87,7 +88,10 @@ const GigCard = ({ gig, key, me, isOnline }) => {
         <div className="f-col gap  justify-between   ">
           <div className="flex gap items-center ">
             <div className="md:min-w-[35px] md:min-h-[35px] w-[30px] h-[30px] ">
-              <img src={gig?.user?.avatar?.url} className=" p-0 w-full h-full rounded-full object-contain" />
+              <img
+                src={gig?.user?.avatar?.url}
+                className=" p-0 w-full h-full rounded-full object-contain"
+              />
             </div>
 
             <Link
@@ -129,12 +133,14 @@ const GigCard = ({ gig, key, me, isOnline }) => {
 
             {/* <span className="card-text">rating</span> */}
             <div>
-              <Ratiing readonly={true} cancel={false} />
+              <Ratiing readonly={true} cancel={false} rating={gig?.ratings} />
             </div>
 
-            <div className="flex justify-between">
-              <span className="card-text">price</span>
-              {/* <span className="card-text">{CaptializeFirstLetter(gig?.user?.city)}</span> */}
+            <div className="flex md:gap-[7px] gap-0.5 items-center">
+              <span className="card-text">price:</span>
+              <span className="text-grey text-sm font-medium capitalize">
+                {gig?.pricing?.price}
+              </span>
             </div>
           </div>
         </div>

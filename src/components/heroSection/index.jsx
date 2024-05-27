@@ -14,7 +14,7 @@ const HeroSection = () => {
         </h1>
         <p
           data-aos="zoom-in"
-          className="md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tigh"
+          className="md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tight"
         >
           Our platform features verified lawyers who are Bar Association
           members, ensuring high standards of practice, ethics, and professional
@@ -23,10 +23,10 @@ const HeroSection = () => {
           services, we connect you with highly qualified legal professionals
           dedicated to personalized solutions and optimal outcomes.
         </p>
-        <form>
+        {/* <form>
           <input type="text" placeholder="What do you want to learn" />
           <button type="submit">Search gigs</button>
-        </form>
+        </form> */}
       </div>
       <div class="image__container">
         <img src={Images.hero4} alt="header" />

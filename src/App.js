@@ -64,8 +64,10 @@ import ManageVerificationRequest from "./pages/dashboard/mangeVerificationReques
 import Hired from "./components/hired";
 import EditJob from "./pages/editJob/idnex";
 import ActiveJobs from "./pages/activeJobs";
-import InitialLoader from "./components/initialLoader"
+import InitialLoader from "./components/initialLoader";
 import UserInfo from "./pages/userInfo";
+import Contact from "./pages/contact";
+import PostDocument from "./pages/post-document";
 
 const Register = lazy(() => import("./pages/loginSignUP/index"));
 const Profile = lazy(() => import("./pages/profile/index"));
@@ -108,6 +110,10 @@ function App() {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/customer-support",
+          element: <Contact />,
         },
       ],
     },
@@ -186,8 +192,8 @@ function App() {
           ],
         },
         {
-          path:"/user/:id",
-          element:<UserInfo />
+          path: "/user/:id",
+          element: <UserInfo />,
         },
         {
           path: "/client-profile/create-lawyer-account",
@@ -310,6 +316,14 @@ function App() {
           element: (
             <ProtectRoute isAuthenticated={isAuthenticated}>
               <PostDetail />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "/post-document/:id",
+          element: (
+            <ProtectRoute isAuthenticated={isAuthenticated}>
+              <PostDocument />
             </ProtectRoute>
           ),
         },

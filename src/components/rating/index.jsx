@@ -57,7 +57,7 @@ const Ratiing = ({ readonly, cancel ,setValue,rating,setRating,watch}) => {
     },
     onicon: {
       className: classNames(
-        "text-yellow-600",
+        "text-yellow-400",
         "md:w-5 w-3 md:h-5 h-3",
         "transition duration-200 ease-in"
       ),

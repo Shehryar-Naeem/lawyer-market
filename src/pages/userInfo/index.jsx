@@ -8,6 +8,7 @@ import {
   useGetUserDataQuery,
 } from "../../redux/api/userApi";
 import GigDetailLoading from "../../components/skeletonLoading/sectionLoading";
+import Empty from "../../components/empty";
 
 const UserInfo = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const UserInfo = () => {
     isError: isDataError,
     error: DataError,
   } = useGetUserDataQuery(id);
-  console.log(currentData);
+  // console.log(currentData);
   useEffect(() => {
     if (isError) {
       toast.error(error.data.message);
@@ -50,11 +51,17 @@ const UserInfo = () => {
             <UserInfoData currentData={currentData} />
             <div className="md:col-span-4 col-span-6 flex flex-col md:gap-1 gap-sm">
               <div className="h-full w-full flex gap-1 flex-col bg-white shadow-2xl lg:p-2 md:p-1 p-0.5">
-                <div className="grid gap lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-                  {data?.gigs?.map((gig) => (
-                    <GigCard key={gig._id} gig={gig} />
-                  ))}
-                </div>
+                {data?.gigs?.length < 1 ? (
+                  <div className="w-full h-[60vh] flex items-center justify-center">
+                    <Empty text="No gigs yet" />
+                  </div>
+                ) : (
+                  <div className="grid gap lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+                    {data?.gigs?.map((gig) => (
+                      <GigCard key={gig._id} gig={gig} />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
