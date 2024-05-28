@@ -22,6 +22,9 @@ import hero4 from "./hero4.jpeg";
 import hero5 from "./hero5.jpeg";
 import about2 from "./about2.jpeg";
 import documentIcon from "./documenticon.svg";
+import banner1 from "./banner1.jpeg";
+import banner3 from "./banner3.jpg"
+import banner2 from "./banner2.jpeg";
 export const Images = {
   Google,
   ProfilImg,
@@ -47,4 +50,7 @@ export const Images = {
   hero5,
   about2,
   documentIcon,
+  banner1,
+  banner2,
+  banner3
 };

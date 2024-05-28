@@ -13,7 +13,7 @@ const InputComp = ({ text, type, name, register }) => {
       label: {
         default: {
           outlined: {
-            sm: "absolute left-0 top-0 transform -translate-y-2/4 md:mx-1 mx-sm md:px-1 px-4xl bg-white lg:text-xl md:font-bold md:text-base text-sm text-gray-300 scale-0 transition-all peer-focus:-translate-y-2/4 peer-focus:top-0 peer-focus:text-gray-500 peer-focus:shadow-none md:peer-focus:text-base peer-focus:text-sm md:peer-focus:font-bold peer-focus:font-normal z-10 scale-75 peer-focus:scale-100 duration-300 md:peer-focus:mx-4  peer-placeholder-shown:top-2/4 peer-placeholder-shown:-translate-y-2/4 peer-placeholder-shown:scale-100",
+            sm: "absolute left-0 top-0 transform -translate-y-2/4 md:mx-1 mx-sm md:px-1 px-4xl bg-white lg:text-xl md:font-bold md:text-base text-sm text-gray-400 scale-0 transition-all peer-focus:-translate-y-2/4 peer-focus:top-0 peer-focus:text-gray-500 peer-focus:shadow-none md:peer-focus:text-base peer-focus:text-sm md:peer-focus:font-bold peer-focus:font-normal z-10 scale-75 peer-focus:scale-100 duration-300 md:peer-focus:mx-4  peer-placeholder-shown:top-2/4 peer-placeholder-shown:-translate-y-2/4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-300",
           },
         },
       },
