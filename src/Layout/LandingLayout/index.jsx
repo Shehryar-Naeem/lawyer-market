@@ -209,9 +209,12 @@ const LandingLayout = ({ isFooter }) => {
               </NavLink>
             </div>
             <div
+              // className={`${
+              //   isMobileMenuOpen ? "flex" : "hidden"
+              // } md:flex flex-col md:flex-row gap items-center md:relative absolute md:w-auto w-full left-0 top-full md:bg-transparent transition-all bg-white md:px-0 px-2 md:pb-0 pb-4 md:shadow-none shadow-lg`}
               className={`${
-                isMobileMenuOpen ? "flex" : "hidden"
-              } md:flex flex-col md:flex-row gap items-center md:relative absolute md:w-auto w-full left-0 top-full md:bg-transparent transition-all bg-white md:px-0 px-2 md:pb-0 pb-4 md:shadow-none shadow-lg`}
+                isMobileMenuOpen ? "" : "md:translate-x-0 -translate-x-full"
+              } flex md:items-center gap-1.5 md:relative fixed md:flex-row flex-col left-0 md:h-auto h-full top-0 md:w-auto w-full overflow-auto md:p-0 p-3 md:bg-transparent bg-white transition-all`}
             >
               <NavLink
                 to={"/gigs"}

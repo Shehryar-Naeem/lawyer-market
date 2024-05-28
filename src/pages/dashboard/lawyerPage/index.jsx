@@ -111,12 +111,12 @@ const LawyerPage = () => {
           <div className="flex gap">
             <Link
               to={`/dashboard/admin/users/lawyer/${row.original._id}`}
-              className="text-green-500 lg:text-2xl md:text-xl text-lg"
+              className="update-btn "
             >
               <Edit />
             </Link>
             <button
-              className="text-red-500 lg:text-2xl md:text-xl text-lg"
+              className="delete-btn "
               onClick={() => handleDelete(row.original)}
             >
               <Delete />

@@ -119,13 +119,17 @@ const GigStepOne = () => {
                     Example title
                   </h3>
                   <ol className="row-span-full f-col md:gap-0.5 list-disc md:pl-ly-pad px-md-ly-pad md:text-base text-sm md:font-semibold font-medium text-black">
-                    <li>Be Your Lawyer That will represent you in Court</li>
-                    <li>Be Your Lawyer for Bail</li>
-                    <li>Represent you in court for Ownership of Car</li>
-                    <li>Settling disputes and supervising any agreements</li>
+                    <li>I will be your lawyer representing you in court.</li>
+                    <li>I will be your lawyer for bail hearings.</li>
                     <li>
-                      Defend or prosecute clients by presenting evidence in
-                      litigation.
+                      I will represent you in court for car ownership disputes.
+                    </li>
+                    <li>
+                      I will settle disputes and supervise any agreements.
+                    </li>
+                    <li>
+                      I will defend or prosecute clients by presenting evidence
+                      in litigation.
                     </li>
                   </ol>
                 </div>

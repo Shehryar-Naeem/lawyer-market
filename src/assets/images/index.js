@@ -13,14 +13,15 @@ import lawyer from "./lawyer.svg";
 import client from "./client.svg";
 import search from "./search.png";
 import chat from "./chat.png";
-import about from "./about.jpg"
-import blog1 from "./blog1.jpeg"
+import about from "./about.jpg";
+import blog1 from "./blog1.jpeg";
 import blog2 from "./blog2.jpg";
 import blog3 from "./blog3.png";
-import explorer from "./explore.png"
-import hero4 from "./hero4.jpeg"
-import hero5 from "./hero5.jpeg"
-import about2 from "./about2.jpeg"
+import explorer from "./explore.png";
+import hero4 from "./hero4.jpeg";
+import hero5 from "./hero5.jpeg";
+import about2 from "./about2.jpeg";
+import documentIcon from "./documenticon.svg";
 export const Images = {
   Google,
   ProfilImg,
@@ -44,5 +45,6 @@ export const Images = {
   hero4,
   explorer,
   hero5,
-  about2
+  about2,
+  documentIcon,
 };

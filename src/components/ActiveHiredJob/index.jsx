@@ -115,7 +115,7 @@ const ActivehiredJob = ({ key, job }) => {
             </button>
             <Link
               to={`/post-document/${job?._id}`}
-              className="btn md:w-auto w-full item-center yellow-bg"
+              className="btn md:w-auto w-full item-center gray-bg"
             >
               document
             </Link>

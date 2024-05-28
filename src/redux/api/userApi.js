@@ -505,10 +505,23 @@ export const userApi = createApi({
       providesTags: ["support"],
     }),
     uploadDocumentRelatedToJob: builder.mutation({
+    
       query: ({ id, document }) => ({
-        url: `document//upload-document/${id}`,
+        
+        url: `document/upload-document/${id}`,
         method: "POST",
         body: document,
+      }),
+      invalidatesTags: ["document"],
+    }),
+    getAllDocumentsRelatedToJob: builder.query({
+      query: (id) => `document/get/all/post-document/${id}`,
+      providesTags: ["document"],
+    }),
+    deleteDocumentRelatedToJob: builder.mutation({
+      query: (id) => ({
+        url: `document/delete/document/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["document"],
     }),
@@ -591,4 +604,8 @@ export const {
   useGetUserDataQuery,
   useSendMessageToSupportMutation,
   useGetSupportMessagesQuery,
+  useUploadDocumentRelatedToJobMutation,
+  useGetAllDocumentsRelatedToJobQuery,
+  useDeleteDocumentRelatedToJobMutation,
+  
 } = userApi;

@@ -61,7 +61,7 @@ const VerificationRequest = () => {
           <div className="flex gap">
             <Link
               to={`/dashboard/admin/verification-requests/${row.original._id}`}
-              className="text-green-500 lg:text-2xl md:text-xl text-lg"
+              className="update-btn "
             >
               <Edit />
             </Link>

@@ -24,17 +24,16 @@ const ClientProfile = () => {
     isFetching,
     isError: userIsError,
     error: userError,
-  
   } = useGetUserQuery();
   const { data: lawyerData, isLoading: isLawyerLoading } =
     useLawyerPrfofileQuery();
-    
-    const [modal, setModal] = useState(false);
-    const [updateUser, { error, data, isSuccess, isLoading }] =
+
+  const [modal, setModal] = useState(false);
+  const [updateUser, { error, data, isSuccess, isLoading }] =
     useUpdateUserMutation();
-    const [infoAlet, setInfoAlert] = useState(false);
-    const diaptch = useDispatch();
-    console.log(isSuccess, error, data, "isSuccess, error, data");
+  const [infoAlet, setInfoAlert] = useState(false);
+  const diaptch = useDispatch();
+  console.log(isSuccess, error, data, "isSuccess, error, data");
   useEffect(() => {
     // if (userSuccess) {
     //   diaptch(userExist(userData?.user));
@@ -76,28 +75,28 @@ const ClientProfile = () => {
     <>
       {isFetching ? (
         <div className="page-container">
-        <div className="container f-col general-pad gap-8">
-          <div className=" general-pad ">
-            <div className="grid grid-cols-3 lg:gap-3 md:gap-2 gap-1 ">
-              <div className="h-full md:col-span-1 col-span-3 ">
-                <div className="md:h-full h-[50vh] f-col md:gap-2 gap-1 ">
-                  <div className="h-1/2">
-                    <GigDetailLoading />
-                  </div>
-                  <div className="h-1/2">
-                    <GigDetailLoading />
+          <div className="container f-col general-pad gap-8">
+            <div className=" general-pad ">
+              <div className="grid grid-cols-3 lg:gap-3 md:gap-2 gap-1 ">
+                <div className="h-full md:col-span-1 col-span-3 ">
+                  <div className="md:h-full h-[50vh] f-col md:gap-2 gap-1 ">
+                    <div className="h-1/2">
+                      <GigDetailLoading />
+                    </div>
+                    <div className="h-1/2">
+                      <GigDetailLoading />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="md:col-span-2 col-span-3 ">
-                <div className="h-screen">
-                  <GigDetailLoading />
+                <div className="md:col-span-2 col-span-3 ">
+                  <div className="h-screen">
+                    <GigDetailLoading />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       ) : (
         <>
           <div className="page-container">
@@ -123,14 +122,14 @@ const ClientProfile = () => {
                         end
                         className={"underline-tab"}
                       >
-                        posts
+                        jobs
                       </NavLink>
                       <NavLink
                         to={"/client-profile/hired"}
                         className={"underline-tab"}
                         end
                       >
-                        Hired 
+                        Hired
                       </NavLink>
                       <NavLink
                         to={"/client-profile/chat"}
@@ -139,7 +138,6 @@ const ClientProfile = () => {
                       >
                         chat
                       </NavLink>
-                   
                     </div>
 
                     <div className="h-full">

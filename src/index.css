@@ -292,7 +292,10 @@ input::placeholder {
     @apply bg-black text-white   md:text-base md:font-bold font-semibold text-sm md:py-1 py-0.10 md:px-4 px-2 small-btn-border-radius  uppercase md:hover:bg-gray-800 shadow-none md:cursor-pointer cursor-none;
   }
   .btn {
-    @apply text-white md:text-base md:font-bold font-semibold text-sm md:py-1 py-0.10 md:px-4 px-2 small-btn-border-radius  uppercase !leading-none md:cursor-pointer cursor-none;
+    @apply text-white md:text-base md:font-bold font-semibold text-sm md:py-1 py-0.10 md:px-4 px-1 small-btn-border-radius  uppercase flex items-center  md:cursor-pointer cursor-none;
+  }
+  .small-btn {
+    @apply text-white md:text-base md:font-bold font-semibold text-sm md:py-0.8 py-0.10 md:px-1 px-0.10 small-btn-border-radius flex items-center justify-center uppercase md:cursor-pointer cursor-none;
   }
   .check-box-label {
     @apply capitalize inline-flex lg:text-lg md:text-base text-sm md:font-medium font-normal text-gray-900 dark:text-gray-300;
@@ -358,8 +361,17 @@ input::placeholder {
   .gray-bg {
     @apply bg-gray-500 hover:bg-gray-400;
   }
+  .black-bg {
+    @apply bg-black hover:bg-gray-800;
+  }
   .delete-btn {
     @apply flex items-center justify-center md:text-base text-sm red-bg text-white rounded-full md:h-8 md:w-8 h-6 w-6;
+  }
+  .update-btn {
+    @apply md:w-[35px] md:h-[35px] item-center text-white md:p-0.8 p-0.5 lg:text-2xl md:text-xl text-lg blue-bg md:rounded-xxs rounded-xxs;
+  }
+  .delete-btn {
+    @apply md:w-[35px] md:h-[35px] item-center text-white md:p-0.8 p-0.5 lg:text-2xl md:text-xl text-lg red-bg md:rounded-xxs rounded-xxs;
   }
 }
 

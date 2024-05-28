@@ -183,14 +183,14 @@ const UpdateGigByAdmin = () => {
                 <div className="w-full lg:gap-0.10 md:gap-0.8 gap-sm f-col justify-between">
                   <label className="gig-label">Gig Title</label>
                   <div className="relative">
-                    <span
+                    {/* <span
                       className="xl:text-xl lg:text-lg md:text-base text-sm  md:font-semibold font-medium absolute md:p-0.8 p-0.5 top-0"
                       // style={{
                       //   transform: `translateY(${errors.title ? "" : ""})`,
                       // }}
                     >
                       I will
-                    </span>
+                    </span> */}
                     <textarea
                       type="text"
                       name="name"

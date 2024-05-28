@@ -17,8 +17,15 @@ import Loader from "../loader";
 const customAvatar = {
   image: "h-full w-full rounded-full object-cover",
 };
-const Post = ({ showSenderBtn,notShowLink, isProposal, post, postBids, mangeBtns }) => {
-  console.log(post);
+const Post = ({
+  showSenderBtn,
+  notShowLink,
+  isProposal,
+  post,
+  postBids,
+  mangeBtns,
+}) => {
+  // console.log(post);
   const [
     stopReceivingRuquest,
     {
@@ -72,7 +79,7 @@ const Post = ({ showSenderBtn,notShowLink, isProposal, post, postBids, mangeBtns
   };
 
   return (
-    <div className="general-pad border-b-1 border-gray-300 f-col md:gap-[20px] gap-1">
+    <div className="general-pad border-b-1 border-gray-300 f-col md:gap-3 gap-2">
       <div className="flex items-center gap">
         <Avatar
           image={post?.user?.avatar?.url}
@@ -108,12 +115,8 @@ const Post = ({ showSenderBtn,notShowLink, isProposal, post, postBids, mangeBtns
       ) : (
         <h2 className="heading">{CaptializeFirstLetter(post?.title)}</h2>
       )}
-      <div className="f-col md:gap-1.5 gap-1">
-        <p
-          className="para 
-        
-        "
-        >
+      <div className="f-col md:gap-3 gap-2">
+        <p className="para">
           {CaptializeFirstLetter(post?.description)}
           {/* {displayWord.join(" ")}
           {arry.length > maxWords && (
@@ -185,19 +188,19 @@ const Post = ({ showSenderBtn,notShowLink, isProposal, post, postBids, mangeBtns
         {mangeBtns && (
           <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-0.8 gap-0.5">
             <button
-              className="btn gray-bg item-center"
+              className="btn black-bg item-center"
               onClick={handleStopreceivingRequest}
             >
               {stopReceivingLoading ? <Loader /> : "Stop Accept bids"}
             </button>
             <Link
-              className="btn blue-bg text-center item-center"
+              className="btn gray-bg text-center item-center"
               to={`/post-detail/${post?._id}`}
             >
               View Job
             </Link>
             <Link
-              className="btn yellow-bg item-center"
+              className="btn blue-bg item-center"
               to={`/edit-job/${post?._id}`}
             >
               Edit Job

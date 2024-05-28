@@ -20,6 +20,7 @@ const ClientChat = () => {
   const dispatch = useDispatch();
   const { notifications } = useSelector((state) => state.notifications);
   const [path, setPath] = React.useState("");
+  const [searchInput, setSearchInput] = useState("");
 
   const { data, isLoading, isError, isFetching, error } =
     useMeConversationsQuery();
@@ -51,6 +52,18 @@ const ClientChat = () => {
     };
   }, [socket]);
 
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  console.log("data", data?.conversations);
+  const filteredConversations = useMemo(() => {
+    if (!data?.conversations) return [];
+
+    return data?.conversations?.filter((conversation) =>
+      conversation.otherMember.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+  }, [data?.conversations, searchInput]);
   return (
     <div className="bg-gray-100 h-full md:p-1 p-0.10">
       <div className="flex gap max-h-[550px] min-h-[440px] overflow-hidden h-full relative">
@@ -75,6 +88,8 @@ const ClientChat = () => {
                 placeholder="search..."
                 aria-label="Search"
                 // onChange={handleFilterChange}
+                value={searchInput}
+                onChange={handleSearchInputChange}
               />
             </form>
             <div className="f-col h-full gap overflow-auto custom-scroll">
@@ -82,8 +97,8 @@ const ClientChat = () => {
                 Array.from({ length: 6 }).map((_, index) => (
                   <ChatLoading key={index} />
                 ))
-              ) : data?.conversations?.length > 0 ? (
-                data?.conversations?.map((data, index) => (
+              ) : filteredConversations?.length > 0 ? (
+                filteredConversations?.map((data, index) => (
                   <>
                     <ClientChatComp
                       _id={data._id}

@@ -113,12 +113,15 @@ const GigPage = () => {
       size: 130,
       Cell: ({ row }) => {
         return (
-          <div className="flex gap">
-            <Link to={`/dashboard/admin/gigs/edit/${row.original._id}`}>
+          <div className="flex gap items-center">
+            <Link
+              to={`/dashboard/admin/gigs/edit/${row.original._id}`}
+              className="update-btn"
+            >
               <Edit />
             </Link>
             <button
-              className="text-red-500 lg:text-2xl md:text-xl text-lg"
+              className="delete-btn"
               onClick={() => deleteHandler(row.original._id)}
             >
               <Delete />
