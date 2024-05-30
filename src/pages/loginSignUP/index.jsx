@@ -60,6 +60,8 @@ const SignUp = () => {
   const [passwordShown, setPasswordShown] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
+  const { data:userData, isLoading, isSuccess, isError, error, refetch } =
+    useGetUserQuery();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -158,7 +160,7 @@ const SignUp = () => {
       resetSignUp();
       if (response?.data?.success) {
         // dispatch(userExist(signupData?.user));
-        localStorage.setItem("user", JSON.stringify(response?.data?.user));
+        // localStorage.setItem("user", JSON.stringify(response?.data?.user));
         toast.success(response?.data?.msg);
         setOpenModal(true);
       }
@@ -204,21 +206,23 @@ const SignUp = () => {
   };
   const createLaywerHandler = async () => {
     const { data } = await createLawyer();
+
     if (data?.success) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        const userData = await fetchUserData();
-        if (userData?.success) {
-          dispatch(userExist(userData?.user));
-          localStorage.removeItem("user");
-          toast.success(data?.message);
-          navigate("/gigs", {
-            replace: true,
-          });
-        } else {
-          toast.error(userData);
-        }
+      refetch();
+      // const user = JSON.parse(localStorage.getItem("user"));
+      // if (user) {
+
+      if (userData?.success) {
+        dispatch(userExist(userData?.user));
+        // localStorage.removeItem("user");
+        toast.success(data?.message);
+        navigate("/gigs", {
+          replace: true,
+        });
+      } else {
+        toast.error(error?.data?.message);
       }
+      // }
     }
   };
   return (

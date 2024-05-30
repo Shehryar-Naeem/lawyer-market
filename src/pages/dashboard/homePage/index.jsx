@@ -15,11 +15,8 @@ import { FaIdBadge } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
 import DashboardHeading from "../../../components/dashboardHeading";
 
-
-
 const AdminHomePage = () => {
   const { data, isError, isLoading, error } = useStatsQuery(undefined, options);
-  console.log(data);
 
   useEffect(() => {
     if (isError) {

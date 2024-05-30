@@ -15,10 +15,11 @@ const CustomModal = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const customTheme = {
     modal: {
       root: {
-        base: "fixed inset-x-0 top-0 z-99 backdrop-blur-sm h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
+        base: "fixed inset-x-0 top-0 z-[9999] backdrop-blur-sm h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
         show: {
           on: "flex bg-gray-900 bg-opacity-50 dark:bg-opacity-80",
           off: "hidden",
@@ -49,7 +50,8 @@ const CustomModal = ({
       },
       content: {
         base: "relative h-full w-full p-4 h-auto",
-        inner:"bg-white dark:bg-gray-800 dark:text-white rounded-sm shadow-lg"
+        inner:
+          "bg-white dark:bg-gray-800 dark:text-white rounded-sm shadow-lg pop-animation",
       },
       header: {
         base: "flex items-center justify-between rounded-t border-gray-400 border-b general-pad ",
@@ -93,18 +95,10 @@ const CustomModal = ({
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
           <div className="flex justify-center gap-4">
-            <button
-             
-              className="filteBlackBtn"
-              onClick={createLaywerHandler}
-            >
+            <button className="filteBlackBtn" onClick={createLaywerHandler}>
               {createLawyerLoading ? <Loader /> : "Create"}
             </button>
-            <button
-              onClick={cancelHandler}
-              
-              className="filterGrayBtn"
-            >
+            <button onClick={cancelHandler} className="filterGrayBtn">
               cancel
             </button>
           </div>

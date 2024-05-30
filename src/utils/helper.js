@@ -14,7 +14,8 @@ export const fetchUserData = async () => {
     const { data } = await axios.get("/api/user/get-profile");
     return data;
   } catch (error) {
-    return error.data.response.message;
+    console.log(error);
+    return error?.response?.data?.message;
   }
 };
 
@@ -40,5 +41,5 @@ export const getOtherUser = (conversation, userId) => {
 };
 
 export const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' }); 
-}
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};

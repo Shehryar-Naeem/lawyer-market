@@ -113,7 +113,7 @@ const GigPage = () => {
       size: 130,
       Cell: ({ row }) => {
         return (
-          <div className="flex gap items-center">
+          <div className="flex gap iitems-center justify-center w-full">
             <Link
               to={`/dashboard/admin/gigs/edit/${row.original._id}`}
               className="update-btn"

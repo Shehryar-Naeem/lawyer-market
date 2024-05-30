@@ -108,7 +108,7 @@ const LawyerPage = () => {
       size: 130,
       Cell: ({ row }) => {
         return (
-          <div className="flex gap">
+          <div className="flex gap items-center justify-center w-full">
             <Link
               to={`/dashboard/admin/users/lawyer/${row.original._id}`}
               className="update-btn "

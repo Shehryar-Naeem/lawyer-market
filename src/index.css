@@ -111,7 +111,7 @@ input::placeholder {
     margin: 0 auto;
   }
   .black-btn {
-    @apply bg-black text-white w-full lg:text-xl  md:text-base md:font-bold font-semibold text-sm md:mx-auto lg:py-2 md:py-1 py-0.10 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none item-center;
+    @apply bg-black text-white w-full lg:text-xl  md:text-base md:font-bold font-semibold text-sm md:mx-auto lg:py-[15px] md:py-1 py-0.10 md:px-4 px-2 lg:rounded-md md:rounded-sm rounded-xs uppercase md:hover:shadow-2xl shadow-none md:cursor-pointer cursor-none item-center;
   }
   .item-center {
     @apply flex items-center justify-center;

@@ -1,12 +1,22 @@
 import React, { useEffect, useRef } from "react";
 import { MdDelete } from "react-icons/md";
 import { Images } from "../../assets/images";
-import { useDeleteMeRolesMutation } from "../../redux/api/userApi";
+import {
+  useDeleteMeRolesMutation,
+  useGetUserQuery,
+} from "../../redux/api/userApi";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { userExist } from "../../redux/reducer/userReducer";
+import { useNavigate } from "react-router-dom";
+import { fetchUserData } from "../../utils/helper";
 
 const AccountComp = ({ role, key }) => {
   const [deleteMeRoles, { isLoading, isError, error }] =
     useDeleteMeRolesMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { data: userData, error: userError, refetch } = useGetUserQuery();
 
   const loadingRef = useRef(null);
   useEffect(() => {
@@ -27,13 +37,32 @@ const AccountComp = ({ role, key }) => {
     }
   }, [isLoading]);
 
-  const handleDelete = async (id,role) => {
-    const data = {
-      role: role,
-    };
-    const response = await deleteMeRoles(data);
-    if (response?.data?.success) {
-      toast.success(response?.data?.message);
+  const handleDelete = async (id, role) => {
+    try {
+      const data = {
+        role: role,
+      };
+      const response = await deleteMeRoles(data);
+      refetch();
+      if (response?.data?.success) {
+        toast.success(response?.data?.message);
+
+        dispatch(userExist(userData?.user));
+        const roles =
+          userData?.user && userData?.user?.roles.map((role) => role.roleType);
+
+        if (roles?.includes("admin")) {
+          navigate("/dashboard/admin/home", { replace: true });
+        } else if (roles?.includes("lawyer")) {
+          navigate("/lawyer-profile", { replace: true });
+        } else if (roles?.includes("client")) {
+          navigate("/client-profile", { replace: true });
+        } else {
+          navigate("/join-now", { replace: true });
+        }
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
     }
   };
 
@@ -120,7 +149,10 @@ const AccountComp = ({ role, key }) => {
               </p>
             </div>
           </div>
-          <button className="delete-btn" onClick={() => handleDelete(role?._id,role?.roleType)}>
+          <button
+            className="delete-btn"
+            onClick={() => handleDelete(role?._id, role?.roleType)}
+          >
             <MdDelete />
           </button>
         </div>

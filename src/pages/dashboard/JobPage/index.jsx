@@ -117,7 +117,7 @@ const JobPage = () => {
       size: 130,
       Cell: ({ row }) => {
         return (
-          <div className="flex gap">
+          <div className="flex gap items-center justify-center w-full">
             <Link
               to={`/dashboard/admin/jobs/edit/${row.original._id}`}
               className="update-btn "

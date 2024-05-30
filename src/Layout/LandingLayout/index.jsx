@@ -14,6 +14,7 @@ import { userApi } from "../../redux/api/userApi";
 import { useSocket } from "../../socket/socket";
 import { isIncludeInOnlineUsers } from "../../contants/helper";
 import Footer from "../../components/Footer/Footer";
+import { RxCrossCircled } from "react-icons/rx";
 const LandingLayout = ({ isFooter }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { onlineUsers } = useSocket();
@@ -21,17 +22,17 @@ const LandingLayout = ({ isFooter }) => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const { currentProfileType } = useSelector((state) => state.profile);
   const roles =
-    isAuthenticated && user && user.roles?.map((role) => role.roleType);
+    isAuthenticated && user && user?.roles?.map((role) => role.roleType);
   let isOnlyClient =
     isAuthenticated &&
-    roles.includes("client") &&
-    !roles.includes("lawyer") &&
-    !roles.includes("admin");
-  let isAdmin = isAuthenticated && roles.includes("admin");
+    roles?.includes("client") &&
+    !roles?.includes("lawyer") &&
+    !roles?.includes("admin");
+  let isAdmin = isAuthenticated && roles?.includes("admin");
+  
   const menuRight = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let redirectUrl;
 
   const itemRenderer = (item) => (
     <div
@@ -155,20 +156,21 @@ const LandingLayout = ({ isFooter }) => {
   };
 
   useEffect(() => {
+    let redirectUrl = "";
     if (isAuthenticated) {
-      const roles = user.roles.map((role) => role.roleType);
-      if (roles.includes("admin")) {
+      const roles = user?.roles?.map((role) => role.roleType);
+      if (roles?.includes("admin")) {
         redirectUrl = "admin";
-      } else if (roles.includes("lawyer")) {
+      } else if (roles?.includes("lawyer")) {
         redirectUrl = "lawyer";
-      } else if (roles.includes("client")) {
+      } else if (roles?.includes("client")) {
         redirectUrl = "client";
       }
 
       if (
         redirectUrl === "admin" ||
-        roles.includes("lawyer") ||
-        roles.includes("client")
+        roles?.includes("lawyer") ||
+        roles?.includes("client")
       ) {
         dispatch(switchProfileType("lawyer"));
       } else if (redirectUrl === "lawyer") {
@@ -177,13 +179,13 @@ const LandingLayout = ({ isFooter }) => {
         dispatch(switchProfileType("client"));
       }
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, dispatch]);
   const toggleUser = () => {
     if (currentProfileType === "lawyer") {
       dispatch(switchProfileType("client"));
       navigate("/client-profile");
     } else if (currentProfileType === "client") {
-      const isLaywerIncluded = user.roles.some(
+      const isLaywerIncluded = user?.roles?.some(
         (role) => role.roleType === "lawyer"
       );
       if (isLaywerIncluded) {
@@ -230,8 +232,14 @@ const LandingLayout = ({ isFooter }) => {
               >
                 Jobs
               </NavLink>
+              <div
+                className="md:hidden block absolute right-0 top-0 m-[25px] cursor-pointer text-xl"
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                <RxCrossCircled />
+              </div>
             </div>
-            <div className="flex items-center gap-0.5">
+            <div className="flex items-center gap-0.8">
               {!isAuthenticated ? (
                 <div className="item-center">
                   {/* <img
@@ -239,7 +247,7 @@ const LandingLayout = ({ isFooter }) => {
                   alt="profile_logo"
                   className="lg:w-avatar md:w-md-avatar w-sm-avatar lg:h-avatar md:h-md-avatar h-sm-avatar overflow-hidden border-2 border-solid border-slate-gray p-xl rounded-full mr-1 md:cursor-pointer"
                 /> */}
-                  <Link to={"/join-now"} className="gig-btn">
+                  <Link to={"/join-now"} className="btn black-bg">
                     sign up
                   </Link>
                 </div>
@@ -261,7 +269,7 @@ const LandingLayout = ({ isFooter }) => {
 
                     <Avatar
                       image={user?.avatar?.url}
-                      className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full mr-1 object-cover cursor"
+                      className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full md:mr-1 object-cover cursor"
                       imageAlt="user-profile"
                       shape="circle"
                       size="large"
