@@ -74,13 +74,8 @@ const CustomModal = ({
     },
   };
   const cancelHandler = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      dispatch(userExist(user));
-      localStorage.removeItem("user");
-      setOpenModal(!openModal);
-      navigate("/gigs");
-    }
+    setOpenModal(!openModal);
+    navigate("/gigs");
   };
   return (
     <Flowbite theme={{ theme: customTheme }}>

@@ -131,7 +131,7 @@ const Post = ({
             </>
           )} */}
         </p>
-        <div className="flex flex-wrap gap">
+        <div className="md:flex flex-wrap gap inline-flex">
           <div className="flex gap-0.5 items-center">
             <span className="md:text-base text-sm">
               <IoPersonSharp />

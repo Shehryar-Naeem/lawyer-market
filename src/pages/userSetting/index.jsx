@@ -92,7 +92,7 @@ const UserSetting = ({ client }) => {
                 />
                 <div className="md:col-span-4 col-span-6 flex flex-col md:gap-1 gap-sm">
                   <div className="h-full w-full flex gap-1 flex-col bg-white shadow-2xl lg:p-2 md:p-1 p-0.5">
-                    <div className="flex w-full overflow-x-auto ">
+                    <div className="flex w-full h-full overflow-x-auto ">
                       {!client && (
                         <NavLink
                           to={"/settings/profile"}

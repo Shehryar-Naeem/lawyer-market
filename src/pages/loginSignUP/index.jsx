@@ -159,7 +159,7 @@ const SignUp = () => {
       const response = await signup(user);
       resetSignUp();
       if (response?.data?.success) {
-        // dispatch(userExist(signupData?.user));
+        dispatch(userExist(signupData?.user));
         // localStorage.setItem("user", JSON.stringify(response?.data?.user));
         toast.success(response?.data?.msg);
         setOpenModal(true);

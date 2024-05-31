@@ -47,7 +47,7 @@ const GetAllGigs = () => {
         skip: currentPage <= 0,
       }
     );
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     if (isError) {
       toast.error(error.data.message);

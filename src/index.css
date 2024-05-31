@@ -179,7 +179,7 @@ input::placeholder {
     @apply border-1 border-solid;
   }
   .icon {
-    @apply lg:text-2xl md:text-xl sm:text-sm text-xs cursor-pointer text-black-50;
+    @apply lg:text-2xl md:text-xl text-base cursor-pointer text-black-50;
   }
   .block_container {
     @apply w-full item-center gap-1 flex-col bg-white shadow-2xl lg:p-2 md:p-1 p-0.5;

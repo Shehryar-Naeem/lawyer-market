@@ -5,7 +5,7 @@ import GigCard from "../../card";
 const CardSkeletonLoading = () => {
   return (
     <>
-      <div className="f-col md:gap-1 gap-sm justify-start md:w-full w-[200px]">
+      <div className="f-col md:gap-1 gap-sm justify-start w-full">
         <div className="card-h">
           <div className="h-full">
             <Skeleton className="w-full h-full md:rounded-sm rounded-xs" />

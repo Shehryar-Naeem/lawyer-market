@@ -10,21 +10,29 @@ import {
 import NatureVid from "../../assets/video/footer.mp4";
 import { Link, NavLink } from "react-router-dom";
 import { Images } from "../../assets/images";
+import { FaHome } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+import { FaIdBadge } from "react-icons/fa6";
+import { MdContactSupport } from "react-icons/md";
 
 const FooterLinks = [
   {
+    icon: <FaHome />,
     title: "Home",
     link: "/",
   },
   {
+    icon: <FaIdBadge />,
     title: "gigs",
     link: "/gigs",
   },
   {
+    icon: <FaCalendarAlt />,
     title: "jobs",
     link: "/jobs",
   },
   {
+    icon: <MdContactSupport  />,
     title: "Customer Support",
     link: "/customer-support",
   },
@@ -68,18 +76,18 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3 mt-3">
                 <FaMobileAlt />
-                <p>+91 3111404107</p>
+                <p>+92 3111404107</p>
               </div>
               {/* social handles */}
               <div>
                 <div className="flex items-center gap-3 mt-6">
-                  <a href="#">
+                  <a href="/">
                     <FaInstagram className="text-3xl" />
                   </a>
-                  <a href="#">
+                  <a href="/">
                     <FaFacebook className="text-3xl" />
                   </a>
-                  <a href="#">
+                  <a href="/">
                     <FaLinkedin className="text-3xl" />
                   </a>
                 </div>
@@ -97,8 +105,9 @@ const Footer = () => {
                         <Link
                           to={link.link}
                           onClick={() => window.scrollTo(0, 0)}
+                          className="flex md:gap-0.8 gap-0.5 items-center"
                         >
-                          <span>&#11162;</span>
+                          <span>{link.icon}</span>
                           <span>{link.title}</span>
                         </Link>
                       </li>

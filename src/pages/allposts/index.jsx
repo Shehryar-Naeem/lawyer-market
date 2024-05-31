@@ -75,7 +75,7 @@ const AllPosts = () => {
     setCurrentPage(e);
   };
 
-  console.log("data", data);
+  // console.log("data", data);
   const skeletonCount = Math.floor(window.innerHeight / 100);
   return (
     <>
@@ -198,11 +198,7 @@ const AllPosts = () => {
                 ))}
               </select>
             </div>
-            <div className="flex flex-col lg:gap-0.8 md:gap-0.5 gap-xs">
-              <label htmlFor={"services"} class="modal-input-label">
-                services
-              </label>
-            </div>
+          
             <div className="flex flex-col lg:gap-0.8 md:gap-0.5 gap-xs">
               <label htmlFor={"city"} class="modal-input-label">
                 city

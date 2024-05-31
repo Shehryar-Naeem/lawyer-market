@@ -11,10 +11,10 @@ module.exports = {
 
   theme: {
     fontSize: {
-      xs: ["10px", "11px"],
-      sm: ["14px", "15px"],
-      base: ["16px", "18px"],
-      lg: ["19px", "21px"],
+      xs: ["12px", "11px"],
+      sm: ["16px", "15px"],
+      base: ["18px", "18px"],
+      lg: ["20px", "21px"],
       xl: ["22px", "24.38px"],
       "2xl": ["24px", "29.26px"],
       "3xl": ["28px", "30px"],

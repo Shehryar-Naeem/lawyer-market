@@ -69,7 +69,7 @@ const GigCard = ({ gig, key, me, isOnline }) => {
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Card key={key}>
-        <div className="h-[150px] w-full md:h-[160px] object-cover md:rounded-sm rounded-xs overflow-hidden  relative">
+        <div className="w-full h-[160px] object-cover md:rounded-sm rounded-xs overflow-hidden  relative">
           {/* <img
             src={gig?.images[0]?.url}
             alt="gig"
