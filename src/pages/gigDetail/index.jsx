@@ -207,10 +207,11 @@ const GigDetail = () => {
                                 <FaStar />
                               </span>
                               <b className="md:text-base text-sm text-grey md:font-extrabold font-bold">
-                                4.9
+                               {
+                               gigDetail?.ratings}
                               </b>
                               <span className="md:text-base text-sm text-grey md:font-semibold font-medium">
-                                (221)
+                                ({gigDetail?.numOfReviews})
                               </span>
                             </div>
                             <span className="lg:text-lg md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey capitalize">

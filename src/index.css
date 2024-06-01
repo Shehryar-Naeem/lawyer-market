@@ -292,7 +292,7 @@ input::placeholder {
     @apply bg-black text-white lg:text-base md:text-sm md:font-bold font-semibold text-xs md:py-1 py-0.10 md:px-[20px] px-[16px] small-btn-border-radius  uppercase md:hover:bg-gray-800 shadow-none md:cursor-pointer cursor-none;
   }
   .btn {
-    @apply text-white md:text-base md:font-bold font-semibold text-sm md:py-1 py-0.10 md:px-4 px-1 small-btn-border-radius  uppercase flex items-center  md:cursor-pointer cursor-none;
+    @apply text-white lg:text-base md:font-bold font-semibold md:text-sm text-xs md:py-1 py-0.10 md:px-4 px-1 small-btn-border-radius  uppercase flex items-center  md:cursor-pointer cursor-none;
   }
   .small-btn {
     @apply text-white md:text-base md:font-bold font-semibold text-sm md:py-0.8 py-0.10 md:px-1 px-0.10 small-btn-border-radius flex items-center justify-center uppercase md:cursor-pointer cursor-none;
