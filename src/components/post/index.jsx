@@ -136,8 +136,8 @@ const Post = ({
             <span className="md:text-base text-sm">
               <IoPersonSharp />
             </span>
-            <p className="text-sm font-medium">
-              <span className="font-bold capitalize">category:</span>{" "}
+            <p className="text-sm  md:font-medium font-normal">
+              <span className="md:font-bold font-medium capitalize">category:</span>{" "}
               {post?.category}
             </p>
           </div>
