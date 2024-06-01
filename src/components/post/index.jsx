@@ -98,7 +98,7 @@ const Post = ({
               <span className="md:text-base text-sm">
                 <FaLocationDot />
               </span>
-              <p className="text-sm font-medium">{post?.user?.city}</p>
+              <p className="text-sm font-medium capitalize">{post?.user?.city}</p>
             </div>
           )}
         </div>

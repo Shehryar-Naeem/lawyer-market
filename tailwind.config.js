@@ -234,7 +234,7 @@ module.exports = {
         "sm-min-c-img-h": "110px",
         "md-c-img-h": "140px",
         "sm-c-img-h": "130px",
-        avatar: "60px",
+        avatar: "60px", 
         "md-avatar": "50px",
         "sm-avatar": "40px",
         "icon-height": "30px",

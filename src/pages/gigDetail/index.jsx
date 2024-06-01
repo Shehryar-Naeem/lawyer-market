@@ -121,7 +121,8 @@ const GigDetail = () => {
   };
 
   const gigDetail = data?.gig;
-  const gigReviews = data?.gig.reviews;
+  
+  console.log("gigDetail", gigDetail);
 
   const createConversatioHandler = async () => {
     const { data } = await createConversation({ receiverId: userId });
@@ -212,7 +213,7 @@ const GigDetail = () => {
                                 (221)
                               </span>
                             </div>
-                            <span className="lg:text-lg md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey">
+                            <span className="lg:text-lg md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey capitalize">
                               {gigDetail?.user?.city}
                             </span>
                           </div>
