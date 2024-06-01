@@ -145,8 +145,8 @@ const Post = ({
             <span className="md:text-base text-sm">
               <FaEye />
             </span>
-            <p className="text-sm font-medium">
-              <span className="font-bold capitalize">Year of Experience:</span>{" "}
+            <p className="md:text-sm  md:font-medium font-normal">
+              <span className="md:font-bold font-medium capitalize">Year of Experience:</span>{" "}
               {post?.experience}
             </p>
           </div>
@@ -154,8 +154,8 @@ const Post = ({
             <span className="md:text-base text-sm">
               <FaLocationDot />
             </span>
-            <p className="text-sm font-medium">
-              <span className="font-bold capitalize">Location:</span>{" "}
+            <p className="text-sm md:font-medium font-normal">
+              <span className="md:font-bold font-medium capitalize">Location:</span>{" "}
               {post?.location}
             </p>
           </div>
@@ -163,18 +163,18 @@ const Post = ({
             <span className="md:text-base text-sm">
               <IoMdPricetag />
             </span>
-            <p className="text-sm font-medium">
-              <span className="font-bold capitalize">Price:</span>{" "}
+            <p className="text-sm md:font-medium font-normal">
+              <span className="md:font-bold font-medium capitalize">Price:</span>{" "}
               {post?.budget} Rupees Only
             </p>
           </div>
           {isProposal && (
             <div className="flex gap-0.5 items-center">
-              <span className="md:text-base text-sm">
+              <span className="md:text-base  text-sm">
                 <RiFolderReceivedFill />
               </span>
-              <p className="text-sm font-medium">
-                <span className="font-bold capitalize">received proposal:</span>{" "}
+              <p className="text-sm md:font-medium font-normal">
+                <span className="md:font-bold font-medium capitalize">received proposal:</span>{" "}
                 {postBids}
               </p>
             </div>
@@ -213,7 +213,7 @@ const Post = ({
         )}
         {showSenderBtn && (
           <div className="flex items-start">
-            <Link to={`/lawyer/send-proposal/${post?._id}`} className="gig-btn">
+            <Link to={`/lawyer/send-proposal/${post?._id}`} className="btn black-bg">
               send a reqeust
             </Link>
           </div>
