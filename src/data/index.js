@@ -80,6 +80,19 @@ export const lawyerCategories = [
     id: 18,
     name: "Civil Litigation Lawyer",
   },
+
+  {
+    id: 19,
+    name: "Employment Lawyer",
+  },
+  {
+    id: 20,
+    name: "Estate Planning Lawyer",
+  },
+  {
+    id: 21,
+    name: "Tax Lawyer",
+  },
 ];
 
 export const lawyerServices = [
@@ -598,7 +611,6 @@ export const heroSectionData = [
   //   description:
   //     "The Balochistan High Court is the highest judicial institution of the province of Balochistan. Established in 1976, the Court is situated in Quetta. The Court has appellate jurisdiction over Balochistan and the Federally Administered Tribal Areas. A bench of the High Court is based in Sibi.",
   // },
-  
 ];
 
 export const gigData = [

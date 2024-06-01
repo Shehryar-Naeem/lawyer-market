@@ -138,7 +138,7 @@ const GigCard = ({ gig, key, me, isOnline }) => {
 
             <div className="flex md:gap-[7px] gap-0.5 items-center">
               <span className="card-text">price:</span>
-              <span className="text-grey text-sm font-medium capitalize">
+              <span className="text-grey text-sm md:font-medium font-normal capitalize">
                 {gig?.pricing?.price}
               </span>
             </div>

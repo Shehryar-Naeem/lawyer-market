@@ -60,8 +60,14 @@ const SignUp = () => {
   const [passwordShown, setPasswordShown] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
-  const { data:userData, isLoading, isSuccess, isError, error, refetch } =
-    useGetUserQuery();
+  const {
+    data: userData,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+    refetch,
+  } = useGetUserQuery();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -159,7 +165,7 @@ const SignUp = () => {
       const response = await signup(user);
       resetSignUp();
       if (response?.data?.success) {
-        dispatch(userExist(signupData?.user));
+        dispatch(userExist(response?.data?.user ));
         // localStorage.setItem("user", JSON.stringify(response?.data?.user));
         toast.success(response?.data?.msg);
         setOpenModal(true);

@@ -121,7 +121,7 @@ const AccountComp = ({ role, key }) => {
       )} */}
 
       {
-        <div className="flex justify-between  md:pb-0.5 pb-[3px] border-b border-gray-400 ">
+        <div className="flex justify-between gap  md:pb-0.5 pb-[3px] border-b border-gray-400 ">
           <div className="flex md:gap-1 gap-0.8 items-center">
             {role?.roleType === "client" ? (
               <img
@@ -144,7 +144,7 @@ const AccountComp = ({ role, key }) => {
               <p className="lg:text-base md:text-sm text-xs leading-none capitalize md:font-bold font-semibold ">
                 {role?.roleType}
               </p>
-              <p className="lg:text-base md:text-sm text-xs leading-none capitalize md:font-bold font-semibold ">
+              <p className="lg:text-base md:text-sm text-xs leading-none capitalize md:font-bold font-semibold text-wrap break-all">
                 {role?._id}
               </p>
             </div>

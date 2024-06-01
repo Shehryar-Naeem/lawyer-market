@@ -60,6 +60,10 @@ const AllPosts = () => {
     setOpenModal(false);
   };
 
+  const onSearchChange = (e) => {
+    setSearch(e.target.value);
+    setCurrentPage(1);
+  };
   const handleClearFilters = () => {
     setFormValues({
       category: "",
@@ -100,7 +104,7 @@ const AllPosts = () => {
                       className="w-full general-pad text-[1rem] border border-gray-300 md:rounded-sm  rounded-xs outline-none focus:ring-0"
                       placeholder="search..."
                       aria-label="Search"
-                      onChange={(e) => setSearch(e.target.value)}
+                      onChange={onSearchChange}
                     />
                   </form>
                   <button
@@ -198,7 +202,7 @@ const AllPosts = () => {
                 ))}
               </select>
             </div>
-          
+
             <div className="flex flex-col lg:gap-0.8 md:gap-0.5 gap-xs">
               <label htmlFor={"city"} class="modal-input-label">
                 city

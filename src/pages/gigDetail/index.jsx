@@ -121,7 +121,7 @@ const GigDetail = () => {
   };
 
   const gigDetail = data?.gig;
-  
+
   console.log("gigDetail", gigDetail);
 
   const createConversatioHandler = async () => {
@@ -207,8 +207,7 @@ const GigDetail = () => {
                                 <FaStar />
                               </span>
                               <b className="md:text-base text-sm text-grey md:font-extrabold font-bold">
-                               {
-                               gigDetail?.ratings}
+                                {gigDetail?.ratings}
                               </b>
                               <span className="md:text-base text-sm text-grey md:font-semibold font-medium">
                                 ({gigDetail?.numOfReviews})
