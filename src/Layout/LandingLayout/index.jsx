@@ -19,6 +19,7 @@ const LandingLayout = ({ isFooter }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { onlineUsers } = useSocket();
 
+  const [menu, setMenu] = useState(false);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const { currentProfileType } = useSelector((state) => state.profile);
   const roles =
@@ -29,7 +30,7 @@ const LandingLayout = ({ isFooter }) => {
     !roles?.includes("lawyer") &&
     !roles?.includes("admin");
   let isAdmin = isAuthenticated && roles?.includes("admin");
-  
+
   const menuRight = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,6 +39,8 @@ const LandingLayout = ({ isFooter }) => {
     <div
       className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer"
       onClick={item.command || null}
+      aria-hidden="true"
+      onHide={() => setMenu(!menu)}
     >
       <span
         className={`${item.icon} xl:text-xl lg:text-lg text-base item-center`}
@@ -56,9 +59,10 @@ const LandingLayout = ({ isFooter }) => {
         return (
           <div
             className="md:cursor-pointer flex items-center md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200 md:hover:bg-gray-100"
-            onClick={() =>
-              navigate(isOnlyClient ? "/client-profile" : "/lawyer-profile")
-            }
+            onClick={() => {
+              navigate(isOnlyClient ? "/client-profile" : "/lawyer-profile");
+            }}
+            aria-hidden="popup_menu_right"
           >
             <div className="item-center">
               <Avatar
@@ -145,7 +149,7 @@ const LandingLayout = ({ isFooter }) => {
 
   const cusmtomeStyle = {
     root: classNames(
-      "border-1 border-solid border-slate-gray lg:rounded-md md:rounded-sm rounded-xs md:mt-1 mt-1  shadow-2xl overflow-hidden bg-white "
+      "border-1 border-solid  border-slate-gray   lg:rounded-md md:rounded-sm rounded-xs md:mt-1 mt-[4px]  shadow-2xl overflow-hidden bg-white "
     ),
     menu: {
       className: classNames("m-0 p-0 list-none", "outline-none"),
@@ -269,28 +273,37 @@ const LandingLayout = ({ isFooter }) => {
 
                     <Avatar
                       image={user?.avatar?.url}
-                      className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full md:mr-1 object-cover cursor"
+                      className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full md:mr-1 object-cover cursor relative"
                       imageAlt="user-profile"
                       shape="circle"
                       size="large"
+                      id="popup_menu_right"
                       pt={customAvatar}
-                      onClick={(event) => menuRight.current.toggle(event)}
-                      aria-controls="popup_menu_left"
+                      onClick={(event) => {
+                        setMenu(!menu);
+                        menuRight.current.toggle(event);
+                      }}
+                      aria-controls="popup_menu_right"
                       aria-haspopup
                     />
                   </div>
-                  <Menu
-                    autoZIndex
-                    baseZIndex={9999999}
-                    closeOnEscape={true}
-                    pt={cusmtomeStyle}
-                    unstyled={true}
-                    popup
-                    ref={menuRight}
-                    id="popup_menu_left"
-                    model={items}
-                    popupAlignment="right"
-                  />
+                  <div>
+                    <Menu
+                      // autoZIndex
+                      // baseZIndex={9999999}
+                      appendTo={"self"}
+                      closeOnEscape={true}
+                      pt={cusmtomeStyle}
+                      className="w-auto mt-1"
+                      unstyled={true}
+                      popup={true}
+                      ref={menuRight}
+                      aria-hidden={!menu}
+                      id="popup_menu_right"
+                      model={items}
+                      popupAlignment="right"
+                    />
+                  </div>
                 </>
               )}
               <button
@@ -316,19 +329,22 @@ const LandingLayout = ({ isFooter }) => {
           </nav>
         </header>
         <div>
-          <Outlet />
-          {/* {isOnline && ( */}
-          {isIncludeInOnlineUsers(onlineUsers, user?._id) && (
-            <div className="bg-gray-200 md:p-1 m-2 md:mr-[30px] mr-[24px] p-0.8 flex gap-1 fixed left-0  z-[9999] bottom-0 rounded-lg items-center">
-              <span className="online-sign"></span>
-              <span className="md:text-lg leading-none text-base text-green-400  font-semibold capitalize">
-                online
-              </span>
-            </div>
-          )}
+          <div>
+            <Outlet />
+            {/* {isOnline && ( */}
+            {isIncludeInOnlineUsers(onlineUsers, user?._id) && (
+              <div className="bg-gray-200 md:p-1 m-2 md:mr-[30px] mr-[24px] p-0.8 flex gap-1 fixed left-0  z-[9999] bottom-0 rounded-lg items-center">
+                <span className="online-sign"></span>
+                <span className="md:text-lg leading-none text-base text-green-400  font-semibold capitalize">
+                  online
+                </span>
+              </div>
+            )}
 
-          {/* )} */}
+            {/* )} */}
+          </div>
         </div>
+
         {isFooter && <Footer />}
       </div>
     </>

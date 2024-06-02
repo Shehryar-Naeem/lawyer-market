@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Images } from "../../../assets/images";
+import { Images } from "../../assets/images/index";
 import { Avatar } from "primereact/avatar";
 import { Menu } from "primereact/menu";
 import { classNames } from "primereact/utils";
@@ -8,12 +8,12 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { userNotExist } from "../../../redux/reducer/userReducer";
-import { switchProfileType } from "../../../redux/reducer/profileSlice";
-import { userApi } from "../../../redux/api/userApi";
-import { useSocket } from "../../../socket/socket";
-import { isIncludeInOnlineUsers } from "../../../contants/helper";
-import Footer from "../../Footer/Footer";
+import { userNotExist } from "../../redux/reducer/userReducer";
+import { switchProfileType } from "../../redux/reducer/profileSlice";
+import { userApi } from "../../redux/api/userApi";
+import { useSocket } from "../../socket/socket";
+import { isIncludeInOnlineUsers } from "../../contants/helper";
+import Footer from "../../components/Footer/Footer";
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { onlineUsers } = useSocket();

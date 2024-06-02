@@ -187,8 +187,10 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
             autoZIndex
             baseZIndex={9999999}
             closeOnEscape={true}
-            pt={cusmtomeStyle}
-            unstyled={true}
+            // pt={cusmtomeStyle}
+            // unstyled={true}
+            className="w-auto mt-1"
+
             popup
             ref={menuRight}
             id="popup_menu_left"

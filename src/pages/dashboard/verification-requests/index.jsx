@@ -60,7 +60,7 @@ const VerificationRequest = () => {
         return (
           <div className="flex gap items-center justify-center w-full">
             <Link
-              to={`/dashboard/admin/verification-requests/${row.original._id}`}
+              to={`/dashboard/admin/verification-requests/${row?.original?._id}`}
               className="update-btn "
             >
               <Edit />
@@ -89,25 +89,25 @@ const VerificationRequest = () => {
         <div className="f-col md:gap-2 gap-1">
           <div className="flex gap items-center">
             <h3 className="table-dropdown-heading">CNIC</h3>
-            <p className="table-dropdown-description">{row.original.city}</p>
+            <p className="table-dropdown-description">{row?.original?.city}</p>
           </div>
           <div className="flex gap items-center">
             <h3 className="table-dropdown-heading">Firm Name</h3>
             <p className="table-dropdown-description">
-              {row.original.lawyer.professionalInfo.lawFirmName}
+              {row?.original?.lawyer?.professionalInfo?.lawFirmName}
             </p>
           </div>
           <div className="flex gap items-center">
             <h3 className="table-dropdown-heading">Position Name</h3>
             <p className="table-dropdown-description">
               {" "}
-              {row.original.lawyer.professionalInfo.title}
+              {row?.original?.lawyer?.professionalInfo?.title}
             </p>
           </div>
           <div className="flex gap items-center">
             <h3 className="table-dropdown-heading">CNIC picture</h3>
             <img
-              src={row.original.lawyer.cnicPicture?.url}
+              src={row?.original?.lawyer?.cnicPicture?.url}
               alt="cnic"
               className="lawyer-pic-admin"
             />
@@ -115,7 +115,7 @@ const VerificationRequest = () => {
           <div className="flex gap items-center">
             <h3 className="table-dropdown-heading">lawyer id Card</h3>
             <img
-              src={row.original.lawyer.lawyerIdCard?.url}
+              src={row?.original?.lawyer?.lawyerIdCard?.url}
               alt="cnic"
               className="lawyer-pic-admin"
             />

@@ -57,7 +57,7 @@ const UserDetailByAdmin = () => {
     register: roleRegister,
     handleSubmit: roleHandleSubmit,
     formState: { errors: roleErrors },
- 
+
     reset,
   } = useForm({
     resolver: yupResolver(roleSchema),
@@ -276,30 +276,27 @@ const UserDetailByAdmin = () => {
                     {isLoading ? <Loader /> : "Update Profile"}
                   </button>
                 </form>
-                <form
-                  className="lg:w-[40%] w-full border border-gray-400 md:rounded-md rounded-sm general-pad"
-                  onSubmit={roleHandleSubmit(roleHandler)}
-                >
+                <div className="lg:w-[40%] w-full border border-gray-400 md:rounded-md rounded-sm general-pad">
                   <div className="f-col gap">
                     <div className="f-col gap">
                       {data?.user?.roles?.map((role, index) => (
                         <div
                           key={index}
-                          className="flex justify-between  md:pb-0.5 pb-[3px] border-b border-gray-400"
+                          className="flex justify-between items-center md:pb-0.5 pb-[3px] border-b border-gray-400"
                         >
-                          <div className="flex items-center md:gap-0.10 gap-0.8">
+                          <div className="flex items-center gap">
                             <div>
                               {role?.roleType === "client" ? (
                                 <img
                                   alt="logo"
                                   src={Images.client}
-                                  className="lg:w-icon-width md:w-md-icon-width w-sm-icon-width lg:h-icon-height md:h-md-icon-height h-sm-icon-height"
+                                  className="lg:min-w-icon-width md:min-w-md-icon-width min-w-sm-icon-width lg:h-icon-height md:h-md-icon-height h-sm-icon-height"
                                 />
                               ) : role?.roleType === "lawyer" ? (
                                 <img
                                   alt="logo"
                                   src={Images.lawyer}
-                                  className="lg:w-icon-width md:w-md-icon-width w-sm-icon-width lg:h-icon-height md:h-md-icon-height h-sm-icon-height"
+                                  className="lg:min-w-icon-width md:min-w-md-icon-width min-w-sm-icon-width lg:h-icon-height md:h-md-icon-height h-sm-icon-height"
                                 />
                               ) : role?.roleType === "admin" ? (
                                 <span className="pi pi-user-edit lg:text-[30px] md:text-[25px] text-[20px]" />
@@ -311,7 +308,7 @@ const UserDetailByAdmin = () => {
                               <p className="lg:text-base md:text-sm text-xs leading-none capitalize md:font-bold font-semibold ">
                                 {role?.roleType}
                               </p>
-                              <p className="lg:text-base md:text-sm text-xs leading-none capitalize md:font-bold font-semibold ">
+                              <p className="lg:text-base md:text-sm text-xs leading-none capitalize md:font-bold font-semibold text-wrap break-all">
                                 {role?._id}
                               </p>
                             </div>
@@ -325,7 +322,10 @@ const UserDetailByAdmin = () => {
                         </div>
                       ))}
                     </div>
-                    <div className="f-col gap">
+                    <form
+                      className="f-col gap"
+                      onSubmit={roleHandleSubmit(roleHandler)}
+                    >
                       <div className="f-col gap">
                         <label htmlFor={"role"} class="input-lable">
                           Assign New Role
@@ -344,12 +344,12 @@ const UserDetailByAdmin = () => {
                           <FailureAlert error={roleErrors.role.message} />
                         )}
                       </div>
-                    </div>
+                    </form>
                     <button className="gig-btn item-center" type="submit">
                       {addRoleLoading ? <Loader /> : "Assign Role"}
                     </button>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </>
