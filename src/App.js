@@ -68,7 +68,7 @@ import InitialLoader from "./components/initialLoader";
 import UserInfo from "./pages/userInfo";
 import Contact from "./pages/contact";
 import PostDocument from "./pages/post-document";
-import Register  from "./pages/loginSignUP/index"
+import Register from "./pages/loginSignUP/index";
 
 // const Register = lazy(() => import("./pages/loginSignUP/index"));
 // const Profile = lazy(() => import("./pages/profile/index"));
@@ -119,7 +119,7 @@ import Register  from "./pages/loginSignUP/index"
 // const UserDetailByAdmin = lazy(() => import("./pages/dashboard/userDetail"));
 // const GetAllLawyer = lazy(() => import("./pages/dashboard/allLawyers"));
 // const UpdateLawyer = lazy(() => import("./pages/dashboard/updateLawyer"));
-// const VerificationRequest = lazy(() => import("./pages/dashboard/verification-requests"));  
+// const VerificationRequest = lazy(() => import("./pages/dashboard/verification-requests"));
 // const ManageVerificationRequest = lazy(() => import("./pages/dashboard/mangeVerificationRequest"));
 // const Hired = lazy(() => import("./components/hired"));
 // const EditJob = lazy(() => import("./pages/editJob/idnex"));
@@ -129,20 +129,15 @@ import Register  from "./pages/loginSignUP/index"
 // const Contact = lazy(() => import("./pages/contact"));
 // const PostDocument = lazy(() => import("./pages/post-document"));
 
-
-
-
 function App() {
   const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { data, isLoading, isSuccess, isError, error } = useGetUserQuery();
   useEffect(() => {
     // Check if the query is still loading
-    if (isLoading) {
-      return;
-    }
+
     // Check for success or error
-    if (isSuccess && !localStorage.getItem("user")) {
+    if (isSuccess) {
       dispatch(userExist(data.user));
 
       // toast.success(data?.message);
@@ -151,7 +146,7 @@ function App() {
       dispatch(userNotExist());
       // toast.error(error.data?.message);
     }
-  }, [isLoading, isSuccess, isError, data, error, dispatch]);
+  }, [isSuccess, isError, data, error, dispatch]);
 
   React.useEffect(() => {
     AOS.init({

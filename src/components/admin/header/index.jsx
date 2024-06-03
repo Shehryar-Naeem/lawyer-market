@@ -23,6 +23,7 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
     !roles.includes("lawyer") &&
     !roles.includes("admin");
   let isAdmin = isAuthenticated && roles.includes("admin");
+  const isLawyerInclude = isAuthenticated && roles?.includes("lawyer");
 
   const menuRight = useRef(null);
   const itemRenderer = (item) => (
@@ -76,7 +77,7 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
         );
       },
     },
-    !isOnlyClient && {
+    isLawyerInclude && {
       label: "Settings",
       icon: "pi pi-cog",
       template: itemRenderer,
@@ -84,7 +85,15 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
         navigate("/settings/profile");
       },
     },
-    isOnlyClient && {
+    (isOnlyClient || !isLawyerInclude) && {
+      label: "Settings",
+      icon: "pi pi-cog",
+      template: itemRenderer,
+      command: () => {
+        navigate("/settings/client-profile");
+      },
+    },
+    (isOnlyClient || !isLawyerInclude) && {
       label: "create lawyer account",
       icon: "pi pi-user",
       template: itemRenderer,
@@ -190,7 +199,6 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
             // pt={cusmtomeStyle}
             // unstyled={true}
             className="w-auto mt-1"
-
             popup
             ref={menuRight}
             id="popup_menu_left"

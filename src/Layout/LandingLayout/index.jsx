@@ -30,10 +30,39 @@ const LandingLayout = ({ isFooter }) => {
     !roles?.includes("lawyer") &&
     !roles?.includes("admin");
   let isAdmin = isAuthenticated && roles?.includes("admin");
-
+  const isLawyerInclude = isAuthenticated && roles?.includes("lawyer");
   const menuRight = useRef(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const trigger = useRef();
+  const dropdown = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const clickHandler = ({ target }) => {
+      if (!dropdown.current) return;
+      if (
+        !dropdownOpen ||
+        dropdown.current.contains(target) ||
+        trigger.current.contains(target)
+      )
+        return;
+      setDropdownOpen(false);
+    };
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
+  });
+
+  // close if the esc key is pressed
+  useEffect(() => {
+    const keyHandler = ({ keyCode }) => {
+      if (!dropdownOpen || keyCode !== 27) return;
+      setDropdownOpen(false);
+    };
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
+  });
 
   const itemRenderer = (item) => (
     <div
@@ -51,7 +80,7 @@ const LandingLayout = ({ isFooter }) => {
     </div>
   );
   const customAvatar = {
-    image: "h-full w-full rounded-full object-cover",
+    image: "h-full w-full rounded-full object-cover z-9",
   };
   const items = [
     {
@@ -72,9 +101,6 @@ const LandingLayout = ({ isFooter }) => {
                 shape="circle"
                 size="large"
                 pt={customAvatar}
-                onClick={(event) => menuRight.current.toggle(event)}
-                aria-controls="popup_menu_left"
-                aria-haspopup
               />
             </div>
             <div className="flex-col leading-none justify-center">
@@ -97,23 +123,25 @@ const LandingLayout = ({ isFooter }) => {
         navigate("/settings/profile");
       },
     },
-    isOnlyClient && {
-      label: "Settings",
-      icon: "pi pi-cog",
-      template: itemRenderer,
-      command: () => {
-        navigate("/settings/client-profile");
+    isOnlyClient &&
+      !isLawyerInclude && {
+        label: "Settings",
+        icon: "pi pi-cog",
+        template: itemRenderer,
+        command: () => {
+          navigate("/settings/client-profile");
+        },
       },
-    },
 
-    isOnlyClient && {
-      label: "create lawyer account",
-      icon: "pi pi-user",
-      template: itemRenderer,
-      command: () => {
-        navigate("/client-profile/create-lawyer-account");
+    isOnlyClient &&
+      !isLawyerInclude && {
+        label: "create lawyer account",
+        icon: "pi pi-user",
+        template: itemRenderer,
+        command: () => {
+          navigate("/client-profile/create-lawyer-account");
+        },
       },
-    },
     isAdmin && {
       label: "Admin",
       icon: "pi pi-user-edit",
@@ -220,7 +248,7 @@ const LandingLayout = ({ isFooter }) => {
               // } md:flex flex-col md:flex-row gap items-center md:relative absolute md:w-auto w-full left-0 top-full md:bg-transparent transition-all bg-white md:px-0 px-2 md:pb-0 pb-4 md:shadow-none shadow-lg`}
               className={`${
                 isMobileMenuOpen ? "" : "md:translate-x-0 -translate-x-full"
-              } flex md:items-center gap-1.5 md:relative fixed md:flex-row flex-col left-0 md:h-auto h-full top-0 md:w-auto w-full overflow-auto md:p-0 p-3 md:bg-transparent bg-white transition-all`}
+              } flex md:items-center gap-1.5 md:relative fixed z-[9999] md:flex-row flex-col left-0 md:h-auto h-full top-0 md:w-auto w-full overflow-auto md:p-0 p-3 md:bg-transparent bg-white transition-all`}
             >
               <NavLink
                 to={"/gigs"}
@@ -271,31 +299,173 @@ const LandingLayout = ({ isFooter }) => {
                       </span>
                     )}
 
-                    <Avatar
-                      image={user?.avatar?.url}
-                      className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full md:mr-1 object-cover cursor relative"
-                      imageAlt="user-profile"
-                      shape="circle"
-                      size="large"
-                      id="popup_menu_right"
-                      pt={customAvatar}
-                      onClick={(event) => {
-                        setMenu(!menu);
-                        menuRight.current.toggle(event);
-                      }}
-                      aria-controls="popup_menu_right"
-                      aria-haspopup
-                    />
+                    <div className="relative">
+                      {/* <Avatar
+                        image={user?.avatar?.url}
+                        className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full md:mr-1 object-cover cursor relative"
+                        imageAlt="user-profile"
+                        shape="circle"
+                        size="large"
+                        // id="popup_menu_right"
+                        pt={customAvatar}
+                        // onClick={(event) => {
+                        //   menuRight.current.toggle(event);
+                        // }}
+                        // aria-controls="popup_menu_right"
+                        // aria-haspopup
+                        ref={trigger}
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                      /> */}
+                      <img
+                        src={user?.avatar?.url}
+                        alt="profile_logo"
+                        className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full md:mr-1 object-cover cursor relative"
+                        ref={trigger}
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                      />
+                      <div
+                        ref={dropdown}
+                        onFocus={() => setDropdownOpen(true)}
+                        onBlur={() => setDropdownOpen(false)}
+                        className={`absolute right-0 md:mt-4 mt-0.8 flex w-auto flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
+                          dropdownOpen === true ? "block" : "hidden"
+                        }`}
+                      >
+                        <ul className="flex flex-col border-b border-stroke py-7.5 dark:border-strokedark">
+                          <li>
+                            <Link
+                              className="md:cursor-pointer flex items-center md:p-2 sm:p-1 p-xl border-b-2 border-solid border-gray-200 md:hover:bg-gray-100"
+                              // onClick={() => {
+                              //   navigate(
+                              //     isOnlyClient
+                              //       ? "/client-profile"
+                              //       : "/lawyer-profile"
+                              //   );
+                              // }}
+                              onClick={() => setDropdownOpen(!dropdownOpen)}
+                              to={
+                                isOnlyClient
+                                  ? "/client-profile"
+                                  : "/lawyer-profile"
+                              }
+                            >
+                              <div className="item-center">
+                                <Avatar
+                                  image={user?.avatar?.url}
+                                  className="lg:w-avatar lg:h-avatar md:w-md-avatar md:h-md-avatar h-sm-avatar w-sm-avatar overflow-hidden border border-solid border-slate-gray p-[4px] rounded-full mr-1 object-cover cursor"
+                                  imageAlt="user-profile"
+                                  shape="circle"
+                                  size="large"
+                                  pt={customAvatar}
+                                />
+                              </div>
+                              <div className="flex-col leading-none justify-center">
+                                <h3 className="md:text-base text-sm text-black capitalize md:font-bold font-medium">
+                                  {user && user?.name}
+                                </h3>
+                                <p className="md:text-sm text-xs text-gray-400 lowercase md:font-bold font-medium">
+                                  {user && user?.email}
+                                </p>
+                              </div>
+                            </Link>
+                          </li>
+                          {isLawyerInclude && (
+                            <li>
+                              <Link
+                                className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer"
+                                to={"/settings/profile"}
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                              >
+                                <span
+                                  className={`pi pi-cog xl:text-xl lg:text-lg text-base item-center`}
+                                />
+                                <span className="mx-2 md:font-bold font-semibold md:text-base text-sm ">
+                                  Settings
+                                </span>
+                              </Link>
+                            </li>
+                          )}
+                          {(isOnlyClient || !isLawyerInclude) && (
+                            <li>
+                              <Link
+                                className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer"
+                                to={"/settings/client-profile"}
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                              >
+                                <span
+                                  className={`pi pi-cog xl:text-xl lg:text-lg text-base item-center`}
+                                />
+                                <span className="mx-2 md:font-bold font-semibold md:text-base text-sm ">
+                                  Settings
+                                </span>
+                              </Link>
+                            </li>
+                          )}
+                          {(isOnlyClient || !isLawyerInclude) && (
+                            <li>
+                              <Link
+                                className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer"
+                                to={"/client-profile/create-lawyer-account"}
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                              >
+                                <span
+                                  className={`pi pi-user xl:text-xl lg:text-lg text-base item-center`}
+                                />
+                                <span className="mx-2 md:font-bold font-semibold md:text-base text-sm ">
+                                  create lawyer account
+                                </span>
+                              </Link>
+                            </li>
+                          )}
+                          {isAdmin && (
+                            <li>
+                              <Link
+                                className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer"
+                                to={"/dashboard/admin/home"}
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                              >
+                                <span
+                                  className={`pi pi-user-edit xl:text-xl lg:text-lg text-base item-center`}
+                                />
+                                <span className="mx-2 md:font-bold font-semibold md:text-base text-sm ">
+                                  Admin
+                                </span>
+                              </Link>
+                            </li>
+                          )}
+                        </ul>
+                        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                          <svg
+                            className="fill-current"
+                            width="22"
+                            height="22"
+                            viewBox="0 0 22 22"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M15.5375 0.618744H11.6531C10.7594 0.618744 10.0031 1.37499 10.0031 2.26874V4.64062C10.0031 5.05312 10.3469 5.39687 10.7594 5.39687C11.1719 5.39687 11.55 5.05312 11.55 4.64062V2.23437C11.55 2.16562 11.5844 2.13124 11.6531 2.13124H15.5375C16.3625 2.13124 17.0156 2.78437 17.0156 3.60937V18.3562C17.0156 19.1812 16.3625 19.8344 15.5375 19.8344H11.6531C11.5844 19.8344 11.55 19.8 11.55 19.7312V17.3594C11.55 16.9469 11.2062 16.6031 10.7594 16.6031C10.3125 16.6031 10.0031 16.9469 10.0031 17.3594V19.7312C10.0031 20.625 10.7594 21.3812 11.6531 21.3812H15.5375C17.2219 21.3812 18.5625 20.0062 18.5625 18.3562V3.64374C18.5625 1.95937 17.1875 0.618744 15.5375 0.618744Z"
+                              fill=""
+                            />
+                            <path
+                              d="M6.05001 11.7563H12.2031C12.6156 11.7563 12.9594 11.4125 12.9594 11C12.9594 10.5875 12.6156 10.2438 12.2031 10.2438H6.08439L8.21564 8.07813C8.52501 7.76875 8.52501 7.2875 8.21564 6.97812C7.90626 6.66875 7.42501 6.66875 7.11564 6.97812L3.67814 10.4844C3.36876 10.7938 3.36876 11.275 3.67814 11.5844L7.11564 15.0906C7.25314 15.2281 7.45939 15.3312 7.66564 15.3312C7.87189 15.3312 8.04376 15.2625 8.21564 15.125C8.52501 14.8156 8.52501 14.3344 8.21564 14.025L6.05001 11.7563Z"
+                              fill=""
+                            />
+                          </svg>
+                          Log Out
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <Menu
                       // autoZIndex
                       // baseZIndex={9999999}
-                      appendTo={"self"}
+                      appendTo={document.body || "self"}
                       closeOnEscape={true}
-                      pt={cusmtomeStyle}
+                      // pt={cusmtomeStyle}
                       className="w-auto mt-1"
-                      unstyled={true}
+                      // unstyled={true}
                       popup={true}
                       ref={menuRight}
                       aria-hidden={!menu}
@@ -303,7 +473,7 @@ const LandingLayout = ({ isFooter }) => {
                       model={items}
                       popupAlignment="right"
                     />
-                  </div>
+                  </div> */}
                 </>
               )}
               <button

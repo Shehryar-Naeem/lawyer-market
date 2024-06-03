@@ -156,6 +156,8 @@ const UserDetailByAdmin = () => {
     }
   };
   const roleHandler = async (data) => {
+    alert("alert");
+
     const response = await addRole({ id, data });
     if (response?.data?.success) {
       toast.success("Role Assigned Successfully");
@@ -344,10 +346,10 @@ const UserDetailByAdmin = () => {
                           <FailureAlert error={roleErrors.role.message} />
                         )}
                       </div>
+                      <button className="gig-btn item-center" type="submit">
+                        {addRoleLoading ? <Loader /> : "Assign Role"}
+                      </button>
                     </form>
-                    <button className="gig-btn item-center" type="submit">
-                      {addRoleLoading ? <Loader /> : "Assign Role"}
-                    </button>
                   </div>
                 </div>
               </div>
