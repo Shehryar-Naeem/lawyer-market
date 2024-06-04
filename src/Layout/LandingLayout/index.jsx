@@ -228,6 +228,23 @@ const LandingLayout = ({ isFooter }) => {
       }
     }
   };
+  const logoutHandler = async () => {
+    try {
+      const { data } = await axios.get(`/api/user/logout`, {
+        withCredentials: true,
+      });
+      dispatch(userApi.util.resetApiState());
+      dispatch(userNotExist());
+
+      toast.success(data.message);
+      navigate("/join-now");
+      setDropdownOpen(!dropdownOpen);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
+      dispatch(userNotExist());
+      navigate("/join-now");
+    }
+  };
   return (
     <>
       <div className="relative">
@@ -434,7 +451,21 @@ const LandingLayout = ({ isFooter }) => {
                             </li>
                           )}
                         </ul>
-                        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                        <div>
+                          <div
+                            className="flex items-center md:gap-1 gap-sm md:px-2 px-md-ly-pad md:py-1 sm:py-sm-ly-pad py-4xl  hover:bg-gray-100 md:cursor-pointer"
+                            to={"/dashboard/admin/home"}
+                            onClick={logoutHandler}
+                          >
+                            <span
+                              className={`pi pi-sign-out xl:text-xl lg:text-lg text-base item-center`}
+                            />
+                            <span className="mx-2 md:font-bold font-semibold md:text-base text-sm ">
+                              Logout
+                            </span>
+                          </div>
+                        </div>
+                        {/* <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
                           <svg
                             className="fill-current"
                             width="22"
@@ -453,7 +484,7 @@ const LandingLayout = ({ isFooter }) => {
                             />
                           </svg>
                           Log Out
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>

@@ -16,6 +16,7 @@ export const userApi = createApi({
     "verification",
     "support",
     "document",
+    "hiring",
   ],
   endpoints: (builder) => ({
     signup: builder.mutation({
@@ -505,9 +506,7 @@ export const userApi = createApi({
       providesTags: ["support"],
     }),
     uploadDocumentRelatedToJob: builder.mutation({
-    
       query: ({ id, document }) => ({
-        
         url: `document/upload-document/${id}`,
         method: "POST",
         body: document,
@@ -524,6 +523,29 @@ export const userApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["document"],
+    }),
+    createHiring: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `hiring/create-hiring/${id}`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["hiring"],
+    }),
+    getClientHirings: builder.query({
+      query: () => `hiring/get-client-hiring`,
+      providesTags: ["hiring"],
+    }),
+    getLawyerHirings: builder.query({
+      query: () => `hiring/get-lawyer-hiring`,
+      providesTags: ["hiring"],
+    }),
+    markHiringAsComplete: builder.mutation({
+      query: (id) => ({
+        url: `hiring/mark-hiring-as-completed/${id}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["hiring"],
     }),
   }),
 });
@@ -607,5 +629,8 @@ export const {
   useUploadDocumentRelatedToJobMutation,
   useGetAllDocumentsRelatedToJobQuery,
   useDeleteDocumentRelatedToJobMutation,
-  
+  useCreateHiringMutation,
+  useGetClientHiringsQuery,
+  useGetLawyerHiringsQuery,
+  useMarkHiringAsCompleteMutation,
 } = userApi;

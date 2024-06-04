@@ -5,11 +5,15 @@ import Empty from "../../components/empty";
 
 import toast from "react-hot-toast";
 
-import { useGetMeHiredJobsQuery } from "../../redux/api/userApi";
+import {
+  useGetLawyerHiringsQuery,
+  useGetMeHiredJobsQuery,
+} from "../../redux/api/userApi";
 import ActivehiredJob from "../../components/ActiveHiredJob";
 
 const ActiveJobs = () => {
-  const { currentData, isLoading, error, isError } = useGetMeHiredJobsQuery();
+  // const { currentData, isLoading, error, isError } = useGetMeHiredJobsQuery();
+  const { currentData, isLoading, error, isError } = useGetLawyerHiringsQuery();
   console.log("currentData", currentData);
   useEffect(() => {
     if (isError) {
@@ -26,13 +30,13 @@ const ActiveJobs = () => {
           </>
           //   <CardSkeletonLoading key={index} />
         ))
-      ) : currentData?.data?.length < 1 ? (
-        <Empty text="No bid yet" />
+      ) : currentData?.hiring?.length < 1 ? (
+        <Empty text="No active job yet" />
       ) : (
         <>
           <div className="f-col lg:gap-2  md:gap-1.5 gap-1 pt-2 ">
-            {currentData?.data?.map((job) => (
-              <ActivehiredJob  key={job._id} job={job} />
+            {currentData?.hiring?.map((job) => (
+              <ActivehiredJob key={job._id} job={job} />
             ))}
           </div>
         </>

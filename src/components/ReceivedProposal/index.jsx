@@ -4,13 +4,14 @@ import { Avatar } from "primereact/avatar";
 import {
   useAcceptBidMutation,
   useCreateConversationMutation,
+  useCreateHiringMutation,
 } from "../../redux/api/userApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import Loader from "../loader";
 
-const ReceivedProposal = ({ bid, key }) => {
+const ReceivedProposal = ({ bid, key, refetch }) => {
   const navigate = useNavigate();
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
@@ -33,7 +34,10 @@ const ReceivedProposal = ({ bid, key }) => {
       navigate(`/client-profile/chat/${data.conversation._id}`);
     }
   };
-
+  const [
+    createHiring,
+    { isLoading: isCreateHiring, isError: isHiringError, error: hiringError },
+  ] = useCreateHiringMutation();
   useEffect(() => {
     if (isError) {
       toast.error(error?.data?.message);
@@ -52,6 +56,18 @@ const ReceivedProposal = ({ bid, key }) => {
       setToastId(id);
     }
   }, [isLoading, toastId]);
+  useEffect(() => {
+    if (isCreateHiring && !toastId) {
+      const id = toast.loading("loading...");
+      setToastId(id);
+    }
+  }, [isCreateHiring, toastId]);
+
+  useEffect(() => {
+    if (isHiringError) {
+      toast.error(hiringError?.data?.message);
+    }
+  }, [isHiringError, hiringError]);
 
   // useEffect(() => {}, [isLoading]);
 
@@ -87,16 +103,15 @@ const ReceivedProposal = ({ bid, key }) => {
 
   const hireIt = async () => {
     const data = {
-      status: "hired",
+      type: "job",
     };
-    const response = await acceptBid({
-      id: bid?._id,
-      data,
-    });
+    const response = await createHiring({ id: bid?._id, data });
+    console.log(response);
     if (response?.data?.success) {
       toast.dismiss(toastId);
       setToastId(null);
-      toast.success("hire lawyer successfully");
+      toast.success(response.data.message);
+      refetch();
     }
   };
 

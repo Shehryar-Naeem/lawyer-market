@@ -20,6 +20,7 @@ const PostDetail = () => {
     isError: isPostBidError,
     isFetching: isPostBidFetching,
     error: postBidError,
+    refetch,
   } = useGetAllPostBidsQuery(id);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const PostDetail = () => {
             ) : (
               <>
                 {getPostbids?.data?.map((bid) => (
-                  <ReceivedProposal key={bid.id} bid={bid} />
+                  <ReceivedProposal key={bid.id} bid={bid} refetch={refetch} />
                 ))}
               </>
             )}

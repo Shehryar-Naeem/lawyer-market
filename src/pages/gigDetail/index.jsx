@@ -10,6 +10,7 @@ import {
   useAddReviewMutation,
   useAllowReviewQuery,
   useCreateConversationMutation,
+  useCreateHiringMutation,
   useGetGigByIdQuery,
   useGetReviewsOfGigsQuery,
 } from "../../redux/api/userApi";
@@ -82,6 +83,10 @@ const GigDetail = () => {
   } = useGetReviewsOfGigsQuery(id, options);
   // console.log(data);
 
+  const [
+    createHiring,
+    { isLoading: isCreateHiring, isError: isHiringError, error: hiringError },
+  ] = useCreateHiringMutation();
   useEffect(() => {
     if (isError) {
       toast.error(error);
@@ -116,13 +121,19 @@ const GigDetail = () => {
     }
   }, [isReviewErrorStatus, allReviewStatusError]);
 
+  useEffect(() => {
+    if (isHiringError) {
+      toast.error(hiringError?.data?.message);
+    }
+  }, [isHiringError, hiringError]);
+
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
   };
 
   const gigDetail = data?.gig;
 
-  console.log("gigDetail", gigDetail);
+  // console.log("gigDetail", gigDetail);
 
   const createConversatioHandler = async () => {
     const { data } = await createConversation({ receiverId: userId });
@@ -146,6 +157,16 @@ const GigDetail = () => {
     setRating(0);
   };
   // console.log("gigReviewData", gigReviewData);
+  const createHiringHandler = async () => {
+    const data = {
+      type: "gig",
+    };
+    const response = await createHiring({ id: id, data });
+    console.log(response);
+    if (response?.data?.success) {
+      toast.success(response.data.message);
+    }
+  };
   return (
     <>
       {isLoading ? (
@@ -345,7 +366,7 @@ const GigDetail = () => {
                             </div>
                           </div>
                           <p className="text-grey md:text-base sm:text-sm text-xs font-semibold">
-                            Hire me for your work
+                            Contact us for your work
                           </p>
                           <button
                             className="gig-btn"
@@ -357,6 +378,27 @@ const GigDetail = () => {
                               </div>
                             ) : (
                               "contact"
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                      <div className="general-pad f-col gap bg-white layout-box-shadow ">
+                        <div className="f-col md:gap-1 gap-0.10 border border-gray-400 general-pad small-btn-border-radius">
+                          <h3 className="gig-detail-heading">Hiring</h3>
+
+                          <p className="text-grey md:text-base sm:text-sm text-xs font-semibold">
+                            Hired us for your work
+                          </p>
+                          <button
+                            className="gig-btn"
+                            onClick={createHiringHandler}
+                          >
+                            {isCreateHiring ? (
+                              <div className="item-center">
+                                <Loader />
+                              </div>
+                            ) : (
+                              "Hire us"
                             )}
                           </button>
                         </div>

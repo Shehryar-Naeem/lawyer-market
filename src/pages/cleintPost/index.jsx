@@ -208,7 +208,7 @@ const CreateClientPost = () => {
                   <FailureAlert error={errors.majorIssues.message} />
                 )}
               </div>
-              <div>
+              <div className="flex justify-end">
                 <button type="submit" className="gig-btn">
                   {isLoading ? (
                     <>
