@@ -207,7 +207,7 @@ input::placeholder {
     @apply h-[140px] md:h-[150px] object-cover;
   }
   .nav-link {
-    @apply text-black  transition-all lg:text-lg md:text-base text-base  font-normal  capitalize md:hover:text-gray-600 text-nowrap lg:w-auto w-full block px-0.5 md:border-none border-b-[1px] md:py-1 py-0.10 border-slate-400  md:hover:underline;
+    @apply text-black  transition-all lg:text-lg md:text-base text-base  font-medium  capitalize md:hover:text-gray-600 text-nowrap lg:w-auto w-full block px-0.5 md:border-none border-b-[1px] md:py-1 py-0.10 border-slate-400  md:hover:underline;
   }
   .min-card-h {
     @apply lg:h-min-c-img-h md:h-md-min-c-img-h h-sm-min-c-img-h;
@@ -226,7 +226,7 @@ input::placeholder {
     @apply text-primary md:text-base sm:text-sm text-xs md:font-bold font-medium capitalize text-nowrap;
   }
   .info-label-text {
-    @apply text-grey md:text-base sm:text-sm text-xs md:font-medium font-normal capitalize text-nowrap;
+    @apply text-grey md:text-base sm:text-sm text-xs md:font-medium font-normal capitalize;
   }
   .gig-detail-heading {
     @apply md:text-base text-sm lg:font-bold md:font-semibold font-medium text-grey;

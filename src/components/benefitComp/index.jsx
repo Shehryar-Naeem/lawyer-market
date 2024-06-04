@@ -6,6 +6,11 @@ const BenefitComp = ({ benefit, key }) => {
       class="bg-gray-200 rounded-md hover:bg-gray-300 w-full  md:cursor-pointer cursor-auto transition-all  shadow-sm  shadow-gray-100 p-6  flex flex-col items-center justify-center lg:gap-2 md:gap-1 gap-0.8"
       key={key}
     >
+      <span className="lg:text-4xl md:text-3xl text-2xl text-gray-600">
+        {
+          benefit.icon
+        }
+      </span>
       <h3 class="text-black text-2xl px-[40px] font-bold text-center leading-none">
         {benefit.title}
       </h3>

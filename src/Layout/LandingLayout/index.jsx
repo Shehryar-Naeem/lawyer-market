@@ -230,13 +230,17 @@ const LandingLayout = ({ isFooter }) => {
   };
   const logoutHandler = async () => {
     try {
+      const toastId = toast.loading("uploading...");
       const { data } = await axios.get(`/api/user/logout`, {
         withCredentials: true,
       });
       dispatch(userApi.util.resetApiState());
       dispatch(userNotExist());
 
-      toast.success(data.message);
+      toast.success("logout successfuly", {
+        id: toastId,
+      });
+
       navigate("/join-now");
       setDropdownOpen(!dropdownOpen);
     } catch (error) {
@@ -268,18 +272,33 @@ const LandingLayout = ({ isFooter }) => {
               } flex md:items-center gap-1.5 md:relative fixed z-[9999] md:flex-row flex-col left-0 md:h-auto h-full top-0 md:w-auto w-full overflow-auto md:p-0 p-3 md:bg-transparent bg-white transition-all`}
             >
               <NavLink
+                to={"/"}
+                className="nav-link"
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                Home
+              </NavLink>
+              <NavLink
                 to={"/gigs"}
                 className="nav-link"
                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
               >
                 Gigs
               </NavLink>
+
               <NavLink
                 to={"/jobs"}
                 className="nav-link"
                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
               >
                 Jobs
+              </NavLink>
+              <NavLink
+                to={"/customer-support"}
+                className="nav-link"
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                contact us
               </NavLink>
               <div
                 className="md:hidden block absolute right-0 top-0 m-[25px] cursor-pointer text-xl"

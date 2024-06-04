@@ -54,11 +54,13 @@ const Home = () => {
   }, [isError, error]);
   return (
     <>
-      {isLoading ? (
-        <>
-          <InitialLoader />
-        </>
-      ) : (
+      {
+      // isLoading ? (
+      //   <>
+      //     <InitialLoader />
+      //   </>
+      // ) : 
+      (
         <div className="relative">
           {/* <section className="relative overflow-hidden ">
           <div className="h-full ">
@@ -133,7 +135,7 @@ const Home = () => {
           <Benefits />
 
           <Places currentData={currentData?.gigs} />
-          <BannerPic img={Images.banner1} />
+          {/* <BannerPic img={Images.banner1} /> */}
 
           <Banner />
           {/* <div className="bg-gray-100 lg:mt-[40px] md:mt-[32px] mt-[24px]">
@@ -248,7 +250,7 @@ const Home = () => {
           </section>
         </div> */}
           <BlogsComp />
-          <BannerPic img={Images.banner3} />
+          {/* <BannerPic img={Images.banner3} /> */}
           <Testimonial />
         </div>
       )}

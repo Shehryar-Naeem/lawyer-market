@@ -202,7 +202,7 @@ const GigDetail = () => {
                 <div className="grid grid-cols-3 lg:gap-3 md:gap-2 gap-1 ">
                   <div className="md:col-span-2 col-span-3 bg-white layout-box-shadow">
                     <div className="f-col md:gap-2 gap-1  general-pad ">
-                      <div className="lg:h-[380px] md:h-[330px] h-[250px]">
+                      <div className="lg:h-[500px] md:h-[330px] h-[250px]">
                         <GigCarousel images={gigDetail?.images} />
                       </div>
 
@@ -280,7 +280,7 @@ const GigDetail = () => {
                               <span className="info-label-text-bold">
                                 Legal firm Name:
                               </span>
-                              <span className="info-label-text text-wrap">
+                              <span className="info-label-text ">
                                 {
                                   gigDetail?.lawyer?.professionalInfo
                                     ?.lawFirmName

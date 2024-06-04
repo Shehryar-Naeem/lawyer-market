@@ -117,13 +117,16 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
       template: itemRenderer,
       command: async () => {
         try {
+          const toastId = toast.loading("uploading...");
           const { data } = await axios.get(`/api/user/logout`, {
             withCredentials: true,
           });
           dispatch(userApi.util.resetApiState());
           dispatch(userNotExist());
 
-          toast.success(data.message);
+          toast.success("logout successfuly", {
+            id: toastId,
+          });
           navigate("/join-now");
         } catch (error) {
           toast.error(error?.response?.data?.message || "Something went wrong");

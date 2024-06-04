@@ -118,7 +118,10 @@ const GigCard = ({ gig, key, me, isOnline }) => {
                 className="flex gap-0.5 overflow-auto hide-scroll relative"
               >
                 {gig?.category?.map((cat, index) => (
-                  <Tag cat={cat.split(" ")[0]} key={index} />
+                  <li key={index} className="tag-text text-nowrap">
+                  {CaptializeFirstLetter(cat.split(" ")[0])}
+                </li>
+                  // <Tag cat={cat.split(" ")[0]} key={index} />
                 ))}
               </ul>
               {showRightArrow && (

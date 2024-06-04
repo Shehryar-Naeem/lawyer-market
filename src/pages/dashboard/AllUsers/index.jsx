@@ -152,9 +152,9 @@ const AllUsers = () => {
             <p className="table-dropdown-description">{row.original.gender}</p>
           </div>
           <div className="flex gap items-center">
-            <h3 className="table-dropdown-heading">Gender</h3>
+            <h3 className="table-dropdown-heading">CNIC</h3>
             <p className="table-dropdown-description">
-              {row.original.yourSelf}
+              {row.original.cnic}
             </p>
           </div>
         </div>

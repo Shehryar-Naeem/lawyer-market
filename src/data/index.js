@@ -9,6 +9,10 @@ import bar4 from "../assets/images/islamabad judge.jpeg";
 import bar5 from "../assets/images/peshawar.jpeg";
 import bar6 from "../assets/images/blouchitan.jpg";
 import bar7 from "../assets/images/federalshariat.jpeg";
+import { FaCheckCircle, FaGulp, FaUserAltSlash, FaUserTie, FaUsers } from "react-icons/fa";
+import { FaBalanceScale } from "react-icons/fa";
+import { FiClock } from "react-icons/fi";
+import { FaHandshakeAngle } from "react-icons/fa6";
 
 export const lawyerCategories = [
   {
@@ -692,36 +696,42 @@ export const lawyerBenefits = [
   {
     id: 1,
     title: "Verified Lawyers",
+    icon: <FaCheckCircle />,
     description:
       "Our platform features verified lawyers with checked qualifications and experience, ensuring reliable and expert legal professionals.",
   },
   {
     id: 2,
     title: "Bar Association",
+    icon: <FaBalanceScale />,
     description:
       "Every lawyer on our platform is a Bar Association member, ensuring high standards of practice, ethics, and professional integrity.",
   },
   {
     id: 3,
     title: "Fast Response Time",
+    icon: <FiClock />,
     description:
       "Our platform ensures fast lawyer response times for urgent legal matters, providing swift resolution and peace of mind.",
   },
   {
     id: 4,
     title: "Better Services",
+    icon: <FaHandshakeAngle />,
     description:
       "We prioritize exceptional legal services, connecting you with highly qualified lawyers dedicated to personalized solutions and optimal outcomes.",
   },
   {
     id: 5,
     title: "Multiple Lawyers",
+    icon:  <FaUsers />,
     description:
       "Our platform offers access to multiple lawyers, enabling you to compare services, fees, and expertise to find the best legal professional for your needs.",
   },
   {
     id: 6,
-    title: "Specialised Lawyer",
+    title: "Specialized Lawyer",
+    icon:<FaUserTie />,
     description:
       "We provide access to specialized lawyers in various legal fields, ensuring expert advice and representation for your specific legal requirements.",
   },

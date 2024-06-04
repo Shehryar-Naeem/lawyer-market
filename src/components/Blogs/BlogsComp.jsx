@@ -13,7 +13,7 @@ const BlogsData = [
     title: "What Is Digital Marketing for Attorneys and Law Firms?",
     description:
       "Digital marketing for law firms is the act of selling services online. It refers to advertising on search engines, websites, social media, and mobile apps at a high level. ",
-    author: "Someone",
+    author: "Ivan Vislavskiy",
     date: "MARCH 13, 2024",
   },
   {
@@ -33,7 +33,7 @@ const BlogsData = [
     title: "35 Legal Mistakes Every Startup and Growing Business Must Avoid",
     description:
       "Consult a legal expert when deciding on a business structure. Regularly update organizational documents as your business evolves.Conduct annual reviews to ensure compliance with all required formalities.",
-    author: "Someone",
+    author: "Ross Kimbarovsky",
     date: "Mar 20, 2024",
   },
 ];
