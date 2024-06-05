@@ -22,6 +22,8 @@ export const SocketProvider = ({ children }) => {
       //     _id: user?._id,
       //   },
       // });
+
+      
       return io("https://lawyer-backend-production-5a92.up.railway.app/", {
         withCredentials: true,
         query: {

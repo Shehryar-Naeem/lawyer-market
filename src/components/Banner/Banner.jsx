@@ -15,22 +15,31 @@ const Banner = () => {
               {/* Image section */}
               <div data-aos="flip-up">
                 <img
-                  src={Images.explorer}
+                  src={Images.explore}
                   alt="biryani img"
-                  className="max-w-[450px] h-[350px] w-full mx-auto drop-shadow-[5px_5px_12px_rgba(0,0,0,0.7)] object-cover"
+                  className="max-w-[450px] h-[350px] w-full mx-auto 
+                   
+                  object-cover"
                 />
+                {/* <img
+                  src={Images.explore}
+                  alt="biryani img"
+                  className="max-w-[450px] h-[350px] w-full mx-auto 
+                  drop-shadow-[5px_5px_12px_rgba(0,0,0,0.7)] 
+                  object-cover"
+                /> */}
               </div>
               {/* text content section */}
               <div className="flex flex-col justify-center gap-6 sm:pt-0 lg:px-16">
                 <h1
                   data-aos="fade-up"
-                  className="text-3xl sm:text-4xl font-bold"
+                  className="md:text-3xl sm:text-2xl font-bold"
                 >
                   Explore All Corners of Legal Expertise with Us
                 </h1>
                 <p
                   data-aos="fade-up"
-                  className="md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tight"
+                  className="lg:text-lg md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tight"
                 >
                   we connect you with top-tier legal professionals from around
                   the globe.From corporate law and intellectual property to

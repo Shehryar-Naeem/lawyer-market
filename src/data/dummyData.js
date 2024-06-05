@@ -1,3 +1,5 @@
+import { Images } from "../assets/images";
+
 export const lawyerData = [
   {
     id: 1,
@@ -56,4 +58,27 @@ export const lawyerData = [
     isVeified: true,
   },
   
+];
+
+
+export const teamData = [
+  
+  {
+    id: 1,
+    name: "Shehryar",
+    // desigination: "MEDICAL DIRECTOR",
+    profilePic: Images.shehryar,
+  },
+  {
+    id: 3,
+    name: "Mozzam shahid",
+    // desigination: "CLINICAL PSYCHOLOGIST",
+    profilePic: Images.profilePic,
+  },
+  {
+    id: 4,
+    name: "Muhammad muddasir javed",
+    // desigination: "Senior Blockchain Developer",
+    profilePic: Image.profilePic,
+  },
 ];

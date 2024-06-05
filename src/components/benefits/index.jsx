@@ -5,11 +5,9 @@ import BenefitComp from "../benefitComp";
 
 const Benefits = () => {
   return (
-    <section
-      data-aos="fade-up"
-      className="container landing-pad-x"
-    >
-      <LandingHeading text={"Pakistan Lawyer Market Place"} />
+    <section data-aos="fade-up" className="container landing-pad-x">
+      <LandingHeading text={"Why we are"} />
+      {/* <LandingHeading text={"Pakistan Lawyer Market Place"} /> */}
 
       <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 place-items-center gap ">
         {lawyerBenefits.map((benefit, index) => (

@@ -22,7 +22,7 @@ const proposalSchema = yup.object().shape({
     .typeError("price must be a number")
     .required("Price is required")
     .positive("please enter the valid number")
-    .moreThan(0, "price must be greater than zero"),
+    .moreThan(0, "Price must be positive"),
 });
 const SendProposal = () => {
   const {

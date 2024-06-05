@@ -81,9 +81,10 @@ const ReceivedProposal = ({ bid, key, refetch }) => {
     });
     if (response?.data?.success) {
       toast.dismiss(toastId);
-      setToastId(null);
+
       toast.success("Bid accepted");
     }
+    setToastId(null);
   };
 
   const rejectIt = async () => {
@@ -96,9 +97,9 @@ const ReceivedProposal = ({ bid, key, refetch }) => {
     });
     if (response?.data?.success) {
       toast.dismiss(toastId);
-      setToastId(null);
       toast.success("Bid rejected successfully");
     }
+    setToastId(null);
   };
 
   const hireIt = async () => {
@@ -109,10 +110,10 @@ const ReceivedProposal = ({ bid, key, refetch }) => {
     console.log(response);
     if (response?.data?.success) {
       toast.dismiss(toastId);
-      setToastId(null);
       toast.success(response.data.message);
       refetch();
     }
+    setToastId(null);
   };
 
   return (

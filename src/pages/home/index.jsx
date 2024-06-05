@@ -28,6 +28,8 @@ import { useGetTopGigsQuery } from "../../redux/api/userApi";
 import toast from "react-hot-toast";
 import InitialLoader from "../../components/initialLoader";
 import { scrollToTop } from "../../utils/helper";
+import { teamData } from "../../data/dummyData";
+import MemberComp from "../../components/memeberComp";
 const Home = () => {
   useEffect(() => {
     scrollToTop();
@@ -55,12 +57,11 @@ const Home = () => {
   return (
     <>
       {
-      // isLoading ? (
-      //   <>
-      //     <InitialLoader />
-      //   </>
-      // ) : 
-      (
+        // isLoading ? (
+        //   <>
+        //     <InitialLoader />
+        //   </>
+        // ) :
         <div className="relative">
           {/* <section className="relative overflow-hidden ">
           <div className="h-full ">
@@ -107,7 +108,7 @@ const Home = () => {
               <div className="md:w-1/2  f-col gap w-full items-start">
                 <div className="max-w-[480px]">
                   <p
-                    className="md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tight"
+                    className="lg:text-lg md:text-balance text-sm font-medium text-gray-500 tracking-wider leading-tight"
                     data-aos="fade-up"
                   >
                     Welcome to the world's premier online legal platform. We
@@ -252,8 +253,27 @@ const Home = () => {
           <BlogsComp />
           {/* <BannerPic img={Images.banner3} /> */}
           <Testimonial />
+          {/* team section  */}
+          <div className="bg-gray-100">
+            <div className="flex justify-center items-center backdrop-blur-xl py-12 sm:py-0 ">
+              <div className="container landing-pad-x">
+                <LandingHeading text={"Meet team"} />
+                <div className=" max-w-[1180px] w-full lg:pt-[48px] md:pt-[34px] pt-[20px] flex flex-wrap justify-center items-center gap-1">
+                {teamData.map((team) => (
+                  <MemberComp
+                    key={team.id}
+                    name={team.name}
+                    // desigination={team.desigination}
+                    profilePic={team.profilePic}
+                  />
+                ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* team section  */}
         </div>
-      )}
+      }
     </>
   );
 };

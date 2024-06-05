@@ -25,6 +25,8 @@ import documentIcon from "./documenticon.svg";
 import banner1 from "./banner1.jpeg";
 import banner3 from "./banner3.jpg"
 import banner2 from "./banner2.jpeg";
+import shehryar from "../team/shehryar.jpg"
+import explore from "./explore.jpg"
 export const Images = {
   Google,
   ProfilImg,
@@ -52,5 +54,7 @@ export const Images = {
   documentIcon,
   banner1,
   banner2,
-  banner3
+  banner3,
+  shehryar,
+  explore
 };

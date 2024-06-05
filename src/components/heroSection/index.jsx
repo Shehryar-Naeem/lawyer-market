@@ -14,7 +14,7 @@ const HeroSection = () => {
         </h1>
         <p
           data-aos="zoom-in"
-          className="md:text-base text-sm font-medium text-gray-500 tracking-wide leading-tight"
+          className="lg:text-lg md:text-balance text-sm font-medium text-gray-500 tracking-wider leading-tight"
         >
           Our platform features verified lawyers who are Bar Association
           members, ensuring high standards of practice, ethics, and professional

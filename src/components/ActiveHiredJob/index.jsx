@@ -114,7 +114,7 @@ const ActivehiredJob = ({ key, job }) => {
               className="gig-btn md:w-auto w-full item-center"
               onClick={createConversatioHandler}
             >
-              {isCreateConversation ? <Loader /> : "Chat"}
+              {isCreateConversation ? <Loader /> : "reply"}
             </button>
             <Link
               to={`/post-document/${job?._id}`}
