@@ -248,7 +248,7 @@ const EditJob = () => {
                       <FailureAlert error={errors.majorIssues.message} />
                     )}
                   </div>
-                  <div>
+                  <div className="flex justify-end w-full">
                     <button type="submit" className="gig-btn">
                       {isLoading ? (
                         <>

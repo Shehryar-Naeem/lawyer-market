@@ -73,12 +73,12 @@ export const teamData = [
     id: 3,
     name: "Mozzam shahid",
     // desigination: "CLINICAL PSYCHOLOGIST",
-    profilePic: Images.profilePic,
+    profilePic: Images.mozzam,
   },
   {
     id: 4,
-    name: "Muhammad muddasir javed",
+    name: "M.Muddasir javed",
     // desigination: "Senior Blockchain Developer",
-    profilePic: Image.profilePic,
+    profilePic: Images.muddasir,
   },
 ];

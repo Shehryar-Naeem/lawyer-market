@@ -3,7 +3,7 @@ import React from "react";
 const BenefitComp = ({ benefit, key }) => {
   return (
     <div
-      class="bg-gray-200 rounded-md hover:bg-gray-300 w-full  md:cursor-pointer cursor-auto transition-all  shadow-sm  shadow-gray-100 p-6  flex flex-col items-center justify-center lg:gap-2 md:gap-1 gap-0.8"
+      class="bg-gray-200 rounded-md hover:bg-gray-300 w-full h-full  md:cursor-pointer cursor-auto transition-all  shadow-sm  shadow-gray-100 p-6  flex flex-col items-center justify-center lg:gap-2 md:gap-1 gap-0.8"
       key={key}
     >
       <span className="lg:text-4xl md:text-3xl text-2xl text-gray-600">

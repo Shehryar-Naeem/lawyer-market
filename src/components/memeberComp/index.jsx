@@ -3,8 +3,8 @@ import React from "react";
 const MemberComp = ({name,desigination,profilePic}) => {
   return (
     <>
-      <div className="rounded-full w-[190px] p-[20px] flex flex-col md:gap-0.5 gap-[3px]  items-center " data-aos="zoom-in">
-        <div className="lg:w-[140px] lg:h-[140px] md:w-[130px] md:h-[130px] w-[120px] h-[120px] object-cover rounded-full border-[2px] border-gray-700 overflow-hidden ">
+      <div className="rounded-full w-[190px] p-[20px] flex flex-col md:gap-0.5 gap-[3px]  items-center h-full  justify-center" data-aos="zoom-in">
+        <div className="lg:w-[140px] lg:h-[140px] md:w-[130px] md:h-[130px] w-[120px] h-[120px] object-cover rounded-full md:border-[4px] border-[3px] border-gray-700 overflow-hidden ">
           <img
             src={profilePic}
             alt="teammember"

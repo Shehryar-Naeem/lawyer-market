@@ -109,7 +109,7 @@ const SendProposal = () => {
                           <FailureAlert error={errors.pricing.message} />
                         )}
                       </div>
-                      <div className="flex items-start">
+                      <div className="flex justify-end w-full">
                         <button
                           // to={`/lawyer/send-proposal/123`}
                           className="gig-btn"
