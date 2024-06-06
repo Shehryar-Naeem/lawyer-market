@@ -26,7 +26,12 @@ const gigStepTwoSchema = yup.object().shape({
     .transform((value, originalValue) => (Array.isArray(originalValue) ? originalValue : []))
     .min(3, "Select at least 3 categories")
     .required("Category is required"),
-  price: yup.number().required("Price is required"),
+  price: yup
+  .number()
+  .typeError("price must be a number")
+  .required("Price is required")
+  .positive("please enter the valid number")
+  .moreThan(0, "Price must be positive"),
 });
 
 const GigStepTwo = () => {
