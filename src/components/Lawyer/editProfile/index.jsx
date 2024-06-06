@@ -22,17 +22,16 @@ const professionalInfoSchema = yup.object().shape({
   positionName: yup.string().required("Position name is required"),
   state: yup.string().required("State is required"),
   licenseNumber: yup
-    .number()
-    .typeError("license number must be a number")
-    .required("license number is required")
-    .positive("please enter the valid number")
-    .moreThan(0, "license number must be positive"),
+  .string()
+  .required("License number is required")
+  .matches(/^[^-\s].*$/, "License number must not start with a '-' sign"),
   experience: yup
     .number()
     .typeError("experience must be a number")
     .required("experience is required")
     .positive("please enter the valid number")
-    .moreThan(0, "experience must be positive"),
+    .moreThan(0, "experience must be positive")
+    .max(30, "experience must be less than 30"),
 });
 
 const educationSchema = yup.object().shape({
@@ -44,14 +43,17 @@ const educationSchema = yup.object().shape({
     .positive("Start year must be a positive number")
     .integer("Start year must be an integer")
     .min(1900, "Start year must be later than 1900")
-    .max(new Date().getFullYear(), `Start year cannot be in or after the current year (${new Date().getFullYear()})`),
+    .max(
+      new Date().getFullYear(),
+      `Start year cannot be in or after the current year (${new Date().getFullYear()})`
+    ),
   endYear: yup
     .number()
     .typeError("End year must be a number")
     .required("End year is required")
     .positive("End year must be a positive number")
     .integer("End year must be an integer")
-    .moreThan(yup.ref('startYear'), "End year must be greater than start year"),
+    .moreThan(yup.ref("startYear"), "End year must be greater than start year"),
   degreeName: yup.string().required("Degree name is required"),
 });
 
@@ -422,7 +424,7 @@ const EditProfile = () => {
                       <ProfileInputComp
                         lable="license number"
                         placeholder="Enter your license number"
-                        type="number"
+                        type="text"
                         name={"licenseNumber"}
                         register={registerProfessionalInfo}
                       />
@@ -435,7 +437,7 @@ const EditProfile = () => {
                     <div className="f-col gap">
                       <ProfileInputComp
                         lable="Experience"
-                        placeholder="Enter your experience"
+                        placeholder="Enter your experience in years"
                         type="number"
                         name={"experience"}
                         register={registerProfessionalInfo}

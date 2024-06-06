@@ -18,13 +18,12 @@ import GigDetailLoading from "../../components/skeletonLoading/sectionLoading";
 
 const UserProfile = () => {
   const {
-    data: userData,
+    currentData: userData,
     isLoading: userLoading,
     isSuccess: userSuccess,
     isError: userIsError,
     error: userError,
     isFetching,
-    refetch,
   } = useGetUserQuery();
   const { data: lawyerData } = useLawyerPrfofileQuery();
 

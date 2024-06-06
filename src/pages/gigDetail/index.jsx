@@ -313,7 +313,8 @@ const GigDetail = () => {
                               <span className="info-label-text">
                                 {
                                   gigDetail?.lawyer?.professionalInfo
-                                    ?.experience
+                                  ?.experience && `${gigDetail?.lawyer?.professionalInfo
+                                    ?.experience} `
                                 }
                                 {/* {professionalInfo?.lawFirmName} */}
                               </span>

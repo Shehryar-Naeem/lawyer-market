@@ -23,13 +23,24 @@ import AdminImageUploader from "../../../components/adminImageUploader";
 
 const useSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
-  email: yup.string().required("Email is required"),
-
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email is required"),
   city: yup.string().required("City is required"),
   gender: yup.string().required("Gender is required"),
-  postalCode: yup.string().required("Postal code is required"),
-  cnic: yup.string().required("Yourself is required"),
+  postalCode: yup
+    .number()
+    .typeError("Postal code must be a number")
+    .required("Postal code is required")
+    .positive("Postal code must be a positive number")
+    .moreThan(1, "Postal code must be greater than one"),
+  cnic: yup
+    .string()
+    .required("CNIC is required")
+    .matches(/^[^-]/, "CNIC must not start with a '-' sign"),
 });
+
 const roleSchema = yup.object().shape({
   role: yup.string().required("Roles is required"),
 });

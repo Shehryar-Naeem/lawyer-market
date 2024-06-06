@@ -25,17 +25,16 @@ const professionalInfoSchema = yup.object().shape({
   positionName: yup.string().required("Position name is required"),
   state: yup.string().required("State is required"),
   licenseNumber: yup
-    .number()
-    .typeError("license number must be a number")
-    .required("license number is required")
-    .positive("please enter the valid number")
-    .moreThan(0, "license number must be positive"),
+  .string()
+  .required("License number is required")
+  .matches(/^[^-\s].*$/, "License number must not start with a '-' sign"),
   experience: yup
     .number()
     .typeError("experience must be a number")
     .required("experience is required")
     .positive("please enter the valid number")
-    .moreThan(0, "experience must be positive"),
+    .moreThan(0, "experience must be positive")
+    .max(30, "experience must be less than 30"),
 });
 
 const educationSchema = yup.object().shape({
@@ -431,7 +430,7 @@ const UpdateProfile = () => {
                           <ProfileInputComp
                             lable="license number"
                             placeholder="Enter your license number"
-                            type="number"
+                            type="text"
                             name={"licenseNumber"}
                             register={registerProfessionalInfo}
                           />
