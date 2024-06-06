@@ -84,7 +84,7 @@ const Gigs = () => {
             {data?.gigs?.map((gig, index) => (
               <GigCard key={index} gig={gig} me={true} />
             ))}
-            {data?.gigs.length < 2 && (
+            {data?.gigs.length < 5 && (
               <Link
                 to={"/lawyer-gig/step1"}
                 className="md:rounded-sm rounded-xs item-center flex-col lg:gap-sm md:gap-xs sm:gap-xxs  min-h-gig-card-h item-center lg:shadow-3xl md:shadow-2xl sm:shadow-lg shadow-md"
