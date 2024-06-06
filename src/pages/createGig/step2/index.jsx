@@ -23,6 +23,7 @@ import Loader from "../../../components/loader";
 const gigStepTwoSchema = yup.object().shape({
   services: yup
     .array()
+    .transform((value, originalValue) => (Array.isArray(originalValue) ? originalValue : []))
     .min(3, "Select at least 3 categories")
     .required("Category is required"),
   price: yup.number().required("Price is required"),

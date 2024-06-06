@@ -196,7 +196,7 @@ const GigDetail = () => {
       ) : (
         <>
           <div className="page-container">
-            <div className="container f-col general-pad gap-8">
+            <div className="container f-col general-pad  lg:pt-10 md:pt-8 pt-6 f-col lg:gap-2 md:gap-1.5 gap-1">
               <PageHeading text="About gig" />
               <div className=" general-pad ">
                 <div className="grid grid-cols-3 lg:gap-3 md:gap-2 gap-1 ">

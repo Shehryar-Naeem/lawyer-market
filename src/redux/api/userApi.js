@@ -547,6 +547,11 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["hiring"],
     }),
+    getHiringPost : builder.query({
+      query: (id) => `document/find/hiring-post/${id}`,
+      providesTags: ["document"],
+    }),
+
   }),
 });
 
@@ -633,4 +638,5 @@ export const {
   useGetClientHiringsQuery,
   useGetLawyerHiringsQuery,
   useMarkHiringAsCompleteMutation,
+  useGetHiringPostQuery,
 } = userApi;

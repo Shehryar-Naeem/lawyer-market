@@ -24,6 +24,7 @@ const Post = ({
   post,
   postBids,
   mangeBtns,
+  isDocument,
 }) => {
   // console.log(post);
   const [
@@ -98,7 +99,9 @@ const Post = ({
               <span className="md:text-base text-sm">
                 <FaLocationDot />
               </span>
-              <p className="text-sm font-medium capitalize">{post?.user?.city}</p>
+              <p className="text-sm font-medium capitalize">
+                {post?.user?.city}
+              </p>
             </div>
           )}
         </div>
@@ -131,60 +134,74 @@ const Post = ({
             </>
           )} */}
         </p>
-        <div className="md:flex flex-wrap gap inline-flex">
-          <div className="flex gap-0.5 items-center">
-            <span className="md:text-base text-sm">
-              <IoPersonSharp />
-            </span>
-            <p className="text-sm  md:font-medium font-normal">
-              <span className="md:font-bold font-medium capitalize">category:</span>{" "}
-              {post?.category}
-            </p>
-          </div>
-          <div className="flex gap-0.5 items-center">
-            <span className="md:text-base text-sm">
-              <FaEye />
-            </span>
-            <p className="md:text-sm  md:font-medium font-normal">
-              <span className="md:font-bold font-medium capitalize">Year of Experience:</span>{" "}
-              {post?.experience}
-            </p>
-          </div>
-          <div className="flex gap-0.5 items-center">
-            <span className="md:text-base text-sm">
-              <FaLocationDot />
-            </span>
-            <p className="text-sm md:font-medium font-normal">
-              <span className="md:font-bold font-medium capitalize">Location:</span>{" "}
-              {post?.location}
-            </p>
-          </div>
-          <div className="flex gap-0.5 items-center">
-            <span className="md:text-base text-sm">
-              <IoMdPricetag />
-            </span>
-            <p className="text-sm md:font-medium font-normal">
-              <span className="md:font-bold font-medium capitalize">Price:</span>{" "}
-              {post?.budget} Rupees Only
-            </p>
-          </div>
-          {isProposal && (
-            <div className="flex gap-0.5 items-center">
-              <span className="md:text-base  text-sm">
-                <RiFolderReceivedFill />
-              </span>
-              <p className="text-sm md:font-medium font-normal">
-                <span className="md:font-bold font-medium capitalize">received proposal:</span>{" "}
-                {postBids}
-              </p>
+        {!isDocument && (
+          <>
+            <div className="md:flex flex-wrap gap inline-flex">
+              <div className="flex gap-0.5 items-center">
+                <span className="md:text-base text-sm">
+                  <IoPersonSharp />
+                </span>
+                <p className="text-sm  md:font-medium font-normal">
+                  <span className="md:font-bold font-medium capitalize">
+                    category:
+                  </span>{" "}
+                  {post?.category}
+                </p>
+              </div>
+              <div className="flex gap-0.5 items-center">
+                <span className="md:text-base text-sm">
+                  <FaEye />
+                </span>
+                <p className="md:text-sm  md:font-medium font-normal">
+                  <span className="md:font-bold font-medium capitalize">
+                    Year of Experience:
+                  </span>{" "}
+                  {post?.experience}
+                </p>
+              </div>
+              <div className="flex gap-0.5 items-center">
+                <span className="md:text-base text-sm">
+                  <FaLocationDot />
+                </span>
+                <p className="text-sm md:font-medium font-normal">
+                  <span className="md:font-bold font-medium capitalize">
+                    Location:
+                  </span>{" "}
+                  {post?.location}
+                </p>
+              </div>
+              <div className="flex gap-0.5 items-center">
+                <span className="md:text-base text-sm">
+                  <IoMdPricetag />
+                </span>
+                <p className="text-sm md:font-medium font-normal">
+                  <span className="md:font-bold font-medium capitalize">
+                    Price:
+                  </span>{" "}
+                  {post?.budget} Rupees Only
+                </p>
+              </div>
+              {isProposal && (
+                <div className="flex gap-0.5 items-center">
+                  <span className="md:text-base  text-sm">
+                    <RiFolderReceivedFill />
+                  </span>
+                  <p className="text-sm md:font-medium font-normal">
+                    <span className="md:font-bold font-medium capitalize">
+                      received proposal:
+                    </span>{" "}
+                    {postBids}
+                  </p>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <div className="flex flex-wrap gap">
-          {post?.majorIssues?.map((issue, index) => (
-            <Tag cat={issue} key={index} />
-          ))}
-        </div>
+            <div className="flex flex-wrap gap">
+              {post?.majorIssues?.map((issue, index) => (
+                <Tag cat={issue} key={index} />
+              ))}
+            </div>
+          </>
+        )}
         {mangeBtns && (
           <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-0.8 gap-0.5">
             <button
@@ -213,7 +230,10 @@ const Post = ({
         )}
         {showSenderBtn && (
           <div className="flex items-start">
-            <Link to={`/lawyer/send-proposal/${post?._id}`} className="btn black-bg">
+            <Link
+              to={`/lawyer/send-proposal/${post?._id}`}
+              className="btn black-bg"
+            >
               send a reqeust
             </Link>
           </div>

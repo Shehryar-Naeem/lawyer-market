@@ -4,6 +4,7 @@ import {
   useDeleteDocumentRelatedToJobMutation,
   useGetAllDocumentsRelatedToJobQuery,
   useGetJobByIdQuery,
+  useGetHiringPostQuery,
   useUploadDocumentRelatedToJobMutation,
 } from "../../redux/api/userApi";
 import { useParams } from "react-router-dom";
@@ -17,11 +18,13 @@ import { Images } from "../../assets/images";
 import { useSelector } from "react-redux";
 import { options } from "../../utils/helper";
 import Loader from "../../components/loader";
+import Empty from "../../components/empty";
 
 const PostDocument = () => {
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { data, isError, isFetching, error } = useGetJobByIdQuery(id);
+  // const { data, isError, isFetching, error } = useGetJobByIdQuery(id);
+  const { data, isError, isFetching, error } = useGetHiringPostQuery(id);
 
   const [
     uploadDocumentRelatedToJob,
@@ -46,12 +49,12 @@ const PostDocument = () => {
     if (isError) {
       toast.error(error?.data?.message || "An error occurred");
     }
-    if (isUploadingError) {
-      toast.error(
-        uploadingError?.data?.message ||
-          "An error occurred while uploading document"
-      );
-    }
+    // if (isUploadingError) {
+    //   toast.error(
+    //     uploadingError?.data?.message ||
+    //       "An error occurred while uploading document"
+    //   );
+    // }
 
     if (isDocumentError) {
       toast.error(
@@ -59,71 +62,96 @@ const PostDocument = () => {
           "An error occurred while fetching documents"
       );
     }
-    if (isDeleteError) {
-      toast.error(
-        deleteError?.data?.message ||
-          "An error occurred while deleting document"
-      );
-    }
+    // if (isDeleteError) {
+    //   toast.error(
+    //     deleteError?.data?.message ||
+    //       "An error occurred while deleting document"
+    //   );
+    // }
   }, [
     isError,
     error,
-    isUploadingError,
-    uploadingError,
+    // isUploadingError,
+    // uploadingError,
     isDocumentError,
     documentError,
-    isDeleteError,
-    deleteError,
+    // isDeleteError,
+    // deleteError,
   ]);
+
+  // const fileChangeHandle = (e) => {
+  //   const file = e.target.files[0];
+
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       const toastId = toast.loading("uploading...");
+  //       uploadDocumentRelatedToJob({
+  //         id: id,
+  //         document: {
+  //           files: e.target.result,
+  //         },
+  //       })
+  //         .unwrap()
+  //         .then(
+  //           (res) => {
+  //             toast.dismiss(toastId);
+  //             if (res?.success) {
+  //               toast.success("file uploaded");
+  //             }
+  //           },
+  //           (err) => {
+  //             toast.dismiss();
+  //             toast.error(err.data.message || "An error occurred");
+  //           }
+  //         );
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+
+  //   // const formData = new FormData();
+  //   // formData.append("files", file);
+  //   // uploadDocumentRelatedToJob({ id: id, document: formData })
+  //   //   .unwrap()
+  //   //   .then(
+  //   //     (res) => {
+  //   //       toast.dismiss(toastId);
+  //   //       console.log("res", res);
+  //   //       if (res?.success) {
+  //   //         toast.success("file uploaded");
+  //   //       }
+  //   //     },
+  //   //     (err) => {
+  //   //       console.log("err", err);
+  //   //       toast.dismiss();
+  //   //       toast.error(err.data.message || "An error occurred");
+  //   //     }
+  //   //   );
+  // };
+
 
   const fileChangeHandle = (e) => {
     const file = e.target.files[0];
-
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const toastId = toast.loading("uploading...");
-        uploadDocumentRelatedToJob({
-          id: id,
-          document: {
-            files: e.target.result,
-          },
-        })
-          .unwrap()
-          .then(
-            (res) => {
-              toast.dismiss(toastId);
-              if (res?.success) {
-                toast.success("file uploaded");
-              }
-            },
-            (err) => {
-              toast.dismiss();
-              toast.error(err.data.message || "An error occurred");
-            }
-          );
-      };
-      reader.readAsDataURL(file);
-    }
+      const formData = new FormData();
+      formData.append("files", file);
 
-    // const formData = new FormData();
-    // formData.append("files", file);
-    // uploadDocumentRelatedToJob({ id: id, document: formData })
-    //   .unwrap()
-    //   .then(
-    //     (res) => {
-    //       toast.dismiss(toastId);
-    //       console.log("res", res);
-    //       if (res?.success) {
-    //         toast.success("file uploaded");
-    //       }
-    //     },
-    //     (err) => {
-    //       console.log("err", err);
-    //       toast.dismiss();
-    //       toast.error(err.data.message || "An error occurred");
-    //     }
-    //   );
+      const toastId = toast.loading("Uploading...");
+      uploadDocumentRelatedToJob({ id: id, document: formData })
+        .unwrap()
+        .then(
+          (res) => {
+            toast.dismiss(toastId);
+            if (res?.success) {
+              toast.success("File uploaded");
+            }
+          },
+          (err) => {
+            toast.dismiss();
+            toast.error(err.data.message || "An error occurred");
+          }
+        );
+    }
   };
 
   const deleteHandler = (id) => {
@@ -144,6 +172,8 @@ const PostDocument = () => {
       );
   };
 
+  console.log("documents", documents);
+
   return (
     <div className="page-container">
       <div className="container f-col general-pad gap-3">
@@ -153,7 +183,13 @@ const PostDocument = () => {
             {isFetching ? (
               <JobSkeleton />
             ) : (
-              <Post post={data?.data} notShowLink={true} />
+              <>
+                <Post
+                  post={data?.job ? data?.job : data?.gig ? data?.gig : ""}
+                  notShowLink={true}
+                  isDocument={true}
+                />
+              </>
             )}
           </div>
         </div>
@@ -187,35 +223,43 @@ const PostDocument = () => {
           </div>
 
           <div className="f-col lg:gap-2 md:gap-[18px] gap-1">
-            {documents?.data?.map((document) => (
-              <div
-                className={`bg-gray-200 flex justify-between small-btn-border-radius general-pad max-w-[430px] w-full ${
-                  document?.sender === user?._id ? "self-end" : "self-start"
-                }`}
-              >
-                <img
-                  src={Images.documentIcon}
-                  alt="document"
-                  className="lg:w-[60px] md:w-[50px] w-[40px] lg:h-[60px] md:h-[50px] h-[40px] object-cover"
-                />
-                <div className="flex items-end gap ">
-                  <a
-                    className="small-btn gray-bg"
-                    href={document?.file.url}
-                    download={true}
-                    target="_blank"
-                  >
-                    downlaod
-                  </a>
+            {documents?.data?.length < 1? (
+              <>
+                <Empty text={"No document upload yet"} />
+              </>
+            ) : (
+              <>
+                {documents?.data?.map((document) => (
                   <div
-                    className="small-btn red-bg"
-                    onClick={() => deleteHandler(document?._id)}
+                    className={`bg-gray-200 flex justify-between small-btn-border-radius general-pad max-w-[430px] w-full ${
+                      document?.sender === user?._id ? "self-end" : "self-start"
+                    }`}
                   >
-                    {"delete"}
+                    <img
+                      src={Images.documentIcon}
+                      alt="document"
+                      className="lg:w-[60px] md:w-[50px] w-[40px] lg:h-[60px] md:h-[50px] h-[40px] object-cover"
+                    />
+                    <div className="flex items-end gap ">
+                      <a
+                        className="small-btn gray-bg"
+                        href={document?.file.url}
+                        download={true}
+                        target="_blank"
+                      >
+                        downlaod
+                      </a>
+                      <div
+                        className="small-btn red-bg"
+                        onClick={() => deleteHandler(document?._id)}
+                      >
+                        {"delete"}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>

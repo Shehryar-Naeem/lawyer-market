@@ -24,10 +24,11 @@ const gigStepOneSchema = yup.object().shape({
     .string()
     .min(40, "Description must be higher than 15 characters")
     .required("Description is required"),
-  category: yup
+    category: yup
     .array()
+    .transform((value, originalValue) => (Array.isArray(originalValue) ? originalValue : []))
     .min(3, "Select at least 3 categories")
-    .required("Category is required"),
+    .required("Category is required")
 });
 
 const GigStepOne = () => {
@@ -89,7 +90,7 @@ const GigStepOne = () => {
               <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-2 md:gap-0.8 gap-sm place-items-end">
                 <div className="w-full lg:gap-0.10 md:gap-0.8 gap-sm f-col justify-between">
                   <label className="gig-label">Gig Title</label>
-                  <div className="relative">
+                  <div className="relative f-col lg:gap-0.10 md:gap-0.8 gap-sm">
                     {/* <span
                       className="xl:text-xl lg:text-lg md:text-base text-sm  md:font-medium font-normal absolute md:p-0.8 p-0.5 top-0"
                       // style={{

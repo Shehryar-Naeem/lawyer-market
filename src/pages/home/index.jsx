@@ -258,7 +258,7 @@ const Home = () => {
             <div className="flex justify-center items-center backdrop-blur-xl py-12 sm:py-0 ">
               <div className="container landing-pad-x">
                 <LandingHeading text={"Meet team"} />
-                <div className="max-w-[768px] m-auto w-full h-full lg:pt-[48px] md:pt-[34px] pt-[20px] flex flex-wrap justify-center">
+                <div className="max-w-[768px] m-auto w-full h-full lg:pt-[48px] md:pt-[34px] pt-[20px] flex flex-wrap justify-center" data-aos="zoom-in">
                 {teamData.map((team) => (
                   <MemberComp
                     key={team.id}

@@ -364,9 +364,9 @@ input::placeholder {
   .black-bg {
     @apply bg-black hover:bg-gray-800;
   }
-  .delete-btn {
+  /* .delete-btn {
     @apply flex items-center justify-center md:text-base text-sm red-bg text-white rounded-full md:h-8 md:w-8 h-6 w-6;
-  }
+  } */
   .update-btn {
     @apply md:w-[35px] md:h-[35px] item-center text-white md:p-0.8 p-0.5 lg:text-2xl md:text-xl text-lg blue-bg md:rounded-xxs rounded-xxs;
   }
