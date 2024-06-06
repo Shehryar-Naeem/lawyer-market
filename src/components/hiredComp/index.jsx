@@ -20,19 +20,23 @@ const HiredComp = ({ key, hire }) => {
   };
   // const [completeTheJob, { isLoading, isError, error, isSuccess }] =
   //   useCompleteTheJobMutation();
-  const [markHiringAsComplete, { isLoading, isError, error, isSuccess }] =
-  useMarkHiringAsCompleteMutation();
+  const [markHiringAsComplete, { isLoading, isError, error, }] =
+    useMarkHiringAsCompleteMutation();
   console.log(isError, error);
-  useEffect(() => {
-    if (isError) {
-      toast.error(error.data.message);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(error.data.message);
+  //   }
+  // }, [isError, error]);
 
   const MarkAsComplete = async () => {
     const response = await markHiringAsComplete(hire._id);
+    console.log(response);
     if (response?.data?.success) {
       toast.success("marked the task as completed successfully");
+    }
+    else if(response?.error?.data?.message){
+      toast.error(response.error.data.message);
     }
   };
   const [
@@ -60,7 +64,7 @@ const HiredComp = ({ key, hire }) => {
 
   return (
     <div className="general-pad border-b-1 border-gray-300 f-col gap" key={key}>
-      <div className="flex md:flex-row flex-col md:items-center gap md:justify-between items-start justify-start">
+      <div className="flex md:flex-row flex-col flex-wrap md:items-center gap md:justify-between items-start justify-start">
         <Link
           to={`/user/${hire?.lawyer?._id}`}
           className="flex items-center gap"

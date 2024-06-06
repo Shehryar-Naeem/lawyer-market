@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   useGetClientHiringsQuery,
   useMeHiredJobsQuery,
@@ -6,6 +6,7 @@ import {
 import JobSkeleton from "../skeletonLoading/jobLoading";
 import Empty from "../empty";
 import HiredComp from "../hiredComp";
+import toast from "react-hot-toast";
 
 const Hired = () => {
   // const { data, isLoadiing, isFetching, isError, error } =
@@ -13,7 +14,11 @@ const Hired = () => {
 
   const { data, isLoadiing, isFetching, isError, error } =
     useGetClientHiringsQuery();
-  console.log("hired", data);
+  // console.log("hired", data);
+  useEffect(() => {
+    if (isError) {
+toast.error(error.data.message);    }
+  } , [isError, error]);
   return (
     <div className="f-col gap ">
       {isFetching ? (

@@ -19,21 +19,18 @@ const ActivehiredJob = ({ key, job }) => {
   const customAvatar = {
     image: "h-full w-full rounded-full object-cover",
   };
-  const [markHiringAsComplete, { isLoading, isError, error, isSuccess }] =
+  const [markHiringAsComplete, { isLoading }] =
     useMarkHiringAsCompleteMutation();
   // const [completeTheJob, { isLoading, isError, error, isSuccess }] =
   //   useCompleteTheJobMutation();
-  console.log(isError, error);
-  useEffect(() => {
-    if (isError) {
-      toast.error(error.data.message);
-    }
-  }, []);
+  
 
   const MarkAsComplete = async () => {
     const response = await markHiringAsComplete(job._id);
     if (response?.data?.success) {
       toast.success("marked the task as completed successfully");
+    } else if (response?.error?.data?.message) {
+      toast.error(response.error.data.message);
     }
   };
   const [
@@ -59,7 +56,7 @@ const ActivehiredJob = ({ key, job }) => {
   };
   return (
     <div className="general-pad border-b-1 border-gray-300 f-col gap" key={key}>
-      <div className="flex md:flex-row flex-col md:items-center gap md:justify-between items-start justify-start">
+      <div className="flex md:flex-row flex-wrap flex-col md:items-center gap md:justify-between items-start justify-start">
         <div className="flex items-center gap">
           <Avatar
             //   image={review?.user?.avatar.url}
