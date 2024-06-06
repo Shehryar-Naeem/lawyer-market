@@ -21,15 +21,14 @@ const jobSchema = yup.object().shape({
   description: yup.string().required("Description is required"),
   budget: yup
     .number()
-    .positive("Budget must be positive")
-    .required("Budget is required"),
+    .typeError("price must be a number")
+    .required("budget is required")
+    .positive("please enter the valid number")
+    .moreThan(0, "budget must be positive"),
   category: yup.string().required("Category is required"),
-  experience: yup
-    .number()
-    .positive("experience must be positive")
-    .required("Experience is required"),
-  location: yup.string().required("Location Preference is required"),
-  majorIssues: yup.array().min(1, "Major Issues is required"),
+  experience: yup.string().required("Experience is required"),
+  location: yup.string().required("Location preference is required"),
+  majorIssues: yup.array().min(1, "Major issues are required"),
 });
 const UpdateJobByAdmin = () => {
   const [issues, setIssues] = useState([]);
@@ -203,7 +202,7 @@ const UpdateJobByAdmin = () => {
                 <ProfileInputComp
                   lable="experience"
                   placeholder="experience"
-                  type="number"
+                  type="text"
                   register={register}
                   name="experience"
                 />

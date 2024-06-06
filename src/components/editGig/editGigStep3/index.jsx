@@ -271,7 +271,7 @@ const EditGigStep3 = () => {
                   </div>
                   <div className="flex items-end justify-end">
                     <button type="submit" className="gig-btn">
-                      {isLoading ? <Loader /> : "save and publish"}
+                      {isLoading ? <Loader /> : "save and update"}
                     </button>
                   </div>
                 </>

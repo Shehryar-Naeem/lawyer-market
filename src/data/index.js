@@ -9,7 +9,13 @@ import bar4 from "../assets/images/islamabad judge.jpeg";
 import bar5 from "../assets/images/peshawar.jpeg";
 import bar6 from "../assets/images/blouchitan.jpg";
 import bar7 from "../assets/images/federalshariat.jpeg";
-import { FaCheckCircle, FaGulp, FaUserAltSlash, FaUserTie, FaUsers } from "react-icons/fa";
+import {
+  FaCheckCircle,
+  FaGulp,
+  FaUserAltSlash,
+  FaUserTie,
+  FaUsers,
+} from "react-icons/fa";
 import { FaBalanceScale } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { FaHandshakeAngle } from "react-icons/fa6";
@@ -96,6 +102,10 @@ export const lawyerCategories = [
   {
     id: 21,
     name: "Tax Lawyer",
+  },
+  {
+    id: 22,
+    name: "Education Lawyer",
   },
 ];
 
@@ -724,14 +734,14 @@ export const lawyerBenefits = [
   {
     id: 5,
     title: "Multiple Lawyers",
-    icon:  <FaUsers />,
+    icon: <FaUsers />,
     description:
       "Our platform offers access to multiple lawyers, enabling you to compare services, fees, and expertise to find the best legal professional for your needs.",
   },
   {
     id: 6,
     title: "Specialized Lawyer",
-    icon:<FaUserTie />,
+    icon: <FaUserTie />,
     description:
       "We provide access to specialized lawyers in various legal fields, ensuring expert advice and representation for your specific legal requirements.",
   },

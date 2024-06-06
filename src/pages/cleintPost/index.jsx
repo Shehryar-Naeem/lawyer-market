@@ -16,10 +16,11 @@ const createPostSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
   budget: yup
-    .number("It should be a number")
-    .positive("Number should be greater than 0")
-    .required("Budget is required")
-    .transform((value, originalValue) => originalValue.trim() === "" ? null : value),
+    .number()
+    .typeError("price must be a number")
+    .required("budget is required")
+    .positive("please enter the valid number")
+    .moreThan(0, "budget must be positive"),
   category: yup.string().required("Category is required"),
   experience: yup.string().required("Experience is required"),
   location: yup.string().required("Location preference is required"),
@@ -84,6 +85,10 @@ const CreateClientPost = () => {
     setIssues(newValue);
     setValue("majorIssues", newValue);
   };
+  useEffect(() => {
+    setValue("majorIssues", issues);
+  }, [issues]);
+
   const submitHandler = async (data) => {
     console.log(data);
     const response = await createJob(data);
@@ -91,7 +96,7 @@ const CreateClientPost = () => {
       toast.success("Job created successfully");
       reset();
       setIssues([]);
-      navigate("/jobs")
+      navigate("/jobs");
     }
   };
   return (
@@ -144,6 +149,9 @@ const CreateClientPost = () => {
                     </option>
                   ))}
                 </select>
+                {errors.category && (
+                  <FailureAlert error={errors.category.message} />
+                )}
               </div>
               <div className="f-col gap">
                 <ProfileInputComp

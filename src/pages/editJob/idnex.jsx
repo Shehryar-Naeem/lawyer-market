@@ -20,11 +20,16 @@ import { Chips } from "primereact/chips";
 const createPostSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
-  budget: yup.number().required("Budget is required"),
+  budget: yup
+  .number()
+  .typeError("price must be a number")
+  .required("budget is required")
+  .positive("please enter the valid number")
+  .moreThan(0, "budget must be positive"),
   category: yup.string().required("Category is required"),
   experience: yup.string().required("Experience is required"),
-  location: yup.string().required("Location Preference is required"),
-  majorIssues: yup.array().min(1, "Major Issues is required"),
+  location: yup.string().required("Location preference is required"),
+  majorIssues: yup.array().min(1, "Major issues are required"),
 });
 const EditJob = () => {
   const {
@@ -201,7 +206,7 @@ const EditJob = () => {
                     <ProfileInputComp
                       lable="experience"
                       placeholder="experience"
-                      type="number"
+                      type="text"
                       register={register}
                       name="experience"
                     />

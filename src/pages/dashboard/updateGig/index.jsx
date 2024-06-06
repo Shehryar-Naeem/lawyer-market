@@ -16,6 +16,7 @@ import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import Loader from "../../../components/loader";
 import LoadingSpinner from "../../../components/loadingSpinner";
+import FailureAlert from "../../../components/alert";
 
 const gigSchema = yup.object().shape({
   title: yup
@@ -35,7 +36,12 @@ const gigSchema = yup.object().shape({
     .array()
     .min(3, "Select at least 3 categories")
     .required("Category is required"),
-  price: yup.number().required("Price is required"),
+  price: yup
+    .number()
+    .typeError("price must be a number")
+    .required("Price is required")
+    .positive("please enter the valid number")
+    .moreThan(0, "Price must be positive"),
   images: yup
     .array()
     .min(1, "Upload at least one image")
@@ -126,7 +132,7 @@ const UpdateGigByAdmin = () => {
         setValue("images", [...images, ...uploadedImages]);
       });
     } else {
-      toast.error("You can upload up to 3 images"); 
+      toast.error("You can upload up to 3 images");
     }
   };
 
@@ -182,7 +188,7 @@ const UpdateGigByAdmin = () => {
               <div className="flex  lg:gap-2 md:gap-0.8 gap-sm place-items-end">
                 <div className="w-full lg:gap-0.10 md:gap-0.8 gap-sm f-col justify-between">
                   <label className="gig-label">Gig Title</label>
-                  <div className="relative">
+                  <div className="relative f-col lg:gap-0.10 md:gap-0.8 gap-sm">
                     {/* <span
                       className="xl:text-xl lg:text-lg md:text-base text-sm  md:font-semibold font-medium absolute md:p-0.8 p-0.5 top-0"
                       // style={{
@@ -194,15 +200,17 @@ const UpdateGigByAdmin = () => {
                     <textarea
                       type="text"
                       name="name"
-                      rows={2}
-                      maxRows={2}
-                      placeholder="be your"
+                      rows={1}
+                      maxRows={1}
+                      placeholder="I will be your..."
                       id="name"
                       className="text-input lg:h-[80px] md:h-[70px] h-[60px]"
                       {...register("title")}
                       maxlength="80"
                     />
-                    {/* {errors.title && <FailureAlert error={errors.title.message} />} */}
+                    {errors.title && (
+                      <FailureAlert error={errors.title.message} />
+                    )}
                   </div>
                 </div>
               </div>
@@ -231,9 +239,9 @@ const UpdateGigByAdmin = () => {
                   // maxlength="80"
                 />
 
-                {/* {errors.description && (
-              <FailureAlert error={errors.description?.message} />
-            )} */}
+                {errors.description && (
+                  <FailureAlert error={errors.description?.message} />
+                )}
               </div>
               {/* description */}
 
@@ -265,9 +273,9 @@ const UpdateGigByAdmin = () => {
                     </li>
                   ))}
                 </ul>
-                {/* {errors.category && (
+                {errors.category && (
               <FailureAlert error={errors.category.message} />
-            )} */}
+            )}
               </div>
               {/* category */}
 
@@ -299,9 +307,9 @@ const UpdateGigByAdmin = () => {
                     </li>
                   ))}
                 </ul>
-                {/* {errors.services && (
+                {errors.services && (
                   <FailureAlert error={errors.services.message} />
-                )} */}
+                )}
               </div>
               {/* services */}
 
@@ -316,7 +324,7 @@ const UpdateGigByAdmin = () => {
                     {...register("price")}
                   />
                 </div>
-                {/* {errors.price && <FailureAlert error={errors.price.message} />} */}
+                {errors.price && <FailureAlert error={errors.price.message} />}
               </div>
               {/* price */}
 
