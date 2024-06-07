@@ -31,7 +31,10 @@ const CreateLawyerComp = () => {
       if (userData?.success) {
         dispatch(userExist(userData?.user));
         toast.success(data?.message);
-        navigate("/gigs");
+        navigate("/gigs",{
+          replace:true
+          
+        });
       } else {
         toast.error(userData);
       }
