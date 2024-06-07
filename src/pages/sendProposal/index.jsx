@@ -78,7 +78,7 @@ const SendProposal = () => {
                 <LoadingSpinner />
               ) : (
                 <>
-                  <Post post={data?.data} />
+                  <Post post={data?.data} notShowLink={true} />
 
                   <form onSubmit={handleSubmit(submitHandler)}>
                     <div className="f-col md:pt-[30px] pt-3 gap-2">
