@@ -254,8 +254,8 @@ export const userApi = createApi({
         let url = `job/get-all-jobs?page=${currentPage}`;
         if (category) url += `&category=${category}`;
         if (city) url += `&location=${city}`;
-        if (minPrice) url += `&price[gte]=${minPrice}`;
-        if (maxPrice) url += `&price[lte]=${maxPrice}`;
+        if (minPrice) url += `&budget[gte]=${Number(minPrice)}`;
+        if (maxPrice) url += `&budget[lte]=${Number(maxPrice)}`;
         if (search) url += `&keyword=${search}`;
 
         return url;

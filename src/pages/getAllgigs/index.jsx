@@ -58,15 +58,28 @@ const GetAllGigs = () => {
     setCurrentPage(e);
   };
 
+  // const handleFilterChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormValues((prevValues) => ({
+  //     ...prevValues,
+  //     [name]: value,
+  //   }));
+  //   setCurrentPage(1);
+  // };
+
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
+    
+    // Ensure the value is not less than 0
+    const validatedValue = name === "minPrice" || name === "maxPrice" ? Math.max(0, value) : value;
+
     setFormValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      [name]: validatedValue,
     }));
-    // setCurrentPage(1);
-  };
+    setCurrentPage(1);
 
+  };
   const handleFilterSubmit = (event) => {
     // alert("Filter Submitted");
     event.preventDefault();
@@ -163,7 +176,7 @@ const GetAllGigs = () => {
             )}
           </div>
 
-          {!isLoading && data?.gigs?.length > 0 && (
+          {!isLoading&& (
             <div className="paginationBox">
               <Pagination
                 activePage={currentPage}

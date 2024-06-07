@@ -45,9 +45,14 @@ const AllPosts = () => {
   }, [isError]);
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
+
+    // Ensure the value is not less than 0
+    const validatedValue =
+      name === "minPrice" || name === "maxPrice" ? Math.max(0, value) : value;
+
     setFormValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      [name]: validatedValue,
     }));
     setCurrentPage(1);
   };
@@ -142,6 +147,7 @@ const AllPosts = () => {
                               key={post.id}
                               post={post}
                               showSenderBtn={true}
+                              notShowLink={true}
                             />
                           );
                         })}
@@ -153,25 +159,24 @@ const AllPosts = () => {
             </>
           </div>
           <div>
-            {!isLoading &&
-              (data?.data?.length < 1 ? null : (
-                <div className="paginationBox">
-                  <Pagination
-                    activePage={currentPage}
-                    itemsCountPerPage={data?.resultPerPage}
-                    totalItemsCount={data?.jobCounts}
-                    onChange={onPageChange}
-                    nextPageText="Next"
-                    prevPageText="Prev"
-                    firstPageText="1st"
-                    lastPageText="Last"
-                    itemClass="page-item"
-                    linkClass="page-link"
-                    activeClass="pageItemActive"
-                    activeLinkClass="pageLinkActive"
-                  />
-                </div>
-              ))}
+            {!isLoading && (
+              <div className="paginationBox">
+                <Pagination
+                  activePage={currentPage}
+                  itemsCountPerPage={data?.resultPerPage}
+                  totalItemsCount={data?.jobCounts}
+                  onChange={onPageChange}
+                  nextPageText="Next"
+                  prevPageText="Prev"
+                  firstPageText="1st"
+                  lastPageText="Last"
+                  itemClass="page-item"
+                  linkClass="page-link"
+                  activeClass="pageItemActive"
+                  activeLinkClass="pageLinkActive"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
