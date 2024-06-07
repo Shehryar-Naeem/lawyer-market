@@ -142,8 +142,8 @@ export const userApi = createApi({
         if (category) url += `&category=${category}`;
         if (services) url += `&pricing.services=${services}`;
         if (city) url += `&city=${city.toLowerCase()}`;
-        if (minPrice) url += `&ricing.price[lte]=${minPrice}`;
-        if (maxPrice) url += `&pricing.price[gte]=${maxPrice}`;
+        if (minPrice) url += `&pricing.price[gte]=${Number(minPrice)}`;
+        if (maxPrice) url += `&pricing.price[lte]=${Number(maxPrice)}`;
         if (search) url += `&keyword=${search}`;
 
         // console.log(url);
@@ -254,8 +254,8 @@ export const userApi = createApi({
         let url = `job/get-all-jobs?page=${currentPage}`;
         if (category) url += `&category=${category}`;
         if (city) url += `&location=${city}`;
-        if (minPrice) url += `&price[lte]=${minPrice}`;
-        if (maxPrice) url += `&price[gte]=${maxPrice}`;
+        if (minPrice) url += `&price[gte]=${minPrice}`;
+        if (maxPrice) url += `&price[lte]=${maxPrice}`;
         if (search) url += `&keyword=${search}`;
 
         return url;

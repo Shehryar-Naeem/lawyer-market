@@ -64,7 +64,7 @@ const GetAllGigs = () => {
       ...prevValues,
       [name]: value,
     }));
-    setCurrentPage(1);
+    // setCurrentPage(1);
   };
 
   const handleFilterSubmit = (event) => {
@@ -118,6 +118,9 @@ const GetAllGigs = () => {
                       className="relative flex-1 "
                       role="search"
                       // onSubmit={handleFilterSubmit}
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                      }}
                     >
                       <input
                         name="search"
@@ -166,6 +169,7 @@ const GetAllGigs = () => {
                 activePage={currentPage}
                 itemsCountPerPage={data?.resultPerPage}
                 totalItemsCount={data?.gigsCount}
+                
                 onChange={setCurrentPageNo}
                 nextPageText="Next"
                 prevPageText="Prev"
