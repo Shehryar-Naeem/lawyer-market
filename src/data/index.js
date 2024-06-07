@@ -97,7 +97,7 @@ export const lawyerCategories = [
   },
   {
     id: 20,
-    name: "Estate Planning Lawyer",
+    name: "Real Estate Planning Lawyer",
   },
   {
     id: 21,
@@ -107,7 +107,36 @@ export const lawyerCategories = [
     id: 22,
     name: "Education Lawyer",
   },
+  {
+    id: 23,
+    name: "Humanitarian Lawyer",
+  },
+  {
+    id:24,
+    name:"Arbitration Lawyer"
+  },
+  {
+    id:25,
+    name:"Consumer Protection Lawyer"
+  },
+  {
+    id:26,
+    name:"Healthcare Lawyer"
+  },
+  {
+    id:27,
+    name:"Personal Injury Lawyer"
+  },
+  {
+    id:28,
+    name:"Franchise Lawyer"
+  },
+  {
+    id:29,
+    name:" Sports Lawyer"
+  },
 ];
+
 
 export const lawyerServices = [
   {
